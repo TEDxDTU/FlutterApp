@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/global/screens/tabs_screen.dart';
+import 'package:tedx_dtu_app/global/widgets/screen_template.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 void main() {
@@ -74,7 +76,7 @@ class MyApp extends StatelessWidget {
         iconTheme: const IconThemeData(color: primary),
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          backgroundColor: Colors.white12,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           titleTextStyle: TextStyle(
               color: primary, fontSize: 20, fontWeight: FontWeight.w700),
@@ -108,66 +110,7 @@ class MyApp extends StatelessWidget {
           contentPadding: const EdgeInsets.all(0),
         ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Card(
-              child: SizedBox(
-                height: 200,
-                width: 200,
-              ),
-            ),
-            ElevatedButton(onPressed: () {}, child: Text('ElevatedButton')),
-            TextButton(onPressed: () {}, child: Text('TextButton')),
-            OutlinedButton(onPressed: () {}, child: Text('OutlinedButton')),
-            TextField(
-              enabled: false,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: const TabsScreen(),
     );
   }
 }
