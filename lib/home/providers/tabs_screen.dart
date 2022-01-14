@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:tedx_dtu_app/home/widgets/bottom_bar.dart';
+
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
-import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
@@ -17,6 +17,10 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, () {
+      precacheImage(const AssetImage('assets/images/logoBlack.png'), context);
+      precacheImage(const AssetImage('assets/images/logoWhite.png'), context);
+    });
     _controller.addListener(() {
       if (_controller.offset > kToolbarHeight) {
         if (!scrollPassed) {
@@ -46,7 +50,7 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
           body: Container(
             margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            color: Colors.grey[800],
+            // color: Colors.grey[800],
             child: SingleChildScrollView(
               controller: _controller,
               child: Padding(
@@ -81,26 +85,13 @@ class _TabsScreenState extends State<TabsScreen> {
                 ),
               ],
             ),
-            child: SalomonBottomBar(
+            child: BottomBar(
               currentIndex: _currentIndex,
-              onTap: (i) => setState(() => _currentIndex = i),
-              items: [
-                SalomonBottomBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text("Home"),
-                  selectedColor: Colors.red,
-                ),
-                SalomonBottomBarItem(
-                  icon: Icon(Icons.calendar_today),
-                  title: Text("Events"),
-                  selectedColor: Colors.pink,
-                ),
-                SalomonBottomBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text("Profile"),
-                  selectedColor: Colors.orange,
-                ),
-              ],
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
             ),
           ),
         ),
