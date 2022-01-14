@@ -104,6 +104,7 @@ class EventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("building");
     return Container(
       margin: const EdgeInsets.all(8),
       height: widgetHeight,

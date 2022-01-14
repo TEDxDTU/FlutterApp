@@ -6,6 +6,7 @@ import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 import 'global/models/bottom_bar_screen.dart';
 import 'global/widgets/bottom_bar_screen_widget.dart';
+import 'home/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -133,47 +134,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomBarScreenWidget(
-      children: [
-        Text('Home'),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(TestScreen.routeName);
-          },
-          child: Text('PUSH'),
-        ),
-      ],
-    );
-  }
-
-  @override
-  // TODO: implement children
-  List<Widget> get children => throw UnimplementedError();
-
-  @override
-  createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-
-  @override
-  // TODO: implement icon
-  Icon get icon => throw UnimplementedError();
-
-  @override
-  // TODO: implement physics
-  ScrollPhysics get physics => throw UnimplementedError();
-
-  @override
-  // TODO: implement title
-  String get title => throw UnimplementedError();
 }
