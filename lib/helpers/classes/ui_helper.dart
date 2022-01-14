@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class UIHelper {
+  ///Generates [MaterialColor] from given [Color]
   static MaterialColor generateMaterialColor(Color color) {
     return MaterialColor(color.value, {
       50: _tintColor(color, 0.9),
@@ -35,6 +36,8 @@ class UIHelper {
       shadeValue(color.green, factor),
       shadeValue(color.blue, factor),
       1);
+
+  ///A list of [Color]s that can be used anywhere
   static const List<Color> colors = [
     Colors.blue,
     Colors.purple,

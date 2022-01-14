@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class TedxLoadingSpinner extends StatefulWidget {
+  ///Creates a TedXLoadingSpinner, a TedX logo with a spinning x.
   const TedxLoadingSpinner({Key? key}) : super(key: key);
 
   @override

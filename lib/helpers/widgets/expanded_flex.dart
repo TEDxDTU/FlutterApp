@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ExpandedFlex extends Flex {
+  ///Creates an ExpandedFlex, a widget that displays its children in a 1-d
+  ///array. Expands each child according to the flexes provided in [flexes]
+
+  ///The [flexes] argument specifies the flex of each child. Flexes must be in
+  ///the same order as the children. Each child will be expanded according to
+  ///the flex of the corresponding index in the [flexes] list.
+  ///For documentation about the various other parameters, see [Flex].
   ExpandedFlex({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
