@@ -16,6 +16,8 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
   double initialSpeed = 20;
   double deceleration = 10;
   double totalTime = 3000;
+
+  bool isExiting = false;
   double angle(double time) {
     double val;
     int mult = 1;
@@ -42,10 +44,17 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
 
   @override
   void dispose() {
+    print("dispsing spinner");
+    // setState(() {
+    //   isExiting = true;
+    // });
+    // Future.delayed(Duration(milliseconds: totalTime.toInt()), () {
+    // });
     _animationController.dispose();
     super.dispose();
   }
 
+  double yOffset = 12;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -59,8 +68,17 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
         AnimatedBuilder(
           animation: _animationController,
           builder: (context, child) {
-            return Transform.rotate(
-              angle: pi * angle(_animationController.value),
+            return Transform(
+              alignment: Alignment.center,
+              origin: Offset(
+                  isExiting ? _animationController.value * 700 : 0, yOffset),
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateZ(
+                  pi * angle(_animationController.value),
+                )
+                ..translate(isExiting ? _animationController.value * 700 : 0.0,
+                    yOffset, 0.0),
               child: SizedBox(
                 height: 30,
                 child: Center(
@@ -69,6 +87,16 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
               ),
             );
           },
+        ),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _animationController.value = 0;
+              _animationController.repeat(reverse: true);
+              isExiting = !isExiting;
+            });
+          },
+          child: Text("Translate"),
         ),
       ],
     );

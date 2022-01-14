@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tedx_dtu_app/home/providers/tabs_screen.dart';
+import 'package:tedx_dtu_app/global/screens/test_screen.dart';
+import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 void main() {
@@ -109,6 +110,9 @@ class MyApp extends StatelessWidget {
           contentPadding: const EdgeInsets.all(0),
         ),
       ),
+      routes: {
+        TestScreen.routeName: (context) => const TestScreen(),
+      },
       home: const TabsScreen(),
     );
   }
