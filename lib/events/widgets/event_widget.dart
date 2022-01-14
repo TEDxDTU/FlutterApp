@@ -22,13 +22,16 @@ class EventWidget extends StatelessWidget {
         color = gradientColor ?? const Color(0xffE62B1E),
         super(key: key);
 
-  /// The height and width of the EventWidget.
-  /// Default to 180 and 400 respectively.
+  /// Height of the widget, defaults to 180.
   final double widgetHeight;
+
+  /// Width of the widget, defaults to 400.
   final double widgetWidth;
 
-  /// The title and details that will be shown starting at top left.
+  /// The title that will be shown at top left.
   final String title;
+
+  /// The details, shown below title.
   final List<String> details;
 
   /// The primary gradient color for the widget.
