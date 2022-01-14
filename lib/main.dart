@@ -3,6 +3,8 @@ import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
+import 'global/widgets/bottom_bar_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -74,7 +76,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         iconTheme: const IconThemeData(color: primary),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -88,11 +90,10 @@ class MyApp extends StatelessWidget {
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             // borderSide: BorderSide.none,
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.grey,
             ),
           ),
-          // fillColor: const Color(0xFFffffff),
 
           border: OutlineInputBorder(
             gapPadding: 5,
@@ -113,7 +114,33 @@ class MyApp extends StatelessWidget {
       routes: {
         TestScreen.routeName: (context) => const TestScreen(),
       },
-      home: const TabsScreen(),
+      home: TabsScreen(
+        screens: [
+          BottomBarScreen(
+            children: [
+              Text('Home'),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(TestScreen.routeName);
+                },
+                child: Text('PUSH'),
+              )
+            ],
+            icon: Icon(Icons.home),
+            title: 'Home',
+          ),
+          BottomBarScreen(
+            children: [Text('Events')],
+            title: 'Events',
+            icon: Icon(Icons.calendar_today),
+          ),
+          BottomBarScreen(
+            children: [Text('Profile')],
+            title: 'Profile',
+            icon: Icon(Icons.account_circle),
+          ),
+        ],
+      ),
     );
   }
 }

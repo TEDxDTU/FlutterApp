@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen.dart';
-import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
-import 'package:tedx_dtu_app/home/widgets/bottom_bar.dart';
-
-import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({Key? key}) : super(key: key);
-
+  const TabsScreen({
+    Key? key,
+    required this.screens,
+  }) : super(key: key);
+  final List<BottomBarScreen> screens;
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
@@ -34,28 +35,7 @@ class _TabsScreenState extends State<TabsScreen> {
       children: [
         IndexedStack(
           index: _currentIndex,
-          children: [
-            BottomBarScreen(
-              children: [
-                Text('Home'),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(TestScreen.routeName);
-                  },
-                  child: Text('PUSH'),
-                )
-              ],
-              title: 'HOME',
-            ),
-            BottomBarScreen(
-              children: [Text('Events')],
-              title: 'EVENTS',
-            ),
-            BottomBarScreen(
-              children: [Text('Profile')],
-              title: 'PROFILE',
-            ),
-          ],
+          children: widget.screens,
         ),
         Positioned(
           bottom: 20,
@@ -74,13 +54,22 @@ class _TabsScreenState extends State<TabsScreen> {
                 ),
               ],
             ),
-            child: BottomBar(
+            child: SalomonBottomBar(
+              unselectedItemColor: Colors.black,
               currentIndex: _currentIndex,
-              onTap: (index) {
+              onTap: (i) {
                 setState(() {
-                  _currentIndex = index;
+                  _currentIndex = i;
                 });
               },
+              items: widget.screens
+                  .map(
+                    (e) => SalomonBottomBarItem(
+                      icon: e.icon,
+                      title: Text(e.title),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ),
