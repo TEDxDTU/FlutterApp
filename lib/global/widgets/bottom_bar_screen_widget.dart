@@ -3,23 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_sliver_app_bar.dart';
 
-class BottomBarScreen extends StatefulWidget {
-  ///Creates a BottomBarScreen.
+class BottomBarScreenWidget extends StatefulWidget {
+  ///Creates a BottomBarScreenWidget.
   ///This widget should be used to create any and all screens that are part of the
   ///bottom navigation bar.
-  const BottomBarScreen({
+  const BottomBarScreenWidget({
     Key? key,
-    required this.title,
-    required this.icon,
     required this.children,
     this.physics = const BouncingScrollPhysics(),
   }) : super(key: key);
-
-  ///The title for the page. Displayed in the bottom nav bar.
-  final String title;
-
-  ///The icon for the page. Displayed in the bottom nav bar.
-  final Icon icon;
 
   ///The widgets that make up the body of the screen.
   ///They are placed in a [Column] wrapped with [SingleChildScrollView]
@@ -35,7 +27,7 @@ class BottomBarScreen extends StatefulWidget {
   _BottomBarScreenState createState() => _BottomBarScreenState();
 }
 
-class _BottomBarScreenState extends State<BottomBarScreen> {
+class _BottomBarScreenState extends State<BottomBarScreenWidget> {
   final _controller = ScrollController();
   bool hasScrollPassed = false;
 

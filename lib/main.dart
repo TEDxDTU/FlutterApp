@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
+import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
-import 'global/widgets/bottom_bar_screen.dart';
+import 'global/models/bottom_bar_screen.dart';
+import 'global/widgets/bottom_bar_screen_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -116,31 +118,62 @@ class MyApp extends StatelessWidget {
       },
       home: TabsScreen(
         screens: [
+          // HomeScreen(),
           BottomBarScreen(
-            children: [
-              Text('Home'),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(TestScreen.routeName);
-                },
-                child: Text('PUSH'),
-              )
-            ],
-            icon: Icon(Icons.home),
             title: 'Home',
+            icon: const Icon(Icons.home),
+            screen: const HomeScreen(),
           ),
-          BottomBarScreen(
-            children: [Text('Events')],
-            title: 'Events',
-            icon: Icon(Icons.calendar_today),
-          ),
-          BottomBarScreen(
-            children: [Text('Profile')],
-            title: 'Profile',
-            icon: Icon(Icons.account_circle),
-          ),
+          // BottomBarScreen(
+          //   children: [Text('Profile')],
+          //   title: 'Profile',
+          //   icon: Icon(Icons.account_circle),
+          // ),
         ],
       ),
     );
   }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomBarScreenWidget(
+      children: [
+        Text('Home'),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(TestScreen.routeName);
+          },
+          child: Text('PUSH'),
+        ),
+      ],
+    );
+  }
+
+  @override
+  // TODO: implement children
+  List<Widget> get children => throw UnimplementedError();
+
+  @override
+  createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement icon
+  Icon get icon => throw UnimplementedError();
+
+  @override
+  // TODO: implement physics
+  ScrollPhysics get physics => throw UnimplementedError();
+
+  @override
+  // TODO: implement title
+  String get title => throw UnimplementedError();
 }
