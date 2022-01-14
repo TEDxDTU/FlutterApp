@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/bottom_bar.dart';
 
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
@@ -12,7 +13,7 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   var _currentIndex = 0;
-  final _controller = ScrollController();
+
   var scrollPassed = false;
 
   @override
@@ -21,21 +22,7 @@ class _TabsScreenState extends State<TabsScreen> {
       precacheImage(const AssetImage('assets/images/logoBlack.png'), context);
       precacheImage(const AssetImage('assets/images/logoWhite.png'), context);
     });
-    _controller.addListener(() {
-      if (_controller.offset > kToolbarHeight) {
-        if (!scrollPassed) {
-          setState(() {
-            scrollPassed = true;
-          });
-        }
-      } else {
-        if (scrollPassed) {
-          setState(() {
-            scrollPassed = false;
-          });
-        }
-      }
-    });
+
     super.initState();
   }
 
@@ -43,30 +30,22 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: TedxAppBar(
-            scrollPassed: scrollPassed,
-          ),
-          body: Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            // color: Colors.grey[800],
-            child: SingleChildScrollView(
-              controller: _controller,
-              child: Padding(
-                padding: const EdgeInsets.only(top: kToolbarHeight),
-                child: Column(
-                  children: [
-                    Text('Tab ${_currentIndex + 1}'),
-                    SizedBox(
-                      height: 1000,
-                      width: 300,
-                    ),
-                  ],
-                ),
-              ),
+        IndexedStack(
+          index: _currentIndex,
+          children: [
+            BottomBarScreen(
+              children: [Text('Home')],
+              title: 'HOME',
             ),
-          ),
+            BottomBarScreen(
+              children: [Text('Events')],
+              title: 'EVENTS',
+            ),
+            BottomBarScreen(
+              children: [Text('Profile')],
+              title: 'PROFILE',
+            ),
+          ],
         ),
         Positioned(
           bottom: 20,

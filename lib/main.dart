@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/home/providers/tabs_screen.dart';
-import 'package:tedx_dtu_app/global/widgets/screen_template.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 void main() {
