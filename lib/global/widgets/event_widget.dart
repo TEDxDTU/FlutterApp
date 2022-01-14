@@ -22,18 +22,50 @@ class EventWidget extends StatelessWidget {
         color = gradientColor ?? const Color(0xffE62B1E),
         super(key: key);
 
+  /// The height and width of the EventWidget.
+  /// Default to 180 and 400 respectively.
   final double widgetHeight;
   final double widgetWidth;
+
+  /// The title and details that will be shown starting at top left.
   final String title;
   final List<String> details;
+
+  /// The primary gradient color for the widget.
+  /// Defaults to Red (0xffE62B1E).
   final Color color;
-  final Function? actionWidgetFunction;
-  final Widget? actionWidget;
+
+  /// actionButton is preferably a Button (IconButton, ElevatedButton)
+  /// shown at the bottom right of the EventWidget.
+
+  /// If no actionButton is passed, it defaults to an ElevatedButton and
+  /// the parameters actionWidget and actionWidgetFunction define the behaviour
+  /// of the default ElevatedButton.
   final Widget? actionButton;
+
+  /// actionWidget is passed to the child of the default ElevatedButton.
+  final Widget? actionWidget;
+
+  /// actionWidgetFunction is the function which is triggered when
+  /// actionWidget is clicked.
+  final Function? actionWidgetFunction;
+
+  /// imageProvider is the image that is to be used as the background of the
+  /// EventWidget.
+  /// Defaults to a placeholder image, fetched from placeholder.com
   final ImageProvider? imageProvider;
+
+  /// cardFunction is the function, triggered when the EventWidget is tapped.
   final Function? cardFunction;
-  final Color? shadowColor;
+
+  /// shadowRadius define the shadow of the EventWidget.
   final double? shadowRadius;
+
+  /// The color of the shadow around the container.
+  /// Defaults to EventWidget.color
+  final Color? shadowColor;
+
+  /// loadingIndicator is the widget shown while the image is being loaded.
   final Widget? loadingIndicator;
 
   @override
