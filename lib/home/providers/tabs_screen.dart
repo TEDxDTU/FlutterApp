@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen.dart';
+import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 import 'package:tedx_dtu_app/home/widgets/bottom_bar.dart';
 
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
@@ -34,7 +35,7 @@ class _TabsScreenState extends State<TabsScreen> {
           index: _currentIndex,
           children: [
             BottomBarScreen(
-              children: [Text('Home')],
+              children: [Text('Home'), TedxLoadingSpinner()],
               title: 'HOME',
             ),
             BottomBarScreen(

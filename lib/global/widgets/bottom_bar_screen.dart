@@ -55,7 +55,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             child: Padding(
               padding: const EdgeInsets.only(top: kToolbarHeight),
               child: Column(
-                children: widget.children,
+                children: [
+                  ...widget.children,
+                  const SizedBox(
+                    height: kBottomNavigationBarHeight + 50,
+                  )
+                ],
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
             ),
