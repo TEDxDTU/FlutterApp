@@ -13,6 +13,7 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SalomonBottomBar(
+      unselectedItemColor: Colors.black,
       currentIndex: currentIndex,
       onTap: onTap,
       items: [
@@ -24,12 +25,12 @@ class BottomBar extends StatelessWidget {
         SalomonBottomBarItem(
           icon: const Icon(Icons.calendar_today),
           title: const Text("Events"),
-          selectedColor: Colors.pink,
+          selectedColor: Colors.red,
         ),
         SalomonBottomBarItem(
           icon: const Icon(Icons.person),
           title: const Text("Profile"),
-          selectedColor: Colors.orange,
+          selectedColor: Colors.red,
         ),
       ],
     );
