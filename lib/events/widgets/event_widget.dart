@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 
+/// Creates an event widget which shows a title, followed by details,
+/// an action button on bottom-right, implements a gesture detector for the
+/// whole widget, an optional trailing widget shown at top right.
+///
+/// Basic usage with [LiveIndicatorPainter]
+///
+/// EventWidget(
+///
+///          title: 'Test',
+///          details: ['some detail'],
+///          trailing: CustomPaint(
+///            painter: LiveIndicatorPainter(),
+///          ),
+///        );
 class EventWidget extends StatelessWidget {
+  /// [gradientColor] is the primary color in the gradient over the image,
+  /// starting from left.
+  ///
+  /// Defaults to Red (0xffE62B1E).
+  ///
+  /// [height] and [width] are optional and size the widget accordingly.
+  ///
+  /// Default to 180 and 400 respectively.
   const EventWidget({
     required this.title,
     required this.details,
@@ -13,6 +35,7 @@ class EventWidget extends StatelessWidget {
     this.shadowColor,
     this.shadowRadius,
     this.loadingIndicator,
+    this.trailing,
     Color? gradientColor,
     double? height,
     double? width,
@@ -31,45 +54,53 @@ class EventWidget extends StatelessWidget {
   /// The title that will be shown at top left.
   final String title;
 
-  /// The details, shown below title.
+  /// The details, shown below [title].
   final List<String> details;
 
   /// The primary gradient color for the widget.
+  ///
   /// Defaults to Red (0xffE62B1E).
   final Color color;
 
-  /// actionButton is preferably a Button (IconButton, ElevatedButton)
-  /// shown at the bottom right of the EventWidget.
+  /// actionButton is preferably a Button ([IconButton], [ElevatedButton])
+  /// shown at the bottom right of the [EventWidget].
 
-  /// If no actionButton is passed, it defaults to an ElevatedButton and
-  /// the parameters actionWidget and actionWidgetFunction define the behaviour
-  /// of the default ElevatedButton.
+  /// If no [actionButton] is passed, it defaults to an [ElevatedButton] and
+  /// the parameters [actionWidget] and [actionWidgetFunction] define the behaviour
+  /// of the default [ElevatedButton].
   final Widget? actionButton;
 
-  /// actionWidget is passed to the child of the default ElevatedButton.
+  /// [actionWidget] is passed to the child of the default [ElevatedButton].
   final Widget? actionWidget;
 
-  /// actionWidgetFunction is the function which is triggered when
-  /// actionWidget is clicked.
+  /// [actionWidgetFunction] is the function which is triggered when
+  /// [actionWidget] is clicked.
   final Function? actionWidgetFunction;
 
-  /// imageProvider is the image that is to be used as the background of the
-  /// EventWidget.
+  /// [imageProvider] is the image that is to be used as the background of the
+  /// [EventWidget].
+  ///
   /// Defaults to a placeholder image, fetched from placeholder.com
   final ImageProvider? imageProvider;
 
-  /// cardFunction is the function, triggered when the EventWidget is tapped.
+  /// [cardFunction] is the function, triggered when the [EventWidget] is tapped.
   final Function? cardFunction;
 
-  /// shadowRadius define the shadow of the EventWidget.
+  /// [shadowRadius] define the shadow of the [EventWidget].
   final double? shadowRadius;
 
   /// The color of the shadow around the container.
-  /// Defaults to EventWidget.color
+  ///
+  /// Defaults to [EventWidget.color]
   final Color? shadowColor;
 
-  /// loadingIndicator is the widget shown while the image is being loaded.
+  /// [loadingIndicator] is the widget shown while the image is being loaded.
   final Widget? loadingIndicator;
+
+  /// [Widget] shown at top right of the [EventWidget].
+  ///
+  /// for example: A live indicator.
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -200,6 +231,12 @@ class EventWidget extends StatelessWidget {
                     },
                   ),
             ),
+            if (trailing != null)
+              Positioned(
+                top: 18,
+                right: 18,
+                child: trailing!,
+              ),
           ],
         ),
       ),
