@@ -3,8 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 extension DrawCustomArcs on Canvas {
-  void drawAngledArcsOnRadius(double radius, Paint paint) {
-    Rect rect = Rect.fromCircle(center: const Offset(0, 0), radius: radius);
+  void drawAngledArcsOnRadius(Offset offset, double radius, Paint paint) {
+    Rect rect = Rect.fromCircle(center: offset, radius: radius);
     drawArc(rect, -(math.pi / 3), 2 * math.pi / 3, false, paint);
     drawArc(rect, 2 * math.pi / 3, 2 * math.pi / 3, false, paint);
   }
@@ -12,6 +12,10 @@ extension DrawCustomArcs on Canvas {
 
 /// Draws a live indicator
 class LiveIndicatorPainter extends CustomPainter {
+  ///No of arcs to paint
+  final int noOfArcs;
+  LiveIndicatorPainter(this.noOfArcs);
+
   var hollowPaint = Paint()
     ..color = const Color(0xffE62B1E)
     ..style = PaintingStyle.stroke
@@ -22,43 +26,16 @@ class LiveIndicatorPainter extends CustomPainter {
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
-  // var innerRect = Rect.fromCircle(center: Offset.zero, radius: 40); //8
-
-  // var outerRect = Rect.fromCircle(center: Offset.zero, radius: 60); //12
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(Offset.zero, 4.5, filledPaint);
-    canvas.drawAngledArcsOnRadius(8, hollowPaint);
-    canvas.drawAngledArcsOnRadius(12, hollowPaint);
-
-    // canvas.drawArc(
-    //   innerRect,
-    //   -(math.pi / 3),
-    //   2 * math.pi / 3,
-    //   false,
-    //   hollowPaint,
-    // );
-    // canvas.drawArc(
-    //   innerRect,
-    //   2 * math.pi / 3,
-    //   2 * math.pi / 3,
-    //   false,
-    //   hollowPaint,
-    // );
-    // canvas.drawArc(
-    //   outerRect,
-    //   -(math.pi / 3),
-    //   2 * math.pi / 3,
-    //   false,
-    //   hollowPaint,
-    // );
-    // canvas.drawArc(
-    //   outerRect,
-    //   2 * math.pi / 3,
-    //   2 * math.pi / 3,
-    //   false,
-    //   hollowPaint,
-    // );
+    double maxRadius = math.min(size.width, size.height) / 2;
+    Offset center = Offset(maxRadius, maxRadius);
+    double centerSize = 3.5;
+    canvas.drawCircle(center, centerSize, filledPaint);
+    for (int i = 1; i <= noOfArcs; i++) {
+      canvas.drawAngledArcsOnRadius(
+          center, centerSize + maxRadius * i / noOfArcs, hollowPaint);
+    }
   }
 
   @override
