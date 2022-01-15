@@ -57,21 +57,19 @@ class _BottomBarScreenState extends State<BottomBarScreenWidget> {
       body: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         // color: Colors.grey[800],
-        child: Center(
-          child: SingleChildScrollView(
-            physics: widget.physics,
-            controller: _controller,
-            child: Padding(
-              padding: const EdgeInsets.only(top: kToolbarHeight),
-              child: Column(
-                children: [
-                  ...widget.children,
-                  const SizedBox(
-                    height: kBottomNavigationBarHeight + 50,
-                  )
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
+        child: SingleChildScrollView(
+          physics: widget.physics,
+          controller: _controller,
+          child: Padding(
+            padding: const EdgeInsets.only(top: kToolbarHeight),
+            child: Column(
+              children: [
+                ...widget.children,
+                const SizedBox(
+                  height: kBottomNavigationBarHeight + 50,
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
             ),
           ),
         ),

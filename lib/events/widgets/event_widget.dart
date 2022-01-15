@@ -145,7 +145,7 @@ class EventWidget extends StatelessWidget {
                 child: Image(
                   image: imageProvider ??
                       const NetworkImage(
-                        'https://via.placeholder.com/4000x1800.png',
+                        'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S',
                       ),
                   fit: BoxFit.cover,
                   errorBuilder: (context, exception, stackTrace) {
@@ -190,8 +190,8 @@ class EventWidget extends StatelessWidget {
                     title,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 24,
                     ),
                   ),
                   SizedBox(height: widgetHeight * 0.08),
