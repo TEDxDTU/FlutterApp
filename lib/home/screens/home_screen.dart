@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
           height: 230,
           // gradientColor: Colors.black,
           title: 'Ted Talk by ...',
-          details: [
+          details: const [
             'Theme of the Ted Talk',
             'Description of the Ted Talk',
             'Etc Etc'
@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
           ),
           trailing: LiveIndicatorWidget(3),
           gradientColor: Theme.of(context).primaryColor,
+          fontColor: Colors.white,
         ),
         // Text("HELLO"),
         // SizedBox(height: 1000),

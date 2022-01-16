@@ -36,6 +36,7 @@ class EventWidget extends StatelessWidget {
     this.shadowRadius,
     this.loadingIndicator,
     this.trailing,
+    Color? fontColor,
     Color? gradientColor,
     double? height,
     double? width,
@@ -43,6 +44,7 @@ class EventWidget extends StatelessWidget {
   })  : widgetHeight = height ?? 180,
         widgetWidth = width ?? 400,
         color = gradientColor ?? const Color(0xffE62B1E),
+        fontColor = fontColor ?? Colors.white,
         super(key: key);
 
   /// Height of the widget, defaults to 180.
@@ -57,7 +59,7 @@ class EventWidget extends StatelessWidget {
   /// The details, shown below [title].
   final List<String> details;
 
-  /// The primary gradient color for the widget.
+  /// The primary gradient color for the [title] and [details].
   ///
   /// Defaults to Red (0xffE62B1E).
   final Color color;
@@ -91,7 +93,7 @@ class EventWidget extends StatelessWidget {
 
   /// The color of the shadow around the container.
   ///
-  /// Defaults to [EventWidget.color]
+  /// Defaults to [EventWidget.color].
   final Color? shadowColor;
 
   /// [loadingIndicator] is the widget shown while the image is being loaded.
@@ -101,6 +103,11 @@ class EventWidget extends StatelessWidget {
   ///
   /// for example: A live indicator.
   final Widget? trailing;
+
+  /// [Color] for all the text in [EventWidget].
+  ///
+  /// Defaults to [Colors.white].
+  final Color fontColor;
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +195,8 @@ class EventWidget extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: fontColor,
                       fontWeight: FontWeight.w900,
                       fontSize: 24,
                     ),
@@ -200,8 +207,8 @@ class EventWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Text(
                         detail,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: fontColor,
                           fontSize: 14,
                         ),
                       ),
