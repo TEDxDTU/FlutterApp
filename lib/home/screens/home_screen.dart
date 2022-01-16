@@ -32,7 +32,9 @@ class HomeScreen extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(TestScreen.routeName);
+            },
             child: Text('Join'),
           ),
           trailing: LiveIndicatorWidget(3),

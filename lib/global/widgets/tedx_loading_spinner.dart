@@ -7,10 +7,10 @@ class TedxLoadingSpinner extends StatefulWidget {
   const TedxLoadingSpinner({Key? key}) : super(key: key);
 
   @override
-  _TedxLoadingSpinnerState createState() => _TedxLoadingSpinnerState();
+  TedxLoadingSpinnerState createState() => TedxLoadingSpinnerState();
 }
 
-class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
+class TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
 
@@ -19,6 +19,7 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
   double totalTime = 3000;
 
   bool isExiting = false;
+
   double angle(double time) {
     double val;
     int mult = 1;
@@ -28,6 +29,30 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
     }
     val = (initialSpeed * time - deceleration * time * time) * mult;
     return val - val.truncate();
+  }
+
+  Future<void> translate(int width) async {
+    // unit is the translation value of x
+    int unit = 700;
+
+    // time is the value which is taken by x to reach half of the screen width
+    // (i.e. to the extreme end of screen).
+    int time = 0;
+
+    // i is used to evaluate the value of time.
+
+    // TODO: Fine tune this value of time.
+    int i = 1;
+    while (time < unit) {
+      time = ((unit * i / (3 * width)) * 1000).toInt();
+      i *= 2;
+    }
+    setState(() {
+      _animationController.value = 0;
+      _animationController.repeat(reverse: true);
+      isExiting = !isExiting;
+    });
+    await Future.delayed(Duration(milliseconds: time));
   }
 
   @override
@@ -46,11 +71,6 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
   @override
   void dispose() {
     print("dispsing spinner");
-    // setState(() {
-    //   isExiting = true;
-    // });
-    // Future.delayed(Duration(milliseconds: totalTime.toInt()), () {
-    // });
     _animationController.dispose();
     super.dispose();
   }
@@ -88,16 +108,6 @@ class _TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
               ),
             );
           },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _animationController.value = 0;
-              _animationController.repeat(reverse: true);
-              isExiting = !isExiting;
-            });
-          },
-          child: Text("Translate"),
         ),
       ],
     );
