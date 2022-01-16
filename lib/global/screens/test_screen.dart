@@ -12,11 +12,18 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   bool showSpinner = true;
   var tedxLoadingSpinnerKey = GlobalKey<TedxLoadingSpinnerState>();
+  String? title;
+
+  @override
+  void didChangeDependencies() {
+    title = ModalRoute.of(context)?.settings.arguments as String?;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Test')),
+      appBar: AppBar(title: Text(title ?? 'TEST')),
       body: Center(
         child: FutureBuilder(
             future: Future.delayed(Duration(seconds: 3)),

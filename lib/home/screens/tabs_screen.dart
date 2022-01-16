@@ -35,7 +35,17 @@ class _TabsScreenState extends State<TabsScreen> {
       children: [
         IndexedStack(
           index: _currentIndex,
-          children: widget.screens.map((e) => e.screen).toList(),
+          children: widget.screens
+              .map((e) => Navigator(
+                    key: GlobalKey<NavigatorState>(),
+                    onGenerateRoute: (settings) {
+                      return MaterialPageRoute(
+                        settings: settings,
+                        builder: (context) => e.routes[settings.name]!(context),
+                      );
+                    },
+                  ))
+              .toList(),
         ),
         Positioned(
           bottom: 20,

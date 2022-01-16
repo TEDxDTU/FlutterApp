@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/events/screens/events_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
+import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 
 import 'global/models/bottom_bar_screen.dart';
 import 'global/widgets/bottom_bar_screen_widget.dart';
@@ -123,13 +125,27 @@ class MyApp extends StatelessWidget {
           BottomBarScreen(
             title: 'Home',
             icon: const Icon(Icons.home),
-            screen: const HomeScreen(),
+            routes: {
+              '/': (context) => const HomeScreen(),
+              TestScreen.routeName: (context) => const TestScreen(),
+            },
           ),
-          // BottomBarScreen(
-          //   children: [Text('Profile')],
-          //   title: 'Profile',
-          //   icon: Icon(Icons.account_circle),
-          // ),
+          BottomBarScreen(
+            title: 'Events',
+            icon: const Icon(Icons.calendar_today),
+            routes: {
+              '/': (context) => const EventsScreen(),
+              TestScreen.routeName: (context) => const TestScreen(),
+            },
+          ),
+          BottomBarScreen(
+            title: 'Profile',
+            icon: const Icon(Icons.account_circle),
+            routes: {
+              '/': (context) => const ProfileScreen(),
+              TestScreen.routeName: (context) => const TestScreen(),
+            },
+          ),
         ],
       ),
     );

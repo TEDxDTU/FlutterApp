@@ -32,6 +32,12 @@ class _LiveIndicatorWidgetState extends State<LiveIndicatorWidget> {
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
