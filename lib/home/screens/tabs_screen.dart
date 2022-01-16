@@ -31,59 +31,77 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        IndexedStack(
-          index: _currentIndex,
-          children: widget.screens
-              .map((e) => Navigator(
-                    key: GlobalKey<NavigatorState>(),
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        settings: settings,
-                        builder: (context) => e.routes[settings.name]!(context),
-                      );
-                    },
-                  ))
-              .toList(),
-        ),
-        Positioned(
-          bottom: 20,
-          left: 30,
-          right: 30,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: SalomonBottomBar(
-              unselectedItemColor: Colors.black,
-              currentIndex: _currentIndex,
-              onTap: (i) {
-                setState(() {
-                  _currentIndex = i;
-                });
-              },
-              items: widget.screens
-                  .map(
-                    (e) => SalomonBottomBarItem(
-                      icon: e.icon,
-                      title: Text(e.title),
-                    ),
-                  )
-                  .toList(),
+    return WillPopScope(
+      onWillPop: () async {
+        bool val = !(await (widget
+                .screens[_currentIndex].navigatorKey.currentState
+                ?.maybePop()) ??
+            false);
+        //False means Navigator popped to the prev screen. True means app will exit.
+        print(val);
+        if (val && _currentIndex != 0) {
+          setState(() {
+            _currentIndex = 0;
+          });
+          return false;
+        }
+        return val;
+      },
+      child: Stack(
+        children: [
+          IndexedStack(
+            index: _currentIndex,
+            children: widget.screens
+                .map((e) => Navigator(
+                      key: e.navigatorKey,
+                      onGenerateRoute: (settings) {
+                        return MaterialPageRoute(
+                          settings: settings,
+                          builder: (context) =>
+                              e.routes[settings.name]!(context),
+                        );
+                      },
+                    ))
+                .toList(),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 30,
+            right: 30,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: SalomonBottomBar(
+                unselectedItemColor: Colors.black,
+                currentIndex: _currentIndex,
+                onTap: (i) {
+                  setState(() {
+                    _currentIndex = i;
+                  });
+                },
+                items: widget.screens
+                    .map(
+                      (e) => SalomonBottomBarItem(
+                        icon: e.icon,
+                        title: Text(e.title),
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

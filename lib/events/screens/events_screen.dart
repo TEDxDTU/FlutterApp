@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -19,6 +20,15 @@ class EventsScreen extends StatelessWidget {
           width: 100,
           color: Colors.white,
         ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              TestScreen.routeName,
+              arguments: 'Events',
+            );
+          },
+          child: Text('PUSH TO TEXT'),
+        )
       ],
     );
   }

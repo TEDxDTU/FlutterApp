@@ -124,6 +124,7 @@ class MyApp extends StatelessWidget {
           // HomeScreen(),
           BottomBarScreen(
             title: 'Home',
+            navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.home),
             routes: {
               '/': (context) => const HomeScreen(),
@@ -132,6 +133,7 @@ class MyApp extends StatelessWidget {
           ),
           BottomBarScreen(
             title: 'Events',
+            navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.calendar_today),
             routes: {
               '/': (context) => const EventsScreen(),
@@ -140,6 +142,7 @@ class MyApp extends StatelessWidget {
           ),
           BottomBarScreen(
             title: 'Profile',
+            navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.account_circle),
             routes: {
               '/': (context) => const ProfileScreen(),

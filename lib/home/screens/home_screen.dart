@@ -41,6 +41,15 @@ class HomeScreen extends StatelessWidget {
           gradientColor: Theme.of(context).primaryColor,
           fontColor: Colors.white,
         ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              TestScreen.routeName,
+              arguments: 'Home',
+            );
+          },
+          child: Text('PUSH TO TEXT'),
+        )
         // Text("HELLO"),
         // SizedBox(height: 1000),
         // LiveIndicatorWidget(),

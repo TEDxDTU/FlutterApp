@@ -10,6 +10,7 @@ class BottomBarScreen {
   final Icon icon;
 
   final Map<String, WidgetBuilder> routes;
+  final GlobalKey<NavigatorState> navigatorKey;
 
   ///Creates a BottomBarScreen model. This is passed to TabsScreen to use in
   ///bottom nav bar and display in the main area of the screen.
@@ -17,5 +18,6 @@ class BottomBarScreen {
     required this.title,
     required this.icon,
     required this.routes,
+    required this.navigatorKey,
   });
 }
