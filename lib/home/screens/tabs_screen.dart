@@ -40,6 +40,9 @@ class _TabsScreenState extends State<TabsScreen> {
         //False means Navigator popped to the prev screen. True means app will exit.
         print(val);
         if (val && _currentIndex != 0) {
+          //If val is true, it means the current navigation stack has nothing to
+          //pop to. So we shift the screen back to home page, if the currentIndex
+          //is not 0 (which means we're currently not on home page)
           setState(() {
             _currentIndex = 0;
           });
