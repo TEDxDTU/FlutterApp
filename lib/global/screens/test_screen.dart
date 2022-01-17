@@ -11,7 +11,6 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen> {
   bool showSpinner = true;
-  var tedxLoadingSpinnerKey = GlobalKey<TedxLoadingSpinnerState>();
   String? title;
 
   @override
@@ -20,30 +19,29 @@ class _TestScreenState extends State<TestScreen> {
     super.didChangeDependencies();
   }
 
+  var tedxLoadingSpinnerKey = GlobalKey<TedxLoadingSpinnerState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title ?? 'TEST')),
       body: Center(
         child: FutureBuilder(
-            future: Future.delayed(Duration(seconds: 3)),
+            // In future, a future call is to be passed, and must be chained
+            // with the awaited translate method present in [TedxLoadingSpinner]
+            // for the x in TEDx to fly out of the screen.
+            // For just the TEDx logo with x spinning and then disappearing, use
+            // this widget like you would use [CircularProgressIndicator].
+            future:
+                Future.delayed(const Duration(seconds: 5)).then((value) async {
+              await tedxLoadingSpinnerKey.currentState!.translate();
+              return value;
+            }),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                print('waiting');
                 return TedxLoadingSpinner(key: tedxLoadingSpinnerKey);
               }
-              if (snapshot.connectionState == ConnectionState.done) {
-                return FutureBuilder(
-                    future: tedxLoadingSpinnerKey.currentState
-                        ?.translate(MediaQuery.of(context).size.width.toInt()),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return TedxLoadingSpinner(key: tedxLoadingSpinnerKey);
-                      }
-                      return Text('No loading spinner');
-                    });
-              }
-              return Text('Error');
+              return const Text('Hey! Sorry for the delay.');
             }),
       ),
     );

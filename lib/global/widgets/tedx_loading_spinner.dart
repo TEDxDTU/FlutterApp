@@ -2,6 +2,38 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// Provides a Loading Spinner animation with a rotating 'x' in TEDx.
+///
+/// To use this widget like a normal animation widget with just the x rotating,
+/// use this widget like a [CircularProgressIndicator].
+///
+/// To implement the x flying out of the screen after completing a future, chain
+/// the future with [TedxLoadingSpinnerState.translate].
+///
+/// Note that this animation delays the future by an additional amount of time
+/// for smooth animation of the x, use with caution.
+///
+/// A basic implementation of this animation would be like this:
+///
+/// FutureBuilder(
+///
+///            // In future, a future call is to be passed, and must be chained
+///            // with the awaited translate method present in [TedxLoadingSpinner]
+///            // for the x in TEDx to fly out of the screen.
+///            // For just the TEDx logo with x spinning and then disappearing, use
+///            // this widget like you would use [CircularProgressIndicator].
+///            future:
+///                Future.delayed(const Duration(seconds: 5)).then((value) async {
+///              await tedxLoadingSpinnerKey.currentState!.translate();
+///              return value;
+///            }),
+///            builder: (context, snapshot) {
+///              if (snapshot.connectionState == ConnectionState.waiting) {
+///                return TedxLoadingSpinner(key: tedxLoadingSpinnerKey);
+///              }
+///              return const Text('Hey! Sorry for the delay.');
+///            }),
+///
 class TedxLoadingSpinner extends StatefulWidget {
   ///Creates a TedXLoadingSpinner, a TedX logo with a spinning x.
   const TedxLoadingSpinner({Key? key}) : super(key: key);
@@ -14,12 +46,19 @@ class TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
 
+  // Initial speed of the animation.
   double initialSpeed = 20;
+
+  /// Deceleration of the animation.
   double deceleration = 10;
+
+  /// Total time of the animation.
   double totalTime = 3000;
 
   bool isExiting = false;
 
+  /// Returns the distance as a function of the [time], [initialSpeed]
+  /// and [deceleration] as taken in function input.
   double angle(double time) {
     double val;
     int mult = 1;
@@ -31,28 +70,32 @@ class TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
     return val - val.truncate();
   }
 
-  Future<void> translate(int width) async {
+  /// Makes the x fly out of the screen.
+  Future<void> translate([int width = 400]) async {
     // unit is the translation value of x
-    int unit = 700;
+    // int unit = 700;
 
     // time is the value which is taken by x to reach half of the screen width
     // (i.e. to the extreme end of screen).
-    int time = 0;
+    // int time = 0;
 
     // i is used to evaluate the value of time.
 
     // TODO: Fine tune this value of time.
-    int i = 1;
-    while (time < unit) {
-      time = ((unit * i / (3 * width)) * 1000).toInt();
-      i *= 2;
-    }
+    // This is a try to optimally caluclate the translating time of the x
+    // This has been tested in the
+    // int i = 1;
+    // while (time < unit) {
+    //   time = ((unit * i / (3 * width)) * 1000).toInt();
+    //   i *= 2;
+    // }
     setState(() {
       _animationController.value = 0;
       _animationController.repeat(reverse: true);
       isExiting = !isExiting;
     });
-    await Future.delayed(Duration(milliseconds: time));
+    // This value works well for tablets with 8.7" screen.
+    await Future.delayed(const Duration(milliseconds: 2000));
   }
 
   @override
@@ -70,7 +113,6 @@ class TedxLoadingSpinnerState extends State<TedxLoadingSpinner>
 
   @override
   void dispose() {
-    print("dispsing spinner");
     _animationController.dispose();
     super.dispose();
   }
