@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/events_screen.dart';
+import 'package:tedx_dtu_app/global/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
@@ -129,6 +130,7 @@ class MyApp extends StatelessWidget {
             routes: {
               '/': (context) => const HomeScreen(),
               TestScreen.routeName: (context) => const TestScreen(),
+              SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
           BottomBarScreen(
@@ -138,6 +140,7 @@ class MyApp extends StatelessWidget {
             routes: {
               '/': (context) => const EventsScreen(),
               TestScreen.routeName: (context) => const TestScreen(),
+              SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
           BottomBarScreen(
@@ -147,6 +150,7 @@ class MyApp extends StatelessWidget {
             routes: {
               '/': (context) => const ProfileScreen(),
               TestScreen.routeName: (context) => const TestScreen(),
+              SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
         ],

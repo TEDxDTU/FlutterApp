@@ -55,16 +55,17 @@ class _TabsScreenState extends State<TabsScreen> {
           IndexedStack(
             index: _currentIndex,
             children: widget.screens
-                .map((e) => Navigator(
-                      key: e.navigatorKey,
-                      onGenerateRoute: (settings) {
-                        return MaterialPageRoute(
-                          settings: settings,
-                          builder: (context) =>
-                              e.routes[settings.name]!(context),
-                        );
-                      },
-                    ))
+                .map(
+                  (e) => Navigator(
+                    key: e.navigatorKey,
+                    onGenerateRoute: (settings) {
+                      return MaterialPageRoute(
+                        settings: settings,
+                        builder: (context) => e.routes[settings.name]!(context),
+                      );
+                    },
+                  ),
+                )
                 .toList(),
           ),
           Positioned(
@@ -93,12 +94,10 @@ class _TabsScreenState extends State<TabsScreen> {
                   });
                 },
                 items: widget.screens
-                    .map(
-                      (e) => SalomonBottomBarItem(
-                        icon: e.icon,
-                        title: Text(e.title),
-                      ),
-                    )
+                    .map((e) => SalomonBottomBarItem(
+                          icon: e.icon,
+                          title: Text(e.title),
+                        ))
                     .toList(),
               ),
             ),

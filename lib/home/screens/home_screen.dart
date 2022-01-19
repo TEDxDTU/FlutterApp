@@ -3,6 +3,7 @@ import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/event_widget.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
+import 'package:tedx_dtu_app/global/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 
@@ -44,11 +45,10 @@ class HomeScreen extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pushNamed(
-              TestScreen.routeName,
-              arguments: 'Home',
+              SignUpScreen.routeName,
             );
           },
-          child: Text('PUSH TO TEXT'),
+          child: Text('PUSH TO Sign up'),
         )
         // Text("HELLO"),
         // SizedBox(height: 1000),
