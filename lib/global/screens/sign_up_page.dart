@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ted_app/designs/input_textfield_design.dart';
 
-class sign_up_details extends StatefulWidget {
-  const sign_up_details({Key? key}) : super(key: key);
+
+class SignUpDetails extends StatefulWidget {
+  const SignUpDetails({Key? key}) : super(key: key);
 
   @override
-  _sign_up_detailsState createState() => _sign_up_detailsState();
+  _SignUpDetailsState createState() => _SignUpDetailsState();
 }
 
-class _sign_up_detailsState extends State<sign_up_details> {
+class _SignUpDetailsState extends State<SignUpDetails> {
   late String? name , email , phone;
   TextEditingController password = TextEditingController();
   TextEditingController confirmpassword = TextEditingController();
@@ -293,6 +293,35 @@ class _sign_up_detailsState extends State<sign_up_details> {
                ),
             ),
           ),
+      ),
+    );
+  }
+  InputDecoration buildInputDecoration(IconData icons ,String hinttext) {
+    return InputDecoration(
+      hintText: hinttext,
+      hintStyle: TextStyle(color: Colors.white ,fontSize: 16),
+      prefixIcon: Icon(icons , color: Colors.white, size: 20,),
+      errorStyle: TextStyle(color: Colors.white),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide:const BorderSide(
+            color: Colors.white,
+            width: 1.5
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide:const BorderSide(
+          color: Colors.red,
+          width: 1.5,
+        ),
+      ),
+      enabledBorder:OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide:const  BorderSide(
+          color: Colors.red,
+          width: 1.5,
+        ),
       ),
     );
   }
