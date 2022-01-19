@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/events_screen.dart';
-import 'package:tedx_dtu_app/global/screens/sign_up_screen.dart';
+import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
-import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 
 import 'global/models/bottom_bar_screen.dart';
 import 'global/widgets/bottom_bar_screen_widget.dart';
@@ -143,14 +142,22 @@ class MyApp extends StatelessWidget {
               SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
+          // BottomBarScreen(
+          //   title: 'Profile',
+          //   navigatorKey: GlobalKey<NavigatorState>(),
+          //   icon: const Icon(Icons.account_circle),
+          //   routes: {
+          //     '/': (context) => const ProfileScreen(),
+          //     TestScreen.routeName: (context) => const TestScreen(),
+          //     SignUpScreen.routeName: (context) => const SignUpScreen(),
+          //   },
+          // ),
           BottomBarScreen(
-            title: 'Profile',
+            title: 'Test',
             navigatorKey: GlobalKey<NavigatorState>(),
-            icon: const Icon(Icons.account_circle),
+            icon: const Icon(Icons.help),
             routes: {
-              '/': (context) => const ProfileScreen(),
-              TestScreen.routeName: (context) => const TestScreen(),
-              SignUpScreen.routeName: (context) => const SignUpScreen(),
+              '/': (context) => const SignUpScreen(),
             },
           ),
         ],

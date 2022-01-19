@@ -36,6 +36,7 @@ dependencies:
   provider: ^6.0.2
   intl: ^0.17.0
   salomon_bottom_bar: ^3.2.0
+  image_picker: ^0.8.4+4
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
     - assets/images/logoBlack.png
     - assets/images/x.png
     - assets/images/ted.png
+    - assets/images/dtu_bg.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

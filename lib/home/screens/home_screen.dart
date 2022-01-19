@@ -3,7 +3,7 @@ import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/event_widget.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
-import 'package:tedx_dtu_app/global/screens/sign_up_screen.dart';
+import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 
