@@ -295,7 +295,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         color: Colors.grey,
         size: 17,
       ),
-      fillColor: Colors.black,
+      fillColor: Colors.black.withOpacity(0.8),
       filled: true,
       errorStyle: TextStyle(color: Colors.white),
       focusedBorder: OutlineInputBorder(
