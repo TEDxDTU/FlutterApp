@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/events_screen.dart';
+import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
@@ -86,8 +87,11 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           titleTextStyle: TextStyle(
-              color: primary, fontSize: 20, fontWeight: FontWeight.w700),
-          iconTheme: const IconThemeData(color: primary, size: 45),
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+            size: 45,
+          ),
         ),
         inputDecorationTheme: InputDecorationTheme(
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -142,16 +146,16 @@ class MyApp extends StatelessWidget {
               SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
-          // BottomBarScreen(
-          //   title: 'Profile',
-          //   navigatorKey: GlobalKey<NavigatorState>(),
-          //   icon: const Icon(Icons.account_circle),
-          //   routes: {
-          //     '/': (context) => const ProfileScreen(),
-          //     TestScreen.routeName: (context) => const TestScreen(),
-          //     SignUpScreen.routeName: (context) => const SignUpScreen(),
-          //   },
-          // ),
+          BottomBarScreen(
+            title: 'Profile',
+            navigatorKey: GlobalKey<NavigatorState>(),
+            icon: const Icon(Icons.account_circle),
+            routes: {
+              '/': (context) => const ProfileScreen(),
+              TestScreen.routeName: (context) => const TestScreen(),
+              SignUpScreen.routeName: (context) => const SignUpScreen(),
+            },
+          ),
           BottomBarScreen(
             title: 'Test',
             navigatorKey: GlobalKey<NavigatorState>(),
