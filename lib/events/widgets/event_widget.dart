@@ -36,6 +36,7 @@ class EventWidget extends StatelessWidget {
     this.shadowRadius,
     this.loadingIndicator,
     this.trailing,
+    bool? showActionWidget,
     Color? fontColor,
     Color? gradientColor,
     double? height,
@@ -45,6 +46,7 @@ class EventWidget extends StatelessWidget {
         widgetWidth = width ?? 400,
         color = gradientColor ?? const Color(0xffE62B1E),
         fontColor = fontColor ?? Colors.white,
+        showActionWidget = showActionWidget ?? true,
         super(key: key);
 
   /// Height of the widget, defaults to 180.
@@ -66,6 +68,11 @@ class EventWidget extends StatelessWidget {
 
   /// actionButton is preferably a Button ([IconButton], [ElevatedButton])
   /// shown at the bottom right of the [EventWidget].
+
+  /// Whether to show the action widget at the bottom right.
+  ///
+  /// Defaults to true.
+  final bool showActionWidget;
 
   /// If no [actionButton] is passed, it defaults to an [ElevatedButton] and
   /// the parameters [actionWidget] and [actionWidgetFunction] define the behaviour
@@ -111,7 +118,6 @@ class EventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("building");
     return Container(
       margin: const EdgeInsets.all(8),
       height: widgetHeight,
@@ -217,28 +223,29 @@ class EventWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 8,
-              right: 18,
-              child: actionButton ??
-                  ElevatedButton(
-                    child: actionWidget,
-                    style: ElevatedButton.styleFrom(
-                      primary: color,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
+            if (showActionWidget == true)
+              Positioned(
+                bottom: 8,
+                right: 18,
+                child: actionButton ??
+                    ElevatedButton(
+                      child: actionWidget,
+                      style: ElevatedButton.styleFrom(
+                        primary: color,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(100),
+                          ),
                         ),
+                        elevation: 0,
                       ),
-                      elevation: 0,
+                      onPressed: () {
+                        if (actionWidgetFunction != null) {
+                          actionWidgetFunction!();
+                        }
+                      },
                     ),
-                    onPressed: () {
-                      if (actionWidgetFunction != null) {
-                        actionWidgetFunction!();
-                      }
-                    },
-                  ),
-            ),
+              ),
             if (trailing != null)
               Positioned(
                 top: 18,

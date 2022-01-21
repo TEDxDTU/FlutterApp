@@ -3,9 +3,10 @@ import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/event_widget.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
-import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
+import 'package:tedx_dtu_app/home/widgets/upcoming_event_widget.dart';
+import 'package:tedx_dtu_app/home/widgets/upcoming_ted_talks.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -16,43 +17,28 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomBarScreenWidget(
       children: [
-        EventWidget(
-          height: 230,
-          // gradientColor: Colors.black,
-          title: 'Ted Talk by ...',
-          details: const [
-            'Theme of the Ted Talk',
-            'Description of the Ted Talk',
-            'Etc Etc'
-          ],
-          actionButton: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              // primary: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        UpcomingTedTalks(
+          children: [
+            UpcomingEventWidget(
+              leadingText: 'What is Neural Network',
+              imageProvider: NetworkImage(
+                  'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
+              dateTime: DateTime.now(),
             ),
-            onPressed: () {
-              Navigator.of(context).pushNamed(TestScreen.routeName);
-            },
-            child: Text('Join'),
-          ),
-          trailing: LiveIndicatorWidget(3),
-          gradientColor: Theme.of(context).primaryColor,
-          fontColor: Colors.white,
+            UpcomingEventWidget(
+              leadingText: 'The surprising habits of original thinkers',
+              imageProvider: NetworkImage(
+                  'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
+              dateTime: DateTime.now(),
+            ),
+            UpcomingEventWidget(
+              leadingText: 'The mind behind Tesla, SpaceX, SolarCity',
+              imageProvider: NetworkImage(
+                  'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
+              dateTime: DateTime.now(),
+            )
+          ],
         ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              SignUpScreen.routeName,
-            );
-          },
-          child: Text('PUSH TO Sign up'),
-        )
-        // Text("HELLO"),
-        // SizedBox(height: 1000),
-        // LiveIndicatorWidget(),
       ],
     );
   }
