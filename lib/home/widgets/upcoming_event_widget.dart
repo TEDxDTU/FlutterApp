@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 
 class UpcomingEventWidget extends StatelessWidget {
@@ -9,6 +10,7 @@ class UpcomingEventWidget extends StatelessWidget {
     required this.imageProvider,
     this.onPressed,
     this.loadingIndicator,
+    bool? isLive,
     double? width,
     double? borderRadius,
     Color? backgroundColor,
@@ -18,6 +20,7 @@ class UpcomingEventWidget extends StatelessWidget {
         backgroundColor = backgroundColor ?? Colors.black,
         width = width ?? 140,
         borderRadius = borderRadius ?? 20,
+        isLive = isLive ?? false,
         super(key: key);
 
   /// Text to be shown at top left of the widget.
@@ -47,6 +50,8 @@ class UpcomingEventWidget extends StatelessWidget {
 
   final Widget? loadingIndicator;
 
+  final bool isLive;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,6 +63,14 @@ class UpcomingEventWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(borderRadius),
         ),
+        boxShadow: isLive
+            ? [
+                BoxShadow(
+                  color: Theme.of(context).primaryColor,
+                  blurRadius: 8,
+                )
+              ]
+            : null,
       ),
       child: Stack(
         children: [
@@ -116,7 +129,7 @@ class UpcomingEventWidget extends StatelessWidget {
                 width: width,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: isLive ? Theme.of(context).primaryColor : Colors.white,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(borderRadius),
                     bottomRight: Radius.circular(borderRadius),
@@ -128,8 +141,8 @@ class UpcomingEventWidget extends StatelessWidget {
                   children: [
                     Text(
                       DateFormat('EEE, dd MMM').format(dateTime),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: isLive ? Colors.white : Colors.black,
                       ),
                     ),
                   ],
@@ -149,6 +162,18 @@ class UpcomingEventWidget extends StatelessWidget {
               ),
             ],
           ),
+          if (isLive == true)
+            const Positioned(
+              top: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: LiveIndicatorWidget(
+                  3,
+                  showText: false,
+                ),
+              ),
+            ),
         ],
       ),
     );

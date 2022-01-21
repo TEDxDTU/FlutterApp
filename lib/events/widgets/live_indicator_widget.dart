@@ -5,15 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 
 class LiveIndicatorWidget extends StatefulWidget {
-  ///Creates an animating live indicator widget that animates arcs
-  ///from 1 to [arcNo], then repeat.
+  /// Creates an animating live indicator widget that animates arcs
+  /// from 1 to [arcNo], then repeat.
   const LiveIndicatorWidget(
     this.arcNo, {
+    bool? showText,
     Key? key,
-  }) : super(key: key);
+  })  : showText = showText ?? true,
+        super(key: key);
 
-  ///Final number of arcs to animate to.
+  /// Final number of arcs to animate to.
   final int arcNo;
+
+  /// Whether to show Live along with animating arcs or not.
+  ///
+  /// Defaults to true.
+  final bool showText;
+
   @override
   _LiveIndicatorWidgetState createState() => _LiveIndicatorWidgetState();
 }
@@ -41,7 +49,8 @@ class _LiveIndicatorWidgetState extends State<LiveIndicatorWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text('LIVE', style: TextStyle(fontWeight: FontWeight.bold)),
+        if (widget.showText == true)
+          const Text('LIVE', style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(width: 10),
         Container(
           alignment: Alignment.center,

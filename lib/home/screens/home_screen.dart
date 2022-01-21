@@ -24,6 +24,7 @@ class HomeScreen extends StatelessWidget {
               imageProvider: NetworkImage(
                   'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
               dateTime: DateTime.now(),
+              isLive: true,
             ),
             UpcomingEventWidget(
               leadingText: 'The surprising habits of original thinkers',

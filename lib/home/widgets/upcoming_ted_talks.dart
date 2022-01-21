@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-class UpcomingTedTalks extends StatelessWidget {
+class UpcomingTedTalks extends StatefulWidget {
   const UpcomingTedTalks({
     required this.children,
     Key? key,
   }) : super(key: key);
 
   final List<Widget> children;
+
+  @override
+  State<UpcomingTedTalks> createState() => _UpcomingTedTalksState();
+}
+
+class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
+  final _scrollController = ScrollController();
+  final double _scrollBarWidth = 120;
+  double _scrollPosition = 30;
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      double convertedOffset = (_scrollController.offset /
+              _scrollController.position.maxScrollExtent) *
+          _scrollBarWidth;
+      setState(() {
+        if (_scrollController.offset >= 20 &&
+            _scrollController.offset <=
+                _scrollController.position.maxScrollExtent) {
+          _scrollPosition = convertedOffset;
+        }
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +68,32 @@ class UpcomingTedTalks extends StatelessWidget {
         Expanded(
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: children,
+            children: widget.children,
+            physics: const BouncingScrollPhysics(),
+            controller: _scrollController,
+          ),
+        ),
+        Container(
+          width: _scrollBarWidth,
+          height: 8,
+          decoration: BoxDecoration(
+            color: Colors.grey[600],
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: _scrollPosition,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+              ),
+            ],
           ),
         )
       ]),
