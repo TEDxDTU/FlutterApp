@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class UpcomingTedTalks extends StatefulWidget {
   const UpcomingTedTalks({
     required this.children,
+    double? scrollBarWidth,
     Key? key,
-  }) : super(key: key);
+  })  : scrollBarWidth = scrollBarWidth ?? 120,
+        super(key: key);
 
   final List<Widget> children;
+  final double scrollBarWidth;
 
   @override
   State<UpcomingTedTalks> createState() => _UpcomingTedTalksState();
@@ -14,7 +17,6 @@ class UpcomingTedTalks extends StatefulWidget {
 
 class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
   final _scrollController = ScrollController();
-  final double _scrollBarWidth = 120;
   double _scrollPosition = 30;
 
   @override
@@ -22,7 +24,7 @@ class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
     _scrollController.addListener(() {
       double convertedOffset = (_scrollController.offset /
               _scrollController.position.maxScrollExtent) *
-          _scrollBarWidth;
+          widget.scrollBarWidth;
       setState(() {
         if (_scrollController.offset >= 20 &&
             _scrollController.offset <=
@@ -74,7 +76,7 @@ class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
           ),
         ),
         Container(
-          width: _scrollBarWidth,
+          width: widget.scrollBarWidth,
           height: 8,
           decoration: BoxDecoration(
             color: Colors.grey[600],
