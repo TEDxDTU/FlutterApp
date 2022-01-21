@@ -157,7 +157,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.help),
             routes: {
-              '/': (context) => const SignUpScreen(),
+              '/': (context) => const TestScreen(),
             },
           ),
         ],

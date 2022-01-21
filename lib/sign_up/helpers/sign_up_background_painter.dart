@@ -8,7 +8,7 @@ class SignUpBackgroundPainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     var width = size.width;
     var height = size.height;
-    paint.strokeWidth = 3;
+    paint.strokeWidth = 100;
     // var path = Path();
     var path = Path()
       ..moveTo(0, 0)
