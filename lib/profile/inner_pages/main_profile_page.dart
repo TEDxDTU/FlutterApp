@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 
-class MainProfileWidget extends StatelessWidget {
-  const MainProfileWidget({Key? key}) : super(key: key);
+class MainProfilePage extends StatelessWidget {
+  const MainProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

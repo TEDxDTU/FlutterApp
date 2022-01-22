@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 import 'package:tedx_dtu_app/profile/widgets/account_circle_with_text.dart';
 
-class MainSettingsWidget extends StatelessWidget {
-  const MainSettingsWidget({Key? key}) : super(key: key);
+class MainSettingsPage extends StatelessWidget {
+  const MainSettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

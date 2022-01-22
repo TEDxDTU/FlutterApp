@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/profile/inner_pages/main_profile_page.dart';
+import 'package:tedx_dtu_app/profile/inner_pages/main_settings_page.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
-import 'package:tedx_dtu_app/profile/widgets/main_profile_widget.dart';
-import 'package:tedx_dtu_app/profile/widgets/main_settings_widget.dart';
 
 import 'image_upload.dart';
 
@@ -28,9 +28,9 @@ class ProfileCardLayoutWidget extends StatelessWidget {
                   builder: (context, innerWidget, child) {
                     switch (innerWidget.currentInnerWidget) {
                       case CurrentInnerWidget.mainProfile:
-                        return MainProfileWidget();
+                        return MainProfilePage();
                       case CurrentInnerWidget.mainSettings:
-                        return MainSettingsWidget();
+                        return MainSettingsPage();
                       default:
                         return Container(
                           alignment: Alignment.center,
