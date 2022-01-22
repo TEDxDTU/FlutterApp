@@ -8,7 +8,7 @@ import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/upcoming_event_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/upcoming_ted_talks.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as SvgProvider;
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:tuple/tuple.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,6 +18,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+
+    // TODO: Add grey color to the appBar
     return BottomBarScreenWidget(
       children: [
         Padding(
@@ -59,8 +62,8 @@ class HomeScreen extends StatelessWidget {
               EventWidget(
                 title: '',
                 details: const [],
-                width: 160,
-                height: 204,
+                width: mediaQuery.size.width * 0.4,
+                height: mediaQuery.size.width * 0.4 * 1.275,
                 actionWidget: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: IconButton(
@@ -69,15 +72,16 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 gradientColor: Colors.transparent,
-                imageProvider:
-                    const SvgProvider.Svg('assets/home_screen/trivia.svg'),
+                imageProvider: const svg_provider.Svg(
+                  'assets/home_screen/trivia.svg',
+                ),
                 actionWidgetOffset: const Tuple2<double, double>(0, 0),
               ),
               EventWidget(
                 title: '',
                 details: const [],
-                width: 160,
-                height: 204,
+                width: mediaQuery.size.width * 0.4,
+                height: mediaQuery.size.width * 0.4 * 1.275,
                 actionWidget: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: IconButton(
@@ -86,13 +90,72 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 gradientColor: Colors.transparent,
-                imageProvider: const SvgProvider.Svg(
-                    'assets/home_screen/recent_updates.svg'),
+                imageProvider: const svg_provider.Svg(
+                  'assets/home_screen/recent_updates.svg',
+                ),
                 actionWidgetOffset: const Tuple2<double, double>(0, 0),
               ),
             ],
           ),
-        )
+        ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          margin: const EdgeInsets.all(16),
+          // height: 300,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          child: Row(
+            children: [
+              const Expanded(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Book tickets for upcoming ',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'TED talks!',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                child: const Text(
+                  'Pre-Book now',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        20,
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  print('Redirect to ticket screen');
+                },
+              )
+            ],
+          ),
+        ),
       ],
     );
   }

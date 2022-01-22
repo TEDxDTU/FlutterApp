@@ -17,6 +17,8 @@ class UpcomingTedTalks extends StatefulWidget {
 
 class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
   final _scrollController = ScrollController();
+
+  //TODO: Fix this static initial value
   double _scrollPosition = 20;
 
   @override

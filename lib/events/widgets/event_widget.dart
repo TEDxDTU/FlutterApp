@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tuple/tuple.dart';
 
+//TODO: Set the background color to transparent for use in home_screen with SVGs
+
 /// Creates an event widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the
 /// whole widget, an optional trailing widget shown at top right.
