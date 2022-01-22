@@ -25,101 +25,111 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.black,
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-        snackBarTheme: SnackBarThemeData(
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+          toggleableActiveColor: primary,
+          scaffoldBackgroundColor: Colors.black,
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            },
           ),
-          backgroundColor: Colors.black87,
-        ),
-        primarySwatch: UIHelper.generateMaterialColor(const Color(0xFFE62B1E)),
-        primaryColor: const Color(0xFFE62B1E),
-        colorScheme: ColorScheme(
-          secondary: Colors.grey[800]!,
-          primary: primary,
-          background: Colors.black,
-          onBackground: Colors.white,
-          brightness: Brightness.dark,
-          error: Colors.red[800]!,
-          onError: Colors.white,
-          onPrimary: Colors.white,
-          onSecondary: Colors.white,
-          onSurface: Colors.white,
-          surface: Colors.red,
-          secondaryVariant: Colors.black,
-          primaryVariant: Colors.red[700]!,
-        ),
-        cardTheme: CardTheme(
-          color: const Color(0xffE62B1E),
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(17),
-          ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: const StadiumBorder(),
-            primary: Colors.black,
-            side: const BorderSide(
-              color: Colors.black,
-              width: 1.3,
+          snackBarTheme: SnackBarThemeData(
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            onSurface: Colors.red,
+            backgroundColor: Colors.black87,
           ),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            primary: Colors.white,
-            onSurface: Colors.red,
+          primarySwatch:
+              UIHelper.generateMaterialColor(const Color(0xFFE62B1E)),
+          primaryColor: const Color(0xFFE62B1E),
+          colorScheme: ColorScheme(
+            secondary: Colors.grey[800]!,
+            primary: primary,
+            background: Colors.black,
+            onBackground: Colors.white,
+            brightness: Brightness.dark,
+            error: Colors.red[800]!,
+            onError: Colors.white,
+            onPrimary: Colors.white,
+            onSecondary: Colors.white,
+            onSurface: Colors.white,
+            surface: Colors.red,
+            secondaryVariant: Colors.black,
+            primaryVariant: Colors.red[700]!,
           ),
-        ),
-        iconTheme: const IconThemeData(color: primary),
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          titleTextStyle: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-            size: 45,
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          // filled: true,
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            // borderSide: BorderSide.none,
-            borderSide: const BorderSide(
-              color: Colors.grey,
+          cardTheme: CardTheme(
+            color: const Color(0xffE62B1E),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(17),
             ),
           ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              backgroundColor: Colors.white,
+              shape: const StadiumBorder(),
+              primary: Colors.black,
+              side: const BorderSide(
+                color: Colors.black,
+                width: 1.3,
+              ),
+              onSurface: Colors.red,
+            ),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+              onSurface: Colors.red,
+            ),
+          ),
+          iconTheme: const IconThemeData(color: primary),
+          appBarTheme: const AppBarTheme(
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            titleTextStyle: TextStyle(
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+              size: 45,
+            ),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            // filled: true,
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              // borderSide: BorderSide.none,
+              borderSide: const BorderSide(
+                color: Colors.grey,
+              ),
+            ),
 
-          border: OutlineInputBorder(
-            gapPadding: 5,
-            borderRadius: BorderRadius.circular(10),
+            border: OutlineInputBorder(
+              gapPadding: 5,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            enabledBorder: OutlineInputBorder(
+              gapPadding: 5,
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: primary,
+              ),
+            ),
+            errorStyle:
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            contentPadding: const EdgeInsets.all(0),
           ),
-          enabledBorder: OutlineInputBorder(
-            gapPadding: 5,
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: primary,
+          textTheme: TextTheme(
+            subtitle1: TextStyle(
+              color: Colors.grey[600],
+            ),
+            bodyText2: TextStyle(
+              color: Colors.black,
             ),
           ),
-          errorStyle:
-              const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-          contentPadding: const EdgeInsets.all(0),
-        ),
-      ),
+          switchTheme: SwitchThemeData()),
       routes: {
         TestScreen.routeName: (context) => const TestScreen(),
       },

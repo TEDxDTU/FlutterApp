@@ -22,23 +22,26 @@ class ProfileCardLayoutWidget extends StatelessWidget {
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.6,
               width: MediaQuery.of(context).size.width * 0.95,
-              child: Consumer<ProfileInnerWidgetProvider>(
-                builder: (context, innerWidget, child) {
-                  switch (innerWidget.currentInnerWidget) {
-                    case CurrentInnerWidget.mainProfile:
-                      return MainProfileWidget();
-                    case CurrentInnerWidget.mainSettings:
-                      return MainSettingsWidget();
-                    default:
-                      return Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'HELLO',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      );
-                  }
-                },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Consumer<ProfileInnerWidgetProvider>(
+                  builder: (context, innerWidget, child) {
+                    switch (innerWidget.currentInnerWidget) {
+                      case CurrentInnerWidget.mainProfile:
+                        return MainProfileWidget();
+                      case CurrentInnerWidget.mainSettings:
+                        return MainSettingsWidget();
+                      default:
+                        return Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'HELLO',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        );
+                    }
+                  },
+                ),
               ),
             ),
           ),

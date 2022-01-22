@@ -80,8 +80,8 @@ class _ImageUploadState extends State<ImageUpload> {
           ),
         ),
         Positioned(
-          bottom: 0,
-          right: 0,
+          bottom: 5,
+          right: 5,
           child: PopupMenuButton<ImageSource>(
             tooltip: null,
             offset: const Offset(1, 30),
