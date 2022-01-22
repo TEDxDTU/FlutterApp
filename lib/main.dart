@@ -81,6 +81,7 @@ class MyApp extends StatelessWidget {
             style: TextButton.styleFrom(
               primary: Colors.white,
               onSurface: Colors.red,
+              backgroundColor: Colors.red,
             ),
           ),
           iconTheme: const IconThemeData(color: primary),

@@ -8,7 +8,7 @@ enum CurrentInnerWidget {
 }
 
 class ProfileInnerWidgetProvider with ChangeNotifier {
-  CurrentInnerWidget _currentInnerWidget = CurrentInnerWidget.mainSettings;
+  CurrentInnerWidget _currentInnerWidget = CurrentInnerWidget.editProfile;
 
   set currentInnerWidget(CurrentInnerWidget currentInnerWidget) {
     _currentInnerWidget = currentInnerWidget;

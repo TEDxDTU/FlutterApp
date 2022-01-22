@@ -173,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           decoration:
                               buildInputDecoration(Icons.email, "Email"),
                           validator: (String? value) {
-                            if (value!.isEmpty) {
+                            if (value == null || value.isEmpty) {
                               return 'Please Enter Email';
                             }
                             if (!RegExp(
