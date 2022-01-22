@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
-import 'package:tedx_dtu_app/events/widgets/event_widget.dart';
+import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomBarScreenWidget(
       children: [
-        EventWidget(
+        EventCategoryWidget(
           height: 230,
           // gradientColor: Colors.black,
           title: 'Ted Talk by ...',

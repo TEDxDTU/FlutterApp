@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 
-/// Creates an event widget which shows a title, followed by details,
+/// Creates an event cateogry widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the
 /// whole widget, an optional trailing widget shown at top right.
 ///
 /// Basic usage with [LiveIndicatorPainter]
 ///
-/// EventWidget(
+/// EventCategoryWidget(
 ///
 ///          title: 'Test',
 ///          details: ['some detail'],
@@ -15,7 +15,7 @@ import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 ///            painter: LiveIndicatorPainter(),
 ///          ),
 ///        );
-class EventWidget extends StatelessWidget {
+class EventCategoryWidget extends StatelessWidget {
   /// [gradientColor] is the primary color in the gradient over the image,
   /// starting from left.
   ///
@@ -24,7 +24,7 @@ class EventWidget extends StatelessWidget {
   /// [height] and [width] are optional and size the widget accordingly.
   ///
   /// Default to 180 and 400 respectively.
-  const EventWidget({
+  const EventCategoryWidget({
     required this.title,
     required this.details,
     this.actionWidgetFunction,
@@ -65,7 +65,7 @@ class EventWidget extends StatelessWidget {
   final Color color;
 
   /// actionButton is preferably a Button ([IconButton], [ElevatedButton])
-  /// shown at the bottom right of the [EventWidget].
+  /// shown at the bottom right of the [EventCategoryWidget].
 
   /// If no [actionButton] is passed, it defaults to an [ElevatedButton] and
   /// the parameters [actionWidget] and [actionWidgetFunction] define the behaviour
@@ -80,38 +80,38 @@ class EventWidget extends StatelessWidget {
   final Function? actionWidgetFunction;
 
   /// [imageProvider] is the image that is to be used as the background of the
-  /// [EventWidget].
+  /// [EventCategoryWidget].
   ///
   /// Defaults to a placeholder image, fetched from placeholder.com
   final ImageProvider? imageProvider;
 
-  /// [cardFunction] is the function, triggered when the [EventWidget] is tapped.
+  /// [cardFunction] is the function, triggered when the [EventCategoryWidget] is tapped.
   final Function? cardFunction;
 
-  /// [shadowRadius] define the shadow of the [EventWidget].
+  /// [shadowRadius] define the shadow of the [EventCategoryWidget].
   final double? shadowRadius;
 
   /// The color of the shadow around the container.
   ///
-  /// Defaults to [EventWidget.color].
+  /// Defaults to [EventCategoryWidget.color].
   final Color? shadowColor;
 
   /// [loadingIndicator] is the widget shown while the image is being loaded.
   final Widget? loadingIndicator;
 
-  /// [Widget] shown at top right of the [EventWidget].
+  /// [Widget] shown at top right of the [EventCategoryWidget].
   ///
   /// for example: A live indicator.
   final Widget? trailing;
 
-  /// [Color] for all the text in [EventWidget].
+  /// [Color] for all the text in [EventCategoryWidget].
   ///
   /// Defaults to [Colors.white].
   final Color fontColor;
 
   @override
   Widget build(BuildContext context) {
-    print("building");
+    // print("building");
     return Container(
       margin: const EdgeInsets.all(8),
       height: widgetHeight,
@@ -152,7 +152,7 @@ class EventWidget extends StatelessWidget {
                 child: Image(
                   image: imageProvider ??
                       const NetworkImage(
-                        'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S',
+                        'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive',
                       ),
                   fit: BoxFit.cover,
                   errorBuilder: (context, exception, stackTrace) {
