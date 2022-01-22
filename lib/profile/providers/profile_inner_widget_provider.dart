@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 
 enum CurrentInnerWidget {
   mainProfile,
@@ -7,6 +8,8 @@ enum CurrentInnerWidget {
   changePassword,
 }
 
+/// This class is only used locally, no connection to the backend.
+/// It is used to set and get the current inner widget in the [ProfileScreen]
 class ProfileInnerWidgetProvider with ChangeNotifier {
   CurrentInnerWidget _currentInnerWidget = CurrentInnerWidget.editProfile;
 

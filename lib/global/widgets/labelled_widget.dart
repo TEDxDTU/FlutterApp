@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
+/// Utility widget that shows a label above its child
 class LabelledWidget extends StatelessWidget {
   const LabelledWidget({
     Key? key,
     required this.label,
     required this.child,
   }) : super(key: key);
+
+  /// The label to show above the child
   final String label;
+
+  /// The child to show
   final Widget child;
 
   @override

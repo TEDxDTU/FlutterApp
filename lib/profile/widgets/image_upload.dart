@@ -6,9 +6,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 
+/// Creates a circular avatar that displays an image or a profile icon,
+/// with an edit icon that allows the user to select a new image.
 class ImageUpload extends StatefulWidget {
+  /// The function that is called when the image has been selected by the user,
+  /// either from the camera or from the phone gallery. Should be used to
+  /// save the image to server or locally.
   final Function(File) onSelectImage;
+
+  /// The initial image to display, if one is available. If null, a profile icon
+  /// is displayed.
   final File? image;
+
   const ImageUpload({
     Key? key,
     required this.onSelectImage,

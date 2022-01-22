@@ -3,6 +3,11 @@ import 'package:flutter/services.dart';
 
 import 'package:tedx_dtu_app/global/widgets/labelled_widget.dart';
 
+/// Shows a text field with a label above it, and an edit icon next to it.
+/// When the edit icon is pressed the field is enabled and focused. When the
+/// done button is pressed, the keyboard disappears and the edit icon appears
+/// again. For documentation related to various customizations, see [TextField]
+/// and [TextFormField]
 class EditableTextField extends StatefulWidget {
   const EditableTextField({
     Key? key,
@@ -16,6 +21,8 @@ class EditableTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.done,
   })  : keyboardType = keyboardType ?? TextInputType.text,
         super(key: key);
+
+  /// The label to display above the text field
   final String label;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
@@ -40,42 +47,35 @@ class _EditableTextFieldState extends State<EditableTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Container(
-              // color: Colors.red,
-              child: TextFormField(
-                inputFormatters: widget.inputFormatters,
-                style: TextStyle(color: Colors.black, fontSize: 18),
-                focusNode: _focusNode,
-                enabled: _isEditing,
-                validator: widget.validator,
-                initialValue: widget.initialValue,
-                keyboardType: widget.keyboardType,
-                onChanged: widget.onChanged,
-                onFieldSubmitted: (val) {
-                  setState(() {
-                    _isEditing = false;
-                  });
-                  widget.onSubmitted?.call(val);
-                },
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 7),
-                  enabledBorder: UnderlineInputBorder(),
-                  disabledBorder: InputBorder.none,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
-                    ),
+            child: TextFormField(
+              inputFormatters: widget.inputFormatters,
+              style: const TextStyle(color: Colors.black, fontSize: 18),
+              focusNode: _focusNode,
+              enabled: _isEditing,
+              validator: widget.validator,
+              initialValue: widget.initialValue,
+              keyboardType: widget.keyboardType,
+              onChanged: widget.onChanged,
+              onFieldSubmitted: (val) {
+                setState(() {
+                  _isEditing = false;
+                });
+                widget.onSubmitted?.call(val);
+              },
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 7),
+                enabledBorder: const UnderlineInputBorder(),
+                disabledBorder: InputBorder.none,
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
                   ),
-                  focusColor: Theme.of(context).primaryColor,
                 ),
+                focusColor: Theme.of(context).primaryColor,
               ),
             ),
           ),
-          // Icon(
-          //   Icons.edit,
-          //   size: 18,
-          // ),
           if (!_isEditing)
             IconButton(
               visualDensity: VisualDensity.compact,
@@ -83,12 +83,16 @@ class _EditableTextFieldState extends State<EditableTextField> {
               padding: EdgeInsets.zero,
               iconSize: 20,
               splashRadius: 20,
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               onPressed: () {
                 setState(() {
                   _isEditing = true;
                 });
-                Future.delayed(Duration(milliseconds: 10), () {
+                // Delayed to allow the field to render before focusing
+                // Otherwise Flutter will attempt to focus the field before it
+                // is even enabled, resulting in nothing happening.
+                // Zero duration delay did not work, so 10 was chosen.
+                Future.delayed(const Duration(milliseconds: 10), () {
                   FocusScope.of(context).requestFocus(_focusNode);
                 });
               },

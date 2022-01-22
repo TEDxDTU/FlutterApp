@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tedx_dtu_app/global/widgets/labelled_widget.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 import 'package:tedx_dtu_app/profile/widgets/account_circle_with_text.dart';
 import 'package:tedx_dtu_app/profile/widgets/editable_text_field.dart';
