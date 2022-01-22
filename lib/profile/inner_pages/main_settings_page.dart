@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
@@ -56,7 +57,8 @@ class MainSettingsPage extends StatelessWidget {
         _buildListTile(
           'Change Password',
           null,
-          Switch(
+          CupertinoSwitch(
+            activeColor: Colors.red,
             value: Provider.of<ProfileInnerWidgetProvider>(context).notifsOn,
             onChanged: (_) {
               Provider.of<ProfileInnerWidgetProvider>(

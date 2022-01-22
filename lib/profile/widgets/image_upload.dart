@@ -97,6 +97,7 @@ class _ImageUploadState extends State<ImageUpload> {
             onSelected: (src) {
               _takePicture(src);
             },
+            // color: Colors.grey[300],
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
