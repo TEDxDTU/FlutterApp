@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
+import 'package:tuple/tuple.dart';
 
 /// Creates an event widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the
@@ -36,6 +37,7 @@ class EventWidget extends StatelessWidget {
     this.shadowRadius,
     this.loadingIndicator,
     this.trailing,
+    Tuple2<double, double>? actionWidgetOffset,
     bool? showActionWidget,
     Color? fontColor,
     Color? gradientColor,
@@ -47,6 +49,8 @@ class EventWidget extends StatelessWidget {
         color = gradientColor ?? const Color(0xffE62B1E),
         fontColor = fontColor ?? Colors.white,
         showActionWidget = showActionWidget ?? true,
+        actionWidgetOffset =
+            actionWidgetOffset ?? const Tuple2<double, double>(18, 8),
         super(key: key);
 
   /// Height of the widget, defaults to 180.
@@ -115,6 +119,12 @@ class EventWidget extends StatelessWidget {
   ///
   /// Defaults to [Colors.white].
   final Color fontColor;
+
+  /// Sets the position of [actionWidget] according to the values passed,
+  /// relative to bottom right.
+  ///
+  /// First value corresponds to left offset, second value to the bottom offset.
+  final Tuple2<double, double> actionWidgetOffset;
 
   @override
   Widget build(BuildContext context) {
@@ -223,10 +233,11 @@ class EventWidget extends StatelessWidget {
                 ],
               ),
             ),
+            // Action Widget, shown at bottom right.
             if (showActionWidget == true)
               Positioned(
-                bottom: 8,
-                right: 18,
+                bottom: actionWidgetOffset.item2,
+                right: actionWidgetOffset.item1,
                 child: actionButton ??
                     ElevatedButton(
                       child: actionWidget,

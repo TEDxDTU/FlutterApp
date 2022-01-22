@@ -17,7 +17,7 @@ class UpcomingTedTalks extends StatefulWidget {
 
 class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
   final _scrollController = ScrollController();
-  double _scrollPosition = 30;
+  double _scrollPosition = 20;
 
   @override
   void initState() {
@@ -30,6 +30,9 @@ class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
             _scrollController.offset <=
                 _scrollController.position.maxScrollExtent) {
           _scrollPosition = convertedOffset;
+          if (_scrollPosition < 20) {
+            _scrollPosition = 20;
+          }
         }
       });
     });
@@ -75,6 +78,7 @@ class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
             controller: _scrollController,
           ),
         ),
+        const SizedBox(height: 8),
         Container(
           width: widget.scrollBarWidth,
           height: 8,
