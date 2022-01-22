@@ -122,14 +122,25 @@ class MyApp extends StatelessWidget {
               const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.all(0),
         ),
-        textTheme: TextTheme(
-          subtitle1: TextStyle(
-            color: Colors.grey[600],
-          ),
-          bodyText2: TextStyle(
-            color: Colors.black,
-          ),
-        ),
+        textTheme: Theme.of(context)
+            .textTheme
+            .apply(
+              bodyColor: Colors.black,
+              displayColor: Colors.black,
+            )
+            .copyWith(
+              headline1: TextStyle(
+                color: Colors.black,
+                fontSize: 36,
+                fontWeight: FontWeight.w400,
+              ),
+              subtitle1: TextStyle(
+                color: Colors.grey[600],
+              ),
+              bodyText2: TextStyle(
+                color: Colors.black,
+              ),
+            ),
         popupMenuTheme: PopupMenuThemeData(
           // color: Colors.grey,
           shape: RoundedRectangleBorder(

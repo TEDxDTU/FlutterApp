@@ -55,7 +55,7 @@ class MainSettingsPage extends StatelessWidget {
           thickness: 0.7,
         ),
         _buildListTile(
-          'Change Password',
+          'Notifications',
           null,
           CupertinoSwitch(
             activeColor: Colors.red,
@@ -68,6 +68,22 @@ class MainSettingsPage extends StatelessWidget {
             },
           ),
         ),
+        Expanded(
+          child: Center(
+            child: TextButton(
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+              ),
+              child: Text('Sign out'),
+              onPressed: () {},
+            ),
+          ),
+        )
       ],
     );
   }
