@@ -22,7 +22,7 @@ class SingleEventWidget extends StatelessWidget {
   final String eventDescription;
   final String eventVenue;
   final bool isUpcoming;
-  final int? ticketPrice;
+  final double? ticketPrice;
   Widget buildCircularDotRow(String txt1, String txt2, {double siz = 14}) {
     return Row(
       children: [
