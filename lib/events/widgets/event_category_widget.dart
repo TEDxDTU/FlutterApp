@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tuple/tuple.dart';
-
-//TODO: Set the background color to transparent for use in home_screen with SVGs
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// Creates an event widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the
@@ -10,7 +9,7 @@ import 'package:tuple/tuple.dart';
 ///
 /// Basic usage with [LiveIndicatorPainter]
 ///
-/// EventWidget(
+/// EventCategoryWidget(
 ///
 ///          title: 'Test',
 ///          details: ['some detail'],
@@ -18,7 +17,7 @@ import 'package:tuple/tuple.dart';
 ///            painter: LiveIndicatorPainter(),
 ///          ),
 ///        );
-class EventWidget extends StatelessWidget {
+class EventCategoryWidget extends StatelessWidget {
   /// [gradientColor] is the primary color in the gradient over the image,
   /// starting from left.
   ///
@@ -27,7 +26,7 @@ class EventWidget extends StatelessWidget {
   /// [height] and [width] are optional and size the widget accordingly.
   ///
   /// Default to 180 and 400 respectively.
-  const EventWidget({
+  const EventCategoryWidget({
     required this.title,
     required this.details,
     this.actionWidgetFunction,
@@ -39,6 +38,7 @@ class EventWidget extends StatelessWidget {
     this.shadowRadius,
     this.loadingIndicator,
     this.trailing,
+    bool? isSvg,
     Tuple2<double, double>? actionWidgetOffset,
     bool? showActionWidget,
     Color? fontColor,
@@ -53,6 +53,7 @@ class EventWidget extends StatelessWidget {
         showActionWidget = showActionWidget ?? true,
         actionWidgetOffset =
             actionWidgetOffset ?? const Tuple2<double, double>(18, 8),
+        isSvg = isSvg ?? false,
         super(key: key);
 
   /// Height of the widget, defaults to 180.
@@ -73,7 +74,7 @@ class EventWidget extends StatelessWidget {
   final Color color;
 
   /// actionButton is preferably a Button ([IconButton], [ElevatedButton])
-  /// shown at the bottom right of the [EventWidget].
+  /// shown at the bottom right of the [EventCategoryWidget].
 
   /// Whether to show the action widget at the bottom right.
   ///
@@ -93,31 +94,31 @@ class EventWidget extends StatelessWidget {
   final Function? actionWidgetFunction;
 
   /// [imageProvider] is the image that is to be used as the background of the
-  /// [EventWidget].
+  /// [EventCategoryWidget].
   ///
   /// Defaults to a placeholder image, fetched from placeholder.com
   final ImageProvider? imageProvider;
 
-  /// [cardFunction] is the function, triggered when the [EventWidget] is tapped.
+  /// [cardFunction] is the function, triggered when the [EventCategoryWidget] is tapped.
   final Function? cardFunction;
 
-  /// [shadowRadius] define the shadow of the [EventWidget].
+  /// [shadowRadius] define the shadow of the [EventCategoryWidget].
   final double? shadowRadius;
 
   /// The color of the shadow around the container.
   ///
-  /// Defaults to [EventWidget.color].
+  /// Defaults to [EventCategoryWidget.color].
   final Color? shadowColor;
 
   /// [loadingIndicator] is the widget shown while the image is being loaded.
   final Widget? loadingIndicator;
 
-  /// [Widget] shown at top right of the [EventWidget].
+  /// [Widget] shown at top right of the [EventCategoryWidget].
   ///
   /// for example: A live indicator.
   final Widget? trailing;
 
-  /// [Color] for all the text in [EventWidget].
+  /// [Color] for all the text in [EventCategoryWidget].
   ///
   /// Defaults to [Colors.white].
   final Color fontColor;
@@ -125,8 +126,13 @@ class EventWidget extends StatelessWidget {
   /// Sets the position of [actionWidget] according to the values passed,
   /// relative to bottom right.
   ///
-  /// First value corresponds to left offset, second value to the bottom offset.
+  /// First value corresponds to right offset, second value to the bottom offset.
   final Tuple2<double, double> actionWidgetOffset;
+
+  /// If the provided [imageProvider] is an svg.
+  ///
+  /// Sets the background color to transparent.
+  final bool isSvg;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +141,7 @@ class EventWidget extends StatelessWidget {
       height: widgetHeight,
       width: widgetWidth,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isSvg ? Colors.transparent : Colors.white,
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -245,11 +251,6 @@ class EventWidget extends StatelessWidget {
                       child: actionWidget,
                       style: ElevatedButton.styleFrom(
                         primary: color,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(100),
-                          ),
-                        ),
                         elevation: 0,
                       ),
                       onPressed: () {

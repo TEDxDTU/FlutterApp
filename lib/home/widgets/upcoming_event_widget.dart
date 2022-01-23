@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
@@ -36,7 +37,7 @@ class UpcomingEventWidget extends StatelessWidget {
   /// Defaults to [Colors.black].
   final Color? backgroundColor;
 
-  /// Function executed on pressing the icon on bottom right.
+  /// Function executed on clicking on the widget.
   final Function? onPressed;
 
   /// Date of the event.
@@ -54,127 +55,154 @@ class UpcomingEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 140,
-      width: width,
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(borderRadius),
+    return GestureDetector(
+      onTap: () {
+        if (onPressed != null) {
+          onPressed!();
+        }
+      },
+      child: Container(
+        height: 140,
+        width: width,
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(borderRadius),
+          ),
+          boxShadow: isLive
+              ? [
+                  BoxShadow(
+                    color: Theme.of(context).primaryColor,
+                    blurRadius: 8,
+                  )
+                ]
+              : null,
         ),
-        boxShadow: isLive
-            ? [
-                BoxShadow(
-                  color: Theme.of(context).primaryColor,
-                  blurRadius: 8,
-                )
-              ]
-            : null,
-      ),
-      child: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadius),
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  borderRadius,
+        child: Stack(
+          children: [
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(borderRadius),
                 ),
               ),
-              child: Image(
-                image: imageProvider,
-                fit: BoxFit.cover,
-                errorBuilder: (context, exception, stackTrace) {
-                  return const ImageErrorWidget();
-                },
-                loadingBuilder: (context, child, progress) {
-                  if (progress == null) return child;
-                  return Center(
-                    child:
-                        loadingIndicator ?? const CircularProgressIndicator(),
-                  );
-                },
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadius),
-              ),
-              color: Colors.white,
-              gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.center,
-                colors: [
-                  Theme.of(context).primaryColor,
-                  Colors.transparent,
-                ],
-              ),
-            ),
-          ),
-          // vertical direction of the column is set to up, the order of
-          // children is reversed.
-          Column(
-            verticalDirection: VerticalDirection.up,
-            children: [
-              Container(
-                width: width,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: isLive ? Theme.of(context).primaryColor : Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(borderRadius),
-                    bottomRight: Radius.circular(borderRadius),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    borderRadius,
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      DateFormat('EEE, dd MMM').format(dateTime),
-                      style: TextStyle(
-                        color: isLive ? Colors.white : Colors.black,
-                      ),
-                    ),
+                child: Image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, exception, stackTrace) {
+                    return const ImageErrorWidget();
+                  },
+                  loadingBuilder: (context, child, progress) {
+                    if (progress == null) return child;
+                    return Center(
+                      child:
+                          loadingIndicator ?? const CircularProgressIndicator(),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(borderRadius),
+                ),
+                color: Colors.white,
+                gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.center,
+                  colors: [
+                    Theme.of(context).primaryColor,
+                    Colors.transparent,
                   ],
                 ),
               ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    leadingText,
-                    style: TextStyle(
-                      color: fontColor,
-                      fontSize: 20,
+            ),
+            // vertical direction of the column is set to up, the order of
+            // children is reversed.
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              verticalDirection: VerticalDirection.up,
+              children: [
+                Container(
+                  width: width,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color:
+                        isLive ? Theme.of(context).primaryColor : Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(borderRadius),
+                      bottomRight: Radius.circular(borderRadius),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        DateFormat('EEE, dd MMM').format(dateTime),
+                        style: TextStyle(
+                          color: isLive ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 8,
+                    ),
+                    child: AutoSizeText(
+                      leadingText,
+                      maxFontSize: 18,
+                      maxLines: 3,
+                      style: TextStyle(
+                        color: fontColor,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          if (isLive == true)
-            const Positioned(
-              top: 0,
-              right: 0,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: LiveIndicatorWidget(
-                  3,
-                  showText: false,
+                // if (isLive == true)
+                //   const Padding(
+                //     padding: EdgeInsets.only(
+                //       bottom: 0,
+                //       top: 8.0,
+                //       left: 12,
+                //       right: 12,
+                //     ),
+                //     child: Text(
+                //       'Live',
+                //       style: TextStyle(fontSize: 14),
+                //     ),
+                //   ),
+              ],
+            ),
+            if (isLive == true)
+              const Positioned(
+                top: 0,
+                right: 0,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: LiveIndicatorWidget(
+                    3,
+                    showText: true,
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -31,7 +31,7 @@ class _LiveIndicatorWidgetState extends State<LiveIndicatorWidget> {
   late Timer timer;
   @override
   void initState() {
-    timer = Timer.periodic(Duration(milliseconds: 700), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 700), (timer) {
       setState(() {
         currNo = (currNo + 1) % (widget.arcNo + 1);
       });
@@ -47,11 +47,12 @@ class _LiveIndicatorWidgetState extends State<LiveIndicatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      verticalDirection: VerticalDirection.up,
       children: [
         if (widget.showText == true)
           const Text('LIVE', style: TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(width: 10),
+        const SizedBox(height: 3),
         Container(
           alignment: Alignment.center,
           height: widget.arcNo * 10,

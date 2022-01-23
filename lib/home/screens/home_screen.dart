@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
-import 'package:tedx_dtu_app/events/widgets/event_widget.dart';
+import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
@@ -20,7 +20,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
 
-    // TODO: Add grey color to the appBar
     return BottomBarScreenWidget(
       children: [
         Padding(
@@ -32,6 +31,9 @@ class HomeScreen extends StatelessWidget {
           child: UpcomingTedTalks(
             children: [
               UpcomingEventWidget(
+                onPressed: () {
+                  print('Take the user to event info');
+                },
                 leadingText: 'What is Neural Network',
                 imageProvider: const NetworkImage(
                     'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
@@ -39,12 +41,18 @@ class HomeScreen extends StatelessWidget {
                 isLive: true,
               ),
               UpcomingEventWidget(
+                onPressed: () {
+                  print('Take the user to event info');
+                },
                 leadingText: 'The surprising habits of original thinkers',
                 imageProvider: const NetworkImage(
                     'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
                 dateTime: DateTime.now(),
               ),
               UpcomingEventWidget(
+                onPressed: () {
+                  print('Take the user to event info');
+                },
                 leadingText: 'The mind behind Tesla, SpaceX, SolarCity',
                 imageProvider: const NetworkImage(
                     'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
@@ -53,21 +61,25 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        Container(
+        // TODO: Implement Expanded here.
+        Padding(
           padding: const EdgeInsets.all(8),
-          width: MediaQuery.of(context).size.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              EventWidget(
+              EventCategoryWidget(
                 title: '',
                 details: const [],
-                width: mediaQuery.size.width * 0.4,
-                height: mediaQuery.size.width * 0.4 * 1.275,
-                actionWidget: CircleAvatar(
+                isSvg: true,
+                width: mediaQuery.size.width * 0.42,
+                height: mediaQuery.size.width * 0.42 * 1.275,
+                actionButton: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_forward_ios),
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 18,
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -75,17 +87,21 @@ class HomeScreen extends StatelessWidget {
                 imageProvider: const svg_provider.Svg(
                   'assets/home_screen/trivia.svg',
                 ),
-                actionWidgetOffset: const Tuple2<double, double>(0, 0),
+                actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
-              EventWidget(
+              EventCategoryWidget(
+                isSvg: true,
                 title: '',
                 details: const [],
-                width: mediaQuery.size.width * 0.4,
-                height: mediaQuery.size.width * 0.4 * 1.275,
-                actionWidget: CircleAvatar(
+                width: mediaQuery.size.width * 0.42,
+                height: mediaQuery.size.width * 0.42 * 1.275,
+                actionButton: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_forward_ios),
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 18,
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -93,15 +109,15 @@ class HomeScreen extends StatelessWidget {
                 imageProvider: const svg_provider.Svg(
                   'assets/home_screen/recent_updates.svg',
                 ),
-                actionWidgetOffset: const Tuple2<double, double>(0, 0),
+                actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
             ],
           ),
         ),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          margin: const EdgeInsets.symmetric(horizontal: 16),
           // height: 300,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
