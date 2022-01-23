@@ -11,6 +11,8 @@ class BottomBarScreenWidget extends StatefulWidget {
     Key? key,
     required this.children,
     this.physics = const BouncingScrollPhysics(),
+    this.showTedXLogoInAppBar = true,
+    this.appBarTitle,
   }) : super(key: key);
 
   ///The widgets that make up the body of the screen.
@@ -22,6 +24,12 @@ class BottomBarScreenWidget extends StatefulWidget {
   ///The scrolling physics applied to the [SingleChildScrollView] that contains
   ///the [children].
   final ScrollPhysics physics;
+
+  /// Whether app bar should show TEDxDTU logo
+  final bool showTedXLogoInAppBar;
+
+  /// The title for the app bar.
+  final String? appBarTitle;
 
   @override
   _BottomBarScreenState createState() => _BottomBarScreenState();
@@ -53,6 +61,8 @@ class _BottomBarScreenState extends State<BottomBarScreenWidget> {
       extendBodyBehindAppBar: true,
       appBar: TedxAppBar(
         scrollPassed: hasScrollPassed,
+        showTedxLogo: widget.showTedXLogoInAppBar,
+        title: widget.appBarTitle,
       ),
       body: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),

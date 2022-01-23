@@ -3,7 +3,8 @@ import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tuple/tuple.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-/// Creates an event widget which shows a title, followed by details,
+
+/// Creates an event cateogry widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the
 /// whole widget, an optional trailing widget shown at top right.
 ///
@@ -80,7 +81,7 @@ class EventCategoryWidget extends StatelessWidget {
   ///
   /// Defaults to true.
   final bool showActionWidget;
-
+  
   /// If no [actionButton] is passed, it defaults to an [ElevatedButton] and
   /// the parameters [actionWidget] and [actionWidgetFunction] define the behaviour
   /// of the default [ElevatedButton].
@@ -176,7 +177,7 @@ class EventCategoryWidget extends StatelessWidget {
                 child: Image(
                   image: imageProvider ??
                       const NetworkImage(
-                        'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S',
+                        'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive',
                       ),
                   fit: BoxFit.cover,
                   errorBuilder: (context, exception, stackTrace) {

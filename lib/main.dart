@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tedx_dtu_app/events/screens/events_screen.dart';
+import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
+import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
+import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        toggleableActiveColor: primary,
         scaffoldBackgroundColor: Colors.black,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           },
         ),
+        // canvasColor: Colors.red[100],
         snackBarTheme: SnackBarThemeData(
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: UIHelper.generateMaterialColor(const Color(0xFFE62B1E)),
         primaryColor: const Color(0xFFE62B1E),
         colorScheme: ColorScheme(
-          secondary: Colors.grey[800]!,
+          secondary: Colors.grey[600]!,
           primary: primary,
           background: Colors.black,
           onBackground: Colors.white,
@@ -78,6 +82,7 @@ class MyApp extends StatelessWidget {
           style: TextButton.styleFrom(
             primary: Colors.white,
             onSurface: Colors.red,
+            backgroundColor: Colors.red,
           ),
         ),
         iconTheme: const IconThemeData(color: primary),
@@ -86,8 +91,11 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           titleTextStyle: TextStyle(
-              color: primary, fontSize: 20, fontWeight: FontWeight.w700),
-          iconTheme: const IconThemeData(color: primary, size: 45),
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+            size: 45,
+          ),
         ),
         inputDecorationTheme: InputDecorationTheme(
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -115,6 +123,35 @@ class MyApp extends StatelessWidget {
               const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.all(0),
         ),
+        textTheme: Theme.of(context)
+            .textTheme
+            .apply(
+              bodyColor: Colors.black,
+              displayColor: Colors.black,
+            )
+            .copyWith(
+              headline1: TextStyle(
+                color: Colors.black,
+                fontSize: 36,
+                fontWeight: FontWeight.w400,
+              ),
+              subtitle1: TextStyle(
+                color: Colors.grey[600],
+              ),
+              bodyText2: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+        popupMenuTheme: PopupMenuThemeData(
+          // color: Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          textStyle: Theme.of(context)
+              .textTheme
+              .subtitle1
+              ?.copyWith(color: Colors.white),
+        ),
       ),
       routes: {
         TestScreen.routeName: (context) => const TestScreen(),
@@ -137,27 +174,28 @@ class MyApp extends StatelessWidget {
             navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.calendar_today),
             routes: {
-              '/': (context) => const EventsScreen(),
+              '/': (context) => const EventsCategoriesScreen(),
+              TestScreen.routeName: (context) => const TestScreen(),
+              SignUpScreen.routeName: (context) => const SignUpScreen(),
+              EventsListScreen.routeName: (context) => const EventsListScreen(),
+            },
+          ),
+          BottomBarScreen(
+            title: 'Profile',
+            navigatorKey: GlobalKey<NavigatorState>(),
+            icon: const Icon(Icons.account_circle),
+            routes: {
+              '/': (context) => const ProfileScreen(),
               TestScreen.routeName: (context) => const TestScreen(),
               SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
-          // BottomBarScreen(
-          //   title: 'Profile',
-          //   navigatorKey: GlobalKey<NavigatorState>(),
-          //   icon: const Icon(Icons.account_circle),
-          //   routes: {
-          //     '/': (context) => const ProfileScreen(),
-          //     TestScreen.routeName: (context) => const TestScreen(),
-          //     SignUpScreen.routeName: (context) => const SignUpScreen(),
-          //   },
-          // ),
           BottomBarScreen(
             title: 'Test',
             navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.help),
             routes: {
-              '/': (context) => const SignUpScreen(),
+              '/': (context) => const TestScreen(),
             },
           ),
         ],

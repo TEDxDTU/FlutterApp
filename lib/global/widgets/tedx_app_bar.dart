@@ -10,12 +10,20 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TedxAppBar({
     Key? key,
     required this.scrollPassed,
+    this.title,
+    this.showTedxLogo = true,
   })  : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   ///Boolean to specify whether the user has scrolled past the app bar.
   ///If true the app bar will animate from white12 to white background.
   final bool scrollPassed;
+
+  /// The title of the app bar.
+  final String? title;
+
+  /// Whether to show TEDxDTU logo in the app bar
+  final bool showTedxLogo;
   @override
   Widget build(BuildContext context) {
     return BlurredWidget(
@@ -24,15 +32,32 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: AppBar(
-          key: ValueKey(scrollPassed),
-          backgroundColor: scrollPassed ? Colors.white : Colors.white12,
-          centerTitle: false,
-          title: Image.asset(
-            scrollPassed
-                ? 'assets/images/logoBlack.png'
-                : 'assets/images/logoWhite.png',
-            width: 140,
+          iconTheme: IconThemeData(
+            color: scrollPassed ? Colors.black : Colors.white,
           ),
+          elevation: 8,
+          shadowColor: scrollPassed ? Colors.black : Colors.transparent,
+          key: ValueKey(scrollPassed),
+          backgroundColor: scrollPassed ? Colors.white : Colors.transparent,
+          centerTitle: false,
+          title: showTedxLogo
+              ? Row(
+                  children: [
+                    Image.asset(
+                      scrollPassed
+                          ? 'assets/images/logoBlack.png'
+                          : 'assets/images/logoWhite.png',
+                      width: 140,
+                    ),
+                    if (title != null) Text(title!),
+                  ],
+                )
+              : Text(
+                  title ?? '',
+                  style: TextStyle(
+                    color: scrollPassed ? Colors.black : Colors.white,
+                  ),
+                ),
         ),
       ),
     );
