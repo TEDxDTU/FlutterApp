@@ -96,19 +96,46 @@ class SingleEventWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildCircularDotRow(
-                  eventVenue,
-                  DateFormat('hh:mm a | dd MMM,yyyy').format(DateTime.now()),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    isUpcoming ? '₹$ticketPrice' : 'Info',
-                    style: TextStyle(color: Colors.white),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        eventVenue,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Text(
+                        DateFormat('hh:mm a | dd MMM,yyyy')
+                            .format(DateTime.now()),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    ],
                   ),
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(),
-                    primary: isUpcoming ? Colors.red : Colors.black,
+                ),
+                SizedBox(
+                  width: 30.0,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      isUpcoming ? '₹$ticketPrice' : 'Info',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      primary: isUpcoming ? Colors.red : Colors.black,
+                    ),
                   ),
                 ),
               ],
