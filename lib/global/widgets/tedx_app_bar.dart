@@ -32,6 +32,11 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: AppBar(
+          iconTheme: IconThemeData(
+            color: scrollPassed ? Colors.black : Colors.white,
+          ),
+          elevation: 8,
+          shadowColor: scrollPassed ? Colors.black : Colors.transparent,
           key: ValueKey(scrollPassed),
           backgroundColor: scrollPassed ? Colors.white : Colors.transparent,
           centerTitle: false,
