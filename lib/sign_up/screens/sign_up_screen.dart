@@ -202,6 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
+                          controller: password,
                           style: TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration:
@@ -230,6 +231,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
+                          controller: confirmpassword,
                           style: TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration: buildInputDecoration(

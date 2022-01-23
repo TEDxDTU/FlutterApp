@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/profile/inner_pages/change_password_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/edit_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_settings_page.dart';
@@ -31,11 +32,13 @@ class ProfileCardLayoutWidget extends StatelessWidget {
                   builder: (context, innerWidget, child) {
                     switch (innerWidget.currentInnerWidget) {
                       case CurrentInnerWidget.mainProfile:
-                        return MainProfilePage();
+                        return const MainProfilePage();
                       case CurrentInnerWidget.mainSettings:
-                        return MainSettingsPage();
+                        return const MainSettingsPage();
                       case CurrentInnerWidget.editProfile:
                         return EditProfilePage();
+                      case CurrentInnerWidget.changePassword:
+                        return ChangePasswordPage();
                       default:
                         return Container(
                           alignment: Alignment.center,
