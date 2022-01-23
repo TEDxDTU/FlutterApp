@@ -51,7 +51,13 @@ class _LiveIndicatorWidgetState extends State<LiveIndicatorWidget> {
       verticalDirection: VerticalDirection.up,
       children: [
         if (widget.showText == true)
-          const Text('LIVE', style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'LIVE',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
         const SizedBox(height: 3),
         Container(
           alignment: Alignment.center,

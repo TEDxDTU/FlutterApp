@@ -135,6 +135,7 @@ class HomeScreen extends StatelessWidget {
                         text: 'Book tickets for upcoming ',
                         style: TextStyle(
                           fontSize: 20,
+                          color: Colors.white,
                         ),
                       ),
                       TextSpan(
@@ -142,6 +143,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ],

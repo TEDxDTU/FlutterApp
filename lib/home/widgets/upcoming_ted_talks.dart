@@ -51,8 +51,12 @@ class _UpcomingTedTalksState extends State<UpcomingTedTalks> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Upcoming Ted Talks',
-                  style: Theme.of(context).textTheme.headline6),
+              Text(
+                'Upcoming Ted Talks',
+                style: Theme.of(context).textTheme.headline6?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
               CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Center(

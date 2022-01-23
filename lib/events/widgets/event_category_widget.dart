@@ -3,7 +3,6 @@ import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tuple/tuple.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 /// Creates an event cateogry widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the
 /// whole widget, an optional trailing widget shown at top right.
@@ -81,7 +80,7 @@ class EventCategoryWidget extends StatelessWidget {
   ///
   /// Defaults to true.
   final bool showActionWidget;
-  
+
   /// If no [actionButton] is passed, it defaults to an [ElevatedButton] and
   /// the parameters [actionWidget] and [actionWidgetFunction] define the behaviour
   /// of the default [ElevatedButton].
@@ -253,6 +252,9 @@ class EventCategoryWidget extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: color,
                         elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                       onPressed: () {
                         if (actionWidgetFunction != null) {
