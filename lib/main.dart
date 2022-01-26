@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'Lato',
         toggleableActiveColor: primary,
         scaffoldBackgroundColor: Colors.black,
         pageTransitionsTheme: const PageTransitionsTheme(
@@ -87,11 +88,10 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: primary),
         appBarTheme: const AppBarTheme(
-          centerTitle: true,
+          // centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          titleTextStyle: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 25),
           iconTheme: const IconThemeData(
             color: Colors.white,
             size: 45,
