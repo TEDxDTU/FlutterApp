@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
+import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
@@ -87,11 +88,13 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: primary),
         appBarTheme: const AppBarTheme(
-          centerTitle: true,
+          // centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
           titleTextStyle: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+            color: Colors.white,
+            fontSize: 25,
+          ),
           iconTheme: const IconThemeData(
             color: Colors.white,
             size: 45,
@@ -195,7 +198,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.help),
             routes: {
-              '/': (context) => const TestScreen(),
+              '/': (context) => const SpeakerDetailsScreen(),
             },
           ),
         ],
