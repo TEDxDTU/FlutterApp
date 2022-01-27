@@ -1,5 +1,6 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SpeakerDetailsScreen extends StatelessWidget {
   const SpeakerDetailsScreen({Key? key}) : super(key: key);
@@ -13,6 +14,18 @@ class SpeakerDetailsScreen extends StatelessWidget {
     topLeft: Radius.circular(90),
     bottomRight: Radius.circular(90),
   );
+
+  void _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      try {
+        await launch(url);
+      } catch (err) {
+        throw 'Could not launch $url. Error: $err';
+      }
+    }
+  }
 
   List<Widget> _getSpeakerDataChildren(
       BuildContext context, Map<String, String> speakerData) {
@@ -66,22 +79,33 @@ class SpeakerDetailsScreen extends StatelessWidget {
 
   List<Widget> _generateUrlPreviewWidgets(List<String> urls) {
     List<Widget> result = [];
-    urls.forEach((url) {
+    for (var url in urls) {
       final Widget widget = AnyLinkPreview(
         link: url,
         backgroundColor: Colors.white,
         displayDirection: UIDirection.UIDirectionHorizontal,
-        errorWidget: Text(
-          url,
-          style: TextStyle(color: Colors.blue),
+        errorWidget: TextButton(
+          // splashColor: Colors.black,
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            primary: Colors.black,
+          ),
+          onPressed: () => _launchURL(url),
+          child: Text(
+            url,
+            style: TextStyle(color: Colors.blue),
+          ),
         ),
         removeElevation: true,
       );
-      result.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: widget,
-      ));
-    });
+      result.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: widget,
+        ),
+      );
+    }
     return result;
   }
 
@@ -92,7 +116,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
       'Topic of Discussion':
           'Artificial Intelligence and its applications\nMachine learning algorithms and how they affect our daily lives',
       'Speaker History':
-          'Ansh Agrawal is a student of COE in DTU 4th year, and has spent his time developing RealTalk........ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+          'Ansh Agrawal is a student of COE in DTU 4th year, and has spent his time developing RealTalk.nged.',
       'Links':
           'https://www.linkedin.com/in/anshagrawal\nhttps://joinrealtalk.substack.com/p/social-media-is-drawing-you-away-from-reality\nhttps://github.com/anshagrawal'
     };

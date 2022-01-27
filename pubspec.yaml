@@ -44,6 +44,7 @@ dependencies:
   auto_size_text: ^3.0.0
   path_provider: ^2.0.8
   any_link_preview: ^2.0.3
+  url_launcher: ^6.0.18
 
 dev_dependencies:
   flutter_test:
