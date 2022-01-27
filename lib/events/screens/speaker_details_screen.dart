@@ -1,5 +1,6 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SpeakerDetailsScreen extends StatelessWidget {
@@ -32,20 +33,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
     var speakerDataChildren = <Widget>[];
     speakerData.forEach((key, value) {
       var tempChildren = <Widget>[];
-      if (key == 'Links') {
-        tempChildren = [
-          Align(
-            alignment: Alignment.topLeft,
-            child: SelectableText(
-              key,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          ..._generateUrlPreviewWidgets(
-            value.split('\n'),
-          ),
-        ];
-      } else {
+      if (key != 'Links') {
         tempChildren = [
           Align(
             alignment: Alignment.topLeft,
@@ -67,7 +55,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
       }
       speakerDataChildren.add(
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(key == 'Links' ? 0 : 8.0),
           child: Column(
             children: tempChildren,
           ),
@@ -97,11 +85,12 @@ class SpeakerDetailsScreen extends StatelessWidget {
             style: TextStyle(color: Colors.blue),
           ),
         ),
-        removeElevation: true,
+        // removeElevation: true,
       );
       result.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
           child: widget,
         ),
       );
@@ -218,14 +207,22 @@ class SpeakerDetailsScreen extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: whiteSpeakerDetailsBorderRadius,
                         ),
-                        child: Center(
-                          child: ClipRRect(
-                            borderRadius: whiteSpeakerDetailsBorderRadius,
+                        child: ClipRRect(
+                          borderRadius: whiteSpeakerDetailsBorderRadius,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: height * 0.05),
                             child: ListView(
                               // physics: const BouncingScrollPhysics(),
-                              padding: EdgeInsets.all(height * 0.03).copyWith(
-                                  left: width * 0.1, top: height * 0.05),
-                              children: speakerDataChildren,
+                              children: [
+                                ...(speakerDataChildren.padded(
+                                  padding: EdgeInsets.only(
+                                      left: width * 0.1, right: height * 0.03),
+                                )),
+                                ..._generateUrlPreviewWidgets(
+                                  speakerData['Links']!.split('\n'),
+                                ),
+                                SizedBox(height: 50),
+                              ],
                             ),
                           ),
                         ),
