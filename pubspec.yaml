@@ -45,6 +45,7 @@ dependencies:
   path_provider: ^2.0.8
   any_link_preview: ^2.0.3
   url_launcher: ^6.0.18
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
