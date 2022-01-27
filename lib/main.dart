@@ -12,8 +12,14 @@ import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'global/models/bottom_bar_screen.dart';
 import 'global/widgets/bottom_bar_screen_widget.dart';
 import 'home/screens/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
