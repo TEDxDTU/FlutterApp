@@ -68,25 +68,36 @@ class SpeakerDetailsScreen extends StatelessWidget {
   List<Widget> _generateUrlPreviewWidgets(List<String> urls) {
     List<Widget> result = [];
     for (var url in urls) {
-      final Widget widget = AnyLinkPreview(
-        link: url,
-        backgroundColor: Colors.white,
-        displayDirection: UIDirection.UIDirectionHorizontal,
-        errorWidget: TextButton(
-          // splashColor: Colors.black,
-          style: TextButton.styleFrom(
+      final Widget widget = Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.zero,
+          color: Colors.white,
+          child: AnyLinkPreview(
+            link: url,
             backgroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            primary: Colors.black,
-          ),
-          onPressed: () => _launchURL(url),
-          child: Text(
-            url,
-            style: TextStyle(color: Colors.blue),
-          ),
-        ),
-        // removeElevation: true,
-      );
+            displayDirection: UIDirection.UIDirectionHorizontal,
+            errorWidget: GestureDetector(
+              // splashColor: Colors.black,
+              // style: TextButton.styleFrom(
+              //   backgroundColor: Colors.white,
+              //   padding: EdgeInsets.symmetric(horizontal: 5),
+              //   primary: Colors.black,
+              // ),
+
+              onTap: () => _launchURL(url),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  url,
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+            ),
+            removeElevation: true,
+          ));
       result.add(
         Container(
           alignment: Alignment.centerLeft,
