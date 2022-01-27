@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           },
         ),
+
         // canvasColor: Colors.red[100],
         snackBarTheme: SnackBarThemeData(
           behavior: SnackBarBehavior.floating,

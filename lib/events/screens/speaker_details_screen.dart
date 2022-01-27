@@ -1,3 +1,4 @@
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 
 class SpeakerDetailsScreen extends StatelessWidget {
@@ -8,6 +9,81 @@ class SpeakerDetailsScreen extends StatelessWidget {
     topLeft: Radius.circular(30),
     bottomRight: Radius.circular(70),
   );
+  static const whiteSpeakerDetailsBorderRadius = BorderRadius.only(
+    topLeft: Radius.circular(90),
+    bottomRight: Radius.circular(90),
+  );
+
+  List<Widget> _getSpeakerDataChildren(
+      BuildContext context, Map<String, String> speakerData) {
+    var speakerDataChildren = <Widget>[];
+    speakerData.forEach((key, value) {
+      var tempChildren = <Widget>[];
+      if (key == 'Links') {
+        tempChildren = [
+          Align(
+            alignment: Alignment.topLeft,
+            child: SelectableText(
+              key,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          ..._generateUrlPreviewWidgets(
+            value.split('\n'),
+          ),
+        ];
+      } else {
+        tempChildren = [
+          Align(
+            alignment: Alignment.topLeft,
+            child: SelectableText(
+              key,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: SelectableText(
+              value,
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal,
+                  ),
+            ),
+          ),
+        ];
+      }
+      speakerDataChildren.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: tempChildren,
+          ),
+        ),
+      );
+    });
+    return speakerDataChildren;
+  }
+
+  List<Widget> _generateUrlPreviewWidgets(List<String> urls) {
+    List<Widget> result = [];
+    urls.forEach((url) {
+      final Widget widget = AnyLinkPreview(
+        link: url,
+        backgroundColor: Colors.white,
+        displayDirection: UIDirection.UIDirectionHorizontal,
+        errorWidget: Text(
+          url,
+          style: TextStyle(color: Colors.blue),
+        ),
+        removeElevation: true,
+      );
+      result.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: widget,
+      ));
+    });
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,32 +94,11 @@ class SpeakerDetailsScreen extends StatelessWidget {
       'Speaker History':
           'Ansh Agrawal is a student of COE in DTU 4th year, and has spent his time developing RealTalk........ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
       'Links':
-          'https://www.facebook.com/ansh.agrawal.9\nhttps://www.linkedin.com/in/ansh-agrawal-b9a8b917b/\nhttps://github.com/anshagrawal'
+          'https://www.linkedin.com/in/anshagrawal\nhttps://joinrealtalk.substack.com/p/social-media-is-drawing-you-away-from-reality\nhttps://github.com/anshagrawal'
     };
 
-    var speakerDataChildren = <Widget>[];
-    speakerData.forEach((key, value) {
-      speakerDataChildren.add(
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  key,
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
-              Text(
-                value,
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-            ],
-          ),
-        ),
-      );
-    });
+    final speakerDataChildren = _getSpeakerDataChildren(context, speakerData);
+
     double height =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double width = MediaQuery.of(context).size.width;
@@ -135,18 +190,19 @@ class SpeakerDetailsScreen extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         // color: Colors.white,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(90),
-                            bottomRight: Radius.circular(90),
-                          ),
+                          borderRadius: whiteSpeakerDetailsBorderRadius,
                         ),
                         child: Center(
-                          child: ListView(
-                            padding: EdgeInsets.all(height * 0.03).copyWith(
-                                left: width * 0.1, top: height * 0.05),
-                            children: speakerDataChildren,
+                          child: ClipRRect(
+                            borderRadius: whiteSpeakerDetailsBorderRadius,
+                            child: ListView(
+                              // physics: const BouncingScrollPhysics(),
+                              padding: EdgeInsets.all(height * 0.03).copyWith(
+                                  left: width * 0.1, top: height * 0.05),
+                              children: speakerDataChildren,
+                            ),
                           ),
                         ),
                       ),
