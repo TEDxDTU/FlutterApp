@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/events/models/event.dart';
+import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
@@ -174,6 +176,7 @@ class MyApp extends StatelessWidget {
               '/': (context) => const HomeScreen(),
               TestScreen.routeName: (context) => const TestScreen(),
               SignUpScreen.routeName: (context) => const SignUpScreen(),
+              EventInfoScreen.routeName: (context) => const EventInfoScreen(),
             },
           ),
           BottomBarScreen(
