@@ -12,11 +12,11 @@ class SelectableBoxCreator extends StatefulWidget {
   final List<String> names;
 
   @override
-  _SelectableBoxCreatorState createState() => _SelectableBoxCreatorState();
+  SelectableBoxCreatorState createState() => SelectableBoxCreatorState();
 }
 
-class _SelectableBoxCreatorState extends State<SelectableBoxCreator> {
-  int selectedBox = 0;
+class SelectableBoxCreatorState extends State<SelectableBoxCreator> {
+  var selectedBox = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
     return FittedBox(
@@ -26,13 +26,13 @@ class _SelectableBoxCreatorState extends State<SelectableBoxCreator> {
           widget.count,
           (currNum) {
             return SelectableBox(
-              color: selectedBox == currNum
+              color: selectedBox.value == currNum
                   ? const Color.fromRGBO(230, 43, 30, 0.5)
                   : Colors.white,
               name: widget.names[currNum],
               onTap: () {
                 setState(() {
-                  selectedBox = currNum;
+                  selectedBox.value = currNum;
                 });
               },
             );

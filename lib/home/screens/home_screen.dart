@@ -20,7 +20,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-
     return BottomBarScreenWidget(
       children: [
         Padding(
@@ -33,7 +32,14 @@ class HomeScreen extends StatelessWidget {
             children: [
               UpcomingEventWidget(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(EventInfoScreen.routeName);
+                  Navigator.of(context)
+                      .pushNamed(EventInfoScreen.routeName, arguments: {
+                    'speakerName': 'Some Speaker',
+                    'speakerInfo': ['Some detail'],
+                    'imageUrl':
+                        'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S',
+                    'eventName': 'What is Neural Network',
+                  });
                 },
                 leadingText: 'What is Neural Network',
                 imageProvider: const NetworkImage(
