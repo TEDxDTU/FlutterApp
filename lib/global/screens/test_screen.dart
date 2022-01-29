@@ -1,21 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tedx_dtu_app/events/widgets/single_event_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 
-class TestScreen extends StatefulWidget {
+class TestScreen extends StatelessWidget {
   const TestScreen({Key? key}) : super(key: key);
   static const routeName = '/test';
 
-  @override
-  State<TestScreen> createState() => _TestScreenState();
-}
-
-class _TestScreenState extends State<TestScreen> {
-  // String time=DateFormat('kk:mm,dd-mm-yyyy').format(eventTime);
-
-  var data = [
+  static const data = [
     {
       "current_speaker_index": 1,
       "dateTime": "2021-11-19T01:18:02Z",
