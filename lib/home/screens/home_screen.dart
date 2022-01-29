@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
+import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
@@ -19,7 +20,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-
     return BottomBarScreenWidget(
       children: [
         Padding(
@@ -32,7 +32,14 @@ class HomeScreen extends StatelessWidget {
             children: [
               UpcomingEventWidget(
                 onPressed: () {
-                  print('Take the user to event info');
+                  Navigator.of(context)
+                      .pushNamed(EventInfoScreen.routeName, arguments: {
+                    'speakerName': 'Some Speaker',
+                    'speakerInfo': ['Some detail'],
+                    'imageUrl':
+                        'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S',
+                    'eventName': 'What is Neural Network',
+                  });
                 },
                 leadingText: 'What is Neural Network',
                 imageProvider: const NetworkImage(

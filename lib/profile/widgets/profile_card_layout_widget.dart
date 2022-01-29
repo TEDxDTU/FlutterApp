@@ -27,7 +27,7 @@ class ProfileCardLayoutWidget extends StatelessWidget {
               height: max(MediaQuery.of(context).size.height * 0.6, 500),
               width: MediaQuery.of(context).size.width * 0.95,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Consumer<ProfileInnerWidgetProvider>(
                   builder: (context, innerWidget, child) {
                     switch (innerWidget.currentInnerWidget) {

@@ -58,6 +58,7 @@ class UpcomingEventWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (onPressed != null) {
+          print('Okay');
           onPressed!();
         }
       },

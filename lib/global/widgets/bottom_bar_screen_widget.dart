@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_sliver_app_bar.dart';
 
 class BottomBarScreenWidget extends StatefulWidget {
-  ///Creates a BottomBarScreenWidget.
-  ///This widget should be used to create any and all screens that are part of the
-  ///bottom navigation bar.
+  /// Creates a BottomBarScreenWidget.
+  /// This widget should be used to create any and all screens that are part of the
+  /// bottom navigation bar. It is RECOMMENDED, but not NECESSARY for all other
+  /// screens. If you have a screen that has a complicated structure involving
+  /// stacks or other such widgets, you should create your own [Scaffold] and
+  /// continue from there. Example - [SpeakerDetailsScreen]
   const BottomBarScreenWidget({
     Key? key,
     required this.children,

@@ -13,7 +13,7 @@ class EventsListScreen extends StatelessWidget {
     return BottomBarScreenWidget(
       showTedXLogoInAppBar: false,
       appBarTitle: isUpcoming ? 'Upcoming Events' : 'Past events',
-      children: isUpcoming
+      children: (!isUpcoming)
           ? pastEvents
               .map((event) => SingleEventWidget(
                     eventDate: event.date,
