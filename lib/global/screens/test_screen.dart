@@ -45,9 +45,17 @@ class TestScreen extends StatelessWidget {
           onPressed: () async {
             var doc = await FirebaseFirestore.instance
                 .collection('events')
-                .doc('6bq9HnhVe1S0vP9bXR8X')
+                .where('eventType', isNotEqualTo: 'live')
                 .get();
-            print(doc.data());
+
+            doc.docs.forEach((element) {
+              FirebaseFirestore.instance
+                  .collection('events')
+                  .doc(element.id)
+                  .update({
+                'currentSpeakerIndex': FieldValue.delete(),
+              });
+            });
           },
         ),
       ),

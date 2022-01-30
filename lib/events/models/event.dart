@@ -36,7 +36,7 @@ class Event {
 }
 
 class UpcomingEvent extends Event {
-  final double price;
+  final int price;
   final bool requiresTicket;
   UpcomingEvent({
     required String title,
@@ -71,7 +71,7 @@ class UpcomingEvent extends Event {
             (speaker) => Speaker.fromMap(speaker),
           )
           .toList(),
-      price: map['price'],
+      price: map['price'] ?? 0,
       requiresTicket: map['requiresTicket'],
     );
   }
@@ -113,9 +113,9 @@ class PastEvent extends Event {
             (speaker) => Speaker.fromMap(speaker),
           )
           .toList(),
-      galleryImageUrls: (map['galleryImageUrls'] as List<String>)
+      galleryImageUrls: (map['galleryImageUrls'] as List)
           .map(
-            (imageUrl) => imageUrl,
+            (imageUrl) => imageUrl as String,
           )
           .toList(),
       streamingUrl: map['streamingUrl'],
