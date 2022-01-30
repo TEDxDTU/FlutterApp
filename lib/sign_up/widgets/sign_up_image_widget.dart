@@ -14,7 +14,7 @@ class SignUpImageWidget extends StatelessWidget {
       child: ClipPath(
         clipper: SignUpImageClipper(),
         child: Container(
-          foregroundDecoration: BoxDecoration(color: Colors.black45),
+          foregroundDecoration: const BoxDecoration(color: Colors.black45),
           child: Image.asset(
             'assets/images/dtu_bg.jpeg',
             width: double.infinity,

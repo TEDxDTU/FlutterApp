@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tedx_dtu_app/events/models/event.dart';
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
-import 'package:tedx_dtu_app/events/screens/intro_screen.dart';
-import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
-import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 import 'global/models/bottom_bar_screen.dart';
-import 'global/widgets/bottom_bar_screen_widget.dart';
 import 'home/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -34,7 +29,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primary = const Color(0xffE62B1E);
+    const Color primary = Color(0xffE62B1E);
 
     return MultiProvider(
       providers: [
@@ -117,7 +112,7 @@ class MyApp extends StatelessWidget {
               fontSize: 25,
             ),
 
-            iconTheme: const IconThemeData(
+            iconTheme: IconThemeData(
               color: Colors.white,
               size: 45,
             ),
@@ -140,7 +135,7 @@ class MyApp extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               gapPadding: 5,
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: primary,
               ),
             ),
@@ -155,7 +150,7 @@ class MyApp extends StatelessWidget {
                 displayColor: Colors.black,
               )
               .copyWith(
-                headline1: TextStyle(
+                headline1: const TextStyle(
                   color: Colors.black,
                   fontSize: 36,
                   fontWeight: FontWeight.w400,
@@ -163,7 +158,7 @@ class MyApp extends StatelessWidget {
                 subtitle1: TextStyle(
                   color: Colors.grey[600],
                 ),
-                bodyText2: TextStyle(
+                bodyText2: const TextStyle(
                   color: Colors.black,
                 ),
               ),

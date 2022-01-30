@@ -1,15 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tedx_dtu_app/events/models/event.dart';
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/widgets/single_event_widget.dart';
 import 'package:tedx_dtu_app/global/providers/provider_template.dart';
-import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
-import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 
 class EventsListScreen extends StatelessWidget {
   const EventsListScreen({Key? key}) : super(key: key);

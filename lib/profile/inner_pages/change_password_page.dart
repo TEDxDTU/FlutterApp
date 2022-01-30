@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 import 'package:tedx_dtu_app/profile/widgets/account_circle_with_text.dart';
-import 'package:tedx_dtu_app/profile/widgets/editable_text_field.dart';
 import 'package:tedx_dtu_app/profile/widgets/password_text_field.dart';
 
 class ChangePasswordPage extends StatelessWidget {
@@ -18,7 +16,7 @@ class ChangePasswordPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -27,8 +25,8 @@ class ChangePasswordPage extends StatelessWidget {
                 .currentInnerWidget = CurrentInnerWidget.mainSettings;
           },
         ),
-        SizedBox(height: 40),
-        AccountCircleWithText(text: 'Change Password'),
+        const SizedBox(height: 40),
+        const AccountCircleWithText(text: 'Change Password'),
         PasswordTextField(
           label: 'Current Password',
           controller: TextEditingController(),
@@ -86,11 +84,11 @@ class ChangePasswordPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
                 ),
-                child: Text('Save'),
+                child: const Text('Save'),
                 onPressed: () {},
               ),
             ),

@@ -92,7 +92,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
                   url,
-                  style: TextStyle(color: Colors.blue),
+                  style: const TextStyle(color: Colors.blue),
                 ),
               ),
             ),
@@ -129,7 +129,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speaker Info'),
+        title: const Text('Speaker Info'),
       ),
       body: Stack(
         clipBehavior: Clip.none,
@@ -141,7 +141,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   // height: 155,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     minHeight: 155,
                   ),
                   decoration: BoxDecoration(
@@ -167,7 +167,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -200,7 +200,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                           // ),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(100),
                           ),
                           child: Container(
@@ -210,7 +210,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 20, top: 20),
+                      padding: const EdgeInsets.only(left: 20, top: 20),
                       child: Container(
                         width: double.infinity,
                         // color: Colors.white,
@@ -232,7 +232,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                                 ..._generateUrlPreviewWidgets(
                                   speakerData['Links']!.split('\n'),
                                 ),
-                                SizedBox(height: 50),
+                                const SizedBox(height: 50),
                               ],
                             ),
                           ),
@@ -263,7 +263,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.7),
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                     blurRadius: 10,
                   ),
                 ],

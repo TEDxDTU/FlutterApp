@@ -13,7 +13,7 @@ class MainProfilePage extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               color: Colors.black,
             ),
@@ -23,7 +23,7 @@ class MainProfilePage extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Text(
           'Satvik Gupta',
           style: Theme.of(context).textTheme.headline5,
@@ -32,12 +32,12 @@ class MainProfilePage extends StatelessWidget {
           'Delhi Technological University',
           style: Theme.of(context).textTheme.subtitle1,
         ),
-        SizedBox(height: 10),
-        Divider(
+        const SizedBox(height: 10),
+        const Divider(
           color: Colors.grey,
         ),
-        SizedBox(height: 20),
-        Align(
+        const SizedBox(height: 20),
+        const Align(
           alignment: Alignment.centerLeft,
           child: LabelledWidget(
             spacing: 7,
@@ -48,8 +48,8 @@ class MainProfilePage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 20),
-        Align(
+        const SizedBox(height: 20),
+        const Align(
           alignment: Alignment.centerLeft,
           child: LabelledWidget(
             spacing: 7,
@@ -67,11 +67,11 @@ class MainProfilePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
               ),
-              child: Text('Sign out'),
+              child: const Text('Sign out'),
               onPressed: () {},
             ),
           ),

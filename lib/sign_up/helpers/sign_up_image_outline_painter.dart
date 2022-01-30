@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/sign_up/helpers/sign_up_image_clipper.dart';
 

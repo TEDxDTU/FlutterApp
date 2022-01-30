@@ -35,16 +35,16 @@ class SingleEventWidget extends StatelessWidget {
                 fontSize: siz),
           ),
         ),
-        SizedBox(width: 7),
+        const SizedBox(width: 7),
         Container(
           width: 3,
           height: 5,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.black,
           ),
         ),
-        SizedBox(width: 7),
+        const SizedBox(width: 7),
         Text(
           txt2,
           style: TextStyle(
@@ -56,11 +56,10 @@ class SingleEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('$eventName building');
     return Card(
       color: isUpcoming ? Colors.white : Colors.grey[100],
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -70,7 +69,7 @@ class SingleEventWidget extends StatelessWidget {
               eventDate.year.toString(),
               siz: 20,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8.0,
             ),
             Row(
@@ -84,18 +83,18 @@ class SingleEventWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Flexible(
                   child: Text(
                     eventDescription,
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 8.0,
             ),
             Row(
@@ -107,17 +106,17 @@ class SingleEventWidget extends StatelessWidget {
                     children: [
                       Text(
                         eventVenue,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 14),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8.0,
                       ),
                       Text(
                         DateFormat('hh:mm a | dd MMM,yyyy').format(eventDate),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 14),
@@ -125,7 +124,7 @@ class SingleEventWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30.0,
                 ),
                 Align(
@@ -134,10 +133,10 @@ class SingleEventWidget extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       isUpcoming ? '₹$ticketPrice' : 'Info',
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                       primary: isUpcoming ? Colors.red : Colors.black,
                     ),
                   ),
