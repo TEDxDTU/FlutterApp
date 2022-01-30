@@ -3,6 +3,7 @@ import 'package:tedx_dtu_app/events/models/event.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
+import 'package:tedx_dtu_app/events/screens/intro_screen.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
@@ -169,7 +170,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        TestScreen.routeName: (context) => const TestScreen(),
+        TestScreen.routeName: (context) => TestScreen(),
       },
       home: TabsScreen(
         screens: [
@@ -180,7 +181,7 @@ class MyApp extends StatelessWidget {
             icon: const Icon(Icons.home),
             routes: {
               '/': (context) => const HomeScreen(),
-              TestScreen.routeName: (context) => const TestScreen(),
+              TestScreen.routeName: (context) => TestScreen(),
               SignUpScreen.routeName: (context) => const SignUpScreen(),
               EventInfoScreen.routeName: (context) => const EventInfoScreen(),
             },
@@ -191,7 +192,7 @@ class MyApp extends StatelessWidget {
             icon: const Icon(Icons.calendar_today),
             routes: {
               '/': (context) => const EventsCategoriesScreen(),
-              TestScreen.routeName: (context) => const TestScreen(),
+              TestScreen.routeName: (context) => TestScreen(),
               SignUpScreen.routeName: (context) => const SignUpScreen(),
               EventsListScreen.routeName: (context) => const EventsListScreen(),
             },
@@ -202,7 +203,7 @@ class MyApp extends StatelessWidget {
             icon: const Icon(Icons.account_circle),
             routes: {
               '/': (context) => const ProfileScreen(),
-              TestScreen.routeName: (context) => const TestScreen(),
+              TestScreen.routeName: (context) => TestScreen(),
               SignUpScreen.routeName: (context) => const SignUpScreen(),
             },
           ),
@@ -211,7 +212,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: GlobalKey<NavigatorState>(),
             icon: const Icon(Icons.help),
             routes: {
-              '/': (context) => const TestScreen(),
+              '/': (context) => TestScreen(),
             },
           ),
         ],

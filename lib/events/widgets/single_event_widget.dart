@@ -26,10 +26,14 @@ class SingleEventWidget extends StatelessWidget {
   Widget buildCircularDotRow(String txt1, String txt2, {double siz = 14}) {
     return Row(
       children: [
-        Text(
-          txt1,
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: siz),
+        Flexible(
+          child: Text(
+            txt1,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: siz),
+          ),
         ),
         SizedBox(width: 7),
         Container(
@@ -52,6 +56,7 @@ class SingleEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('$eventName building');
     return Card(
       color: isUpcoming ? Colors.white : Colors.grey[100],
       child: Padding(
@@ -111,8 +116,7 @@ class SingleEventWidget extends StatelessWidget {
                         height: 8.0,
                       ),
                       Text(
-                        DateFormat('hh:mm a | dd MMM,yyyy')
-                            .format(DateTime.now()),
+                        DateFormat('hh:mm a | dd MMM,yyyy').format(eventDate),
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
