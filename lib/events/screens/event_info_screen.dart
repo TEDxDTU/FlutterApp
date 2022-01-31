@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
-import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class EventInfoScreen extends StatefulWidget {
   const EventInfoScreen({Key? key}) : super(key: key);
@@ -102,11 +100,11 @@ class _EventInfoScreenState extends State<EventInfoScreen> {
           DraggableScrollableSheet(
             initialChildSize: 0.6,
             minChildSize: 0.4,
-            snap: true,
-            snapSizes: const [
-              0.4,
-              0.6,
-            ],
+            // snap: true,
+            // snapSizes: const [
+            //   0.4,
+            //   0.6,
+            // ],
             builder: (context, scrollController) {
               return Container(
                 color: Colors.black,

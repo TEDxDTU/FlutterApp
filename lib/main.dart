@@ -11,6 +11,7 @@ import 'package:tedx_dtu_app/helpers/widgets/expanded_column.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
+import 'events/widgets/event_info.dart';
 import 'global/models/bottom_bar_screen.dart';
 import 'global/widgets/bottom_bar_screen_widget.dart';
 import 'home/screens/home_screen.dart';
