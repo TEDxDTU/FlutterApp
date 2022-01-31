@@ -17,8 +17,11 @@ class SelectableBox extends StatelessWidget {
         onTap();
       },
       child: Container(
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
+        margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(100),
@@ -30,6 +33,7 @@ class SelectableBox extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6!.copyWith(
                 color: color == Colors.white ? Colors.black : Colors.white,
                 fontWeight: FontWeight.normal,
+                fontSize: 16,
               ),
         ),
       ),

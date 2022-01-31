@@ -35,20 +35,25 @@ class SpeakerInfoWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, exception, stackTrace) {
-                  return const ImageErrorWidget();
-                },
-                loadingBuilder: (context, child, progress) {
-                  if (progress == null) return child;
-                  return Center(
-                    child:
-                        loadingIndicator ?? const CircularProgressIndicator(),
-                  );
-                },
+            SizedBox(
+              width: width / 3,
+              height: width / 3,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, exception, stackTrace) {
+                    return const ImageErrorWidget();
+                  },
+                  loadingBuilder: (context, child, progress) {
+                    if (progress == null) return child;
+                    return Center(
+                      child:
+                          loadingIndicator ?? const CircularProgressIndicator(),
+                    );
+                  },
+                ),
               ),
             ),
             Expanded(
@@ -66,7 +71,12 @@ class SpeakerInfoWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(personalStats, style: const TextStyle(fontSize: 14,),),
+                    Text(
+                      personalStats,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
