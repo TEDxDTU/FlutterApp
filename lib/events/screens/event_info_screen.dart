@@ -126,6 +126,7 @@ class EventInfoScreen extends StatelessWidget {
                           selectableBoxKey.currentState!.selectedBox,
                       builder: (context, value, _) {
                         return SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
