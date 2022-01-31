@@ -3,29 +3,37 @@ import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
 
-class EventInfoScreen extends StatefulWidget {
+/// Creates an EventInfoScreen.
+///
+/// [routeName] = '/event-info-screen'
+///
+/// Shows Speaker Info, Event Info and Gallery.
+///
+/// This screen receives routeArguments as a [Map<String, Object>].
+class EventInfoScreen extends StatelessWidget {
   const EventInfoScreen({Key? key}) : super(key: key);
   static const routeName = '/event-info-screen';
 
-  @override
-  State<EventInfoScreen> createState() => _EventInfoScreenState();
-}
-
-class _EventInfoScreenState extends State<EventInfoScreen> {
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
 
+    // An instance of [MediaQueryData] to make the screen responsive.
     var mediaQuery = MediaQuery.of(context);
+
+    // Extract details from route arguments.
     final String speakerName = routeArgs['speakerName'].toString();
     final List<String> speakerDetails =
         routeArgs['speakerInfo'] as List<String>;
     final String imageUrl = routeArgs['imageUrl'].toString();
     final String eventName = routeArgs['eventName'].toString();
 
+    // A global key to switch between Speaker Info, Event Info and Gallery
+    // as requested by user.
     var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
 
+    // List of widgets shown in the DraggableScrollableSheet.
     List<Widget> bottomWidgets = [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
