@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/providers/provider_template.dart';
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 
-import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
-
 /// Creates a RefreshableScreenTemplate with a loading spinner
 /// Users can pull down to refresh, otherwise data isn't fetched more than once
-/// The loading spinner is shown while the data is being fetched
-class RefreshableFutureScreenTemplate extends StatefulWidget {
+/// The default circular loading spinner is shown while the data is being fetched
+class RefreshableFutureScreenTemplate extends StatelessWidget {
   const RefreshableFutureScreenTemplate({
     Key? key,
     required this.body,
@@ -26,45 +24,15 @@ class RefreshableFutureScreenTemplate extends StatefulWidget {
   final Future<void> Function()? Function([bool]) future;
 
   @override
-  State<RefreshableFutureScreenTemplate> createState() =>
-      _RefreshableFutureScreenTemplateState();
-}
-
-class _RefreshableFutureScreenTemplateState
-    extends State<RefreshableFutureScreenTemplate> {
-  bool _isLoading = false;
-
-  @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        setState(() {
-          _isLoading = true;
-        });
-        await widget.future(true)!.call();
+        await future(true)!.call();
         await Future.delayed(const Duration(milliseconds: 2000));
-        setState(() {
-          _isLoading = false;
-        });
       },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          FutureScreenTemplate(
-            body: widget.body,
-            future: widget.future()?.call(),
-          ),
-          if (_isLoading)
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              margin: const EdgeInsets.all(30),
-              padding: const EdgeInsets.all(20),
-              child: const TedxLoadingSpinner(),
-            ),
-        ],
+      child: FutureScreenTemplate(
+        body: body,
+        future: future()?.call(),
       ),
     );
   }
