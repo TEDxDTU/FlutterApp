@@ -24,10 +24,7 @@ class EventInfoScreen extends StatelessWidget {
     final List<Widget> widgets = [];
     for (int i = 0; i < speakers.length; i++) {
       widgets.add(SpeakerInfoWidget(
-        imageUrl: speakers[i].imageUrl,
-        personalStats: speakers[i].achievements,
         speakerIndex: i,
-        speakerName: speakers[i].name,
       ));
     }
     return widgets;

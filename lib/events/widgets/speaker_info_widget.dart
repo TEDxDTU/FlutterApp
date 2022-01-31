@@ -13,9 +13,6 @@ import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 /// Optional [loadingIndicator] and [width].
 class SpeakerInfoWidget extends StatelessWidget {
   const SpeakerInfoWidget({
-    required this.speakerName,
-    required this.personalStats,
-    required this.imageUrl,
     required this.speakerIndex,
     this.loadingIndicator,
     double? width,
@@ -24,15 +21,6 @@ class SpeakerInfoWidget extends StatelessWidget {
         super(key: key);
 
   final int speakerIndex;
-
-  /// Speaker's name
-  final String speakerName;
-
-  /// Some personal Statistics of the speaker
-  final List<String> personalStats;
-
-  /// URL to the image of the speaker.
-  final String imageUrl;
 
   /// A custom loading indicator, if not provided, default one is used.
   final Widget? loadingIndicator;
@@ -44,9 +32,9 @@ class SpeakerInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Speaker speaker = Provider.of<Event>(context).speakers[speakerIndex];
     return InkWell(
       onTap: () {
-        Speaker speaker = Provider.of<Event>(context).speakers[speakerIndex];
         Navigator.of(context).pushNamed(
           SpeakerDetailsScreen.routeName,
           arguments: {
@@ -80,7 +68,7 @@ class SpeakerInfoWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
                 child: Image.network(
-                  imageUrl,
+                  speaker.imageUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, exception, stackTrace) {
                     return const ImageErrorWidget();
@@ -104,13 +92,13 @@ class SpeakerInfoWidget extends StatelessWidget {
                   children: [
                     FittedBox(
                       child: Text(
-                        speakerName,
+                        speaker.name,
                         style: const TextStyle(
                           fontSize: 18,
                         ),
                       ),
                     ),
-                    ...personalStats
+                    ...speaker.achievements
                         .sublist(0, 2)
                         .map(
                           (stat) => Text(

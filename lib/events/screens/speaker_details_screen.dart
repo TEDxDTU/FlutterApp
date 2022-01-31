@@ -28,41 +28,26 @@ class SpeakerDetailsScreen extends StatelessWidget {
     }
   }
 
-  List<Widget> _getSpeakerDataChildren(
-      BuildContext context, Map<String, String> speakerData) {
-    var speakerDataChildren = <Widget>[];
-    speakerData.forEach((key, value) {
-      var tempChildren = <Widget>[];
-      if (key != 'Links') {
-        tempChildren = [
-          Align(
-            alignment: Alignment.topLeft,
-            child: SelectableText(
-              key,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: SelectableText(
-              value,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontWeight: FontWeight.normal,
-                  ),
-            ),
-          ),
-        ];
-      }
-      speakerDataChildren.add(
-        Padding(
-          padding: EdgeInsets.all(key == 'Links' ? 0 : 8.0),
-          child: Column(
-            children: tempChildren,
-          ),
+  List<Widget> _buildHeadingAndData(
+      BuildContext context, String heading, String data) {
+    return [
+      Align(
+        alignment: Alignment.topLeft,
+        child: SelectableText(
+          heading,
+          style: Theme.of(context).textTheme.headline6,
         ),
-      );
-    });
-    return speakerDataChildren;
+      ),
+      Align(
+        alignment: Alignment.topLeft,
+        child: SelectableText(
+          data,
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                fontWeight: FontWeight.normal,
+              ),
+        ),
+      ),
+    ];
   }
 
   List<Widget> _generateUrlPreviewWidgets(List<String> urls) {
@@ -112,16 +97,8 @@ class SpeakerDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //TODO: Get speakerId from Modal Route and fetch data from Firebase
-    final Map<String, String> speakerData = {
-      'Topic of Discussion':
-          'Artificial Intelligence and its applications\nMachine learning algorithms and how they affect our daily lives',
-      'Speaker History':
-          'Ansh Agrawal is a student of COE in DTU 4th year, and has spent his time developing RealTalk.nged.',
-      'Links':
-          'https://www.linkedin.com/in/anshagrawal\nhttps://joinrealtalk.substack.com/p/social-media-is-drawing-you-away-from-reality\nhttps://github.com/anshagrawal'
-    };
-
-    final speakerDataChildren = _getSpeakerDataChildren(context, speakerData);
+    final routeArgs =
+        ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
 
     double height =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
@@ -160,7 +137,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Mr. Ansh Agrawal',
+                            routeArgs['name'] as String,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: height * 0.027,
@@ -170,13 +147,15 @@ class SpeakerDetailsScreen extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            'DTU, COE 4th \nFounder at RealTalk\nSome other info',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: height * 0.024,
-                            ),
-                          )
+                          ...(routeArgs['achievements'] as List<String>)
+                              .map((e) => Text(
+                                    '• $e',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: height * 0.024,
+                                    ),
+                                  ))
+                              .toList()
                         ],
                       ),
                     ),
@@ -225,12 +204,24 @@ class SpeakerDetailsScreen extends StatelessWidget {
                             child: ListView(
                               // physics: const BouncingScrollPhysics(),
                               children: [
-                                ...(speakerDataChildren.padded(
+                                ...[
+                                  ..._buildHeadingAndData(
+                                    context,
+                                    'Topic of Discussion',
+                                    routeArgs['topic'] as String,
+                                  ),
+                                  ..._buildHeadingAndData(
+                                    context,
+                                    'Speaker\'s History',
+                                    (routeArgs['achievements'] as List<String>)
+                                        .join('\n'),
+                                  ),
+                                ].padded(
                                   padding: EdgeInsets.only(
                                       left: width * 0.1, right: height * 0.03),
-                                )),
+                                ),
                                 ..._generateUrlPreviewWidgets(
-                                  speakerData['Links']!.split('\n'),
+                                  (routeArgs['resources'] as List<String>),
                                 ),
                                 const SizedBox(height: 50),
                               ],
@@ -271,7 +262,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(18),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFuZG9tJTIwcGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80',
+                  routeArgs['imageUrl'] as String,
                   height: height * 0.22,
                   width: height * 0.22,
                   fit: BoxFit.cover,

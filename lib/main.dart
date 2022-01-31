@@ -5,6 +5,7 @@ import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
+import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
@@ -201,6 +202,9 @@ class MyApp extends StatelessWidget {
                 SignUpScreen.routeName: (context) => const SignUpScreen(),
                 EventsListScreen.routeName: (context) =>
                     const EventsListScreen(),
+                EventInfoScreen.routeName: (context) => const EventInfoScreen(),
+                SpeakerDetailsScreen.routeName: (context) =>
+                    const SpeakerDetailsScreen(),
               },
             ),
             BottomBarScreen(
