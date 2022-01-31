@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 /// Creates an event cateogry widget which shows a title, followed by details,
 /// an action button on bottom-right, implements a gesture detector for the

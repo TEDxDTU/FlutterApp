@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:tedx_dtu_app/global/models/bottom_bar_screen.dart';
 
-import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
-
 class TabsScreen extends StatefulWidget {
   const TabsScreen({
     Key? key,

@@ -1,10 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
 import 'package:tedx_dtu_app/sign_up/helpers/sign_up_background_painter.dart';
-import 'package:tedx_dtu_app/sign_up/helpers/sign_up_image_outline_painter.dart';
-import 'package:tedx_dtu_app/sign_up/helpers/sign_up_image_clipper.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/sign_up_image_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -24,7 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Create Account',
           style: TextStyle(
             fontSize: 20,
@@ -68,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Name',
                           style: TextStyle(
                             fontSize: 17,
@@ -80,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.text,
                           decoration:
                               buildInputDecoration(Icons.person, 'Full Name'),
@@ -97,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'Mobile',
                           style: TextStyle(
                               fontSize: 17,
@@ -108,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration:
                               buildInputDecoration(Icons.phone, "Phone Number"),
@@ -127,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'University',
                           style: TextStyle(
                             fontSize: 17,
@@ -139,7 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.text,
                           decoration: buildInputDecoration(
                               Icons.business, "University"),
@@ -156,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'Email',
                           style: TextStyle(
                             fontSize: 17,
@@ -168,7 +163,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration:
                               buildInputDecoration(Icons.email, "Email"),
@@ -190,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'Password',
                           style: TextStyle(
                             fontSize: 17,
@@ -203,7 +198,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         TextFormField(
                           controller: password,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration:
                               buildInputDecoration(Icons.lock, "Password"),
@@ -219,7 +214,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           'Confirm Password',
                           style: TextStyle(
                             fontSize: 17,
@@ -232,7 +227,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         TextFormField(
                           controller: confirmpassword,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration: buildInputDecoration(
                               Icons.lock, "Confirm Password"),
@@ -255,7 +250,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text('Processing Data'),
                                   ),
                                 );
@@ -291,7 +286,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   InputDecoration buildInputDecoration(IconData icon, String hinttext) {
     return InputDecoration(
       hintText: hinttext,
-      hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
+      hintStyle: const TextStyle(color: Colors.grey, fontSize: 16),
       prefixIcon: Icon(
         icon,
         color: Colors.grey,
@@ -299,7 +294,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       fillColor: Colors.black.withOpacity(0.8),
       filled: true,
-      errorStyle: TextStyle(color: Colors.white),
+      errorStyle: const TextStyle(color: Colors.white),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
         borderSide: const BorderSide(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
-
 class BottomBarScreen {
   ///String title, displayed in nav bar when selected.
   final String title;

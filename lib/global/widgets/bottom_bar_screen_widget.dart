@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
-import 'package:tedx_dtu_app/global/widgets/tedx_sliver_app_bar.dart';
 
 class BottomBarScreenWidget extends StatefulWidget {
   /// Creates a BottomBarScreenWidget.

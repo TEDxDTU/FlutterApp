@@ -42,7 +42,7 @@ class ProfileCardLayoutWidget extends StatelessWidget {
                       default:
                         return Container(
                           alignment: Alignment.center,
-                          child: Text(
+                          child: const Text(
                             'HELLO',
                             style: TextStyle(color: Colors.red),
                           ),

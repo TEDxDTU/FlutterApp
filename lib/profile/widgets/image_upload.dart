@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -60,14 +59,14 @@ class _ImageUploadState extends State<ImageUpload> {
       clipBehavior: Clip.none,
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle, color: Colors.white,
             // borderRadius: BorderRadius.circular(200),
           ),
           height: 110,
           width: 110,
           child: Container(
-            margin: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.grey[300],
@@ -102,7 +101,7 @@ class _ImageUploadState extends State<ImageUpload> {
               borderRadius: BorderRadius.circular(15),
             ),
             elevation: 10,
-            child: CircleAvatar(
+            child: const CircleAvatar(
               backgroundColor: Colors.red,
               radius: 15,
               child: Icon(
@@ -129,7 +128,7 @@ class _ImageUploadState extends State<ImageUpload> {
                     children: const [
                       Icon(Icons.upload),
                       SizedBox(width: 10),
-                      const Text('Upload picture'),
+                      Text('Upload picture'),
                     ],
                   ),
                 ),

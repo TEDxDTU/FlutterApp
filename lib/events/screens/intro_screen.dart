@@ -33,7 +33,7 @@ class IntroScreen extends StatelessWidget {
                       horizontal: mediaQuery.size.height * 0.05),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         'x',
                         style: TextStyle(color: Colors.red, fontSize: 24),
@@ -70,12 +70,12 @@ class IntroScreen extends StatelessWidget {
               width: mediaQuery.size.width * 0.62,
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Let's Start",
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                   primary: Colors.red,
                 ),
               ),

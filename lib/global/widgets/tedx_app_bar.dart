@@ -33,16 +33,12 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
         duration: const Duration(milliseconds: 300),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: (scrollPassed && showTedxLogo) ? Colors.black : Colors.white,
+            color: (scrollPassed) ? Colors.black : Colors.white,
           ),
-          // elevation: 8,
-          // shadowColor: scrollPassed ? Colors.black : Colors.transparent,
+          elevation: 8,
+          shadowColor: scrollPassed ? Colors.black : Colors.transparent,
           key: ValueKey(scrollPassed),
-          backgroundColor: scrollPassed
-              ? showTedxLogo
-                  ? Colors.white
-                  : Colors.red
-              : Colors.black,
+          backgroundColor: scrollPassed ? Colors.blueGrey[50] : Colors.black,
           title: showTedxLogo
               ? Row(
                   children: [
@@ -58,9 +54,7 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
               : Text(
                   title ?? '',
                   style: TextStyle(
-                    color: (scrollPassed && showTedxLogo)
-                        ? Colors.black
-                        : Colors.white,
+                    color: (scrollPassed) ? Colors.black : Colors.white,
                   ),
                 ),
         ),

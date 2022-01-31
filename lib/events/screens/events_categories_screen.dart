@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
-import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 
 class EventsCategoriesScreen extends StatelessWidget {
@@ -11,6 +10,8 @@ class EventsCategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomBarScreenWidget(
       children: [
+        // ignore: prefer_const_constructors
+        //TODO: Fetch Live data from firebase
         EventCategoryWidget(
           title: 'LIVE Event',
           details: ['Details'],
@@ -19,11 +20,11 @@ class EventsCategoriesScreen extends StatelessWidget {
         ),
         EventCategoryWidget(
           title: 'Upcoming Event',
-          details: ['Details'],
+          details: const ['The exciting events we will host in the future'],
           width: double.infinity,
           gradientColor: Colors.white,
           fontColor: Colors.black,
-          actionWidget: Text(
+          actionWidget: const Text(
             'View',
             style: TextStyle(color: Colors.black),
           ),
@@ -34,10 +35,12 @@ class EventsCategoriesScreen extends StatelessWidget {
         ),
         EventCategoryWidget(
           title: 'Past Event',
-          details: ['Details'],
+          details: const [
+            'The multitude events that TEDx DTU has hosted in the past'
+          ],
           width: double.infinity,
           gradientColor: Colors.black,
-          actionWidget: Text('View'),
+          actionWidget: const Text('View'),
           actionWidgetFunction: () {
             Navigator.of(context)
                 .pushNamed(EventsListScreen.routeName, arguments: false);

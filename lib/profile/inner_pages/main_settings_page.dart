@@ -13,7 +13,7 @@ class MainSettingsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -22,8 +22,8 @@ class MainSettingsPage extends StatelessWidget {
                 .currentInnerWidget = CurrentInnerWidget.mainProfile;
           },
         ),
-        SizedBox(height: 40),
-        AccountCircleWithText(text: 'Account'),
+        const SizedBox(height: 40),
+        const AccountCircleWithText(text: 'Account'),
         _buildListTile('Edit Profile', () {
           Provider.of<ProfileInnerWidgetProvider>(context, listen: false)
               .currentInnerWidget = CurrentInnerWidget.editProfile;
@@ -32,9 +32,9 @@ class MainSettingsPage extends StatelessWidget {
           Provider.of<ProfileInnerWidgetProvider>(context, listen: false)
               .currentInnerWidget = CurrentInnerWidget.changePassword;
         }),
-        SizedBox(height: 13),
+        const SizedBox(height: 13),
         Row(
-          children: [
+          children: const [
             Icon(
               Icons.notifications_outlined,
               color: Colors.black,
@@ -50,7 +50,7 @@ class MainSettingsPage extends StatelessWidget {
             ),
           ],
         ),
-        Divider(
+        const Divider(
           color: Colors.grey,
           thickness: 0.7,
         ),
@@ -75,11 +75,11 @@ class MainSettingsPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
               ),
-              child: Text('Sign out'),
+              child: const Text('Sign out'),
               onPressed: () {},
             ),
           ),
@@ -93,7 +93,7 @@ class MainSettingsPage extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       contentPadding: EdgeInsets.zero,
-      visualDensity: VisualDensity(
+      visualDensity: const VisualDensity(
         horizontal: VisualDensity.minimumDensity,
         vertical: VisualDensity.minimumDensity,
       ),
@@ -101,7 +101,7 @@ class MainSettingsPage extends StatelessWidget {
         title,
       ),
       trailing: trailing ??
-          Icon(
+          const Icon(
             Icons.arrow_forward_ios,
             size: 16,
             color: Colors.grey,

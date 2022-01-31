@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
-import 'package:tedx_dtu_app/events/helpers/live_indicator_painter.dart';
-import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
-import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/upcoming_event_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/upcoming_ted_talks.dart';

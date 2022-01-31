@@ -16,7 +16,7 @@ class EditProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
@@ -25,9 +25,9 @@ class EditProfilePage extends StatelessWidget {
                   .currentInnerWidget = CurrentInnerWidget.mainSettings;
             },
           ),
-          SizedBox(height: 40),
-          AccountCircleWithText(text: 'Edit Profile'),
-          EditableTextField(
+          const SizedBox(height: 40),
+          const AccountCircleWithText(text: 'Edit Profile'),
+          const EditableTextField(
             label: 'Name',
             initialValue: 'Satvik Gupta',
           ),
@@ -37,7 +37,7 @@ class EditProfilePage extends StatelessWidget {
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
-          EditableTextField(
+          const EditableTextField(
             label: 'University',
             initialValue: 'Delhi Technological University',
           ),
@@ -65,11 +65,11 @@ class EditProfilePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
                   ),
-                  child: Text('Save'),
+                  child: const Text('Save'),
                   onPressed: () {},
                 ),
               ),

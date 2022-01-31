@@ -84,8 +84,6 @@ class SignUpBackgroundPainter extends CustomPainter {
         height * 0.6,
       );
 
-    ;
-
     // canvas.drawPath(path, paint);
     // paint.color = Colors.white70;
     // path = Path()

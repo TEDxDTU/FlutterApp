@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Creates a squircle selectable box with a given [color], primary content is
+/// [name], executes [onTap] on tapping (used here to set the state in
+/// [SelectableBoxCreator]).
 class SelectableBox extends StatelessWidget {
   const SelectableBox({
     required this.name,
@@ -7,8 +10,14 @@ class SelectableBox extends StatelessWidget {
     required this.onTap,
     Key? key,
   }) : super(key: key);
+
+  /// The color of the box.
   final Color color;
+
+  /// The text shown inside the box.
   final String name;
+
+  /// Function executed on tapping.
   final Function onTap;
   @override
   Widget build(BuildContext context) {
@@ -17,8 +26,11 @@ class SelectableBox extends StatelessWidget {
         onTap();
       },
       child: Container(
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
+        margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(100),
@@ -30,6 +42,7 @@ class SelectableBox extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6!.copyWith(
                 color: color == Colors.white ? Colors.black : Colors.white,
                 fontWeight: FontWeight.normal,
+                fontSize: 16,
               ),
         ),
       ),
