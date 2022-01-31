@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
+
 import './speaker.dart';
 
-class Event {
+class Event extends ChangeNotifier {
   final String title;
   final String details;
   final String imageUrl;
