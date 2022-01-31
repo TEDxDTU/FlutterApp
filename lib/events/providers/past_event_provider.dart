@@ -13,4 +13,9 @@ class PastEventProvider extends ProviderTemplate<PastEvent> {
 
     return snapshot.docs.map((e) => PastEvent.fromMap(e.data(), e.id)).toList();
   }
+
+  @override
+  PastEvent findById(String id) {
+    return data.firstWhere((element) => element.id == id);
+  }
 }

@@ -16,6 +16,8 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
   @protected
   Future<List<T>> getData();
 
+  T findById(String id);
+
   /// [fetchData] is called from the Widget tree to fetch the data. The method
   /// returns null if the data has already been fetched. This is to prevent
   /// multiple requests for the same data.

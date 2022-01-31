@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 
 class SingleEventWidget extends StatelessWidget {
   const SingleEventWidget(
@@ -130,7 +131,13 @@ class SingleEventWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(EventInfoScreen.routeName, arguments: {
+                        'eventId': eventId,
+                        'eventType': isUpcoming ? 'upcoming' : 'past',
+                      });
+                    },
                     child: Text(
                       isUpcoming ? '₹$ticketPrice' : 'Info',
                       style: const TextStyle(color: Colors.white),

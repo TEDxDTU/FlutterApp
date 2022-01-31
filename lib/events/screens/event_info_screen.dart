@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/events/models/event.dart';
+import 'package:tedx_dtu_app/events/models/speaker.dart';
+import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
+import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
+import 'package:tedx_dtu_app/events/widgets/event_info.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
 
@@ -14,20 +20,37 @@ class EventInfoScreen extends StatelessWidget {
   const EventInfoScreen({Key? key}) : super(key: key);
   static const routeName = '/event-info-screen';
 
+  List<Widget> _getSpeakerInfoWidgets(List<Speaker> speakers) {
+    final List<Widget> widgets = [];
+    for (int i = 0; i < speakers.length; i++) {
+      widgets.add(SpeakerInfoWidget(
+        imageUrl: speakers[i].imageUrl,
+        personalStats: speakers[i].achievements,
+        speakerIndex: i,
+        speakerName: speakers[i].name,
+      ));
+    }
+    return widgets;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
-
     // An instance of [MediaQueryData] to make the screen responsive.
     var mediaQuery = MediaQuery.of(context);
 
-    // Extract details from route arguments.
-    final String speakerName = routeArgs['speakerName'].toString();
-    final List<String> speakerDetails =
-        routeArgs['speakerInfo'] as List<String>;
-    final String imageUrl = routeArgs['imageUrl'].toString();
-    final String eventName = routeArgs['eventName'].toString();
+    final routeArgs =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    // Get the event from the provider.
+    final eventId = routeArgs['eventId']!;
+    final eventType = routeArgs['eventType'];
+
+    Event e;
+
+    if (eventType == 'upcoming') {
+      e = Provider.of<UpcomingEventProvider>(context).findById(eventId);
+    } else {
+      e = Provider.of<PastEventProvider>(context).findById(eventId);
+    }
 
     // A global key to switch between Speaker Info, Event Info and Gallery
     // as requested by user.
@@ -37,123 +60,72 @@ class EventInfoScreen extends StatelessWidget {
     List<Widget> bottomWidgets = [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SpeakerInfoWidget(
-            speakerName: speakerName,
-            imageUrl: imageUrl,
-            personalStats: 'Dummy stats',
-          ),
-          SpeakerInfoWidget(
-            speakerName: speakerName,
-            imageUrl: imageUrl,
-            personalStats: 'Dummy stats',
-          ),
-          SpeakerInfoWidget(
-            speakerName: speakerName,
-            imageUrl: imageUrl,
-            personalStats: 'Dummy stats',
-          ),
-        ],
+        children: _getSpeakerInfoWidgets(e.speakers),
       ),
-      Column(
-        children: const [
-          Text(
-            'This is the event info',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ],
+      EventInfo(
+        eventVenue: e.venue,
+        dateTime: e.date,
+        eventDescription: e.details,
+        marginVal: 8,
       ),
-      Column(
-        children: const [
-          Text(
-            'Idhar aayegi humari gallery',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ],
-      )
+      if (e is PastEvent)
+        Column(
+          children: (e).galleryImageUrls.map((e) => Image.network(e)).toList(),
+        )
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(eventName),
+        title: Text(e.title),
       ),
       body: SizedBox(
         width: mediaQuery.size.width,
         height: mediaQuery.size.height,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                EventCategoryWidget(
-                  title: 'A sooper interesting TED Talk!',
-                  details: [],
-                  width: double.infinity,
-                  height: mediaQuery.size.height * 0.25,
-                  showActionWidget: false,
-                ),
-<<<<<<< HEAD
-              ),
-            ],
-          ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            minChildSize: 0.4,
-            // snap: true,
-            // snapSizes: const [
-            //   0.4,
-            //   0.6,
-            // ],
-            builder: (context, scrollController) {
-              return Container(
-                color: Colors.black,
-                child: ValueListenableBuilder(
-                    valueListenable: selectableBoxKey.currentState!.selectedBox,
-                    builder: (context, value, _) {
-                      return SingleChildScrollView(
-                        controller: scrollController,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: bottomWidgets[
-                              selectableBoxKey.currentState!.selectedBox.value],
-                        ),
-                      );
-                    }),
-              );
-            },
-          ),
-        ],
-=======
-                Container(
-                  width: double.infinity,
-                  height: mediaQuery.size.height * 0.08,
-                  alignment: Alignment.centerLeft,
-                  child: SelectableBoxCreator(
-                    key: selectableBoxKey,
-                    count: 3,
-                    names: const [
-                      'Speaker info',
-                      'Event info',
-                      'Gallery',
+        child: ChangeNotifierProvider<Event>.value(
+          value: e,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  //TODO: Replace with YT embed
+                  EventCategoryWidget(
+                    title: e.title,
+                    details: [
+                      e.details,
                     ],
+                    width: double.infinity,
+                    height: mediaQuery.size.height * 0.25,
+                    showActionWidget: false,
                   ),
-                ),
-              ],
-            ),
-            DraggableScrollableSheet(
-              initialChildSize:
-                  mediaQuery.orientation == Orientation.portrait ? 0.61 : 0.58,
-              minChildSize:
-                  mediaQuery.orientation == Orientation.portrait ? 0.61 : 0.58,
-              maxChildSize: 1.0,
-              snap: true,
-              builder: (context, scrollController) {
-                return Container(
-                  color: Colors.black,
-                  child: ValueListenableBuilder(
+                  Container(
+                    width: double.infinity,
+                    height: mediaQuery.size.height * 0.08,
+                    alignment: Alignment.centerLeft,
+                    child: SelectableBoxCreator(
+                      key: selectableBoxKey,
+                      count: 3,
+                      names: const [
+                        'Speaker info',
+                        'Event info',
+                        'Gallery',
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              DraggableScrollableSheet(
+                initialChildSize: mediaQuery.orientation == Orientation.portrait
+                    ? 0.61
+                    : 0.58,
+                minChildSize: mediaQuery.orientation == Orientation.portrait
+                    ? 0.61
+                    : 0.58,
+                maxChildSize: 1.0,
+                snap: true,
+                builder: (context, scrollController) {
+                  return Container(
+                    color: Colors.black,
+                    child: ValueListenableBuilder(
                       valueListenable:
                           selectableBoxKey.currentState!.selectedBox,
                       builder: (context, value, _) {
@@ -161,18 +133,20 @@ class EventInfoScreen extends StatelessWidget {
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding:
+                                const EdgeInsets.all(8.0).copyWith(bottom: 100),
                             child: bottomWidgets[selectableBoxKey
                                 .currentState!.selectedBox.value],
                           ),
                         );
-                      }),
-                );
-              },
-            ),
-          ],
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
->>>>>>> a2e8a5cf0b204dd006cc85a86d4e59e93e0dfd6a
       ),
     );
   }

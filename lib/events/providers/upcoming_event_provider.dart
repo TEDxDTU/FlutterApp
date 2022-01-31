@@ -15,4 +15,9 @@ class UpcomingEventProvider extends ProviderTemplate<UpcomingEvent> {
         .map((e) => UpcomingEvent.fromMap(e.data(), e.id))
         .toList();
   }
+
+  @override
+  UpcomingEvent findById(String id) {
+    return data.firstWhere((element) => element.id == id);
+  }
 }
