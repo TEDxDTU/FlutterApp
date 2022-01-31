@@ -1,4 +1,5 @@
 import 'package:any_link_preview/any_link_preview.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,26 +29,31 @@ class SpeakerDetailsScreen extends StatelessWidget {
     }
   }
 
-  List<Widget> _buildHeadingAndData(
-      BuildContext context, String heading, String data) {
-    return [
-      Align(
-        alignment: Alignment.topLeft,
-        child: SelectableText(
-          heading,
-          style: Theme.of(context).textTheme.headline6,
+  Column _buildHeadingAndData(BuildContext context, String heading, String data,
+      double width, double height) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: SelectableText(
+            heading,
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
-      ),
-      Align(
-        alignment: Alignment.topLeft,
-        child: SelectableText(
-          data,
-          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                fontWeight: FontWeight.normal,
-              ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: SelectableText(
+            data,
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontWeight: FontWeight.normal,
+                ),
+          ),
         ),
+        const SizedBox(height: 15),
+      ].padded(
+        padding: EdgeInsets.only(left: width * 0.1, right: height * 0.03),
       ),
-    ];
+    );
   }
 
   List<Widget> _generateUrlPreviewWidgets(List<String> urls) {
@@ -148,12 +154,14 @@ class SpeakerDetailsScreen extends StatelessWidget {
                             height: 10,
                           ),
                           ...(routeArgs['achievements'] as List<String>)
-                              .map((e) => Text(
+                              .sublist(0, 2)
+                              .map((e) => AutoSizeText(
                                     '• $e',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: height * 0.024,
+                                      fontSize: height * 0.022,
                                     ),
+                                    maxLines: 2,
                                   ))
                               .toList()
                         ],
@@ -204,21 +212,38 @@ class SpeakerDetailsScreen extends StatelessWidget {
                             child: ListView(
                               // physics: const BouncingScrollPhysics(),
                               children: [
-                                ...[
-                                  ..._buildHeadingAndData(
+                                if ((routeArgs['achievements'] as List).length >
+                                    2)
+                                  _buildHeadingAndData(
+                                    context,
+                                    'About the speaker',
+                                    (routeArgs['achievements'] as List<String>)
+                                        .sublist(2)
+                                        .join('\n'),
+                                    width,
+                                    height,
+                                  ),
+                                _buildHeadingAndData(
                                     context,
                                     'Topic of Discussion',
                                     routeArgs['topic'] as String,
-                                  ),
-                                  ..._buildHeadingAndData(
-                                    context,
-                                    'Speaker\'s History',
-                                    (routeArgs['achievements'] as List<String>)
-                                        .join('\n'),
-                                  ),
-                                ].padded(
-                                  padding: EdgeInsets.only(
-                                      left: width * 0.1, right: height * 0.03),
+                                    width,
+                                    height),
+
+                                _buildHeadingAndData(
+                                  context,
+                                  'Speaker\'s History',
+                                  (routeArgs['achievements'] as List<String>)
+                                      .join('\n'),
+                                  width,
+                                  height,
+                                ),
+                                // ].padded(
+                                //   padding: EdgeInsets.only(
+                                //       left: width * 0.1, right: height * 0.03),
+                                // ),
+                                const SizedBox(
+                                  height: 15,
                                 ),
                                 ..._generateUrlPreviewWidgets(
                                   (routeArgs['resources'] as List<String>),

@@ -100,11 +100,11 @@ class EventInfoScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: SelectableBoxCreator(
                       key: selectableBoxKey,
-                      count: 3,
-                      names: const [
+                      count: (e is PastEvent) ? 3 : 2,
+                      names: [
                         'Speaker info',
                         'Event info',
-                        'Gallery',
+                        if (e is PastEvent) 'Gallery',
                       ],
                     ),
                   ),
