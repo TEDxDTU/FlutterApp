@@ -6,6 +6,7 @@ import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/events/widgets/event_info.dart';
+import 'package:tedx_dtu_app/events/widgets/past_event_gallery.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
 
@@ -15,7 +16,7 @@ import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
 ///
 /// Shows Speaker Info, Event Info and Gallery.
 ///
-/// This screen receives routeArguments as a [Map<String, Object>].
+/// This screen receives routeArguments as a [Map<String, String>].
 class EventInfoScreen extends StatelessWidget {
   const EventInfoScreen({Key? key}) : super(key: key);
   static const routeName = '/event-info-screen';
@@ -65,10 +66,7 @@ class EventInfoScreen extends StatelessWidget {
         eventDescription: e.details,
         marginVal: 8,
       ),
-      if (e is PastEvent)
-        Column(
-          children: (e).galleryImageUrls.map((e) => Image.network(e)).toList(),
-        )
+      if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
     ];
 
     return Scaffold(
@@ -120,24 +118,43 @@ class EventInfoScreen extends StatelessWidget {
                 maxChildSize: 1.0,
                 snap: true,
                 builder: (context, scrollController) {
-                  return Container(
-                    color: Colors.black,
-                    child: ValueListenableBuilder(
-                      valueListenable:
-                          selectableBoxKey.currentState!.selectedBox,
-                      builder: (context, value, _) {
-                        return SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          controller: scrollController,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.all(8.0).copyWith(bottom: 100),
-                            child: bottomWidgets[selectableBoxKey
-                                .currentState!.selectedBox.value],
+                  return Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        color: Colors.black,
+                        child: ValueListenableBuilder(
+                          valueListenable:
+                              selectableBoxKey.currentState!.selectedBox,
+                          builder: (context, value, _) {
+                            return SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              controller: scrollController,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                        top: 16.0, bottom: 8, left: 8, right: 8)
+                                    .copyWith(bottom: 100),
+                                child: bottomWidgets[selectableBoxKey
+                                    .currentState!.selectedBox.value],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      const Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 2.0),
+                          child: SizedBox(
+                            width: 24,
+                            child: Divider(
+                              color: Colors.white,
+                              thickness: 2,
+                            ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
