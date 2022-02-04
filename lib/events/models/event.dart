@@ -20,14 +20,14 @@ class Event extends ChangeNotifier {
     required this.id,
   });
 
-  factory Event.fromMap(Map<String, dynamic> map, String id) {
+  factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
-      title: map['themeDetails']['title'],
-      details: map['themeDetails']['details'],
-      imageUrl: map['themeDetails']['imageUrl'],
+      title: map['title'],
+      details: map['details'],
+      imageUrl: map['imageUrl'],
       venue: map['venue'],
       date: DateTime.parse(map['dateTime']),
-      id: id,
+      id: map['_id'],
       speakers: (map['speakersList'] as List)
           .map(
             (speaker) => Speaker.fromMap(speaker),
@@ -60,14 +60,15 @@ class UpcomingEvent extends Event {
           speakers: speakers,
         );
 
-  factory UpcomingEvent.fromMap(Map<String, dynamic> map, String id) {
+  factory UpcomingEvent.fromMap(Map<String, dynamic> map) {
+    // print(map);
     return UpcomingEvent(
-      title: map['themeDetails']['title'],
-      details: map['themeDetails']['details'],
-      imageUrl: map['themeDetails']['imageUrl'],
+      title: map['title'],
+      details: map['details'],
+      imageUrl: map['imageUrl'],
       venue: map['venue'],
       date: DateTime.parse(map['dateTime']),
-      id: id,
+      id: map['_id'],
       speakers: (map['speakersList'] as List)
           .map(
             (speaker) => Speaker.fromMap(speaker),
@@ -102,14 +103,14 @@ class PastEvent extends Event {
           speakers: speakers,
         );
 
-  factory PastEvent.fromMap(Map<String, dynamic> map, String id) {
+  factory PastEvent.fromMap(Map<String, dynamic> map) {
     return PastEvent(
-      title: map['themeDetails']['title'],
-      details: map['themeDetails']['details'],
-      imageUrl: map['themeDetails']['imageUrl'],
+      title: map['title'],
+      details: map['details'],
+      imageUrl: map['imageUrl'],
       venue: map['venue'],
       date: DateTime.parse(map['dateTime']),
-      id: id,
+      id: map['_id'],
       speakers: (map['speakersList'] as List)
           .map(
             (speaker) => Speaker.fromMap(speaker),

@@ -29,8 +29,13 @@ class FutureScreenTemplate extends StatelessWidget {
         }
         //TODO: ADD ERROR HANDLING
         if (snapshot.hasError) {
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
+          return Scaffold(
+            body: Center(
+              child: SelectableText(
+                'Error: ${snapshot.error}',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           );
         }
         return body;
