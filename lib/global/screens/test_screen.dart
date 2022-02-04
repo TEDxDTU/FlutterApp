@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,37 +12,39 @@ class TestScreen extends StatelessWidget {
   final Random random = Random();
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     body: StreamBuilder(
-    //   stream: FirebaseFirestore.instance.collection('events').snapshots(),
-    //   builder: (ctx,
-    //       AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> eventsSnapshot) {
-    //     if (eventsSnapshot.connectionState == ConnectionState.waiting) {
-    //       return const Center(child: CircularProgressIndicator());
-    //     }
-    //     final eventsData = eventsSnapshot.data!.docs;
-    //     return ListView.builder(
-    //       itemBuilder: (ctx, index) {
-    //         return Text(
-    //           eventsData[index].data()['dateTime'].runtimeType.toString(),
-    //           style: TextStyle(
-    //             color: Colors.white,
-    //           ),
-    //         );
-    //       },
-    //       itemCount: eventsData.length,
-    //     );
-    //   },
-    // ));
-    return Scaffold(
-      body: Center(
-        child: EventInfo(
-          eventVenue: 'DTU OAT',
-          dateTime: DateTime.now(),
-          eventDescription: 'This is the description',
-          marginVal: 10,
-        ),
-      ),
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('events').snapshots(),
+      builder: (ctx,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> eventsSnapshot) {
+        if (eventsSnapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final eventsData = eventsSnapshot.data!.docs;
+        return Scaffold(
+          body: ListView.builder(
+            itemBuilder: (ctx, index) {
+              // debugPrint(json.encode(eventsData[index].data()) + ',');
+              return SelectableText(
+                json.encode(eventsData[index].data()) + ',',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              );
+            },
+            itemCount: eventsData.length,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              FirebaseFirestore.instance
+                  .collection(('data'))
+                  .doc('events')
+                  .set({
+                'events': json.encode(eventsData.map((e) => e.data()).toList()),
+              });
+            },
+          ),
+        );
+      },
     );
   }
 }

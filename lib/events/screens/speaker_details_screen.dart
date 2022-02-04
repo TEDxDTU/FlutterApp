@@ -138,12 +138,14 @@ class SpeakerDetailsScreen extends StatelessWidget {
                         left: height * 0.28,
                         top: height * 0.04,
                         bottom: 10,
+                        right: 20,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          AutoSizeText(
                             routeArgs['name'] as String,
+                            maxLines: 1,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: height * 0.027,
