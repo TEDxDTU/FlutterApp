@@ -6,6 +6,7 @@ import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
+import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => UpcomingEventProvider()),
         ChangeNotifierProvider(create: (_) => PastEventProvider()),
+        ChangeNotifierProvider(create: (_) => StoryProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

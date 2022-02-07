@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 
-class UpcomingEventWidget extends StatelessWidget {
-  const UpcomingEventWidget({
+class TedStoryWidget extends StatelessWidget {
+  const TedStoryWidget({
     required this.leadingText,
     required this.dateTime,
     required this.imageProvider,

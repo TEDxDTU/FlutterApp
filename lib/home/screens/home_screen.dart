@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
-import 'package:tedx_dtu_app/home/widgets/upcoming_event_widget.dart';
-import 'package:tedx_dtu_app/home/widgets/upcoming_ted_talks.dart';
+import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
+import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:tuple/tuple.dart';
 
@@ -23,9 +23,9 @@ class HomeScreen extends StatelessWidget {
             left: 8.0,
             right: 8.0,
           ),
-          child: UpcomingTedTalks(
+          child: TedStories(
             children: [
-              UpcomingEventWidget(
+              TedStoryWidget(
                 onPressed: () {
                   Navigator.of(context)
                       .pushNamed(EventInfoScreen.routeName, arguments: {
@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 dateTime: DateTime.now(),
                 isLive: true,
               ),
-              UpcomingEventWidget(
+              TedStoryWidget(
                 onPressed: () {
                   print('Take the user to event info');
                 },
@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                     'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
                 dateTime: DateTime.now(),
               ),
-              UpcomingEventWidget(
+              TedStoryWidget(
                 onPressed: () {
                   print('Take the user to event info');
                 },
