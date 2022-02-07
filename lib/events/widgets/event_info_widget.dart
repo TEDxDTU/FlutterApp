@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class EventInfo extends StatelessWidget {
-  const EventInfo({
+class EventInfoWidget extends StatelessWidget {
+  const EventInfoWidget({
     Key? key,
     required this.eventVenue,
     required this.dateTime,

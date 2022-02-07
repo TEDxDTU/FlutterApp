@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/models/event.dart';
@@ -5,7 +6,7 @@ import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
-import 'package:tedx_dtu_app/events/widgets/event_info.dart';
+import 'package:tedx_dtu_app/events/widgets/event_info_widget.dart';
 import 'package:tedx_dtu_app/events/widgets/past_event_gallery.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
@@ -60,7 +61,7 @@ class EventInfoScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: _getSpeakerInfoWidgets(e.speakers),
       ),
-      EventInfo(
+      EventInfoWidget(
         eventVenue: e.venue,
         dateTime: e.date,
         eventDescription: e.details,
@@ -119,8 +120,26 @@ class EventInfoScreen extends StatelessWidget {
                 snap: true,
                 builder: (context, scrollController) {
                   return Container(
+                    margin: EdgeInsets.only(
+                      top: 12,
+                      left: 2,
+                      right: 2,
+                    ),
                     width: double.infinity,
-                    color: Colors.black,
+                    decoration: BoxDecoration(
+                        color: Color(0xff0f0f0f),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[500]!,
+                            offset: Offset(0, -1),
+                            blurRadius: 7,
+                            // spreadRadius: 1,
+                          ),
+                        ]),
                     child: ValueListenableBuilder(
                       valueListenable:
                           selectableBoxKey.currentState!.selectedBox,
@@ -129,8 +148,8 @@ class EventInfoScreen extends StatelessWidget {
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.all(8.0).copyWith(bottom: 100),
+                            padding: const EdgeInsets.all(8.0)
+                                .copyWith(bottom: 100, top: 0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

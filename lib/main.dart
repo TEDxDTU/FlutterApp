@@ -12,7 +12,7 @@ import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
-import 'events/widgets/event_info.dart';
+import 'events/widgets/event_info_widget.dart';
 import 'global/models/bottom_bar_screen.dart';
 import 'home/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
