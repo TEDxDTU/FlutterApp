@@ -16,6 +16,9 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
   @protected
   Future<List<T>> getData();
 
+  /// Must be implemented by the subclass. It should return an object of the type [T]
+  /// It can be fetched from backend or found from [data].
+
   T findById(String id);
 
   /// [fetchData] is called from the Widget tree to fetch the data. The method

@@ -82,7 +82,7 @@ class UpcomingEvent extends Event {
 
 class PastEvent extends Event {
   final List<String> galleryImageUrls;
-  final String streamingUrl;
+  final String? streamingUrl;
   PastEvent({
     required String title,
     required String details,

@@ -18,10 +18,6 @@ class UpcomingEventProvider extends ProviderTemplate<UpcomingEvent> {
     return data
         .map((Map<String, dynamic> e) => UpcomingEvent.fromMap(e))
         .toList();
-
-    // return snapshot.docs
-    //     .map((e) => UpcomingEvent.fromMap(e.data(), e.id))
-    //     .toList();
   }
 
   @override
