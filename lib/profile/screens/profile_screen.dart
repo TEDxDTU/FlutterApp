@@ -9,21 +9,28 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProfileInnerWidgetProvider(),
-      builder: (context, child) {
-        return BottomBarScreenWidget(
-          showTedXLogoInAppBar: false,
-          appBarTitle:
-              Provider.of<ProfileInnerWidgetProvider>(context).appBarTitle,
-          children: const [
-            SizedBox(
-              height: 50,
-            ),
-            ProfileCardLayoutWidget(),
-          ],
-        );
-      },
+    return Theme(
+      data: Theme.of(context)
+        ..textTheme.apply(
+          bodyColor: Colors.black,
+          displayColor: Colors.black,
+        ),
+      child: ChangeNotifierProvider(
+        create: (context) => ProfileInnerWidgetProvider(),
+        builder: (context, child) {
+          return BottomBarScreenWidget(
+            showTedXLogoInAppBar: false,
+            appBarTitle:
+                Provider.of<ProfileInnerWidgetProvider>(context).appBarTitle,
+            children: const [
+              SizedBox(
+                height: 50,
+              ),
+              ProfileCardLayoutWidget(),
+            ],
+          );
+        },
+      ),
     );
   }
 }

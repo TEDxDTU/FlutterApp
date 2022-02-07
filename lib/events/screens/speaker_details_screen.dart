@@ -37,7 +37,10 @@ class SpeakerDetailsScreen extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: SelectableText(
             heading,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(color: Colors.black),
           ),
         ),
         Align(
@@ -46,6 +49,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
             data,
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontWeight: FontWeight.normal,
+                  color: Colors.black,
                 ),
           ),
         ),

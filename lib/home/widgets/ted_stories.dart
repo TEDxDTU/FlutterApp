@@ -5,6 +5,7 @@ import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/home/models/story.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
+import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 
 class TedStories extends StatefulWidget {
@@ -99,6 +100,12 @@ class _TedStoriesState extends State<TedStories> {
                           leadingText: e.title,
                           dateTime: e.dateTime,
                           imageProvider: NetworkImage(e.imageUrl),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              SingleStoryScreen.routeName,
+                              arguments: e.id,
+                            );
+                          },
                         ),
                       )
                       .toList(),

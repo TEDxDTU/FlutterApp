@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:tedx_dtu_app/events/models/speaker.dart';
 
 class Story {
@@ -21,11 +19,11 @@ class Story {
   factory Story.fromMap(Map<String, dynamic> map) {
     // print(map);
     return Story(
-      title: map['title'] ?? '',
-      description: map['description'] ?? '',
-      imageUrl: map['imageUrl'] ?? '',
+      title: map['title'],
+      description: map['details'],
+      imageUrl: map['imageUrl'],
       dateTime: DateTime.parse(map['dateTime']),
-      id: map['id'] ?? '',
+      id: map['_id'],
       speaker: Speaker.fromMap(map['speakersList'][0]),
     );
   }

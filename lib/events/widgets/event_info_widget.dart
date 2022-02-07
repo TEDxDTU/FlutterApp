@@ -56,7 +56,7 @@ class EventInfoWidget extends StatelessWidget {
           _createListTile(
             Icons.calendar_today,
             DateFormat('dd MMMM, yyyy').format(
-              DateTime.now(),
+              dateTime,
             ),
           ),
           _createListTile(
