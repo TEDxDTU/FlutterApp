@@ -129,14 +129,13 @@ class EventInfoScreen extends StatelessWidget {
                           physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                    top: 16.0, bottom: 8, left: 8, right: 8)
-                                .copyWith(bottom: 100),
+                            padding:
+                                const EdgeInsets.all(8.0).copyWith(bottom: 100),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Center(
-                                  // alignment: Alignment.topCenter,
+                                const Align(
+                                  alignment: Alignment.topCenter,
                                   child: Padding(
                                     padding: EdgeInsets.only(top: 2.0),
                                     child: SizedBox(
