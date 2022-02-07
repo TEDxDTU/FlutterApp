@@ -118,43 +118,43 @@ class EventInfoScreen extends StatelessWidget {
                 maxChildSize: 1.0,
                 snap: true,
                 builder: (context, scrollController) {
-                  return Stack(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        color: Colors.black,
-                        child: ValueListenableBuilder(
-                          valueListenable:
-                              selectableBoxKey.currentState!.selectedBox,
-                          builder: (context, value, _) {
-                            return SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              controller: scrollController,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                        top: 16.0, bottom: 8, left: 8, right: 8)
-                                    .copyWith(bottom: 100),
-                                child: bottomWidgets[selectableBoxKey
+                  return Container(
+                    width: double.infinity,
+                    color: Colors.black,
+                    child: ValueListenableBuilder(
+                      valueListenable:
+                          selectableBoxKey.currentState!.selectedBox,
+                      builder: (context, value, _) {
+                        return SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          controller: scrollController,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.all(8.0).copyWith(bottom: 100),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 2.0),
+                                    child: SizedBox(
+                                      width: 24,
+                                      child: Divider(
+                                        color: Colors.white,
+                                        thickness: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                bottomWidgets[selectableBoxKey
                                     .currentState!.selectedBox.value],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      const Align(
-                        alignment: Alignment.topCenter,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 2.0),
-                          child: SizedBox(
-                            width: 24,
-                            child: Divider(
-                              color: Colors.white,
-                              thickness: 2,
+                              ],
                             ),
                           ),
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   );
                 },
               ),

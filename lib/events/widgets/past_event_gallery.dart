@@ -14,21 +14,20 @@ class PastEventGallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    int currElement = -1;
-    return Column(children: [
-      StaggeredGrid.count(
-        crossAxisCount: 2,
-        children: imageUrls.map((e) {
-          currElement++;
-          return GalleryImageWidget(
-            e,
-            width: mediaQuery.size.width * 0.4,
-            height: currElement % 3 == 0
-                ? mediaQuery.size.height * 0.2
-                : mediaQuery.size.height * 0.4,
-          );
-        }).toList(),
-      ),
-    ]);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        StaggeredGrid.count(
+          crossAxisCount: 2,
+          children: imageUrls.map((e) {
+            return GalleryImageWidget(
+              e,
+              width: mediaQuery.size.width * 0.4,
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 }

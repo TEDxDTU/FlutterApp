@@ -41,33 +41,23 @@ class GalleryImageWidget extends StatelessWidget {
         ),
         child: SizedBox(
           width: width,
-          height: height,
-          child: FadeInImage.memoryNetwork(
-            fit: BoxFit.cover,
-            imageErrorBuilder: (context, error, stackTrace) {
-              return const ImageErrorWidget();
-            },
-            image: imageUrl,
-            // TODO: Replace transparent image (and respective package?)
-            // after deciding the placeholder
-            // Code for the simple network image with error and loadingBuilders
-            // is commented for future use
-            placeholder: kTransparentImage,
+          child: AnimatedSize(
+            alignment: Alignment.topCenter,
+            duration: const Duration(seconds: 1),
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return const ImageErrorWidget();
+              },
+              loadingBuilder: (context, child, progress) {
+                if (progress == null) return child;
+                return Center(
+                  child: loadingIndicator ?? const CircularProgressIndicator(),
+                );
+              },
+            ),
           ),
-          // Image.network(
-          //   imageUrl,
-          //   fit: BoxFit.cover,
-          //   errorBuilder: (context, error, stackTrace) {
-          //     return const ImageErrorWidget();
-          //   },
-          //   loadingBuilder: (context, child, progress) {
-          //     if (progress == null) return child;
-          //     print('Loading...');
-          //     return Center(
-          //       child: loadingIndicator ?? const CircularProgressIndicator(),
-          //     );
-          //   },
-          // ),
         ),
       ),
     );
