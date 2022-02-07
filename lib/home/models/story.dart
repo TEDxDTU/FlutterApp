@@ -19,7 +19,7 @@ class Story {
   });
 
   factory Story.fromMap(Map<String, dynamic> map) {
-    print(map);
+    // print(map);
     return Story(
       title: map['title'] ?? '',
       description: map['description'] ?? '',

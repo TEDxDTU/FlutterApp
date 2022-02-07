@@ -17,49 +17,33 @@ class HomeScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return BottomBarScreenWidget(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
+        const Padding(
+          padding: EdgeInsets.only(
             bottom: 8.0,
             left: 8.0,
             right: 8.0,
           ),
           child: TedStories(
-            children: [
-              TedStoryWidget(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(EventInfoScreen.routeName, arguments: {
-                    'speakerName': 'Some Speaker',
-                    'speakerInfo': ['Some detail'],
-                    'imageUrl':
-                        'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S',
-                    'eventName': 'What is Neural Network',
-                  });
-                },
-                leadingText: 'What is Neural Network',
-                imageProvider: const NetworkImage(
-                    'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
-                dateTime: DateTime.now(),
-                isLive: true,
+            // These are to be removed later, only for showcasing purposes
+            preWidgets: [
+              Text(
+                '|\n|\n|\n|\n|\n|\n|',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
-              TedStoryWidget(
-                onPressed: () {
-                  print('Take the user to event info');
-                },
-                leadingText: 'The surprising habits of original thinkers',
-                imageProvider: const NetworkImage(
-                    'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
-                dateTime: DateTime.now(),
+            ],
+            postWidgets: [
+              Text(
+                '|\n|\n|\n|\n|\n|\n|',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
-              TedStoryWidget(
-                onPressed: () {
-                  print('Take the user to event info');
-                },
-                leadingText: 'The mind behind Tesla, SpaceX, SolarCity',
-                imageProvider: const NetworkImage(
-                    'https://enterprisersproject.com/sites/default/files/styles/google_discover/public/images/ted_talk_2019.png?itok=CPz0Ef4S'),
-                dateTime: DateTime.now(),
-              )
             ],
           ),
         ),
