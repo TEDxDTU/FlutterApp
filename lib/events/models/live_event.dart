@@ -5,8 +5,12 @@ import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:http/http.dart' as http;
 
 class LiveEvent extends Event {
+  static late LiveEvent instance;
+
   final bool requiresTicket;
   final String streamingUrl;
+  final int currentSpeakerIndex;
+  final String? currDataToDisplay;
   LiveEvent._({
     required String title,
     required String details,
@@ -17,6 +21,8 @@ class LiveEvent extends Event {
     required List<Speaker> speakers,
     required this.requiresTicket,
     required this.streamingUrl,
+    required this.currentSpeakerIndex,
+    this.currDataToDisplay,
   }) : super(
           title: title,
           details: details,
@@ -36,13 +42,15 @@ class LiveEvent extends Event {
       venue: map['venue'],
       streamingUrl: map['streamingUrl'],
       date: DateTime.parse(map['dateTime']),
-      id: map['_id'],
+      id: 'LIVEEVENT',
       speakers: (map['speakersList'] as List)
           .map(
             (speaker) => Speaker.fromMap(speaker),
           )
           .toList(),
       requiresTicket: map['requiresTicket'],
+      currentSpeakerIndex: map['currentSpeakerIndex'],
+      currDataToDisplay: map['currDataToDisplay'],
     );
   }
   static Future<LiveEvent> fetch() async {
@@ -53,6 +61,7 @@ class LiveEvent extends Event {
       ),
     );
     Map<String, dynamic> data = json.decode(response.body);
-    return LiveEvent._fromMap(data);
+    instance = LiveEvent._fromMap(data);
+    return instance;
   }
 }

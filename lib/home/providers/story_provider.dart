@@ -17,12 +17,19 @@ class StoryProvider extends ProviderTemplate<Story> {
     );
 
     List<Map<String, dynamic>> data = List.from(jsonDecode(response.body));
-
-    return data.map((Map<String, dynamic> e) => Story.fromMap(e)).toList();
+    List<Story> stories = [];
+    for (int i = 0; i < data.length; i++) {
+      stories.add(Story.fromMap(data[i], i));
+    }
+    return stories;
   }
 
   @override
   Story findById(String id) {
     return data.firstWhere((element) => element.id == id);
+  }
+
+  Story getStoryAt(int index) {
+    return data[index];
   }
 }

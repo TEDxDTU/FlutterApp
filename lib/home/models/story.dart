@@ -1,6 +1,7 @@
 import 'package:tedx_dtu_app/events/models/speaker.dart';
 
 class Story {
+  final int index;
   final String title;
   final String description;
   final String imageUrl;
@@ -8,6 +9,7 @@ class Story {
   final Speaker speaker;
   final DateTime dateTime;
   Story({
+    required this.index,
     required this.title,
     required this.description,
     required this.imageUrl,
@@ -16,9 +18,10 @@ class Story {
     required this.dateTime,
   });
 
-  factory Story.fromMap(Map<String, dynamic> map) {
+  factory Story.fromMap(Map<String, dynamic> map, int index) {
     // print(map);
     return Story(
+      index: index,
       title: map['title'],
       description: map['details'],
       imageUrl: map['imageUrl'],
