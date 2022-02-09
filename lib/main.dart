@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
+import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
@@ -210,6 +211,8 @@ class MyApp extends StatelessWidget {
                 EventInfoScreen.routeName: (context) => const EventInfoScreen(),
                 SpeakerDetailsScreen.routeName: (context) =>
                     const SpeakerDetailsScreen(),
+                EventBookingScreen.routeName: (context) =>
+                    const EventBookingScreen(),
               },
             ),
             BottomBarScreen(

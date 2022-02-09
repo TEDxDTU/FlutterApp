@@ -12,39 +12,53 @@ class TestScreen extends StatelessWidget {
   final Random random = Random();
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('events').snapshots(),
-      builder: (ctx,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> eventsSnapshot) {
-        if (eventsSnapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        final eventsData = eventsSnapshot.data!.docs;
-        return Scaffold(
-          body: ListView.builder(
-            itemBuilder: (ctx, index) {
-              // debugPrint(json.encode(eventsData[index].data()) + ',');
-              return SelectableText(
-                json.encode(eventsData[index].data()) + ',',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              );
-            },
-            itemCount: eventsData.length,
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              FirebaseFirestore.instance
-                  .collection(('data'))
-                  .doc('events')
-                  .set({
-                'events': json.encode(eventsData.map((e) => e.data()).toList()),
-              });
-            },
-          ),
-        );
-      },
+    // var routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
+    // String eventDesc = routeArgs['eventDescription'].toString();
+    // String venue = routeArgs['venue'].toString();
+    // DateTime dateTime = routeArgs['dateTime'] as DateTime;
+    String eventDesc = 'Event Description';
+    String venue = 'Coliz me';
+    DateTime dateTime = DateTime.now();
+
+    return Scaffold(
+      body: Center(
+        child: ClipPath(
+          clipper: MyCustomClip(),
+          child: Container(width: 350, height: 200, color: Colors.white),
+        ),
+      ),
     );
+  }
+}
+
+class MyCustomClip extends CustomClipper<Path> {
+  var clipRadius = 18.0;
+
+  bool topLeft = true;
+  bool topRight = true;
+  bool bottomLeft = true;
+  bool bottomRight = true;
+
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.moveTo(0, 0);
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height - clipRadius);
+    path.quadraticBezierTo(size.width - clipRadius, size.height - clipRadius,
+        size.width - clipRadius, size.height);
+    path.moveTo(0, 0);
+    path.lineTo(0, size.height - clipRadius);
+    path.quadraticBezierTo(
+        clipRadius, size.height - clipRadius, clipRadius, size.height);
+    path.lineTo(size.width - clipRadius, size.height);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    return false;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
+import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 
 class EventInfoWidget extends StatelessWidget {
   const EventInfoWidget({
@@ -24,12 +26,12 @@ class EventInfoWidget extends StatelessWidget {
             color: Colors.white,
             // size: 30,
           ),
-          SizedBox(
+          const SizedBox(
             width: 25,
           ),
           Text(
             txt,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               // fontSize: 17,
             ),
@@ -43,7 +45,7 @@ class EventInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: height,
-      padding: EdgeInsets.all(13),
+      padding: const EdgeInsets.all(13),
       margin: EdgeInsets.all(marginVal),
       decoration: BoxDecoration(
         color: Colors.grey[850],
@@ -76,7 +78,7 @@ class EventInfoWidget extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'About',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -85,12 +87,12 @@ class EventInfoWidget extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     eventDescription,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
@@ -99,10 +101,17 @@ class EventInfoWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () {},
-            child: Text(
+            onPressed: () {
+              Navigator.of(context).pushNamed(EventBookingScreen.routeName,
+                  arguments: <String, Object>{
+                    'eventDescription': eventDescription,
+                    'venue': eventVenue,
+                    'dateTime': dateTime,
+                  });
+            },
+            child: const Text(
               'BOOK NOW',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -110,9 +119,9 @@ class EventInfoWidget extends StatelessWidget {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
               primary: Colors.red[600],
-              minimumSize: Size.fromHeight(50),
+              minimumSize: const Size.fromHeight(50),
             ),
           ),
         ],

@@ -69,7 +69,6 @@ class EventInfoScreen extends StatelessWidget {
       ),
       if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
     ];
-
     return Scaffold(
       appBar: AppBar(
         title: Text(e.title),
@@ -120,22 +119,22 @@ class EventInfoScreen extends StatelessWidget {
                 snap: true,
                 builder: (context, scrollController) {
                   return Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       top: 12,
                       left: 2,
                       right: 2,
                     ),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Color(0xff0f0f0f),
-                        borderRadius: BorderRadius.only(
+                        color: const Color(0xff0f0f0f),
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30),
                         ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey[500]!,
-                            offset: Offset(0, -1),
+                            offset: const Offset(0, -1),
                             blurRadius: 7,
                             // spreadRadius: 1,
                           ),
