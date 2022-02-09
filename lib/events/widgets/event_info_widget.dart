@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+/// Displays the information about a particular event.
 class EventInfoWidget extends StatelessWidget {
   const EventInfoWidget({
     Key? key,
@@ -12,6 +13,8 @@ class EventInfoWidget extends StatelessWidget {
   final String eventVenue;
   final DateTime dateTime;
   final String eventDescription;
+
+  /// The margins to put around the Widget.
   final double marginVal;
 
   Widget _createListTile(IconData icon, String txt) {

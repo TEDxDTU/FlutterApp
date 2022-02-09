@@ -10,14 +10,15 @@ import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 class SingleStoryScreen extends StatelessWidget {
   const SingleStoryScreen({
     Key? key,
-    this.storyIndex,
+    required this.storyIndex,
   }) : super(key: key);
-  final int? storyIndex;
-  static const routeName = '/single-story';
+
+  /// The index of the story to display, as provided by the [StoryProvider].
+  final int storyIndex;
 
   @override
   Widget build(BuildContext context) {
-    Story story = Provider.of<StoryProvider>(context).getStoryAt(storyIndex!);
+    Story story = Provider.of<StoryProvider>(context).getStoryAt(storyIndex);
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -29,6 +30,7 @@ class SingleStoryScreen extends StatelessWidget {
         width: width,
         child: Stack(
           children: [
+            // TODO:Replace with YT Embed
             Positioned.fill(
               //Replace with YT embed
               child: Image.network(
@@ -36,6 +38,7 @@ class SingleStoryScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            // Back button
             Positioned(
               top: 10,
               left: 10,
@@ -66,6 +69,7 @@ class SingleStoryScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // Story info
             DraggableScrollableSheet(
               initialChildSize: 0.31,
               minChildSize: 180 / height,

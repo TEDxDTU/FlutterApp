@@ -3,16 +3,18 @@ import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 
+/// Creates a scrollable list of stories, similar to Instagram reels
+/// Takes the initial index of the story to be displayed as a parameter through
+/// [ModalRoute]
 class StoriesPageView extends StatelessWidget {
-  StoriesPageView({Key? key}) : super(key: key);
+  const StoriesPageView({Key? key}) : super(key: key);
   static const routeName = '/stories-page-view';
-  late final PageController _controller;
+
   @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context)?.settings.arguments);
     int initialPage = (ModalRoute.of(context)?.settings.arguments as int?) ?? 0;
 
-    _controller = PageController(initialPage: initialPage);
+    final PageController _controller = PageController(initialPage: initialPage);
     return PageView.builder(
       physics: const BouncingScrollPhysics(),
       controller: _controller,

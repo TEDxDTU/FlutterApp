@@ -194,9 +194,7 @@ class MyApp extends StatelessWidget {
                 TestScreen.routeName: (context) => TestScreen(),
                 SignUpScreen.routeName: (context) => const SignUpScreen(),
                 EventInfoScreen.routeName: (context) => const EventInfoScreen(),
-                StoriesPageView.routeName: (context) => StoriesPageView(),
-                SingleStoryScreen.routeName: (context) =>
-                    const SingleStoryScreen(),
+                StoriesPageView.routeName: (context) => const StoriesPageView(),
               },
             ),
             BottomBarScreen(

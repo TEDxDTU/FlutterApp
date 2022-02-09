@@ -5,6 +5,7 @@ import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:http/http.dart' as http;
 
 class LiveEvent extends Event {
+  /// The current live even being streamed
   static late LiveEvent instance;
 
   final bool requiresTicket;
@@ -53,6 +54,8 @@ class LiveEvent extends Event {
       currDataToDisplay: map['currDataToDisplay'],
     );
   }
+
+  /// Fetches the current live event from the server
   static Future<LiveEvent> fetch() async {
     var response = await http.get(
       Uri.parse(
