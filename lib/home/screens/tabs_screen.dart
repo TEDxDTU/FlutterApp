@@ -52,19 +52,20 @@ class _TabsScreenState extends State<TabsScreen> {
         children: [
           IndexedStack(
             index: _currentIndex,
-            children: widget.screens
-                .map(
-                  (e) => Navigator(
-                    key: e.navigatorKey,
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        settings: settings,
-                        builder: (context) => e.routes[settings.name]!(context),
-                      );
-                    },
-                  ),
-                )
-                .toList(),
+            children: widget.screens.map(
+              (e) {
+                return Navigator(
+                  key: e.navigatorKey,
+                  onGenerateRoute: (settings) {
+                    return MaterialPageRoute(
+                      settings: settings,
+                      builder: (context) => e.routes[settings.name]!(context),
+                    );
+                  },
+                  observers: [],
+                );
+              },
+            ).toList(),
           ),
           Positioned(
             bottom: 20,
