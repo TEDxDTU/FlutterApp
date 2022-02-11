@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:tedx_dtu_app/global/models/bottom_bar_screen.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({
@@ -48,59 +49,67 @@ class _TabsScreenState extends State<TabsScreen> {
         }
         return val;
       },
-      child: Stack(
-        children: [
-          IndexedStack(
-            index: _currentIndex,
-            children: widget.screens
-                .map(
-                  (e) => Navigator(
-                    key: e.navigatorKey,
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        settings: settings,
-                        builder: (context) => e.routes[settings.name]!(context),
+      child: IndexedStack(
+        index: _currentIndex,
+        children: widget.screens
+            .map(
+              (e) => Navigator(
+                key: e.navigatorKey,
+                onGenerateRoute: (settings) {
+                  return MaterialPageRoute(
+                    settings: settings,
+                    builder: (context) {
+                      if (settings.name == NoBottomBarScreen.routeName) {
+                        return NoBottomBarScreen(
+                          child: settings.arguments as Widget,
+                        );
+                      }
+                      return Stack(
+                        children: [
+                          (e.routes[settings.name]!(context)),
+                          Positioned(
+                            bottom: 20,
+                            left: 30,
+                            right: 30,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: SalomonBottomBar(
+                                unselectedItemColor: Colors.black,
+                                currentIndex: _currentIndex,
+                                onTap: (i) {
+                                  setState(() {
+                                    _currentIndex = i;
+                                  });
+                                },
+                                items: widget.screens
+                                    .map((e) => SalomonBottomBarItem(
+                                          icon: e.icon,
+                                          title: Text(e.title),
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                          )
+                        ],
                       );
                     },
-                  ),
-                )
-                .toList(),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 30,
-            right: 30,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: SalomonBottomBar(
-                unselectedItemColor: Colors.black,
-                currentIndex: _currentIndex,
-                onTap: (i) {
-                  setState(() {
-                    _currentIndex = i;
-                  });
+                  );
                 },
-                items: widget.screens
-                    .map((e) => SalomonBottomBarItem(
-                          icon: e.icon,
-                          title: Text(e.title),
-                        ))
-                    .toList(),
               ),
-            ),
-          ),
-        ],
+            )
+            .toList(),
       ),
     );
   }
