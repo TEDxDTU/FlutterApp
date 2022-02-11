@@ -49,6 +49,7 @@ class _TabsScreenState extends State<TabsScreen> {
         }
         return val;
       },
+
       child: IndexedStack(
         index: _currentIndex,
         children: widget.screens
