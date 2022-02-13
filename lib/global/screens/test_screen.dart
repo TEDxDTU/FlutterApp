@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/helpers/concave_corners_with_radius_clip.dart';
 import 'package:tedx_dtu_app/events/helpers/dotted_seperator.dart';
-import 'package:tedx_dtu_app/events/widgets/event_info_widget.dart';
+import 'package:tedx_dtu_app/events/helpers/filled_arc_painter.dart';
 
 class TestScreen extends StatelessWidget {
   TestScreen({Key? key}) : super(key: key);
@@ -18,7 +17,8 @@ class TestScreen extends StatelessWidget {
     // String eventDesc = routeArgs['eventDescription'].toString();
     // String venue = routeArgs['venue'].toString();
     // DateTime dateTime = routeArgs['dateTime'] as DateTime;
-    String eventDesc = 'Event Description';
+    String eventTitle = 'Design for Innovation';
+    String eventDesc = 'Ted Talks with Dr. Sushmita Rai';
     String venue = 'Coliz me\n110039';
     DateTime dateTime = DateTime.now();
     int eventPrice = 180;
@@ -38,16 +38,119 @@ class TestScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipPath(
-                clipper: const ConcaveCornersWithRadiusClip(
-                  bottomRight: true,
-                  bottomLeft: true,
-                ),
-                child: Container(
-                  width: mediaQuery.size.width * 0.9,
-                  height: mediaQuery.size.height * 0.25,
-                  color: const Color(0xff303030),
-                ),
+              Stack(
+                children: [
+                  ClipPath(
+                    clipper: const ConcaveCornersWithRadiusClip(
+                      bottomRight: true,
+                      bottomLeft: true,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(18),
+                      width: mediaQuery.size.width * 0.9,
+                      height: mediaQuery.size.height * 0.25,
+                      color: const Color(0xff303030),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: mediaQuery.size.width * 0.9 * 0.5,
+                            child: AutoSizeText(
+                              eventDesc,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4!
+                                  .copyWith(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              maxLines: 2,
+                            ),
+                          ),
+                          SizedBox(height: mediaQuery.size.height * 0.05),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: mediaQuery.size.width * 0.9 * 0.4,
+                                child: AutoSizeText(
+                                  eventTitle,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                  maxLines: 2,
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: const [
+                                      Text(
+                                        '1st Feb, 2022',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Icon(
+                                        Icons.calendar_today_outlined,
+                                        size: 18,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: const [
+                                      Text(
+                                        '13:00 hours onwards',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Icon(
+                                        Icons.access_time_outlined,
+                                        size: 18,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Positioned(
+                    top: 0,
+                    right: 0,
+                    child: CustomPaint(
+                      painter: FilledArcPainter(),
+                    ),
+                  ),
+                  Positioned(
+                    top: 20,
+                    right: 20,
+                    child: SizedBox(
+                      width: 110,
+                      child: Image.asset(
+                        'assets/images/logoWhite.png',
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Stack(
                 alignment: Alignment.center,
