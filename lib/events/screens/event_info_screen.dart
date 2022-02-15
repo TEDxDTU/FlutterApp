@@ -159,34 +159,47 @@ class EventInfoScreen extends StatelessWidget {
                             valueListenable:
                                 selectableBoxKey.currentState!.selectedBox,
                             builder: (context, value, _) {
-                              return SingleChildScrollView(
-                                physics: const BouncingScrollPhysics(),
-                                controller: scrollController,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0)
-                                      .copyWith(bottom: 100, top: 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(top: 2.0),
-                                          child: SizedBox(
-                                            width: 24,
-                                            child: Divider(
-                                              color: Colors.white,
-                                              thickness: 2,
-                                            ),
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 2.0),
+                                      child: SizedBox(
+                                        width: 24,
+                                        child: Divider(
+                                          color: Colors.white,
+                                          thickness: 2,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(30),
+                                          topRight: Radius.circular(30),
+                                        ),
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          controller: scrollController,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 100, top: 0),
+                                            child: bottomWidgets[
+                                                selectableBoxKey.currentState!
+                                                    .selectedBox.value],
                                           ),
                                         ),
                                       ),
-                                      bottomWidgets[selectableBoxKey
-                                          .currentState!.selectedBox.value],
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               );
                             },
                           ),
