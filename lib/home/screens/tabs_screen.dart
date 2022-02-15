@@ -49,7 +49,6 @@ class _TabsScreenState extends State<TabsScreen> {
         }
         return val;
       },
-
       child: IndexedStack(
         index: _currentIndex,
         children: widget.screens
@@ -68,41 +67,7 @@ class _TabsScreenState extends State<TabsScreen> {
                       return Stack(
                         children: [
                           (e.routes[settings.name]!(context)),
-                          Positioned(
-                            bottom: 20,
-                            left: 30,
-                            right: 30,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: SalomonBottomBar(
-                                unselectedItemColor: Colors.black,
-                                currentIndex: _currentIndex,
-                                onTap: (i) {
-                                  setState(() {
-                                    _currentIndex = i;
-                                  });
-                                },
-                                items: widget.screens
-                                    .map((e) => SalomonBottomBarItem(
-                                          icon: e.icon,
-                                          title: Text(e.title),
-                                        ))
-                                    .toList(),
-                              ),
-                            ),
-                          )
+                          _buildBottomBar()
                         ],
                       );
                     },
@@ -111,6 +76,43 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
             )
             .toList(),
+      ),
+    );
+  }
+
+  Widget _buildBottomBar() {
+    return Positioned(
+      bottom: 20,
+      left: 30,
+      right: 30,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: SalomonBottomBar(
+          unselectedItemColor: Colors.black,
+          currentIndex: _currentIndex,
+          onTap: (i) {
+            setState(() {
+              _currentIndex = i;
+            });
+          },
+          items: widget.screens
+              .map((e) => SalomonBottomBarItem(
+                    icon: e.icon,
+                    title: Text(e.title),
+                  ))
+              .toList(),
+        ),
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 
+import 'event_info_screen.dart';
+
 class EventsCategoriesScreen extends StatelessWidget {
   const EventsCategoriesScreen({Key? key}) : super(key: key);
 
@@ -17,6 +19,14 @@ class EventsCategoriesScreen extends StatelessWidget {
           details: ['Details'],
           width: double.infinity,
           actionWidget: Text('Join'),
+          showImage: true,
+          gradientColor: Colors.red,
+          actionWidgetFunction: () {
+            Navigator.of(context)
+                .pushNamed(EventInfoScreen.routeName, arguments: {
+              'eventType': 'live',
+            });
+          },
         ),
         EventCategoryWidget(
           title: 'Upcoming Event',

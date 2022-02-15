@@ -49,7 +49,7 @@ class EventCategoryWidget extends StatelessWidget {
     Key? key,
   })  : widgetHeight = height ?? 180,
         widgetWidth = width ?? 400,
-        color = gradientColor,
+        color = gradientColor ?? Colors.red,
         fontColor = fontColor ?? Colors.white,
         showActionWidget = showActionWidget ?? true,
         actionWidgetOffset =
@@ -75,7 +75,7 @@ class EventCategoryWidget extends StatelessWidget {
   /// The primary gradient color for the [title] and [details].
   ///
   /// Defaults to Red (0xffE62B1E).
-  final Color? color;
+  final Color color;
 
   /// actionButton is preferably a Button ([IconButton], [ElevatedButton])
   /// shown at the bottom right of the [EventCategoryWidget].
@@ -150,11 +150,10 @@ class EventCategoryWidget extends StatelessWidget {
           Radius.circular(10),
         ),
         boxShadow: [
-          if (color != null)
-            BoxShadow(
-              color: shadowColor ?? color!,
-              blurRadius: shadowRadius ?? 0,
-            )
+          BoxShadow(
+            color: shadowColor ?? color,
+            blurRadius: shadowRadius ?? 0,
+          )
         ],
       ),
       child: GestureDetector(
@@ -204,16 +203,14 @@ class EventCategoryWidget extends StatelessWidget {
                   Radius.circular(10),
                 ),
                 color: backgroundColor,
-                gradient: color == null
-                    ? null
-                    : LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          color!,
-                          Colors.transparent,
-                        ],
-                      ),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    color,
+                    Colors.transparent,
+                  ],
+                ),
               ),
             ),
             Padding(

@@ -115,6 +115,13 @@ class HomeScreen extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.25),
+                blurRadius: 10,
+                spreadRadius: 5,
+              ),
+            ],
           ),
           child: Row(
             children: [

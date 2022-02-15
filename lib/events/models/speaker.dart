@@ -16,13 +16,19 @@ class Speaker {
   });
 
   factory Speaker.fromMap(Map<String, dynamic> map) {
-    return Speaker(
-      achievements: List<String>.from(map['achievements']),
-      bio: map['bio'],
-      imageUrl: map['imageUrl'],
-      name: map['name'],
-      topic: map['topic'],
-      resources: List<String>.from(map['resources']),
-    );
+    try {
+      return Speaker(
+        achievements: List<String>.from(map['achievements']),
+        bio: map['bio'],
+        imageUrl: map['imageUrl'],
+        name: map['name'],
+        topic: map['topic'],
+        resources: List<String>.from(map['resources']),
+      );
+    } on Exception catch (e) {
+      print(e);
+      rethrow;
+      // TODO
+    }
   }
 }
