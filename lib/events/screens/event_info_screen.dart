@@ -29,6 +29,7 @@ class EventInfoScreen extends StatelessWidget {
     final List<Widget> widgets = [];
     for (int i = 0; i < speakers.length; i++) {
       widgets.add(SpeakerInfoWidget(
+        key: ValueKey('speaker$i'),
         speakerIndex: i,
         isCurrent: i == currentSpeakerIndex,
       ));
@@ -54,6 +55,7 @@ class EventInfoScreen extends StatelessWidget {
         stream: eventType == 'live' ? LiveEvent.fetch() : null,
         builder: (context, snapshot) {
           // print(snapshot.data);
+          print('new stream event');
           // if (LiveEvent.instance == null) return TedxLoadingSpinner();
           if (eventType == 'live' &&
               (snapshot.connectionState == ConnectionState.waiting ||
@@ -68,10 +70,13 @@ class EventInfoScreen extends StatelessWidget {
           } else {
             e = Provider.of<PastEventProvider>(context).findById(eventId!);
           }
-
+          print((e is LiveEvent) ? e.currentSpeakerIndex : null);
           // List of widgets shown in the DraggableScrollableSheet.
           List<Widget> bottomWidgets = [
             Column(
+              key: ValueKey(
+                'eventInfo$eventType${(e is LiveEvent) ? e.currentSpeakerIndex : null}',
+              ),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _getSpeakerInfoWidgets(
                 e.speakers,

@@ -54,10 +54,10 @@ class LiveEvent extends Event {
         currentSpeakerIndex: map['currentSpeakerIndex'],
         currDataToDisplay: map['currentDataToDisplay'],
       );
-      print(e.title);
+      // print(e.title);
       return e;
     } on Exception catch (e) {
-      print(e);
+      // print(e);
       rethrow;
     }
   }
@@ -69,10 +69,10 @@ class LiveEvent extends Event {
         .doc('currentEvent')
         .snapshots()) {
       if (element.exists) {
-        print(element.data());
+        // print(element.data());
         instance = LiveEvent._fromMap(element.data()!);
 
-        print('yielded');
+        // print('yielded');
         yield instance;
       }
     }
