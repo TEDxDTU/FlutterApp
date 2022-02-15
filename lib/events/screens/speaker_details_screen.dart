@@ -225,9 +225,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                                   _buildHeadingAndData(
                                     context,
                                     'About the speaker',
-                                    (routeArgs['achievements'] as List<String>)
-                                        .sublist(2)
-                                        .join('\n'),
+                                    (routeArgs['bio'] as String),
                                     width,
                                     height,
                                   ),

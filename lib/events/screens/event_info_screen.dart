@@ -24,11 +24,13 @@ class EventInfoScreen extends StatelessWidget {
   const EventInfoScreen({Key? key}) : super(key: key);
   static const routeName = '/event-info-screen';
 
-  List<Widget> _getSpeakerInfoWidgets(List<Speaker> speakers) {
+  List<Widget> _getSpeakerInfoWidgets(
+      List<Speaker> speakers, int? currentSpeakerIndex) {
     final List<Widget> widgets = [];
     for (int i = 0; i < speakers.length; i++) {
       widgets.add(SpeakerInfoWidget(
         speakerIndex: i,
+        isCurrent: i == currentSpeakerIndex,
       ));
     }
     return widgets;
@@ -71,7 +73,10 @@ class EventInfoScreen extends StatelessWidget {
           List<Widget> bottomWidgets = [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: _getSpeakerInfoWidgets(e.speakers),
+              children: _getSpeakerInfoWidgets(
+                e.speakers,
+                (e is LiveEvent) ? e.currentSpeakerIndex : null,
+              ),
             ),
             EventInfoWidget(
               eventVenue: e.venue,

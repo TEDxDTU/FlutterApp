@@ -50,7 +50,7 @@ class LiveEvent extends Event {
               (speaker) => Speaker.fromMap(speaker),
             )
             .toList(),
-        requiresTicket: map['requiresTicket'] == 'true',
+        requiresTicket: map['requiresTicket'],
         currentSpeakerIndex: map['currentSpeakerIndex'],
         currDataToDisplay: map['currentDataToDisplay'],
       );
@@ -64,11 +64,13 @@ class LiveEvent extends Event {
 
   /// Fetches the current live event from the server
   static Stream<LiveEvent?> fetch() async* {
-    await for (var element
-        in FirebaseFirestore.instance.collection('liveEvent').snapshots()) {
-      if (element.docs.isNotEmpty) {
-        print(element.docs.first.data());
-        instance = LiveEvent._fromMap(element.docs.first.data());
+    await for (var element in FirebaseFirestore.instance
+        .collection('liveEvent')
+        .doc('currentEvent')
+        .snapshots()) {
+      if (element.exists) {
+        print(element.data());
+        instance = LiveEvent._fromMap(element.data()!);
 
         print('yielded');
         yield instance;
