@@ -83,6 +83,14 @@ flutter:
     - assets/images/dtu_bg.jpeg
     - assets/home_screen/recent_updates.svg
     - assets/home_screen/trivia.svg
+    - assets/event_booking/1.png
+    - assets/event_booking/2.png
+    - assets/event_booking/3.png
+    - assets/event_booking/4.png
+    - assets/event_booking/5.png
+    - assets/event_booking/6.png
+    - assets/event_booking/7.png
+    - assets/event_booking/8.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

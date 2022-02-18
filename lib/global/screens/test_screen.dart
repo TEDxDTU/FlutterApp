@@ -5,12 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/helpers/concave_corners_with_radius_clip.dart';
 import 'package:tedx_dtu_app/events/helpers/dotted_seperator.dart';
 import 'package:tedx_dtu_app/events/helpers/filled_arc_painter.dart';
+import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
+import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 
-class TestScreen extends StatelessWidget {
-  TestScreen({Key? key}) : super(key: key);
+class TestScreen extends StatefulWidget {
+  const TestScreen({Key? key}) : super(key: key);
   static const routeName = '/test';
 
-  final Random random = Random();
+  @override
+  State<TestScreen> createState() => _TestScreenState();
+}
+
+class _TestScreenState extends State<TestScreen> {
+  var numberOfTickets = 1;
   @override
   Widget build(BuildContext context) {
     // var routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
@@ -24,6 +31,7 @@ class TestScreen extends StatelessWidget {
     int eventPrice = 180;
 
     var mediaQuery = MediaQuery.of(context);
+    var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -190,6 +198,46 @@ class TestScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                              top: 24.0,
+                              bottom: 8.0,
+                            ),
+                            child: Text(
+                              'How many tickets?',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 200,
+                                child: FittedBox(
+                                  child: Row(
+                                    children: List.generate(8, (index) {
+                                      return SelectableBox(
+                                        name: '${index + 1}',
+                                        color: (index + 1 == numberOfTickets)
+                                            ? Colors.red
+                                            : Colors.black,
+                                        onTap: () {
+                                          setState(() {
+                                            numberOfTickets = index + 1;
+                                          });
+                                        },
+                                      );
+                                    }, growable: false),
+                                  ),
+                                ),
+                              ),
+                              Image.asset(
+                                  'assets/event_booking/$numberOfTickets.png'),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -216,7 +264,9 @@ class TestScreen extends StatelessWidget {
                         "Pay $eventPrice",
                         style: Theme.of(context).textTheme.headline6,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        print("${selectableBoxKey.currentState}");
+                      },
                     ),
                   ),
                 ],
