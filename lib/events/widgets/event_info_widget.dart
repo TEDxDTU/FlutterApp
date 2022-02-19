@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 
+/// Displays the information about a particular event.
 class EventInfoWidget extends StatelessWidget {
   const EventInfoWidget({
     Key? key,
@@ -16,6 +17,8 @@ class EventInfoWidget extends StatelessWidget {
   final String eventVenue;
   final DateTime dateTime;
   final String eventDescription;
+
+  /// The margins to put around the Widget.
   final double marginVal;
   final String eventTitle;
   final int eventPrice;

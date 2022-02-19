@@ -2,21 +2,24 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
 import 'package:tedx_dtu_app/home/models/story.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 
 class SingleStoryScreen extends StatelessWidget {
-  const SingleStoryScreen({Key? key}) : super(key: key);
+  const SingleStoryScreen({
+    Key? key,
+    required this.storyIndex,
+  }) : super(key: key);
 
-  static const routeName = '/single-story';
+  /// The index of the story to display, as provided by the [StoryProvider].
+  final int storyIndex;
 
   @override
   Widget build(BuildContext context) {
-    String storyId = ModalRoute.of(context)?.settings.arguments as String;
-    print(storyId);
-    Story story = Provider.of<StoryProvider>(context).findById(storyId);
-    print(story.id);
+    Story story = Provider.of<StoryProvider>(context).getStoryAt(storyIndex);
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Material(
@@ -27,13 +30,46 @@ class SingleStoryScreen extends StatelessWidget {
         width: width,
         child: Stack(
           children: [
+            // TODO:Replace with YT Embed
             Positioned.fill(
               //Replace with YT embed
               child: Image.network(
-                'https://cdn.pocket-lint.com/r/s/485x/assets/images/142227-phones-review-iphone-x-review-photos-image1-ahdsiyvum0.jpg',
+                story.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
+            // Back button
+            Positioned(
+              top: 10,
+              left: 10,
+              child: SafeArea(
+                child: Material(
+                  color: Colors.white,
+                  shape: CircleBorder(),
+                  child: ClipOval(
+                    child: BlurredWidget(
+                      sigmaX: 10,
+                      sigmaY: 10,
+                      child: InkWell(
+                        radius: 40,
+                        customBorder: CircleBorder(),
+                        // splashColor: Colors.red,
+
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).pop(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Story info
             DraggableScrollableSheet(
               initialChildSize: 0.31,
               minChildSize: 180 / height,

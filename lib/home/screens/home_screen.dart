@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
@@ -55,9 +56,10 @@ class HomeScreen extends StatelessWidget {
             children: [
               EventCategoryWidget(
                 title: '',
-                details: const [],
-                isSvg: true,
-                width: mediaQuery.size.width * 0.42,
+                backgroundColor: CupertinoColors.darkBackgroundGray,
+                details: const [''],
+                isSvg: false,
+                width: mediaQuery.size.width * 0.438,
                 height: mediaQuery.size.width * 0.42 * 1.275,
                 actionButton: CircleAvatar(
                   backgroundColor: Colors.white,
@@ -69,6 +71,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {},
                   ),
                 ),
+                showImage: true,
                 gradientColor: Colors.transparent,
                 imageProvider: const svg_provider.Svg(
                   'assets/home_screen/trivia.svg',
@@ -76,10 +79,11 @@ class HomeScreen extends StatelessWidget {
                 actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
               EventCategoryWidget(
-                isSvg: true,
-                title: '',
+                backgroundColor: CupertinoColors.darkBackgroundGray,
+                isSvg: false,
+                title: 'Recent Updates',
                 details: const [],
-                width: mediaQuery.size.width * 0.42,
+                width: mediaQuery.size.width * 0.438,
                 height: mediaQuery.size.width * 0.42 * 1.275,
                 actionButton: CircleAvatar(
                   backgroundColor: Colors.white,
@@ -92,6 +96,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 gradientColor: Colors.transparent,
+                showImage: true,
                 imageProvider: const svg_provider.Svg(
                   'assets/home_screen/recent_updates.svg',
                 ),
@@ -106,10 +111,17 @@ class HomeScreen extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 16),
           // height: 300,
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: CupertinoColors.darkBackgroundGray,
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.25),
+                blurRadius: 10,
+                spreadRadius: 5,
+              ),
+            ],
           ),
           child: Row(
             children: [

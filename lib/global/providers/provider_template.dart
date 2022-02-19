@@ -34,4 +34,6 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
       notifyListeners();
     };
   }
+
+  int get length => data.length;
 }

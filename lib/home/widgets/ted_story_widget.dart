@@ -1,9 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
+import 'package:tedx_dtu_app/home/screens/home_screen.dart';
 
+/// Creates a [TedStoryWidget] to be used on [HomeScreen]. It is actually a
+/// general purpose widget that can be used to display any data. In the future
+/// it will be used to display [LiveEvent] on the home screen as well.
 class TedStoryWidget extends StatelessWidget {
   const TedStoryWidget({
     required this.leadingText,

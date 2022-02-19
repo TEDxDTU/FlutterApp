@@ -5,9 +5,14 @@ import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/home/models/story.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
+import 'package:tedx_dtu_app/home/screens/home_screen.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
+import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 
+/// The TED Stories widget, to be displayed on top in the [HomeScreen].
+/// Displays a List of [Story] objects, using the [TedStoryWidget]. Data is
+/// provided by [StoryProvider].
 class TedStories extends StatefulWidget {
   const TedStories({
     double? scrollBarWidth,
@@ -17,8 +22,13 @@ class TedStories extends StatefulWidget {
   })  : scrollBarWidth = scrollBarWidth ?? 120,
         super(key: key);
 
+  /// The width of the scrollbar, in pixels.
   final double scrollBarWidth;
+
+  /// The list of Widgets to show ,if any, before the stories.
   final List<Widget>? preWidgets;
+
+  /// The list of Widgets to show ,if any, after the stories.
   final List<Widget>? postWidgets;
 
   @override
@@ -102,8 +112,8 @@ class _TedStoriesState extends State<TedStories> {
                           imageProvider: NetworkImage(e.imageUrl),
                           onPressed: () {
                             Navigator.of(context).pushNamed(
-                              SingleStoryScreen.routeName,
-                              arguments: e.id,
+                              StoriesPageView.routeName,
+                              arguments: e.index,
                             );
                           },
                         ),

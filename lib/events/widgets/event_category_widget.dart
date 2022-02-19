@@ -37,6 +37,8 @@ class EventCategoryWidget extends StatelessWidget {
     this.shadowRadius,
     this.loadingIndicator,
     this.trailing,
+    this.showImage = true,
+    this.backgroundColor = Colors.white,
     bool? isSvg,
     Tuple2<double, double>? actionWidgetOffset,
     bool? showActionWidget,
@@ -47,13 +49,16 @@ class EventCategoryWidget extends StatelessWidget {
     Key? key,
   })  : widgetHeight = height ?? 180,
         widgetWidth = width ?? 400,
-        color = gradientColor ?? const Color(0xffE62B1E),
+        color = gradientColor ?? Colors.red,
         fontColor = fontColor ?? Colors.white,
         showActionWidget = showActionWidget ?? true,
         actionWidgetOffset =
             actionWidgetOffset ?? const Tuple2<double, double>(18, 8),
         isSvg = isSvg ?? false,
         super(key: key);
+
+  final Color backgroundColor;
+  final bool showImage;
 
   /// Height of the widget, defaults to 180.
   final double widgetHeight;
@@ -140,7 +145,7 @@ class EventCategoryWidget extends StatelessWidget {
       height: widgetHeight,
       width: widgetWidth,
       decoration: BoxDecoration(
-        color: isSvg ? Colors.transparent : Colors.white,
+        color: isSvg ? Colors.transparent : backgroundColor,
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -159,44 +164,45 @@ class EventCategoryWidget extends StatelessWidget {
         },
         child: Stack(
           children: [
-            Container(
-              height: widgetHeight,
-              width: widgetWidth,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+            if (showImage)
+              Container(
+                height: widgetHeight,
+                width: widgetWidth,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  color: Colors.transparent,
                 ),
-                color: Colors.transparent,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  child: Image(
+                    image: imageProvider ??
+                        const NetworkImage(
+                          'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive',
+                        ),
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, exception, stackTrace) {
+                      return const ImageErrorWidget();
+                    },
+                    loadingBuilder: (context, child, progress) {
+                      if (progress == null) return child;
+                      return Center(
+                        child: loadingIndicator ??
+                            const CircularProgressIndicator(),
+                      );
+                    },
+                  ),
+                ),
               ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                child: Image(
-                  image: imageProvider ??
-                      const NetworkImage(
-                        'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive',
-                      ),
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, exception, stackTrace) {
-                    return const ImageErrorWidget();
-                  },
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
-                    return Center(
-                      child:
-                          loadingIndicator ?? const CircularProgressIndicator(),
-                    );
-                  },
-                ),
-              ),
-            ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(10),
                 ),
-                color: Colors.white,
+                color: backgroundColor,
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -209,8 +215,8 @@ class EventCategoryWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 16,
-                horizontal: 8,
+                vertical: 20,
+                horizontal: 20,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

@@ -1,9 +1,12 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Creates a detail screen for a particular [Speaker]
+/// Receives the speaker details as parameter from [ModalRoute].
 class SpeakerDetailsScreen extends StatelessWidget {
   const SpeakerDetailsScreen({Key? key}) : super(key: key);
   static const routeName = '/speaker-details';
@@ -106,7 +109,6 @@ class SpeakerDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Get speakerId from Modal Route and fetch data from Firebase
     final routeArgs =
         ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
 
@@ -223,9 +225,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                                   _buildHeadingAndData(
                                     context,
                                     'About the speaker',
-                                    (routeArgs['achievements'] as List<String>)
-                                        .sublist(2)
-                                        .join('\n'),
+                                    (routeArgs['bio'] as String),
                                     width,
                                     height,
                                   ),
