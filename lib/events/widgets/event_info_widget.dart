@@ -10,11 +10,15 @@ class EventInfoWidget extends StatelessWidget {
     required this.dateTime,
     required this.eventDescription,
     required this.marginVal,
+    required this.eventTitle,
+    required this.eventPrice,
   }) : super(key: key);
   final String eventVenue;
   final DateTime dateTime;
   final String eventDescription;
   final double marginVal;
+  final String eventTitle;
+  final int eventPrice;
 
   Widget _createListTile(IconData icon, String txt) {
     return Padding(
@@ -65,7 +69,7 @@ class EventInfoWidget extends StatelessWidget {
             Icons.access_time_rounded,
             DateFormat('hh:mm a').format(DateTime.now()),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -104,11 +108,14 @@ class EventInfoWidget extends StatelessWidget {
           const SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
+              // TODO: EventBookingScreen push here
               Navigator.of(context).pushNamed(EventBookingScreen.routeName,
                   arguments: <String, Object>{
                     'eventDescription': eventDescription,
                     'venue': eventVenue,
                     'dateTime': dateTime,
+                    'eventTitle': eventTitle,
+                    'eventPrice': eventPrice,
                   });
             },
             child: const Text(

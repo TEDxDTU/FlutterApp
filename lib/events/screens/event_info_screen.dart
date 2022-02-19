@@ -65,6 +65,8 @@ class EventInfoScreen extends StatelessWidget {
         eventVenue: e.venue,
         dateTime: e.date,
         eventDescription: e.details,
+        eventTitle: e.title,
+        eventPrice: (e is UpcomingEvent) ? e.price : 0,
         marginVal: 8,
       ),
       if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
