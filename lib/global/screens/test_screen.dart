@@ -28,7 +28,7 @@ class _TestScreenState extends State<TestScreen> {
     String eventDesc = 'Ted Talks with Dr. Sushmita Rai';
     String venue = 'Coliz me\n110039';
     DateTime dateTime = DateTime.now();
-    int eventPrice = 180;
+    int ticketPrice = 60;
 
     var mediaQuery = MediaQuery.of(context);
     var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
@@ -169,7 +169,7 @@ class _TestScreenState extends State<TestScreen> {
                       topLeft: true,
                     ),
                     child: Container(
-                      padding: const EdgeInsets.all(24),
+                      // padding: const EdgeInsets.all(24),
                       width: mediaQuery.size.width * 0.9,
                       height: mediaQuery.size.height * 0.45,
                       color: const Color(0xff303030),
@@ -177,66 +177,248 @@ class _TestScreenState extends State<TestScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.white,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  venue,
-                                  maxLines: 3,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        fontSize: 12,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(
+                          // TODO: Align image to the bottom
+                          Padding(
+                            padding: const EdgeInsets.only(
                               top: 24.0,
-                              bottom: 8.0,
+                              left: 24,
+                              right: 24,
                             ),
-                            child: Text(
-                              'How many tickets?',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                width: 200,
-                                child: FittedBox(
-                                  child: Row(
-                                    children: List.generate(8, (index) {
-                                      return SelectableBox(
-                                        name: '${index + 1}',
-                                        color: (index + 1 == numberOfTickets)
-                                            ? Colors.red
-                                            : Colors.black,
-                                        onTap: () {
-                                          setState(() {
-                                            numberOfTickets = index + 1;
-                                          });
-                                        },
-                                      );
-                                    }, growable: false),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.location_on_outlined,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    venue,
+                                    maxLines: 3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          fontSize: 12,
+                                        ),
                                   ),
                                 ),
-                              ),
-                              Image.asset(
-                                  'assets/event_booking/$numberOfTickets.png'),
-                            ],
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: mediaQuery.size.height * 0.45 * 0.25,
+                            padding: const EdgeInsets.only(
+                              top: 16.0,
+                              bottom: 8.0,
+                              left: 24,
+                              right: 24,
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 6,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          'How many tickets?',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      FittedBox(
+                                        child: Row(
+                                          children: List.generate(8, (index) {
+                                            return SelectableBox(
+                                              name: '${index + 1}',
+                                              color:
+                                                  (index + 1 == numberOfTickets)
+                                                      ? const Color(0xFFE62B1E)
+                                                      : const Color(0xFF5A5A5A),
+                                              onTap: () {
+                                                setState(() {
+                                                  numberOfTickets = index + 1;
+                                                });
+                                              },
+                                            );
+                                          }, growable: false),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    alignment: Alignment.bottomCenter,
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Image.asset(
+                                      'assets/event_booking/$numberOfTickets.png',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // TODO: add ticket price here
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 8,
+                            ),
+                            margin: const EdgeInsets.only(top: 8),
+                            color: const Color(0xFF404040),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Text(
+                                    'Ticket Price',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                            text: '₹ ',
+                                          ),
+                                          TextSpan(
+                                            text: ticketPrice.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                ?.copyWith(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                          ),
+                                          const TextSpan(
+                                            text: ' x ',
+                                            style: TextStyle(
+                                              fontStyle: FontStyle.italic,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: numberOfTickets.toString(),
+                                            style: const TextStyle(
+                                              fontStyle: FontStyle.italic,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 24.0,
+                                        ),
+                                        child: Divider(
+                                          thickness: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          const TextSpan(text: '₹'),
+                                          TextSpan(
+                                            text:
+                                                (ticketPrice * numberOfTickets)
+                                                    .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 22,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (ctx) {
+                                        return const AlertDialog(
+                                          title: Text('Cancellation Policy'),
+                                          content: Text('Bla bla bla'),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Cancellation Policy',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 12,
+                                        ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Total Payable Amount',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                      const Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 24.0,
+                                          ),
+                                          child: Divider(
+                                            thickness: 2,
+                                          ),
+                                        ),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(text: '₹'),
+                                            TextSpan(
+                                              text: (ticketPrice *
+                                                      numberOfTickets)
+                                                  .toString(),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -261,7 +443,7 @@ class _TestScreenState extends State<TestScreen> {
                         ),
                       ),
                       child: Text(
-                        "Pay $eventPrice",
+                        "Pay ${ticketPrice * numberOfTickets}",
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       onPressed: () {
