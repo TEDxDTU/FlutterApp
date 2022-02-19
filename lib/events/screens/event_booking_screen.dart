@@ -42,7 +42,6 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
     var height = max(750, mediaQuery.size.height);
 
     var appBar = AppBar(
-      // TODO: Add style
       title: const Text("Almost There!"),
     );
 
@@ -95,16 +94,19 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  child: AutoSizeText(
-                                    eventDesc,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline4!
-                                        .copyWith(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                    maxLines: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: AutoSizeText(
+                                      eventDesc,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                      maxLines: 3,
+                                    ),
                                   ),
                                 ),
                                 Column(

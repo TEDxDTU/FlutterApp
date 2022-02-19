@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/models/event.dart';
@@ -51,263 +50,176 @@ class EventInfoScreen extends StatelessWidget {
     // as requested by user.
     var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
 
-// <<<<<<< event-booking-screen
-    // List of widgets shown in the DraggableScrollableSheet.
-    List<Widget> bottomWidgets = [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _getSpeakerInfoWidgets(e.speakers),
-      ),
-      EventInfoWidget(
-        eventVenue: e.venue,
-        dateTime: e.date,
-        eventDescription: e.details,
-        eventTitle: e.title,
-        eventPrice: (e is UpcomingEvent) ? e.price : 0,
-        marginVal: 8,
-      ),
-      if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
-    ];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(e.title),
-      ),
-      body: SizedBox(
-        width: mediaQuery.size.width,
-        height: mediaQuery.size.height,
-        child: ChangeNotifierProvider<Event>.value(
-          value: e,
-          child: Stack(
-            children: [
-              Column(
+    return StreamBuilder(
+      stream: eventType == 'live' ? LiveEvent.fetch() : null,
+      builder: (context, snapshot) {
+        // print(snapshot.data);
+        print('new stream event');
+        // if (LiveEvent.instance == null) return TedxLoadingSpinner();
+        if (eventType == 'live' &&
+            (snapshot.connectionState == ConnectionState.waiting ||
+                !snapshot.hasData)) {
+          return const Center(child: TedxLoadingSpinner());
+        }
+        Event e;
+        if (eventType == 'live') {
+          e = LiveEvent.instance!;
+        } else if (eventType == 'upcoming') {
+          e = Provider.of<UpcomingEventProvider>(context).findById(eventId!);
+        } else {
+          e = Provider.of<PastEventProvider>(context).findById(eventId!);
+        }
+        print((e is LiveEvent) ? e.currentSpeakerIndex : null);
+        // List of widgets shown in the DraggableScrollableSheet.
+        List<Widget> bottomWidgets = [
+          Column(
+            key: ValueKey(
+              'eventInfo$eventType${(e is LiveEvent) ? e.currentSpeakerIndex : null}',
+            ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _getSpeakerInfoWidgets(
+              e.speakers,
+              (e is LiveEvent) ? e.currentSpeakerIndex : null,
+            ),
+          ),
+          EventInfoWidget(
+            eventVenue: e.venue,
+            dateTime: e.date,
+            eventDescription: e.details,
+            eventTitle: e.title,
+            eventPrice: (e is UpcomingEvent) ? e.price : 0,
+            marginVal: 8,
+          ),
+          if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
+        ];
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(e.title),
+          ),
+          body: SizedBox(
+            width: mediaQuery.size.width,
+            height: mediaQuery.size.height,
+            child: ChangeNotifierProvider<Event>.value(
+              value: e,
+              child: Stack(
                 children: [
-                  //TODO: Replace with YT embed
-                  EventCategoryWidget(
-                    title: e.title,
-                    details: [
-                      e.details,
+                  Column(
+                    children: [
+                      //TODO: Replace with YT embed
+                      EventCategoryWidget(
+                        title: e.title,
+                        details: [
+                          e.details,
+                        ],
+                        width: double.infinity,
+                        height: mediaQuery.size.height * 0.25,
+                        showActionWidget: false,
+                        showImage: true,
+                        // gradientColor: Colors.black,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: mediaQuery.size.height * 0.08,
+                        alignment: Alignment.centerLeft,
+                        child: SelectableBoxCreator(
+                          key: selectableBoxKey,
+                          count: (e is PastEvent) ? 3 : 2,
+                          names: [
+                            'Speaker info',
+                            'Event info',
+                            if (e is PastEvent) 'Gallery',
+                          ],
+                        ),
+                      ),
                     ],
-                    width: double.infinity,
-                    height: mediaQuery.size.height * 0.25,
-                    showActionWidget: false,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: mediaQuery.size.height * 0.08,
-                    alignment: Alignment.centerLeft,
-                    child: SelectableBoxCreator(
-                      key: selectableBoxKey,
-                      count: (e is PastEvent) ? 3 : 2,
-                      names: [
-                        'Speaker info',
-                        'Event info',
-                        if (e is PastEvent) 'Gallery',
-                      ],
-                    ),
+                  DraggableScrollableSheet(
+                    initialChildSize:
+                        mediaQuery.orientation == Orientation.portrait
+                            ? 0.61
+                            : 0.58,
+                    minChildSize: mediaQuery.orientation == Orientation.portrait
+                        ? 0.61
+                        : 0.58,
+                    maxChildSize: 1.0,
+                    snap: true,
+                    builder: (context, scrollController) {
+                      return Container(
+                        margin: const EdgeInsets.only(
+                          top: 12,
+                          left: 2,
+                          right: 2,
+                        ),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color(0xff0f0f0f),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[500]!,
+                                offset: const Offset(0, -1),
+                                blurRadius: 7,
+                                // spreadRadius: 1,
+                              ),
+                            ]),
+                        child: ValueListenableBuilder(
+                          valueListenable:
+                              selectableBoxKey.currentState!.selectedBox,
+                          builder: (context, value, _) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 2.0),
+                                    child: SizedBox(
+                                      width: 24,
+                                      child: Divider(
+                                        color: Colors.white,
+                                        thickness: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(30),
+                                        topRight: Radius.circular(30),
+                                      ),
+                                      child: SingleChildScrollView(
+                                        physics: const BouncingScrollPhysics(),
+                                        controller: scrollController,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 100, top: 0),
+                                          child: bottomWidgets[selectableBoxKey
+                                              .currentState!.selectedBox.value],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
-              DraggableScrollableSheet(
-                initialChildSize: mediaQuery.orientation == Orientation.portrait
-                    ? 0.61
-                    : 0.58,
-                minChildSize: mediaQuery.orientation == Orientation.portrait
-                    ? 0.61
-                    : 0.58,
-                maxChildSize: 1.0,
-                snap: true,
-                builder: (context, scrollController) {
-                  return Container(
-                    margin: const EdgeInsets.only(
-                      top: 12,
-                      left: 2,
-                      right: 2,
-                    ),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: const Color(0xff0f0f0f),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[500]!,
-                            offset: const Offset(0, -1),
-                            blurRadius: 7,
-                            // spreadRadius: 1,
-// =======
-//     return StreamBuilder(
-//         stream: eventType == 'live' ? LiveEvent.fetch() : null,
-//         builder: (context, snapshot) {
-//           // print(snapshot.data);
-//           print('new stream event');
-//           // if (LiveEvent.instance == null) return TedxLoadingSpinner();
-//           if (eventType == 'live' &&
-//               (snapshot.connectionState == ConnectionState.waiting ||
-//                   !snapshot.hasData)) {
-//             return Center(child: TedxLoadingSpinner());
-//           }
-//           Event e;
-//           if (eventType == 'live') {
-//             e = LiveEvent.instance!;
-//           } else if (eventType == 'upcoming') {
-//             e = Provider.of<UpcomingEventProvider>(context).findById(eventId!);
-//           } else {
-//             e = Provider.of<PastEventProvider>(context).findById(eventId!);
-//           }
-//           print((e is LiveEvent) ? e.currentSpeakerIndex : null);
-//           // List of widgets shown in the DraggableScrollableSheet.
-//           List<Widget> bottomWidgets = [
-//             Column(
-//               key: ValueKey(
-//                 'eventInfo$eventType${(e is LiveEvent) ? e.currentSpeakerIndex : null}',
-//               ),
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: _getSpeakerInfoWidgets(
-//                 e.speakers,
-//                 (e is LiveEvent) ? e.currentSpeakerIndex : null,
-//               ),
-//             ),
-//             EventInfoWidget(
-//               eventVenue: e.venue,
-//               dateTime: e.date,
-//               eventDescription: e.details,
-//               marginVal: 8,
-//             ),
-//             if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
-//           ];
-//           return Scaffold(
-//             appBar: AppBar(
-//               title: Text(e.title),
-//             ),
-//             body: SizedBox(
-//               width: mediaQuery.size.width,
-//               height: mediaQuery.size.height,
-//               child: ChangeNotifierProvider<Event>.value(
-//                 value: e,
-//                 child: Stack(
-//                   children: [
-//                     Column(
-//                       children: [
-//                         //TODO: Replace with YT embed
-//                         EventCategoryWidget(
-//                           title: e.title,
-//                           details: [
-//                             e.details,
-//                           ],
-//                           width: double.infinity,
-//                           height: mediaQuery.size.height * 0.25,
-//                           showActionWidget: false,
-//                           showImage: true,
-//                           // gradientColor: Colors.black,
-//                         ),
-//                         Container(
-//                           width: double.infinity,
-//                           height: mediaQuery.size.height * 0.08,
-//                           alignment: Alignment.centerLeft,
-//                           child: SelectableBoxCreator(
-//                             key: selectableBoxKey,
-//                             count: (e is PastEvent) ? 3 : 2,
-//                             names: [
-//                               'Speaker info',
-//                               'Event info',
-//                               if (e is PastEvent) 'Gallery',
-//                             ],
-// >>>>>>> main
-                          ),
-                        ),
-                      ],
-                    ),
-                    DraggableScrollableSheet(
-                      initialChildSize:
-                          mediaQuery.orientation == Orientation.portrait
-                              ? 0.61
-                              : 0.58,
-                      minChildSize:
-                          mediaQuery.orientation == Orientation.portrait
-                              ? 0.61
-                              : 0.58,
-                      maxChildSize: 1.0,
-                      snap: true,
-                      builder: (context, scrollController) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                            top: 12,
-                            left: 2,
-                            right: 2,
-                          ),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Color(0xff0f0f0f),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey[500]!,
-                                  offset: Offset(0, -1),
-                                  blurRadius: 7,
-                                  // spreadRadius: 1,
-                                ),
-                              ]),
-                          child: ValueListenableBuilder(
-                            valueListenable:
-                                selectableBoxKey.currentState!.selectedBox,
-                            builder: (context, value, _) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(top: 2.0),
-                                      child: SizedBox(
-                                        width: 24,
-                                        child: Divider(
-                                          color: Colors.white,
-                                          thickness: 2,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(30),
-                                          topRight: Radius.circular(30),
-                                        ),
-                                        child: SingleChildScrollView(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          controller: scrollController,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 100, top: 0),
-                                            child: bottomWidgets[
-                                                selectableBoxKey.currentState!
-                                                    .selectedBox.value],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
