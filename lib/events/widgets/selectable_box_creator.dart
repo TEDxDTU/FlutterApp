@@ -15,6 +15,8 @@ class SelectableBoxCreator extends StatefulWidget {
   const SelectableBoxCreator({
     required this.count,
     required this.names,
+    this.selectedColor = const Color.fromRGBO(230, 43, 30, 0.5),
+    this.unselectedColor = Colors.white,
     Key? key,
   })  : assert(count == names.length, "count must be equal to number of names"),
         super(key: key);
@@ -24,6 +26,10 @@ class SelectableBoxCreator extends StatefulWidget {
 
   /// Titles of all the boxes.
   final List<String> names;
+
+  final Color unselectedColor;
+
+  final Color selectedColor;
 
   @override
   SelectableBoxCreatorState createState() => SelectableBoxCreatorState();
@@ -41,8 +47,8 @@ class SelectableBoxCreatorState extends State<SelectableBoxCreator> {
           (currNum) {
             return SelectableBox(
               color: selectedBox.value == currNum
-                  ? const Color.fromRGBO(230, 43, 30, 0.5)
-                  : Colors.white,
+                  ? widget.selectedColor
+                  : widget.unselectedColor,
               name: widget.names[currNum],
               onTap: () {
                 setState(() {

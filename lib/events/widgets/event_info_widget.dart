@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
+import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 
 /// Displays the information about a particular event.
 class EventInfoWidget extends StatelessWidget {
@@ -9,6 +11,8 @@ class EventInfoWidget extends StatelessWidget {
     required this.dateTime,
     required this.eventDescription,
     required this.marginVal,
+    required this.eventTitle,
+    required this.eventPrice,
   }) : super(key: key);
   final String eventVenue;
   final DateTime dateTime;
@@ -16,6 +20,8 @@ class EventInfoWidget extends StatelessWidget {
 
   /// The margins to put around the Widget.
   final double marginVal;
+  final String eventTitle;
+  final int eventPrice;
 
   Widget _createListTile(IconData icon, String txt) {
     return Padding(
@@ -27,12 +33,12 @@ class EventInfoWidget extends StatelessWidget {
             color: Colors.white,
             // size: 30,
           ),
-          SizedBox(
+          const SizedBox(
             width: 25,
           ),
           Text(
             txt,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               // fontSize: 17,
             ),
@@ -46,7 +52,7 @@ class EventInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: height,
-      padding: EdgeInsets.all(13),
+      padding: const EdgeInsets.all(13),
       margin: EdgeInsets.all(marginVal),
       decoration: BoxDecoration(
         color: Colors.grey[850],
@@ -66,7 +72,7 @@ class EventInfoWidget extends StatelessWidget {
             Icons.access_time_rounded,
             DateFormat('hh:mm a').format(DateTime.now()),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -79,7 +85,7 @@ class EventInfoWidget extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'About',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -88,12 +94,12 @@ class EventInfoWidget extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     eventDescription,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
@@ -102,10 +108,20 @@ class EventInfoWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () {},
-            child: Text(
+            onPressed: () {
+              // TODO: EventBookingScreen push here
+              Navigator.of(context).pushNamed(EventBookingScreen.routeName,
+                  arguments: <String, Object>{
+                    'eventDescription': eventDescription,
+                    'venue': eventVenue,
+                    'dateTime': dateTime,
+                    'eventTitle': eventTitle,
+                    'eventPrice': eventPrice,
+                  });
+            },
+            child: const Text(
               'BOOK NOW',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -113,9 +129,9 @@ class EventInfoWidget extends StatelessWidget {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
               primary: Colors.red[600],
-              minimumSize: Size.fromHeight(50),
+              minimumSize: const Size.fromHeight(50),
             ),
           ),
         ],
