@@ -54,7 +54,7 @@ class _LiveIndicatorWidgetState extends State<LiveIndicatorWidget> {
           const Text(
             'LIVE',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return BottomBarScreenWidget(
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(
             bottom: 8.0,
             left: 8.0,
@@ -27,24 +28,29 @@ class HomeScreen extends StatelessWidget {
           child: TedStories(
             // These are to be removed later, only for showcasing purposes
             preWidgets: [
-              Text(
-                '|\n|\n|\n|\n|\n|\n|',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-            postWidgets: [
-              Text(
-                '|\n|\n|\n|\n|\n|\n|',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              StreamBuilder(
+                  stream: LiveEvent.fetch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return TedStoryWidget(
+                      leadingText: LiveEvent.instance!.title,
+                      isLive: true,
+                      dateTime: LiveEvent.instance!.date,
+                      imageProvider: NetworkImage(LiveEvent.instance!.imageUrl),
+                      width: 145,
+                      borderRadius: 27,
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(EventInfoScreen.routeName, arguments: {
+                          'eventType': 'live',
+                        });
+                      },
+                    );
+                  })
             ],
           ),
         ),

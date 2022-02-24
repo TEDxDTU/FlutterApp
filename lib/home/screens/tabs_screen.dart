@@ -61,7 +61,7 @@ class _TabsScreenState extends State<TabsScreen> {
                     builder: (context) {
                       if (settings.name == NoBottomBarScreen.routeName) {
                         return NoBottomBarScreen(
-                          child: settings.arguments as Widget,
+                          child: (settings.arguments as Map)['child'] as Widget,
                         );
                       }
                       return Stack(

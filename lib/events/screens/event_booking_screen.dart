@@ -38,7 +38,7 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
     int ticketPrice = int.parse(routeArgs['eventPrice'].toString());
 
     var mediaQuery = MediaQuery.of(context);
-    var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
+    // var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
     var height = max(750, mediaQuery.size.height);
 
     var appBar = AppBar(
@@ -469,7 +469,7 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                                 onPressed: () {
-                                  print("${selectableBoxKey.currentState}");
+                                  // print("${selectableBoxKey.currentState}");
                                 },
                               ),
                             ),

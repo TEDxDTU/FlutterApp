@@ -197,8 +197,8 @@ class TedStoryWidget extends StatelessWidget {
             ),
             if (isLive == true)
               const Positioned(
-                top: 0,
-                right: 0,
+                top: 5,
+                right: 5,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: LiveIndicatorWidget(

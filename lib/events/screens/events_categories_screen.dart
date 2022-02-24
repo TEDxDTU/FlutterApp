@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
+import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 
 import 'event_info_screen.dart';
 
@@ -14,20 +17,30 @@ class EventsCategoriesScreen extends StatelessWidget {
       children: [
         // ignore: prefer_const_constructors
         //TODO: Fetch Live data from firebase
-        EventCategoryWidget(
-          title: 'LIVE Event',
-          details: ['Details'],
-          width: double.infinity,
-          actionWidget: Text('Join'),
-          showImage: true,
-          gradientColor: Colors.red,
-          actionWidgetFunction: () {
-            Navigator.of(context)
-                .pushNamed(EventInfoScreen.routeName, arguments: {
-              'eventType': 'live',
-            });
-          },
-        ),
+        StreamBuilder(
+            stream: LiveEvent.fetch(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  snapshot.data == null) {
+                return Center(child: TedxLoadingSpinner());
+              }
+              print(snapshot.data);
+              return EventCategoryWidget(
+                title: LiveEvent.instance!.title,
+                details: [LiveEvent.instance!.details],
+                width: double.infinity,
+                actionWidget: Text('Join'),
+                showImage: true,
+                gradientColor: Colors.red,
+                actionWidgetFunction: () {
+                  Navigator.of(context)
+                      .pushNamed(EventInfoScreen.routeName, arguments: {
+                    'eventType': 'live',
+                  });
+                },
+              );
+            }),
+
         EventCategoryWidget(
           title: 'Upcoming Event',
           details: const ['The exciting events we will host in the future'],

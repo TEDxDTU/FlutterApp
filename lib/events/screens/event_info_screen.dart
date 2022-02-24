@@ -45,7 +45,7 @@ class EventInfoScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     // Get the event from the provider.
     String? eventId = routeArgs['eventId'];
-    final eventType = routeArgs['eventType'];
+    String eventType = routeArgs['eventType']!;
     // A global key to switch between Speaker Info, Event Info and Gallery
     // as requested by user.
     var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
@@ -84,6 +84,7 @@ class EventInfoScreen extends StatelessWidget {
           ),
           EventInfoWidget(
             eventVenue: e.venue,
+            eventType: eventType,
             dateTime: e.date,
             eventDescription: e.details,
             eventTitle: e.title,
@@ -115,6 +116,7 @@ class EventInfoScreen extends StatelessWidget {
                         height: mediaQuery.size.height * 0.25,
                         showActionWidget: false,
                         showImage: true,
+                        imageProvider: NetworkImage(e.imageUrl),
                         // gradientColor: Colors.black,
                       ),
                       Container(

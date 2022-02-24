@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 
 /// Displays the information about a particular event.
 class EventInfoWidget extends StatelessWidget {
@@ -10,6 +12,7 @@ class EventInfoWidget extends StatelessWidget {
     required this.eventVenue,
     required this.dateTime,
     required this.eventDescription,
+    required this.eventType,
     required this.marginVal,
     required this.eventTitle,
     required this.eventPrice,
@@ -17,6 +20,7 @@ class EventInfoWidget extends StatelessWidget {
   final String eventVenue;
   final DateTime dateTime;
   final String eventDescription;
+  final String eventType;
 
   /// The margins to put around the Widget.
   final double marginVal;
@@ -70,7 +74,7 @@ class EventInfoWidget extends StatelessWidget {
           ),
           _createListTile(
             Icons.access_time_rounded,
-            DateFormat('hh:mm a').format(DateTime.now()),
+            DateFormat('hh:mm a').format(dateTime),
           ),
           const SizedBox(
             height: 10,
@@ -109,31 +113,33 @@ class EventInfoWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              // TODO: EventBookingScreen push here
-              Navigator.of(context).pushNamed(EventBookingScreen.routeName,
-                  arguments: <String, Object>{
-                    'eventDescription': eventDescription,
-                    'venue': eventVenue,
-                    'dateTime': dateTime,
-                    'eventTitle': eventTitle,
-                    'eventPrice': eventPrice,
-                  });
-            },
-            child: const Text(
-              'BOOK NOW',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          if (eventType == 'upcoming')
+            ElevatedButton(
+              onPressed: () {
+                // TODO: EventBookingScreen push here
+                Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
+                    arguments: <String, Object>{
+                      'child': EventBookingScreen(),
+                      'eventDescription': eventDescription,
+                      'venue': eventVenue,
+                      'dateTime': dateTime,
+                      'eventTitle': eventTitle,
+                      'eventPrice': eventPrice,
+                    });
+              },
+              child: const Text(
+                'BOOK NOW',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                primary: Colors.red[600],
+                minimumSize: const Size.fromHeight(50),
               ),
             ),
-            style: ElevatedButton.styleFrom(
-              shape: const StadiumBorder(),
-              primary: Colors.red[600],
-              minimumSize: const Size.fromHeight(50),
-            ),
-          ),
         ],
       ),
     );
