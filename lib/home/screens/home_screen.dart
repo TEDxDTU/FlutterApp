@@ -4,6 +4,7 @@ import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
+import 'package:tedx_dtu_app/home/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
@@ -74,7 +75,9 @@ class HomeScreen extends StatelessWidget {
                       Icons.arrow_forward_ios,
                       size: 18,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(TriviaScreen.routeName);
+                    },
                   ),
                 ),
                 showImage: true,

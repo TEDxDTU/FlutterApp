@@ -48,6 +48,7 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
                           : 'assets/images/logoWhite.png',
                       width: 140,
                     ),
+                    if (title != null) SizedBox(width: 10),
                     if (title != null) Text(title!),
                   ],
                 )
