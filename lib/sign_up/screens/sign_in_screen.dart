@@ -9,18 +9,16 @@ import 'package:tedx_dtu_app/sign_up/helpers/sign_up_background_painter.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/sign_up_image_widget.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/user_image_picker.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
   static const routeName = '/sign-up-screen';
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  String? name, email, phone, university;
+class _SignInScreenState extends State<SignInScreen> {
+  String? email;
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  File? image;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -28,7 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Create Account',
+          'Sign In',
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
@@ -52,25 +50,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: SingleChildScrollView(
           child: Stack(
             children: [
-              Positioned.fill(
-                child: CustomPaint(
-                  painter: SignUpBackgroundPainter(),
-                ),
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const SignUpImageWidget(),
-                      UserImagePicker(onSelectImage: (file) {
-                        setState(() {
-                          image = file;
-                        });
-                      }),
-                    ],
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -81,64 +63,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Name',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          keyboardType: TextInputType.text,
-                          decoration:
-                              buildInputDecoration(Icons.person, 'Full Name'),
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Please Enter Name';
-                            }
-                            return null;
-                          },
-                          onSaved: (String? value) {
-                            name = value;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'University',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          keyboardType: TextInputType.text,
-                          decoration: buildInputDecoration(
-                              Icons.business, "University"),
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Please Enter Your University Name';
-                            }
-                            return null;
-                          },
-                          onSaved: (String? value) {
-                            university = value;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
                         const Text(
                           'Email',
                           style: TextStyle(
@@ -200,65 +124,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'Confirm Password',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: confirmPasswordController,
-                          style: const TextStyle(color: Colors.white),
-                          obscureText: true,
-                          keyboardType: TextInputType.name,
-                          decoration: buildInputDecoration(
-                              Icons.lock, "Confirm Password"),
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Please re-enter password';
-                            }
-                            if (passwordController.text !=
-                                confirmPasswordController.text) {
-                              return "Password does not match";
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(
                             onPressed: () async {
-                              if (image == null) {
-                                UIHelper.showErrorDialog(
-                                  context,
-                                  'Error',
-                                  'Please upload a profile picture.',
-                                );
-                                return;
-                              }
                               if (_formKey.currentState!.validate()) {
                                 // print("here");
                                 _formKey.currentState!.save();
                                 try {
                                   await Provider.of<Auth>(context,
                                           listen: false)
-                                      .signUp(
+                                      .signIn(
                                     email: email!,
                                     password: passwordController.text,
-                                    image: image!,
-                                    name: name!,
-                                    university: university!,
                                   );
                                 } on Exception catch (e) {
                                   UIHelper.showErrorDialog(
@@ -280,7 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 primary: Colors.red,
                                 elevation: 4),
                             child: const Text(
-                              'Sign Up',
+                              'Sign in',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),

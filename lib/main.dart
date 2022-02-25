@@ -13,6 +13,7 @@ import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
 import 'package:tedx_dtu_app/home/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
+import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
@@ -188,7 +189,7 @@ class MyApp extends StatelessWidget {
         },
         home: Builder(builder: (context) {
           return !Provider.of<Auth>(context).isAuth
-              ? SignUpScreen()
+              ? SignInScreen()
               : TabsScreen(
                   screens: [
                     // HomeScreen(),

@@ -34,7 +34,7 @@ class Auth extends ChangeNotifier {
         'imageURL': imageUrl,
       });
       if (response.statusCode == 200) {
-        // signIn(email: email, password: password);
+        signIn(email: email, password: password);
       } else {
         Map<String, dynamic> error = jsonDecode(response.body);
         if (error['code'] != 'user_exists') ref.delete();
@@ -58,12 +58,17 @@ class Auth extends ChangeNotifier {
         email: email,
         password: password,
       );
-      final url = Uri.parse('localhost:3000/api/user/sign-in');
+      final url = Uri.parse('http://192.168.1.37:3000/api/user/sign-in');
+      String authToken = (await _auth.currentUser!.getIdToken());
+      print('here2');
       final response = await http.post(url, body: {
         'email': email,
-        'authToken': (await _auth.currentUser!.getIdToken()),
+        'authToken': authToken,
       });
+      print("after response");
       if (response.statusCode == 200) {
+        user = _TedXUser.fromMap(jsonDecode(response.body));
+        notifyListeners();
       } else {
         throw Exception(
             'Failed to sign in, ${json.decode(response.body)['msg']}');
