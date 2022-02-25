@@ -58,7 +58,8 @@ class Auth extends ChangeNotifier {
         email: email,
         password: password,
       );
-      final url = Uri.parse('http://192.168.1.37:3000/api/user/sign-in');
+      final url =
+          Uri.parse('http://192.168.1.37:3000/api/user/data-from-token');
       String authToken = (await _auth.currentUser!.getIdToken());
       print('here2');
       final response = await http.post(url, body: {
