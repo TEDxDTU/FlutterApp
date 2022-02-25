@@ -1,6 +1,13 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/providers/auth.dart';
+import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/sign_up/helpers/sign_up_background_painter.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/sign_up_image_widget.dart';
+import 'package:tedx_dtu_app/sign_up/widgets/user_image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -10,9 +17,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  late String? name, email, phone;
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmpassword = TextEditingController();
+  String? name, email, phone, university;
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  File? image;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -52,7 +60,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SignUpImageWidget(),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const SignUpImageWidget(),
+                      UserImagePicker(onSelectImage: (file) {
+                        setState(() {
+                          image = file;
+                        });
+                      }),
+                    ],
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -93,36 +111,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         const Text(
-                          'Mobile',
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          keyboardType: TextInputType.name,
-                          decoration:
-                              buildInputDecoration(Icons.phone, "Phone Number"),
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter phone no ';
-                            } else if (value.length < 9) {
-                              return 'Please enter valid phone Number';
-                            }
-                            return null;
-                          },
-                          onSaved: (String? value) {
-                            phone = value;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
                           'University',
                           style: TextStyle(
                             fontSize: 17,
@@ -145,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                           onSaved: (String? value) {
-                            name = value;
+                            university = value;
                           },
                         ),
                         const SizedBox(
@@ -164,7 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         TextFormField(
                           style: const TextStyle(color: Colors.white),
-                          keyboardType: TextInputType.name,
+                          keyboardType: TextInputType.emailAddress,
                           decoration:
                               buildInputDecoration(Icons.email, "Email"),
                           validator: (String? value) {
@@ -197,7 +185,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
-                          controller: password,
+                          obscureText: true,
+                          controller: passwordController,
                           style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.name,
                           decoration:
@@ -226,8 +215,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
-                          controller: confirmpassword,
+                          controller: confirmPasswordController,
                           style: const TextStyle(color: Colors.white),
+                          obscureText: true,
                           keyboardType: TextInputType.name,
                           decoration: buildInputDecoration(
                               Icons.lock, "Confirm Password"),
@@ -235,7 +225,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             if (value!.isEmpty) {
                               return 'Please re-enter password';
                             }
-                            if (password.text != confirmpassword.text) {
+                            if (passwordController.text !=
+                                confirmPasswordController.text) {
                               return "Password does not match";
                             }
                             return null;
@@ -247,13 +238,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Processing Data'),
-                                  ),
+                            onPressed: () async {
+                              if (image == null) {
+                                UIHelper.showErrorDialog(
+                                  context,
+                                  'Error',
+                                  'Please upload a profile picture.',
                                 );
+                                return;
+                              }
+                              if (_formKey.currentState!.validate()) {
+                                print("here");
+                                _formKey.currentState!.save();
+                                try {
+                                  await Provider.of<Auth>(context,
+                                          listen: false)
+                                      .signUp(
+                                    email: email!,
+                                    password: passwordController.text,
+                                    image: image!,
+                                    name: name!,
+                                    university: university!,
+                                  );
+                                } on Exception catch (e) {
+                                  UIHelper.showErrorDialog(
+                                    context,
+                                    'Error',
+                                    e
+                                        .toString()
+                                        .replaceAll('Exception:', '')
+                                        .trim(),
+                                  );
+                                }
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -294,7 +310,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       fillColor: Colors.black.withOpacity(0.8),
       filled: true,
-      errorStyle: const TextStyle(color: Colors.white),
+      errorStyle: const TextStyle(color: CupertinoColors.destructiveRed),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
         borderSide: const BorderSide(

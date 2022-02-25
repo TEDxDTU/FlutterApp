@@ -7,6 +7,7 @@ import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
+import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => UpcomingEventProvider()),
         ChangeNotifierProvider(create: (_) => PastEventProvider()),
-        ChangeNotifierProvider(create: (_) => StoryProvider())
+        ChangeNotifierProvider(create: (_) => StoryProvider()),
+        ChangeNotifierProvider(create: (_) => Auth()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -184,59 +186,70 @@ class MyApp extends StatelessWidget {
         routes: {
           TestScreen.routeName: (context) => TestScreen(),
         },
-        home: TabsScreen(
-          screens: [
-            // HomeScreen(),
-            BottomBarScreen(
-              title: 'Home',
-              navigatorKey: GlobalKey<NavigatorState>(),
-              icon: const Icon(Icons.home),
-              routes: {
-                '/': (context) => const HomeScreen(),
-                TestScreen.routeName: (context) => TestScreen(),
-                SignUpScreen.routeName: (context) => const SignUpScreen(),
-                EventInfoScreen.routeName: (context) => const EventInfoScreen(),
-                StoriesPageView.routeName: (context) => const StoriesPageView(),
-                TriviaScreen.routeName: (context) => const TriviaScreen(),
-              },
-            ),
-            BottomBarScreen(
-              title: 'Events',
-              navigatorKey: GlobalKey<NavigatorState>(),
-              icon: const Icon(Icons.calendar_today),
-              routes: {
-                '/': (context) => const EventsCategoriesScreen(),
-                TestScreen.routeName: (context) => const TestScreen(),
-                SignUpScreen.routeName: (context) => const SignUpScreen(),
-                EventsListScreen.routeName: (context) =>
-                    const EventsListScreen(),
-                EventInfoScreen.routeName: (context) => const EventInfoScreen(),
-                SpeakerDetailsScreen.routeName: (context) =>
-                    const SpeakerDetailsScreen(),
-                EventBookingScreen.routeName: (context) =>
-                    const EventBookingScreen(),
-              },
-            ),
-            BottomBarScreen(
-              title: 'Profile',
-              navigatorKey: GlobalKey<NavigatorState>(),
-              icon: const Icon(Icons.account_circle),
-              routes: {
-                '/': (context) => const ProfileScreen(),
-                TestScreen.routeName: (context) => TestScreen(),
-                SignUpScreen.routeName: (context) => const SignUpScreen(),
-              },
-            ),
-            BottomBarScreen(
-              title: 'Test',
-              navigatorKey: GlobalKey<NavigatorState>(),
-              icon: const Icon(Icons.help),
-              routes: {
-                '/': (context) => TestScreen(),
-              },
-            ),
-          ],
-        ),
+        home: Builder(builder: (context) {
+          return !Provider.of<Auth>(context).isAuth
+              ? SignUpScreen()
+              : TabsScreen(
+                  screens: [
+                    // HomeScreen(),
+                    BottomBarScreen(
+                      title: 'Home',
+                      navigatorKey: GlobalKey<NavigatorState>(),
+                      icon: const Icon(Icons.home),
+                      routes: {
+                        '/': (context) => const HomeScreen(),
+                        TestScreen.routeName: (context) => TestScreen(),
+                        SignUpScreen.routeName: (context) =>
+                            const SignUpScreen(),
+                        EventInfoScreen.routeName: (context) =>
+                            const EventInfoScreen(),
+                        StoriesPageView.routeName: (context) =>
+                            const StoriesPageView(),
+                        TriviaScreen.routeName: (context) =>
+                            const TriviaScreen(),
+                      },
+                    ),
+                    BottomBarScreen(
+                      title: 'Events',
+                      navigatorKey: GlobalKey<NavigatorState>(),
+                      icon: const Icon(Icons.calendar_today),
+                      routes: {
+                        '/': (context) => const EventsCategoriesScreen(),
+                        TestScreen.routeName: (context) => const TestScreen(),
+                        SignUpScreen.routeName: (context) =>
+                            const SignUpScreen(),
+                        EventsListScreen.routeName: (context) =>
+                            const EventsListScreen(),
+                        EventInfoScreen.routeName: (context) =>
+                            const EventInfoScreen(),
+                        SpeakerDetailsScreen.routeName: (context) =>
+                            const SpeakerDetailsScreen(),
+                        EventBookingScreen.routeName: (context) =>
+                            const EventBookingScreen(),
+                      },
+                    ),
+                    BottomBarScreen(
+                      title: 'Profile',
+                      navigatorKey: GlobalKey<NavigatorState>(),
+                      icon: const Icon(Icons.account_circle),
+                      routes: {
+                        '/': (context) => const ProfileScreen(),
+                        TestScreen.routeName: (context) => TestScreen(),
+                        SignUpScreen.routeName: (context) =>
+                            const SignUpScreen(),
+                      },
+                    ),
+                    BottomBarScreen(
+                      title: 'Test',
+                      navigatorKey: GlobalKey<NavigatorState>(),
+                      icon: const Icon(Icons.help),
+                      routes: {
+                        '/': (context) => TestScreen(),
+                      },
+                    ),
+                  ],
+                );
+        }),
       ),
     );
   }

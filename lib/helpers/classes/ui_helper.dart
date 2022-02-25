@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UIHelper {
@@ -61,4 +62,31 @@ class UIHelper {
     Color(0xff7D0552),
     Color(0xff6960EC),
   ];
+
+  static Future<void> showErrorDialog(
+      BuildContext context, String titleText, String messageText) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        titleTextStyle: TextStyle(
+          color: CupertinoColors.destructiveRed,
+          fontSize: 20,
+        ),
+        title: Text(titleText),
+        content: Text(messageText),
+        contentTextStyle: TextStyle(
+          color: Colors.grey[400],
+          fontSize: 15.5,
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 }
