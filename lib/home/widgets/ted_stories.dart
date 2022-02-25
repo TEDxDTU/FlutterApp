@@ -6,6 +6,7 @@ import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.d
 import 'package:tedx_dtu_app/home/models/story.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/home_screen.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
@@ -66,34 +67,17 @@ class _TedStoriesState extends State<TedStories> {
       height: 280,
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 16.0, left: 16, right: 16, bottom: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'TEDxDTU Stories',
-                  style: Theme.of(context).textTheme.headline6?.copyWith(
-                        color: Colors.white,
-                      ),
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Center(
-                    child: IconButton(
-                      color: Colors.black,
-                      splashRadius: 20,
-                      icon: const Icon(
-                        Icons.keyboard_arrow_right_sharp,
-                      ),
-                      onPressed: () {
-                        print('Add navigation to new screen.');
-                      },
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 16.0, left: 16, right: 16, bottom: 8),
+              child: Text(
+                'TEDxDTU Stories',
+                style: Theme.of(context).textTheme.headline6?.copyWith(
+                      color: Colors.white,
                     ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           Expanded(
@@ -112,8 +96,11 @@ class _TedStoriesState extends State<TedStories> {
                           imageProvider: NetworkImage(e.imageUrl),
                           onPressed: () {
                             Navigator.of(context).pushNamed(
-                              StoriesPageView.routeName,
-                              arguments: e.index,
+                              NoBottomBarScreen.routeName,
+                              arguments: {
+                                'index': e.index,
+                                'child': StoriesPageView(),
+                              },
                             );
                           },
                         ),

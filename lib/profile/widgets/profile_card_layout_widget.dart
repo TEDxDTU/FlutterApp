@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/change_password_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/edit_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_profile_page.dart';
@@ -55,7 +56,10 @@ class ProfileCardLayoutWidget extends StatelessWidget {
           ),
           Positioned(
             top: -40,
-            child: ImageUpload(onSelectImage: (_) {}),
+            child: ImageUpload(
+              onSelectImage: (_) {},
+              imageUrl: Provider.of<Auth>(context).user!.imageUrl,
+            ),
           ),
         ],
       ),

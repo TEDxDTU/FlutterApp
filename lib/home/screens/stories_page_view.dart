@@ -12,7 +12,9 @@ class StoriesPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int initialPage = (ModalRoute.of(context)?.settings.arguments as int?) ?? 0;
+    int initialPage = ((ModalRoute.of(context)?.settings.arguments
+            as Map)['index'] as int?) ??
+        0;
 
     final PageController _controller = PageController(initialPage: initialPage);
     return PageView.builder(

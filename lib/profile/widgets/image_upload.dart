@@ -15,12 +15,12 @@ class ImageUpload extends StatefulWidget {
 
   /// The initial image to display, if one is available. If null, a profile icon
   /// is displayed.
-  final File? image;
+  final String? imageUrl;
 
   const ImageUpload({
     Key? key,
     required this.onSelectImage,
-    this.image,
+    this.imageUrl,
   }) : super(key: key);
   @override
   _ImageUploadState createState() => _ImageUploadState();
@@ -45,12 +45,6 @@ class _ImageUploadState extends State<ImageUpload> {
     final fileName = path.basename(_storedImage!.path);
     final savedImage = await _storedImage!.copy('${appDir.path}/$fileName');
     widget.onSelectImage(savedImage);
-  }
-
-  @override
-  void initState() {
-    _storedImage = widget.image;
-    super.initState();
   }
 
   @override
@@ -80,11 +74,20 @@ class _ImageUploadState extends State<ImageUpload> {
                       height: double.infinity,
                     ),
                   )
-                : Icon(
-                    Icons.person,
-                    size: 70,
-                    color: Colors.grey[900],
-                  ),
+                : widget.imageUrl != null
+                    ? ClipOval(
+                        child: Image.network(
+                          widget.imageUrl!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
+                      )
+                    : Icon(
+                        Icons.person,
+                        size: 70,
+                        color: Colors.grey[900],
+                      ),
           ),
         ),
         Positioned(

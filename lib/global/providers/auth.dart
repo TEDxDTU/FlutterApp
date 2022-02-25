@@ -85,17 +85,20 @@ class Auth extends ChangeNotifier {
 //TODO: Add tickets, trivia,etc.
 class _TedXUser {
   String university;
+  String imageUrl;
   final FirebaseAuth _auth;
   String get email => _auth.currentUser!.email!;
   String get name => _auth.currentUser!.displayName!;
-  String get imageURL => _auth.currentUser!.photoURL!;
+  // String get imageURL => _auth.currentUser!.photoURL!;
   _TedXUser({
     required this.university,
+    required this.imageUrl,
   }) : _auth = FirebaseAuth.instance;
 
   factory _TedXUser.fromMap(Map<String, dynamic> map) {
     return _TedXUser(
-      university: map['university'] ?? '',
+      university: map['university'] as String,
+      imageUrl: map['imageURL'] as String,
     );
   }
 }
