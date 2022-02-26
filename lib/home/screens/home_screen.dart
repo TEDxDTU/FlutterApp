@@ -30,9 +30,10 @@ class HomeScreen extends StatelessWidget {
             // These are to be removed later, only for showcasing purposes
             preWidgets: [
               StreamBuilder(
-                  stream: LiveEvent.fetch(),
+                  stream: LiveEvent.fetch().asBroadcastStream(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
+                    if (snapshot.connectionState == ConnectionState.waiting &&
+                        LiveEvent.instance == null) {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
