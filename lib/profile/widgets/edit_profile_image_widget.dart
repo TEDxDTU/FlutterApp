@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart' as syspaths;
 
 /// Creates a circular avatar that displays an image or a profile icon,
 /// with an edit icon that allows the user to select a new image.
-class ImageUpload extends StatefulWidget {
+class EditProfileImageWidget extends StatefulWidget {
   /// The function that is called when the image has been selected by the user,
   /// either from the camera or from the phone gallery. Should be used to
   /// save the image to server or locally.
@@ -17,16 +17,16 @@ class ImageUpload extends StatefulWidget {
   /// is displayed.
   final String? imageUrl;
 
-  const ImageUpload({
+  const EditProfileImageWidget({
     Key? key,
     required this.onSelectImage,
     this.imageUrl,
   }) : super(key: key);
   @override
-  _ImageUploadState createState() => _ImageUploadState();
+  _EditProfileImageWidgetState createState() => _EditProfileImageWidgetState();
 }
 
-class _ImageUploadState extends State<ImageUpload> {
+class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
   File? _storedImage;
 
   Future<void> _takePicture(ImageSource src) async {

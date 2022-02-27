@@ -68,21 +68,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
               },
               onChanged: (value) => university = value,
             ),
-            EditableTextField(
-              label: 'Email',
-              initialValue: auth.user!.email,
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  return 'Email cannot be empty';
-                }
-                if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                    .hasMatch(val)) {
-                  return 'Please a valid Email';
-                }
-                return null;
-              },
-              onChanged: (value) => email = value,
-            ),
+            // EditableTextField(
+            //   label: 'Email',
+            //   initialValue: auth.user!.email,
+            //   validator: (val) {
+            //     if (val == null || val.isEmpty) {
+            //       return 'Email cannot be empty';
+            //     }
+            //     if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+            //         .hasMatch(val)) {
+            //       return 'Please a valid Email';
+            //     }
+            //     return null;
+            //   },
+            //   onChanged: (value) => email = value,
+            // ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

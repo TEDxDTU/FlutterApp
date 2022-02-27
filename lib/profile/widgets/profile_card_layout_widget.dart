@@ -3,13 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
+import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/change_password_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/edit_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_settings_page.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 
-import 'image_upload.dart';
+import 'edit_profile_image_widget.dart';
 
 class ProfileCardLayoutWidget extends StatelessWidget {
   const ProfileCardLayoutWidget({Key? key}) : super(key: key);
@@ -56,8 +57,28 @@ class ProfileCardLayoutWidget extends StatelessWidget {
           ),
           Positioned(
             top: -40,
-            child: ImageUpload(
-              onSelectImage: (_) {},
+            child: EditProfileImageWidget(
+              onSelectImage: (image) async {
+                try {
+                  await Provider.of<Auth>(context, listen: false)
+                      .uploadUserImage(
+                    Provider.of<Auth>(context, listen: false).user!.email,
+                    image,
+                  );
+                  UIHelper.showSuccessDialog(
+                    context,
+                    'Success!',
+                    'Image updated!',
+                  );
+                } catch (e) {
+                  print(e);
+                  UIHelper.showErrorDialog(
+                    context,
+                    'Error!',
+                    'Something went wrong! $e',
+                  );
+                }
+              },
               imageUrl: Provider.of<Auth>(context).user!.imageUrl,
             ),
           ),

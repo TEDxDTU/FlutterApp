@@ -19,13 +19,14 @@ class Auth extends ChangeNotifier {
   }) async {
     try {
       final url = Uri.parse('http://192.168.1.37:3000/api/user/sign-up');
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('user-images')
-          .child(email + '.png');
+      // final ref = FirebaseStorage.instance
+      //     .ref()
+      //     .child('user-images')
+      //     .child(email + '.png');
 
-      await ref.putFile(image, SettableMetadata(contentType: 'image/png'));
-      final imageUrl = await ref.getDownloadURL();
+      // await ref.putFile(image, SettableMetadata(contentType: 'image/png'));
+      // final imageUrl = await ref.getDownloadURL();
+      final imageUrl = await uploadUserImage(email, image);
       final response = await http.post(url, body: {
         'email': email,
         'password': password,
@@ -37,7 +38,7 @@ class Auth extends ChangeNotifier {
         signIn(email: email, password: password);
       } else {
         Map<String, dynamic> error = jsonDecode(response.body);
-        if (error['code'] != 'user_exists') ref.delete();
+        if (error['code'] != 'user_exists') deleteUserImage(email);
         throw Exception(error['msg']);
       }
     } on Exception catch (e) {
@@ -77,6 +78,25 @@ class Auth extends ChangeNotifier {
     } on Exception catch (e) {
       throw Exception('Failed to sign in, $e');
     }
+  }
+
+  Future<String> uploadUserImage(String userEmail, File image) async {
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('user-images')
+        .child(userEmail + '.png');
+
+    await ref.putFile(image, SettableMetadata(contentType: 'image/png'));
+    final imageUrl = await ref.getDownloadURL();
+    return imageUrl;
+  }
+
+  Future<void> deleteUserImage(String userEmail) async {
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('user-images')
+        .child(userEmail + '.png');
+    await ref.delete();
   }
 
   Future<void> updateUser({
