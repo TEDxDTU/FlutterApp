@@ -47,7 +47,7 @@ class Auth extends ChangeNotifier {
   }
 
   _TedXUser? user;
-  bool get isAuth => user != null;
+  bool get isAuth => _auth.currentUser != null && user != null;
 
   Future<void> signIn({
     required String email,
@@ -68,7 +68,7 @@ class Auth extends ChangeNotifier {
       });
       print("after response");
       if (response.statusCode == 200) {
-        user = _TedXUser.fromMap(jsonDecode(response.body));
+        user = _TedXUser.fromMap(json.decode(response.body));
         notifyListeners();
       } else {
         throw Exception(
@@ -76,6 +76,41 @@ class Auth extends ChangeNotifier {
       }
     } on Exception catch (e) {
       throw Exception('Failed to sign in, $e');
+    }
+  }
+
+  Future<void> updateUser({
+    String? name,
+    String? university,
+    String? email,
+    String? imageUrl,
+    String? password,
+  }) async {
+    final url = Uri.parse('http://192.168.1.37:3000/api/user/update');
+    String authToken = (await _auth.currentUser!.getIdToken());
+    Map<String, dynamic> body = {
+      'authToken': authToken,
+      'email': email,
+      'name': name,
+      'university': university,
+      'imageURL': imageUrl,
+      'password': password,
+    };
+    //Remove null from body
+    body.removeWhere((key, value) => value == null);
+    try {
+      final response = await http.post(url, body: body);
+      if (response.statusCode == 200) {
+        user = _TedXUser.fromMap(json.decode(response.body));
+        await _auth.currentUser!.reload();
+        notifyListeners();
+      } else {
+        throw Exception(
+            'Failed to update user, ${json.decode(response.body)['msg']}');
+      }
+    } catch (e) {
+      print('throwing');
+      throw Exception('Failed to update user, $e');
     }
   }
 

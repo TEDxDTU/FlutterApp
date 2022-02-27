@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -63,6 +64,9 @@ class _EditableTextFieldState extends State<EditableTextField> {
                 widget.onSubmitted?.call(val);
               },
               decoration: InputDecoration(
+                errorStyle: TextStyle(
+                  color: CupertinoColors.destructiveRed,
+                ),
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(vertical: 7),
                 enabledBorder: const UnderlineInputBorder(),

@@ -89,4 +89,39 @@ class UIHelper {
       ),
     );
   }
+
+  static Future<void> showSuccessDialog(
+      BuildContext context, String titleText, String messageText) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        backgroundColor: CupertinoColors.darkBackgroundGray,
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
+        title: Text(titleText),
+        content: Text(messageText),
+        contentTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 15.5,
+        ),
+        actions: [
+          ElevatedButton(
+            //green bg
+            style: ElevatedButton.styleFrom(
+                // primary: Colors.black,
+                ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 }
