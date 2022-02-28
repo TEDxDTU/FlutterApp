@@ -12,6 +12,8 @@ import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 
+import '../widgets/live_event_info_widget.dart';
+
 /// Creates an EventInfoScreen.
 ///
 /// [routeName] = '/event-info-screen'
@@ -92,6 +94,7 @@ class EventInfoScreen extends StatelessWidget {
             marginVal: 8,
           ),
           if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
+          if (e is LiveEvent) LiveEventInfoWidget(),
         ];
         return Scaffold(
           appBar: AppBar(
@@ -125,11 +128,12 @@ class EventInfoScreen extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: SelectableBoxCreator(
                           key: selectableBoxKey,
-                          count: (e is PastEvent) ? 3 : 2,
+                          count: (e is UpcomingEvent) ? 2 : 3,
                           names: [
                             'Speaker info',
                             'Event info',
                             if (e is PastEvent) 'Gallery',
+                            if (e is LiveEvent) 'Live Info',
                           ],
                         ),
                       ),
