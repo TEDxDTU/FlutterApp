@@ -123,10 +123,9 @@ class MyApp extends StatelessWidget {
               color: Colors.white,
               fontSize: 25,
             ),
-
             iconTheme: IconThemeData(
               color: Colors.white,
-              size: 45,
+              size: 24,
             ),
           ),
           inputDecorationTheme: InputDecorationTheme(

@@ -7,7 +7,6 @@ import 'package:tedx_dtu_app/events/helpers/concave_corners_with_radius_clip.dar
 import 'package:tedx_dtu_app/events/helpers/dotted_seperator.dart';
 import 'package:tedx_dtu_app/events/helpers/filled_arc_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
-import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 
 class EventBookingScreen extends StatefulWidget {
   const EventBookingScreen({Key? key}) : super(key: key);
