@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
+import 'package:tedx_dtu_app/trivia/widgets/current_trivia_card_widget.dart';
 
 class TriviaSliderPanel extends StatefulWidget {
   const TriviaSliderPanel({
@@ -12,7 +13,7 @@ class TriviaSliderPanel extends StatefulWidget {
 }
 
 class _TriviaSliderPanelState extends State<TriviaSliderPanel> {
-  int _currentIndex = 0;
+  int _currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,10 @@ class _TriviaSliderPanelState extends State<TriviaSliderPanel> {
               // height: 300,
               // fit: BoxFit.cover,
             ),
+            CurrentTriviaCardWidget(),
           ].padded(padding: EdgeInsets.all(5)),
           options: CarouselOptions(
+            initialPage: _currentIndex,
             pageSnapping: true,
             enableInfiniteScroll: false,
             viewportFraction: 1,
@@ -47,15 +50,17 @@ class _TriviaSliderPanelState extends State<TriviaSliderPanel> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
               AnimatedContainer(
                 duration: Duration(milliseconds: 100),
-                width: _currentIndex == i ? 12 : 10.0,
-                height: _currentIndex == i ? 12 : 10.0,
+                width: _currentIndex == i ? 12 : 8.0,
+                height: _currentIndex == i ? 12 : 8.0,
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: _currentIndex == i
+                      ? Theme.of(context).primaryColor
+                      : Colors.white,
                 ),
               ),
           ],
