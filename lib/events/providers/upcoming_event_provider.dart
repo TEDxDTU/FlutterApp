@@ -4,14 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tedx_dtu_app/events/models/event.dart';
 import 'package:tedx_dtu_app/global/providers/provider_template.dart';
 import 'package:http/http.dart' as http;
+import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
 class UpcomingEventProvider extends ProviderTemplate<UpcomingEvent> {
   @override
   Future<List<UpcomingEvent>> getData() async {
     var response = await http.get(
       Uri.parse(
-        // Anyone using this paste your own IPv4 address here
-        'http://192.168.1.37:3000/api/events?eventType=upcoming&sortBy=dateTime&sortOrder=desc',
+        nodeServerBaseUrl +
+            '/api/events?eventType=upcoming&sortBy=dateTime&sortOrder=desc',
       ),
     );
     List<Map<String, dynamic>> data = List.from(jsonDecode(response.body));

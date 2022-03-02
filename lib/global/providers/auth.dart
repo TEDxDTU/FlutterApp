@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
 class Auth extends ChangeNotifier {
   late final FirebaseAuth _auth;
@@ -18,7 +19,7 @@ class Auth extends ChangeNotifier {
     required String university,
   }) async {
     try {
-      final url = Uri.parse('http://192.168.1.37:3000/api/user/sign-up');
+      final url = Uri.parse(nodeServerBaseUrl + '/api/user/sign-up');
       // final ref = FirebaseStorage.instance
       //     .ref()
       //     .child('user-images')
@@ -60,7 +61,7 @@ class Auth extends ChangeNotifier {
         password: password,
       );
       final url =
-          Uri.parse('http://192.168.1.37:3000/api/user/data-from-token');
+          Uri.parse('http://192.168.0.106:3000/api/user/data-from-token');
       String authToken = (await _auth.currentUser!.getIdToken());
       print('here2');
       final response = await http.post(url, body: {
@@ -106,7 +107,7 @@ class Auth extends ChangeNotifier {
     String? imageUrl,
     String? password,
   }) async {
-    final url = Uri.parse('http://192.168.1.37:3000/api/user/update');
+    final url = Uri.parse('http://192.168.0.106:3000/api/user/update');
     String authToken = (await _auth.currentUser!.getIdToken());
     Map<String, dynamic> body = {
       'authToken': authToken,
