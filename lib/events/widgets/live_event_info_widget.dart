@@ -98,6 +98,7 @@ class LiveEventInfoWidget extends StatelessWidget {
                     margin: EdgeInsets.zero,
                     color: Colors.white,
                     child: AnyLinkPreview(
+                      key: ValueKey(data.link!),
                       link: data.link!,
                       backgroundColor: Colors.white,
                       displayDirection: UIDirection.UIDirectionHorizontal,
