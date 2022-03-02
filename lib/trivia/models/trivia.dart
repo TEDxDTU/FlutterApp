@@ -11,6 +11,9 @@ class Trivia {
     required this.title,
     required this.questions,
   });
+
+  int get questionCount => questions.length;
+  int get totalTime => questions.fold<int>(0, (prev, q) => prev + q.seconds);
   factory Trivia.fromMap(Map<String, dynamic> map) {
     return Trivia(
       id: map['_id'],
