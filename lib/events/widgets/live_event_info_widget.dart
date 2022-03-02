@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
+import '../../helpers/widgets/color_animated_text.dart';
 import '../models/live_event_info.dart';
 
 class LiveEventInfoWidget extends StatelessWidget {
@@ -10,7 +10,6 @@ class LiveEventInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool alignLeft = true;
-    String previousText = '';
 
     return StreamBuilder(
       stream: LiveEventInfo.fetch(),
@@ -27,23 +26,9 @@ class LiveEventInfoWidget extends StatelessWidget {
                   horizontal: 16.0,
                   vertical: 8,
                 ),
-                child: AnimatedTextKit(
-                  repeatForever: true,
-                  animatedTexts: [
-                    ColorizeAnimatedText(
-                      data.text,
-                      colors: [
-                        Colors.white,
-                        Colors.white,
-                        const Color(0xffE62B1E),
-                        Colors.white,
-                      ],
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                      ),
-                    ),
-                  ],
+                child: ColorAnimatedText(
+                  data.text,
+                  animationDuration: const Duration(milliseconds: 400),
                 ),
               ),
               ...data.textImage.map((e) {
@@ -76,12 +61,20 @@ class LiveEventInfoWidget extends StatelessWidget {
             ],
           );
         }
-        return Container();
+        return const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 8,
+          ),
+          child: AutoSizeText(
+            'Information about the event will appear here.',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+            ),
+          ),
+        );
       },
-      // initialData: LiveEventInfo(
-      //   'Information about the event will appear here.',
-      //   [],
-      // ),
     );
   }
 }
