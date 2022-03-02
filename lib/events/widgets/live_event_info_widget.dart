@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../global/widgets/image_error_widget.dart';
 import '../../helpers/widgets/color_animated_text.dart';
 import '../models/live_event_info.dart';
 
@@ -9,8 +10,6 @@ class LiveEventInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool alignLeft = true;
-
     return StreamBuilder(
       stream: LiveEventInfo.fetch(),
       builder: (context, snapshot) {
@@ -20,6 +19,7 @@ class LiveEventInfoWidget extends StatelessWidget {
         if (snapshot.hasData) {
           LiveEventInfo data = snapshot.data as LiveEventInfo;
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -32,29 +32,38 @@ class LiveEventInfoWidget extends StatelessWidget {
                 ),
               ),
               ...data.textImage.map((e) {
-                alignLeft = !alignLeft;
-                List<Widget> children = [
-                  Expanded(
-                    flex: 3,
-                    child: AutoSizeText(
-                      e.text,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(flex: 8, child: Image.network(e.imageUrl)),
-                ];
-                if (alignLeft == true) {
-                  var reversedChildren = children.reversed.toList();
-                  children = reversedChildren;
-                }
                 return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: children,
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0,
+                    bottom: 8,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Image.network(
+                          e.imageUrl,
+                          errorBuilder: (context, object, stackTrace) {
+                            return const ImageErrorWidget();
+                          },
+                          fit: BoxFit.fitWidth,
+                          loadingBuilder: (context, child, progress) {
+                            if (progress == null) {
+                              return child;
+                            }
+                            return const CircularProgressIndicator();
+                          },
+                        ),
+                      ),
+                      AutoSizeText(
+                        e.text,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),
