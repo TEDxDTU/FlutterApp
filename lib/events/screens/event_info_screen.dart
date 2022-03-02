@@ -99,6 +99,10 @@ class EventInfoScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(e.title),
+            iconTheme: const IconThemeData(
+              size: 24,
+              color: Colors.white,
+            ),
           ),
           body: SizedBox(
             width: mediaQuery.size.width,
