@@ -12,7 +12,7 @@ import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
-import 'package:tedx_dtu_app/home/screens/trivia_screen.dart';
+import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';

@@ -7,7 +7,7 @@ import 'package:tedx_dtu_app/events/helpers/dotted_seperator.dart';
 import 'package:tedx_dtu_app/events/helpers/filled_arc_painter.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
-import 'package:tedx_dtu_app/home/screens/trivia_screen.dart';
+import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
