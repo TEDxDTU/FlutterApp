@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
 class Auth extends ChangeNotifier {
@@ -60,8 +61,7 @@ class Auth extends ChangeNotifier {
         email: email,
         password: password,
       );
-      final url =
-          Uri.parse('http://192.168.0.106:3000/api/user/data-from-token');
+      final url = Uri.parse(nodeServerBaseUrl + '/api/user/data-from-token');
       String authToken = (await _auth.currentUser!.getIdToken());
       print('here2');
       final response = await http.post(url, body: {
@@ -100,6 +100,16 @@ class Auth extends ChangeNotifier {
     await ref.delete();
   }
 
+  Future<void> tryChangePassword(BuildContext ctx) async {
+    try {
+      _auth.sendPasswordResetEmail(email: user!.email);
+      UIHelper.showSuccessDialog(ctx, 'Reset link sent',
+          'A password reset link has been sent to your email ${user!.email}. Please follow the instructions in the email to reset your password.');
+    } catch (e) {
+      UIHelper.showErrorDialog(ctx, 'Error!', e.toString());
+    }
+  }
+
   Future<void> updateUser({
     String? name,
     String? university,
@@ -107,7 +117,7 @@ class Auth extends ChangeNotifier {
     String? imageUrl,
     String? password,
   }) async {
-    final url = Uri.parse('http://192.168.0.106:3000/api/user/update');
+    final url = Uri.parse(nodeServerBaseUrl + '/api/user/update');
     String authToken = (await _auth.currentUser!.getIdToken());
     Map<String, dynamic> body = {
       'authToken': authToken,

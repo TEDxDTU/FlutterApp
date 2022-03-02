@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 import 'package:tedx_dtu_app/profile/widgets/account_circle_with_text.dart';
 
+import '../../global/providers/auth.dart';
+
 class MainSettingsPage extends StatelessWidget {
   const MainSettingsPage({Key? key}) : super(key: key);
 
@@ -29,9 +31,8 @@ class MainSettingsPage extends StatelessWidget {
               .currentInnerWidget = CurrentInnerWidget.editProfile;
         }),
         _buildListTile('Change Password', () {
-          Provider.of<ProfileInnerWidgetProvider>(context, listen: false)
-              .currentInnerWidget = CurrentInnerWidget.changePassword;
-        }),
+          Provider.of<Auth>(context, listen: false).tryChangePassword(context);
+        }, SizedBox()),
         const SizedBox(height: 13),
         Row(
           children: const [
