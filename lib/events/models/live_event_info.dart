@@ -1,19 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LiveEventInfo {
-  LiveEventInfo(this.text, this.textImage);
-  String text;
+  LiveEventInfo(this.text, this.textImage, this.link);
+  String? text;
   List<TextImageUrl> textImage;
+  String? link;
 
   factory LiveEventInfo.fromMap(Map<String, dynamic> data) {
-    String text = data['text'].toString();
+    String? text = data['text'];
+    String? link = data['link'];
     List<TextImageUrl> textImage = [];
-    for (var a in data['textImage'] as List) {
-      textImage.add(
-        TextImageUrl(a['imageText'].toString(), a['imageUrl'].toString()),
-      );
+    if (data['textImage'] != null) {
+      for (var a in data['textImage'] as List) {
+        textImage.add(
+          TextImageUrl(
+            a['imageText'],
+            a['imageUrl'],
+          ),
+        );
+      }
     }
-    return LiveEventInfo(text, textImage);
+    return LiveEventInfo(text, textImage, link);
   }
 
   static Stream<LiveEventInfo> fetch() async* {
@@ -23,7 +30,12 @@ class LiveEventInfo {
         .snapshots()) {
       if (element.exists) {
         LiveEventInfo currentInfo = LiveEventInfo.fromMap(element.data()!);
-        yield currentInfo;
+        if (currentInfo.text == null &&
+            currentInfo.textImage.isEmpty &&
+            currentInfo.link == null) {
+        } else {
+          yield currentInfo;
+        }
       }
     }
   }
@@ -36,8 +48,8 @@ class LiveEventInfo {
 
 class TextImageUrl {
   TextImageUrl(this.text, this.imageUrl);
-  String text;
-  String imageUrl;
+  String? text;
+  String? imageUrl;
 
   @override
   String toString() {
