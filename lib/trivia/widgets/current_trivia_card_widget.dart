@@ -16,8 +16,8 @@ class CurrentTriviaCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureScreenTemplate(
-      future: Provider.of<TriviaProvider>(context).fetchData()?.call(),
+    return RefreshableFutureScreenTemplate(
+      future: Provider.of<TriviaProvider>(context).fetchData,
       body: Consumer<TriviaProvider>(
         builder: (context, triviaData, child) {
           Trivia currTrivia = triviaData.currentTrivia;
