@@ -17,14 +17,6 @@ class TriviaScreen extends StatelessWidget {
       appBarTitle: 'Trivia',
       children: [
         TriviaSliderPanel(),
-        ClipPath(
-          clipper: SlantedContainerClipper(),
-          child: Container(
-            height: 200,
-            width: double.infinity,
-            color: Colors.white,
-          ),
-        )
       ],
     );
   }

@@ -96,6 +96,8 @@ flutter:
     - assets/trivia/trivia_horizontal.png
     - assets/trivia/weekly_trivia_card.svg
     - assets/trivia/weekly_trivia_card.png
+    - assets/trivia/win.png
+    - assets/trivia/stars.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -109,6 +111,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: DM_Serif_Text
+      fonts:
+        - asset: assets/fonts/DM_Serif_Text/DMSerifText-Regular.ttf
+          weight: 400
+    - family: Heebo
+      fonts:
+        - asset: assets/fonts/Heebo/Heebo-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Heebo/Heebo-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Heebo/Heebo-Black.ttf
+          weight: 900
     - family: Lato
       fonts:
         - asset: assets/fonts/Lato/Lato-Thin.ttf
