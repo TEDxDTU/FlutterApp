@@ -128,8 +128,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(
                             onPressed: () async {
+                              print("sign in button pressed");
                               if (_formKey.currentState!.validate()) {
-                                // print("here");
                                 _formKey.currentState!.save();
                                 try {
                                   await Provider.of<Auth>(context,
