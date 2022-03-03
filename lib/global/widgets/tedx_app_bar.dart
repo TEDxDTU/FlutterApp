@@ -49,7 +49,13 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
                       width: 140,
                     ),
                     if (title != null) SizedBox(width: 10),
-                    if (title != null) Text(title!),
+                    if (title != null)
+                      Text(
+                        title!,
+                        style: TextStyle(
+                          color: (scrollPassed) ? Colors.black : Colors.white,
+                        ),
+                      ),
                   ],
                 )
               : Text(
