@@ -31,6 +31,9 @@ class EventsCategoriesScreen extends StatelessWidget {
                 width: double.infinity,
                 actionWidget: Text('Join'),
                 showImage: true,
+                imageProvider: NetworkImage(
+                  LiveEvent.instance!.imageUrl,
+                ),
                 gradientColor: Colors.red,
                 actionWidgetFunction: () {
                   Navigator.of(context)

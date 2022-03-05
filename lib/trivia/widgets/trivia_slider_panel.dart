@@ -47,23 +47,27 @@ class _TriviaSliderPanelState extends State<TriviaSliderPanel> {
             },
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < 3; i++)
-              AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                width: _currentIndex == i ? 12 : 8.0,
-                height: _currentIndex == i ? 12 : 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == i
-                      ? Theme.of(context).primaryColor
-                      : Colors.white,
+        SizedBox(
+          height: 23,
+          // width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (int i = 0; i < 3; i++)
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 100),
+                  width: _currentIndex == i ? 12 : 8.0,
+                  height: _currentIndex == i ? 12 : 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentIndex == i
+                        ? Theme.of(context).primaryColor
+                        : Colors.white,
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ],
     );

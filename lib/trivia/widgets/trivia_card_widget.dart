@@ -105,17 +105,25 @@ class TriviaCardWidget extends StatelessWidget {
                                 'You must be signed in to play trivia');
                             return;
                           }
-                          await Provider.of<TriviaProvider>(context,
-                                  listen: false)
-                              .fetchTriviaQuestions(id);
-                          List<String> questions = Provider.of<TriviaProvider>(
-                                  context,
-                                  listen: false)
-                              .findById(id)
-                              .questions!
-                              .map((e) => e.question)
-                              .toList();
-                          print(questions);
+                          try {
+                            await Provider.of<TriviaProvider>(context,
+                                    listen: false)
+                                .fetchTriviaQuestions(id);
+                            List<String> questions =
+                                Provider.of<TriviaProvider>(context,
+                                        listen: false)
+                                    .findById(id)
+                                    .questions!
+                                    .map((e) => e.question)
+                                    .toList();
+                            print(questions);
+                          } catch (e) {
+                            UIHelper.showErrorDialog(
+                              context,
+                              'Error!',
+                              e.toString(),
+                            );
+                          }
                         },
                         child: const Text('Play Now'),
                       ),

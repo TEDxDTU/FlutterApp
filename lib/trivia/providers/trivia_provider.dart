@@ -22,7 +22,8 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
 
   Future<List<Question>> _fetchQuestions(String id) async {
     print(nodeServerBaseUrl + '/api/trivia/' + id);
-    final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+    var authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+    // authToken = authToken.replaceAll("f", 'e');
     final response = await http
         .get(Uri.parse(nodeServerBaseUrl + '/api/trivia/' + id), headers: {
       'authorization': authToken,
@@ -36,7 +37,8 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
       return questions;
     } else {
       print(response.body);
-      throw Exception('Failed to load trivia questions');
+      throw Exception(
+          'Failed to load trivia questions ${json.decode(response.body)['msg']}');
     }
   }
 

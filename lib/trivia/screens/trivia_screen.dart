@@ -23,6 +23,7 @@ class TriviaScreen extends StatelessWidget {
         appBarTitle: 'Trivia',
         children: [
           TriviaSliderPanel(),
+          // const SizedBox(height: 5),
           ...Provider.of<TriviaProvider>(context)
               .data
               .map(
