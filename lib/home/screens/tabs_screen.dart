@@ -17,7 +17,7 @@ class _TabsScreenState extends State<TabsScreen> {
   var _currentIndex = 0;
 
   var scrollPassed = false;
-
+  // final heroController = HeroController();
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
@@ -55,6 +55,7 @@ class _TabsScreenState extends State<TabsScreen> {
             .map(
               (e) => Navigator(
                 key: e.navigatorKey,
+                observers: [HeroController()],
                 onGenerateRoute: (settings) {
                   return MaterialPageRoute(
                     settings: settings,

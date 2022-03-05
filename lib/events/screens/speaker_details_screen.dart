@@ -290,13 +290,16 @@ class SpeakerDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(18),
-                child: Image.network(
-                  routeArgs['imageUrl'] as String,
-                  height: height * 0.22,
-                  width: height * 0.22,
-                  fit: BoxFit.cover,
+              child: Hero(
+                tag: routeArgs['imageUrl']!,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(18),
+                  child: Image.network(
+                    routeArgs['imageUrl'] as String,
+                    height: height * 0.22,
+                    width: height * 0.22,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

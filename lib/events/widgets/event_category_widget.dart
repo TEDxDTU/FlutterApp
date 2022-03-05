@@ -39,6 +39,7 @@ class EventCategoryWidget extends StatelessWidget {
     this.trailing,
     this.showImage = true,
     this.backgroundColor = Colors.white,
+    this.imageHeroTag,
     bool? isSvg,
     Tuple2<double, double>? actionWidgetOffset,
     bool? showActionWidget,
@@ -138,6 +139,7 @@ class EventCategoryWidget extends StatelessWidget {
   /// Sets the background color to transparent.
   final bool isSvg;
 
+  final String? imageHeroTag;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -178,23 +180,12 @@ class EventCategoryWidget extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
-                  child: Image(
-                    image: imageProvider ??
-                        const NetworkImage(
-                          'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive',
+                  child: imageHeroTag == null
+                      ? imageWidget()
+                      : Hero(
+                          tag: imageHeroTag!,
+                          child: imageWidget(),
                         ),
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, exception, stackTrace) {
-                      return const ImageErrorWidget();
-                    },
-                    loadingBuilder: (context, child, progress) {
-                      if (progress == null) return child;
-                      return Center(
-                        child: loadingIndicator ??
-                            const CircularProgressIndicator(),
-                      );
-                    },
-                  ),
                 ),
               ),
             Container(
@@ -277,6 +268,25 @@ class EventCategoryWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Image imageWidget() {
+    return Image(
+      image: imageProvider ??
+          const NetworkImage(
+            'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive',
+          ),
+      fit: BoxFit.cover,
+      errorBuilder: (context, exception, stackTrace) {
+        return const ImageErrorWidget();
+      },
+      loadingBuilder: (context, child, progress) {
+        if (progress == null) return child;
+        return Center(
+          child: loadingIndicator ?? const CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

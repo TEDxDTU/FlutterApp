@@ -125,6 +125,7 @@ class EventInfoScreen extends StatelessWidget {
                         showImage: true,
                         imageProvider: NetworkImage(e.imageUrl),
                         // gradientColor: Colors.black,
+                        imageHeroTag: e.imageUrl,
                       ),
                       Container(
                         width: double.infinity,

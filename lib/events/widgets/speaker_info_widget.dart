@@ -97,21 +97,24 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
             SizedBox(
               width: widget.width / 3,
               height: widget.width / 3,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                child: Image.network(
-                  speaker.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, exception, stackTrace) {
-                    return const ImageErrorWidget();
-                  },
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
-                    return Center(
-                      child: widget.loadingIndicator ??
-                          const CircularProgressIndicator(),
-                    );
-                  },
+              child: Hero(
+                tag: speaker.imageUrl,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  child: Image.network(
+                    speaker.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, exception, stackTrace) {
+                      return const ImageErrorWidget();
+                    },
+                    loadingBuilder: (context, child, progress) {
+                      if (progress == null) return child;
+                      return Center(
+                        child: widget.loadingIndicator ??
+                            const CircularProgressIndicator(),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

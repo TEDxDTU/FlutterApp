@@ -77,11 +77,14 @@ class SingleEventWidget extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(
-                    imageUrl,
-                    height: 85,
-                    width: 105,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: imageUrl,
+                    child: Image.network(
+                      imageUrl,
+                      height: 85,
+                      width: 105,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(
