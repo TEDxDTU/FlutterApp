@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/providers/auth.dart';
+import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 import 'package:tedx_dtu_app/trivia/widgets/trivia_details_row_widget.dart';
+
+import '../providers/trivia_provider.dart';
 
 class TriviaCardWidget extends StatelessWidget {
   const TriviaCardWidget({
@@ -93,7 +98,25 @@ class TriviaCardWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (!Provider.of<Auth>(context, listen: false)
+                              .isAuth) {
+                            UIHelper.showErrorDialog(context, 'Sign in',
+                                'You must be signed in to play trivia');
+                            return;
+                          }
+                          await Provider.of<TriviaProvider>(context,
+                                  listen: false)
+                              .fetchTriviaQuestions(id);
+                          List<String> questions = Provider.of<TriviaProvider>(
+                                  context,
+                                  listen: false)
+                              .findById(id)
+                              .questions!
+                              .map((e) => e.question)
+                              .toList();
+                          print(questions);
+                        },
                         child: const Text('Play Now'),
                       ),
                     ),

@@ -81,7 +81,9 @@ class MainSettingsPage extends StatelessWidget {
                 ),
               ),
               child: const Text('Sign out'),
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<Auth>(context, listen: false).signOut();
+              },
             ),
           ),
         )

@@ -192,7 +192,8 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, AsyncSnapshot<User?> authState) {
-              return !(Provider.of<Auth>(context).isAuth && authState.hasData)
+              return !(Provider.of<Auth>(context).isAnonymousLogin ||
+                      (Provider.of<Auth>(context).isAuth && authState.hasData))
                   ? SignInScreen()
                   : TabsScreen(
                       screens: [

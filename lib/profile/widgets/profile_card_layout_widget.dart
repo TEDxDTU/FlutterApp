@@ -39,8 +39,7 @@ class ProfileCardLayoutWidget extends StatelessWidget {
                         return const MainSettingsPage();
                       case CurrentInnerWidget.editProfile:
                         return EditProfilePage();
-                      case CurrentInnerWidget.changePassword:
-                        return ChangePasswordPage();
+
                       default:
                         return Container(
                           alignment: Alignment.center,

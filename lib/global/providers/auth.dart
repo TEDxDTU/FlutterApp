@@ -51,7 +51,13 @@ class Auth extends ChangeNotifier {
 
   _TedXUser? user;
   bool get isAuth => _auth.currentUser != null && user != null;
+  void loginAnon() {
+    isAnonymousLogin = true;
+    // _auth.signInAnonymously();
+    notifyListeners();
+  }
 
+  bool isAnonymousLogin = false;
   Future<void> signIn({
     required String email,
     required String password,
@@ -79,6 +85,12 @@ class Auth extends ChangeNotifier {
     } on Exception catch (e) {
       throw Exception('Failed to sign in, $e');
     }
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+    user = null;
+    notifyListeners();
   }
 
   Future<String> uploadUserImage(String userEmail, File image) async {
@@ -144,9 +156,6 @@ class Auth extends ChangeNotifier {
       throw Exception('Failed to update user, $e');
     }
   }
-
-  // _auth.app
-  Future<void> signOut() async {}
 }
 
 //TODO: Add tickets, trivia,etc.

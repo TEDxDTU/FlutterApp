@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
+import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/sign_up/helpers/sign_up_background_painter.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/sign_up_image_widget.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/user_image_picker.dart';
@@ -165,6 +166,27 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         const SizedBox(height: 117),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              Provider.of<Auth>(context, listen: false)
+                                  .loginAnon();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(17),
+                                ),
+                                onPrimary: Colors.white,
+                                primary: Colors.red,
+                                elevation: 4),
+                            child: const Text(
+                              'Continue as guest',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
