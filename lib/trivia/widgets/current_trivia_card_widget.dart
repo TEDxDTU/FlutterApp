@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
@@ -10,10 +11,26 @@ import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 
 import 'labelled_icon.dart';
+import 'trivia_details_row_widget.dart';
 
 class CurrentTriviaCardWidget extends StatelessWidget {
   const CurrentTriviaCardWidget({Key? key}) : super(key: key);
 
+  static const gradientColorsList = [
+    Colors.transparent,
+    // Colors.transparent,
+    Colors.transparent,
+    Color.fromARGB(8, 255, 255, 255),
+    Color.fromARGB(10, 255, 255, 255),
+    Color.fromARGB(15, 255, 255, 255),
+    Colors.white10,
+    Colors.white12,
+    Colors.white24,
+    Colors.white30,
+    Colors.white38,
+    Colors.white54,
+    // Colors.white70,
+  ];
   @override
   Widget build(BuildContext context) {
     return RefreshableFutureScreenTemplate(
@@ -21,6 +38,7 @@ class CurrentTriviaCardWidget extends StatelessWidget {
       body: Consumer<TriviaProvider>(
         builder: (context, triviaData, child) {
           Trivia currTrivia = triviaData.currentTrivia;
+
           return Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -51,21 +69,7 @@ class CurrentTriviaCardWidget extends StatelessWidget {
                           // color: Colors.white70,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                Colors.transparent,
-                                // Colors.transparent,
-                                Colors.transparent,
-                                Colors.white.withOpacity(0.03),
-                                Colors.white.withOpacity(0.04),
-                                Colors.white.withOpacity(0.05),
-                                Colors.white10,
-                                Colors.white12,
-                                Colors.white24,
-                                Colors.white30,
-                                Colors.white38,
-                                Colors.white54,
-                                // Colors.white70,
-                              ],
+                              colors: gradientColorsList,
                             ),
                           ),
                           // width: 100,
@@ -74,41 +78,9 @@ class CurrentTriviaCardWidget extends StatelessWidget {
                           // width: double.infinity,
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.all(8),
-                          child: Row(
-                            // mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              LabelledIcon(
-                                label: '${currTrivia.questionCount} Questions',
-                                icon: Icon(
-                                  Icons.help,
-                                  color: Colors.blueGrey[100],
-                                ),
-                              ),
-                              VerticalDivider(
-                                thickness: 3,
-                                color: Colors.blueGrey[200],
-                              ),
-                              LabelledIcon(
-                                label: '${currTrivia.totalTime} secs',
-                                icon: Icon(
-                                  Icons.timer,
-                                  color: Colors.blueGrey[100],
-                                ),
-                              ),
-                              VerticalDivider(
-                                thickness: 3,
-                                color: Colors.blueGrey[200],
-                              ),
-                              LabelledIcon(
-                                label:
-                                    '${currTrivia.questionCount * 10} Points',
-                                icon: Icon(
-                                  Icons.emoji_events,
-                                  color: Colors.blueGrey[100],
-                                ),
-                              ),
-                            ],
+                          child: TriviaDetailsRowWidget(
+                            questionCount: currTrivia.questionCount,
+                            totalTime: currTrivia.totalTime,
                           ),
                         ),
                       ),
@@ -165,21 +137,7 @@ class CurrentTriviaCardWidget extends StatelessWidget {
                           // color: Colors.red,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                Colors.transparent,
-                                // Colors.transparent,
-                                Colors.transparent,
-                                Colors.white.withOpacity(0.03),
-                                Colors.white.withOpacity(0.04),
-                                Colors.white.withOpacity(0.05),
-                                Colors.white10,
-                                Colors.white12,
-                                Colors.white24,
-                                Colors.white30,
-                                Colors.white38,
-                                Colors.white54,
-                                // Colors.white70,
-                              ]..reversed,
+                              colors: gradientColorsList..reversed,
                             ),
                           ),
                           height: 75,

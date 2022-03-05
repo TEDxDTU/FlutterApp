@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:tedx_dtu_app/trivia/widgets/trivia_details_row_widget.dart';
+
 class TriviaCardWidget extends StatelessWidget {
   const TriviaCardWidget({
     Key? key,
     required this.title,
     required this.id,
     required this.imageUrl,
+    required this.questionCount,
+    required this.totalTime,
   }) : super(key: key);
   final String title;
   final String id;
   final String imageUrl;
-
+  final int questionCount;
+  final int totalTime;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +31,7 @@ class TriviaCardWidget extends StatelessWidget {
         // color: Colors.red,
       ),
       width: double.infinity,
-      height: 180,
+      height: 190,
       margin: const EdgeInsets.all(15),
       alignment: Alignment.bottomCenter,
       child: ClipRRect(
@@ -39,6 +44,10 @@ class TriviaCardWidget extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Colors.transparent,
+                Colors.transparent,
+                Colors.transparent,
+                Colors.transparent,
+                Colors.transparent,
                 Colors.black.withOpacity(0.2),
                 Colors.black.withOpacity(0.3),
                 Colors.black.withOpacity(0.5),
@@ -50,8 +59,11 @@ class TriviaCardWidget extends StatelessWidget {
               ],
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          alignment: Alignment.bottomLeft,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FittedBox(
                 fit: BoxFit.scaleDown,
@@ -63,17 +75,29 @@ class TriviaCardWidget extends StatelessWidget {
                       ),
                 ),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                // flex: 3,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 50,
+                child: Row(
+                  children: [
+                    TriviaDetailsRowWidget(
+                      questionCount: questionCount,
+                      totalTime: totalTime,
+                      dividerColor: Colors.deepOrangeAccent[700],
                     ),
-                  ),
-                  onPressed: () {},
-                  child: const Text('Play Now'),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: const Text('Play Now'),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

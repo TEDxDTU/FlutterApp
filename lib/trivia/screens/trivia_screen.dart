@@ -22,11 +22,15 @@ class TriviaScreen extends StatelessWidget {
         TriviaSliderPanel(),
         ...Provider.of<TriviaProvider>(context)
             .data
-            .map((trivia) => TriviaCardWidget(
-                  title: trivia.title,
-                  id: trivia.id,
-                  imageUrl: trivia.imageUrl,
-                ))
+            .map(
+              (trivia) => TriviaCardWidget(
+                title: trivia.title,
+                id: trivia.id,
+                imageUrl: trivia.imageUrl,
+                questionCount: trivia.questionCount,
+                totalTime: trivia.totalTime,
+              ),
+            )
             .toList(),
       ],
     );
