@@ -5,35 +5,35 @@ class SignUpBackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
     paint.color = Colors.white;
-    paint.style = PaintingStyle.stroke;
+    paint.style = PaintingStyle.fill;
     var width = size.width;
     var height = size.height;
     paint.strokeWidth = 3;
     // var path = Path();
-    var path = Path()
-      ..moveTo(0, 0)
-      ..quadraticBezierTo(
-        width * 0.225,
-        height * 0.43,
-        width * 0.4,
-        height * 0.3,
-      )
-      ..quadraticBezierTo(
-        width * 0.6,
-        height * 0.1,
-        width * 0.76,
-        height * 0.3,
-      )
-      ..quadraticBezierTo(
-        width * 0.9,
-        height * 0.5,
-        width,
-        height * 0.5,
-      );
-    canvas.drawPath(path, paint);
-    path = Path();
+    // var path = Path()
+    //   ..moveTo(0, 0)
+    //   ..quadraticBezierTo(
+    //     width * 0.225,
+    //     height * 0.43,
+    //     width * 0.4,
+    //     height * 0.3,
+    //   )
+    //   ..quadraticBezierTo(
+    //     width * 0.6,
+    //     height * 0.1,
+    //     width * 0.76,
+    //     height * 0.3,
+    //   )
+    //   ..quadraticBezierTo(
+    //     width * 0.9,
+    //     height * 0.5,
+    //     width,
+    //     height * 0.5,
+    //   );
+    // canvas.drawPath(path, paint);
+    var path = Path();
     paint.color = Colors.red;
-    path.moveTo(width, height * 0.3);
+    path.lineTo(width, height * 0.3);
     path
       ..quadraticBezierTo(
         width * 0.8,
@@ -43,8 +43,8 @@ class SignUpBackgroundPainter extends CustomPainter {
       )
       ..quadraticBezierTo(
         width * 0.6,
-        height * 0.7,
-        width * 0.4,
+        height * 0.6,
+        width * 0.44,
         height * 0.5,
       )
       ..quadraticBezierTo(
@@ -52,37 +52,40 @@ class SignUpBackgroundPainter extends CustomPainter {
         height * 0.3,
         0,
         height * 0.3,
-      );
+      )
+      ..moveTo(width, height * 0.3)
+      ..lineTo(width, 0)
+      ..lineTo(0, 0);
     canvas.drawPath(path, paint);
 
-    path = Path();
-    paint.color = Colors.white;
-    path
-      ..moveTo(0, height * 0.5)
-      ..quadraticBezierTo(
-        width * 0.2,
-        height * 0.4,
-        width * 0.3,
-        height * 0.7,
-      )
-      ..quadraticBezierTo(
-        width * 0.4,
-        height * 0.9,
-        width * 0.5,
-        height * 0.7,
-      )
-      ..quadraticBezierTo(
-        width * 0.7,
-        height * 0.4,
-        width * 0.8,
-        height * 0.7,
-      )
-      ..quadraticBezierTo(
-        width * 0.9,
-        height * 0.9,
-        width,
-        height * 0.6,
-      );
+    // path = Path();
+    // paint.color = Colors.white;
+    // path
+    //   ..moveTo(0, height * 0.5)
+    //   ..quadraticBezierTo(
+    //     width * 0.2,
+    //     height * 0.4,
+    //     width * 0.3,
+    //     height * 0.7,
+    //   )
+    //   ..quadraticBezierTo(
+    //     width * 0.4,
+    //     height * 0.9,
+    //     width * 0.5,
+    //     height * 0.7,
+    //   )
+    //   ..quadraticBezierTo(
+    //     width * 0.7,
+    //     height * 0.4,
+    //     width * 0.8,
+    //     height * 0.7,
+    //   )
+    //   ..quadraticBezierTo(
+    //     width * 0.9,
+    //     height * 0.9,
+    //     width,
+    //     height * 0.6,
+    //   );
 
     // canvas.drawPath(path, paint);
     // paint.color = Colors.white70;

@@ -90,7 +90,7 @@ class CurrentTriviaCardWidget extends StatelessWidget {
                                 color: Colors.blueGrey[200],
                               ),
                               LabelledIcon(
-                                label: '${currTrivia.totalTime} Time',
+                                label: '${currTrivia.totalTime} secs',
                                 icon: Icon(
                                   Icons.timer,
                                   color: Colors.blueGrey[100],

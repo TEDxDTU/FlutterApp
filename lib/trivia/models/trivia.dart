@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import 'package:tedx_dtu_app/trivia/models/question.dart';
 
 class Trivia {
@@ -6,16 +7,17 @@ class Trivia {
   final String title;
   List<Question>? questions;
   final String id;
+  final int questionCount;
+  final int totalTime;
   Trivia({
-    required this.id,
     required this.imageUrl,
     required this.title,
     this.questions,
+    required this.id,
+    required this.questionCount,
+    required this.totalTime,
   });
 
-  int get questionCount => questions?.length ?? -1;
-  int get totalTime =>
-      questions?.fold<int>(0, (prev, q) => prev + q.seconds) ?? -1;
   factory Trivia.fromMap(Map<String, dynamic> map) {
     return Trivia(
       id: map['_id'],
@@ -23,6 +25,8 @@ class Trivia {
       title: map['title'],
       questions:
           (map['questions'] as List?)?.map((e) => Question.fromMap(e)).toList(),
+      questionCount: map['questionCount'],
+      totalTime: map['totalTime'],
     );
   }
 

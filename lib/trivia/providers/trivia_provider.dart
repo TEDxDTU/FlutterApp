@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tedx_dtu_app/global/providers/provider_template.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 import 'package:http/http.dart' as http;
@@ -20,8 +22,11 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
 
   Future<List<Question>> _fetchQuestions(String id) async {
     print(nodeServerBaseUrl + '/api/trivia/' + id);
-    final response =
-        await http.get(Uri.parse(nodeServerBaseUrl + '/api/trivia/' + id));
+    final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final response = await http
+        .get(Uri.parse(nodeServerBaseUrl + '/api/trivia/' + id), headers: {
+      'authorization': authToken,
+    });
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
 
@@ -41,15 +46,19 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
   Future<List<Trivia>> getData() async {
     print('getting data');
     try {
-      final url = Uri.parse(nodeServerBaseUrl + '/api/trivia');
-      final response = await http.get(url);
+      // final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = Uri.parse(
+        nodeServerBaseUrl + '/api/trivia',
+      );
+
+      final response = await http.get(url, headers: {});
       if (response.statusCode == 200) {
         List<Map<String, dynamic>> data = List.from(jsonDecode(response.body));
         // print(data);
         List<Trivia> triviaList = data.map((e) => Trivia.fromMap(e)).toList();
-        List<Question> currTriviaQuestions =
-            await _fetchQuestions(triviaList[0].id);
-        triviaList.first.questions = currTriviaQuestions;
+        // List<Question> currTriviaQuestions =
+        //     await _fetchQuestions(triviaList[0].id);
+        // triviaList.first.questions = currTriviaQuestions;
         return triviaList;
       } else {
         throw Exception((jsonDecode(response.body) as Map)['msg']);
