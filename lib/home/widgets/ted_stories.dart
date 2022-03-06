@@ -93,7 +93,7 @@ class _TedStoriesState extends State<TedStories> {
                         (e) => TedStoryWidget(
                           leadingText: e.title,
                           dateTime: e.dateTime,
-                          imageProvider: NetworkImage(e.imageUrl),
+                          imageUrl: e.imageUrl,
                           onPressed: () {
                             Navigator.of(context).pushNamed(
                               NoBottomBarScreen.routeName,

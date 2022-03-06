@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                       leadingText: LiveEvent.instance!.title,
                       isLive: true,
                       dateTime: LiveEvent.instance!.date,
-                      imageProvider: NetworkImage(LiveEvent.instance!.imageUrl),
+                      imageUrl: LiveEvent.instance!.imageUrl,
                       width: 145,
                       borderRadius: 27,
                       onPressed: () {

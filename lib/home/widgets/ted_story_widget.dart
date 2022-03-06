@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
+import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tedx_dtu_app/home/screens/home_screen.dart';
 
@@ -13,7 +14,7 @@ class TedStoryWidget extends StatelessWidget {
   const TedStoryWidget({
     required this.leadingText,
     required this.dateTime,
-    required this.imageProvider,
+    required this.imageUrl,
     this.onPressed,
     this.loadingIndicator,
     bool? isLive,
@@ -52,7 +53,7 @@ class TedStoryWidget extends StatelessWidget {
 
   final double borderRadius;
 
-  final ImageProvider imageProvider;
+  final String imageUrl;
 
   final Widget? loadingIndicator;
 
@@ -101,19 +102,22 @@ class TedStoryWidget extends StatelessWidget {
                     borderRadius,
                   ),
                 ),
-                child: Image(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, exception, stackTrace) {
-                    return const ImageErrorWidget();
-                  },
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
-                    return Center(
-                      child:
-                          loadingIndicator ?? const CircularProgressIndicator(),
-                    );
-                  },
+                // child: Image.network(
+                //   imageUrl,
+                //   fit: BoxFit.cover,
+                //   errorBuilder: (context, exception, stackTrace) {
+                //     return const ImageErrorWidget();
+                //   },
+                //   loadingBuilder: (context, child, progress) {
+                //     if (progress == null) return child;
+                //     return Center(
+                //       child:
+                //           loadingIndicator ?? const CircularProgressIndicator(),
+                //     );
+                //   },
+                // ),
+                child: CustomImageWidget(
+                  url: imageUrl,
                 ),
               ),
             ),

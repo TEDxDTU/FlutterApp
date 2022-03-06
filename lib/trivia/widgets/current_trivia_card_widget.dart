@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
+import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
 import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
 import 'package:tedx_dtu_app/trivia/helpers/slanted_container_clipper.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
@@ -41,10 +42,10 @@ class CurrentTriviaCardWidget extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-              image: NetworkImage(currTrivia.imageUrl),
-              fit: BoxFit.cover,
-            ),
+            // image: DecorationImage(
+            //   image: NetworkImage(currTrivia.imageUrl),
+            //   fit: BoxFit.cover,
+            // ),
             // color: Colors.green,
           ),
           // padding: EdgeInsets.all(20).copyWith(top: 0),
@@ -53,6 +54,7 @@ class CurrentTriviaCardWidget extends StatelessWidget {
             child: Stack(
               // mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                CustomImageWidget(url: currTrivia.imageUrl),
                 Positioned(
                   right: 0,
                   left: 0,
