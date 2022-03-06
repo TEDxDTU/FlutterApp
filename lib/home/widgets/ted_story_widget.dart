@@ -102,20 +102,6 @@ class TedStoryWidget extends StatelessWidget {
                     borderRadius,
                   ),
                 ),
-                // child: CustomImageWidget(url:
-                //   imageUrl,
-                //   fit: BoxFit.cover,
-                //   errorBuilder: (context, exception, stackTrace) {
-                //     return const ImageErrorWidget();
-                //   },
-                //   loadingBuilder: (context, child, progress) {
-                //     if (progress == null) return child;
-                //     return Center(
-                //       child:
-                //           loadingIndicator ?? const CircularProgressIndicator(),
-                //     );
-                //   },
-                // ),
                 child: CustomImageWidget(
                   url: imageUrl,
                 ),

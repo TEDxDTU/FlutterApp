@@ -57,6 +57,14 @@ class Auth extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> autoLogin() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      return;
+    }
+    await _getDataFromToken(_auth.currentUser!.email!);
+  }
+
   bool isAnonymousLogin = false;
   Future<void> signIn({
     required String email,
@@ -67,6 +75,14 @@ class Auth extends ChangeNotifier {
         email: email,
         password: password,
       );
+      await _getDataFromToken(email);
+    } on Exception catch (e) {
+      throw Exception('Failed to sign in, $e');
+    }
+  }
+
+  Future<void> _getDataFromToken(String email) async {
+    try {
       final url = Uri.parse(nodeServerBaseUrl + '/api/user/data-from-token');
       String authToken = (await _auth.currentUser!.getIdToken());
       print('here2');
@@ -79,11 +95,10 @@ class Auth extends ChangeNotifier {
         user = _TedXUser.fromMap(json.decode(response.body));
         notifyListeners();
       } else {
-        throw Exception(
-            'Failed to sign in, ${json.decode(response.body)['msg']}');
+        throw Exception('${json.decode(response.body)['msg']}');
       }
     } on Exception catch (e) {
-      throw Exception('Failed to sign in, $e');
+      throw Exception('$e');
     }
   }
 

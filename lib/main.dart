@@ -9,6 +9,8 @@ import 'package:tedx_dtu_app/events/screens/events_categories_screen.dart';
 import 'package:tedx_dtu_app/events/screens/events_list_screen.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
+import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
+import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
@@ -189,74 +191,84 @@ class MyApp extends StatelessWidget {
         routes: {
           TestScreen.routeName: (context) => TestScreen(),
         },
-        home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, AsyncSnapshot<User?> authState) {
-              return !(Provider.of<Auth>(context).isAnonymousLogin ||
-                      (Provider.of<Auth>(context).isAuth && authState.hasData))
-                  ? SignInScreen()
-                  : TabsScreen(
-                      screens: [
-                        // HomeScreen(),
-                        BottomBarScreen(
-                          title: 'Home',
-                          navigatorKey: GlobalKey<NavigatorState>(),
-                          icon: const Icon(Icons.home),
-                          routes: {
-                            '/': (context) => const HomeScreen(),
-                            TestScreen.routeName: (context) => TestScreen(),
-                            SignUpScreen.routeName: (context) =>
-                                const SignUpScreen(),
-                            EventInfoScreen.routeName: (context) =>
-                                const EventInfoScreen(),
-                            StoriesPageView.routeName: (context) =>
-                                const StoriesPageView(),
-                            TriviaScreen.routeName: (context) =>
-                                const TriviaScreen(),
-                          },
-                        ),
-                        BottomBarScreen(
-                          title: 'Events',
-                          navigatorKey: GlobalKey<NavigatorState>(),
-                          icon: const Icon(Icons.calendar_today),
-                          routes: {
-                            '/': (context) => const EventsCategoriesScreen(),
-                            TestScreen.routeName: (context) =>
-                                const TestScreen(),
-                            SignUpScreen.routeName: (context) =>
-                                const SignUpScreen(),
-                            EventsListScreen.routeName: (context) =>
-                                const EventsListScreen(),
-                            EventInfoScreen.routeName: (context) =>
-                                const EventInfoScreen(),
-                            SpeakerDetailsScreen.routeName: (context) =>
-                                const SpeakerDetailsScreen(),
-                            EventBookingScreen.routeName: (context) =>
-                                const EventBookingScreen(),
-                          },
-                        ),
-                        BottomBarScreen(
-                          title: 'Profile',
-                          navigatorKey: GlobalKey<NavigatorState>(),
-                          icon: const Icon(Icons.account_circle),
-                          routes: {
-                            '/': (context) => const ProfileScreen(),
-                            TestScreen.routeName: (context) => TestScreen(),
-                            SignUpScreen.routeName: (context) =>
-                                const SignUpScreen(),
-                          },
-                        ),
-                        BottomBarScreen(
-                          title: 'Test',
-                          navigatorKey: GlobalKey<NavigatorState>(),
-                          icon: const Icon(Icons.help),
-                          routes: {
-                            '/': (context) => TestScreen(),
-                          },
-                        ),
-                      ],
-                    );
-            }),
+        home: Builder(builder: (context) {
+          return FutureScreenTemplate(
+            future: Provider.of<Auth>(context, listen: false).autoLogin(),
+            body: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, AsyncSnapshot<User?> authState) {
+                if (authState.connectionState == ConnectionState.waiting) {
+                  return Center(child: TedxLoadingSpinner());
+                }
+                return !(Provider.of<Auth>(context).isAnonymousLogin ||
+                        (Provider.of<Auth>(context).isAuth &&
+                            authState.hasData))
+                    ? SignInScreen()
+                    : TabsScreen(
+                        screens: [
+                          // HomeScreen(),
+                          BottomBarScreen(
+                            title: 'Home',
+                            navigatorKey: GlobalKey<NavigatorState>(),
+                            icon: const Icon(Icons.home),
+                            routes: {
+                              '/': (context) => const HomeScreen(),
+                              TestScreen.routeName: (context) => TestScreen(),
+                              SignUpScreen.routeName: (context) =>
+                                  const SignUpScreen(),
+                              EventInfoScreen.routeName: (context) =>
+                                  const EventInfoScreen(),
+                              StoriesPageView.routeName: (context) =>
+                                  const StoriesPageView(),
+                              TriviaScreen.routeName: (context) =>
+                                  const TriviaScreen(),
+                            },
+                          ),
+                          BottomBarScreen(
+                            title: 'Events',
+                            navigatorKey: GlobalKey<NavigatorState>(),
+                            icon: const Icon(Icons.calendar_today),
+                            routes: {
+                              '/': (context) => const EventsCategoriesScreen(),
+                              TestScreen.routeName: (context) =>
+                                  const TestScreen(),
+                              SignUpScreen.routeName: (context) =>
+                                  const SignUpScreen(),
+                              EventsListScreen.routeName: (context) =>
+                                  const EventsListScreen(),
+                              EventInfoScreen.routeName: (context) =>
+                                  const EventInfoScreen(),
+                              SpeakerDetailsScreen.routeName: (context) =>
+                                  const SpeakerDetailsScreen(),
+                              EventBookingScreen.routeName: (context) =>
+                                  const EventBookingScreen(),
+                            },
+                          ),
+                          BottomBarScreen(
+                            title: 'Profile',
+                            navigatorKey: GlobalKey<NavigatorState>(),
+                            icon: const Icon(Icons.account_circle),
+                            routes: {
+                              '/': (context) => const ProfileScreen(),
+                              TestScreen.routeName: (context) => TestScreen(),
+                              SignUpScreen.routeName: (context) =>
+                                  const SignUpScreen(),
+                            },
+                          ),
+                          BottomBarScreen(
+                            title: 'Test',
+                            navigatorKey: GlobalKey<NavigatorState>(),
+                            icon: const Icon(Icons.help),
+                            routes: {
+                              '/': (context) => TestScreen(),
+                            },
+                          ),
+                        ],
+                      );
+              },
+            ),
+          );
+        }),
       ),
     );
   }

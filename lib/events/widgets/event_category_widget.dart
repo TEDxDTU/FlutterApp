@@ -291,9 +291,9 @@ class EventCategoryWidget extends StatelessWidget {
               return const ImageErrorWidget();
             },
             loadingBuilder: (context, child, progress) {
-              print('progress nyll $title');
+              // print('progress nyll $title');
               if (progress == null) return child;
-              print('loading indicator $title');
+              // print('loading indicator $title');
               return Center(
                 child: loadingIndicator ?? const CircularProgressIndicator(),
               );

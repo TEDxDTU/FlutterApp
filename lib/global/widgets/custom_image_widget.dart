@@ -23,8 +23,7 @@ class CustomImageWidget extends StatelessWidget {
       placeholder: (context, url) => Material(
         child: Center(
           child: Shimmer.fromColors(
-            // direction: ShimmerDirection.ttb,
-
+            direction: ShimmerDirection.ltr,
             child: Container(
               height: height ?? double.infinity,
               width: width ?? double.infinity,
