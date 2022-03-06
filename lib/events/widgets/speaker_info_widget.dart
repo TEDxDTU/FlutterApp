@@ -8,6 +8,8 @@ import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 
+import '../../global/widgets/custom_image_widget.dart';
+
 /// Creates a widget which shows a rounded image of speaker along with name and
 /// some stats.
 ///
@@ -101,19 +103,9 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                 tag: speaker.imageUrl,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  child: Image.network(
-                    speaker.imageUrl,
+                  child: CustomImageWidget(
+                    url: speaker.imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, exception, stackTrace) {
-                      return const ImageErrorWidget();
-                    },
-                    loadingBuilder: (context, child, progress) {
-                      if (progress == null) return child;
-                      return Center(
-                        child: widget.loadingIndicator ??
-                            const CircularProgressIndicator(),
-                      );
-                    },
                   ),
                 ),
               ),

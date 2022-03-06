@@ -102,7 +102,7 @@ class TedStoryWidget extends StatelessWidget {
                     borderRadius,
                   ),
                 ),
-                // child: Image.network(
+                // child: CustomImageWidget(url:
                 //   imageUrl,
                 //   fit: BoxFit.cover,
                 //   errorBuilder: (context, exception, stackTrace) {

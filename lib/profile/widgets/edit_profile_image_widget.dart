@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 
+import '../../global/widgets/custom_image_widget.dart';
+
 /// Creates a circular avatar that displays an image or a profile icon,
 /// with an edit icon that allows the user to select a new image.
 class EditProfileImageWidget extends StatefulWidget {
@@ -76,8 +78,8 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                   )
                 : widget.imageUrl != null
                     ? ClipOval(
-                        child: Image.network(
-                          widget.imageUrl!,
+                        child: CustomImageWidget(
+                          url: widget.imageUrl!,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: double.infinity,

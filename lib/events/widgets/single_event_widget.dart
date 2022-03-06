@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 
+import '../../global/widgets/custom_image_widget.dart';
+
 class SingleEventWidget extends StatelessWidget {
   const SingleEventWidget(
       {Key? key,
@@ -79,8 +81,8 @@ class SingleEventWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: Hero(
                     tag: imageUrl,
-                    child: Image.network(
-                      imageUrl,
+                    child: CustomImageWidget(
+                      url: imageUrl,
                       height: 85,
                       width: 105,
                       fit: BoxFit.cover,

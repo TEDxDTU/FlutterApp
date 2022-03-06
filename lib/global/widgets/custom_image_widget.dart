@@ -6,13 +6,19 @@ class CustomImageWidget extends StatelessWidget {
   const CustomImageWidget({
     Key? key,
     required this.url,
+    this.height,
+    this.width,
+    this.fit,
   }) : super(key: key);
   final String url;
+  final double? height;
+  final double? width;
+  final BoxFit? fit;
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      height: double.infinity,
-      width: double.infinity,
+      height: height ?? double.infinity,
+      width: width ?? double.infinity,
       imageUrl: url,
       placeholder: (context, url) => Material(
         child: Center(
@@ -20,8 +26,8 @@ class CustomImageWidget extends StatelessWidget {
             // direction: ShimmerDirection.ttb,
 
             child: Container(
-              height: double.infinity,
-              width: double.infinity,
+              height: height ?? double.infinity,
+              width: width ?? double.infinity,
               color: Colors.black,
             ),
             baseColor: Colors.grey[500]!,
@@ -31,7 +37,7 @@ class CustomImageWidget extends StatelessWidget {
       ),
       // fadeInDuration: const Duration(milliseconds: 0),
       // fadeOutDuration: Duration(seconds: 0),
-      fit: BoxFit.cover,
+      fit: fit ?? BoxFit.cover,
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }

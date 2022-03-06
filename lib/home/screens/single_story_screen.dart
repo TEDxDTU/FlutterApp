@@ -7,6 +7,8 @@ import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
 import 'package:tedx_dtu_app/home/models/story.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 
+import '../../global/widgets/custom_image_widget.dart';
+
 class SingleStoryScreen extends StatelessWidget {
   const SingleStoryScreen({
     Key? key,
@@ -33,8 +35,8 @@ class SingleStoryScreen extends StatelessWidget {
             // TODO:Replace with YT Embed
             Positioned.fill(
               //Replace with YT embed
-              child: Image.network(
-                story.imageUrl,
+              child: CustomImageWidget(
+                url: story.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -130,8 +132,8 @@ class SingleStoryScreen extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(18),
-                              child: Image.network(
-                                story.speaker.imageUrl,
+                              child: CustomImageWidget(
+                                url: story.speaker.imageUrl,
                                 height: 120,
                                 width: 120,
                                 fit: BoxFit.cover,

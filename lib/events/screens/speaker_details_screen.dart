@@ -5,6 +5,8 @@ import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../global/widgets/custom_image_widget.dart';
+
 /// Creates a detail screen for a particular [Speaker]
 /// Receives the speaker details as parameter from [ModalRoute].
 class SpeakerDetailsScreen extends StatelessWidget {
@@ -294,8 +296,8 @@ class SpeakerDetailsScreen extends StatelessWidget {
                 tag: routeArgs['imageUrl']!,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Image.network(
-                    routeArgs['imageUrl'] as String,
+                  child: CustomImageWidget(
+                    url: routeArgs['imageUrl'] as String,
                     height: height * 0.22,
                     width: height * 0.22,
                     fit: BoxFit.cover,

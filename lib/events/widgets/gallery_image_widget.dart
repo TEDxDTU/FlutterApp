@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -8,7 +10,7 @@ import 'package:transparent_image/transparent_image.dart';
 /// of the image [height].
 ///
 /// [height] defaults to 200.
-class GalleryImageWidget extends StatelessWidget {
+class GalleryImageWidget extends StatefulWidget {
   const GalleryImageWidget(
     this.imageUrl, {
     this.loadingIndicator,
@@ -32,6 +34,43 @@ class GalleryImageWidget extends StatelessWidget {
   final double width;
 
   @override
+  State<GalleryImageWidget> createState() => _GalleryImageWidgetState();
+}
+
+class _GalleryImageWidgetState extends State<GalleryImageWidget> {
+  late Image _image;
+
+  bool _isLoading = true;
+  bool _isError = false;
+  @override
+  void initState() {
+    _image = Image.network(
+      widget.imageUrl,
+      width: widget.width,
+      fit: BoxFit.cover,
+    );
+    _image.image.resolve(ImageConfiguration.empty).addListener(
+          ImageStreamListener(
+            (info, val) {
+              if (mounted) {
+                setState(() {
+                  _isLoading = false;
+                });
+              }
+            },
+            onError: (error, stackTrace) {
+              if (mounted) {
+                setState(() {
+                  _isError = true;
+                });
+              }
+            },
+          ),
+        );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -39,25 +78,25 @@ class GalleryImageWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
-        child: SizedBox(
-          width: width,
-          child: AnimatedSize(
-            alignment: Alignment.topCenter,
-            duration: const Duration(seconds: 1),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return const ImageErrorWidget();
-              },
-              loadingBuilder: (context, child, progress) {
-                if (progress == null) return child;
-                return Center(
-                  child: loadingIndicator ?? const CircularProgressIndicator(),
-                );
-              },
-            ),
-          ),
+        child: AnimatedSize(
+          alignment: Alignment.topCenter,
+          duration: const Duration(milliseconds: 500),
+          child: Container(
+              constraints: BoxConstraints(
+                minHeight: 50,
+              ),
+              width: widget.width,
+              child: _isError
+                  ? ImageErrorWidget()
+                  : _isLoading
+                      ? Shimmer.fromColors(
+                          child: Container(
+                              height: 100,
+                              width: widget.width,
+                              color: Colors.black),
+                          baseColor: Colors.grey[500]!,
+                          highlightColor: Colors.grey[100]!)
+                      : _image),
         ),
       ),
     );

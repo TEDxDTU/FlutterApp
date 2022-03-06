@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../global/widgets/custom_image_widget.dart';
 import '../../global/widgets/image_error_widget.dart';
 import '../../helpers/widgets/color_animated_text.dart';
 import '../models/live_event_info.dart';
@@ -57,18 +58,8 @@ class LiveEventInfoWidget extends StatelessWidget {
                     children: [
                       if (e.imageUrl != null)
                         Center(
-                          child: Image.network(
-                            e.imageUrl!,
-                            errorBuilder: (context, object, stackTrace) {
-                              return const ImageErrorWidget();
-                            },
-                            fit: BoxFit.fitWidth,
-                            loadingBuilder: (context, child, progress) {
-                              if (progress == null) {
-                                return child;
-                              }
-                              return const CircularProgressIndicator();
-                            },
+                          child: CustomImageWidget(
+                            url: e.imageUrl!,
                           ),
                         ),
                       const SizedBox(height: 4),
