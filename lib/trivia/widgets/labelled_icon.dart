@@ -5,11 +5,12 @@ class LabelledIcon extends StatelessWidget {
     Key? key,
     required this.label,
     required this.icon,
+    this.textColor,
   }) : super(key: key);
 
   final String label;
   final Icon icon;
-
+  final Color? textColor;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +19,9 @@ class LabelledIcon extends StatelessWidget {
         children: [
           Text(
             label,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.caption?.copyWith(
+                  color: textColor,
+                ),
           ),
           SizedBox(height: 6),
           icon,

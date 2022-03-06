@@ -7,6 +7,7 @@ class TriviaDetailsRowWidget extends StatelessWidget {
     Key? key,
     required this.questionCount,
     required this.totalTime,
+    this.textColor,
     Color? iconColor,
     Color? dividerColor,
   })  : iconColor = iconColor ?? Colors.blueGrey[100]!,
@@ -17,7 +18,7 @@ class TriviaDetailsRowWidget extends StatelessWidget {
   final int totalTime;
   final Color iconColor;
   final Color dividerColor;
-
+  final Color? textColor;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -30,6 +31,7 @@ class TriviaDetailsRowWidget extends StatelessWidget {
             Icons.help,
             color: iconColor,
           ),
+          textColor: textColor,
         ),
         VerticalDivider(thickness: 3, color: dividerColor),
         LabelledIcon(
@@ -38,6 +40,7 @@ class TriviaDetailsRowWidget extends StatelessWidget {
             Icons.timer,
             color: iconColor,
           ),
+          textColor: textColor,
         ),
         VerticalDivider(thickness: 3, color: dividerColor),
         LabelledIcon(
@@ -46,6 +49,7 @@ class TriviaDetailsRowWidget extends StatelessWidget {
             Icons.emoji_events,
             color: iconColor,
           ),
+          textColor: textColor,
         ),
       ],
     );

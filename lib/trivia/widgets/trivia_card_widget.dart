@@ -53,14 +53,13 @@ class TriviaCardWidget extends StatelessWidget {
                 Colors.transparent,
                 Colors.transparent,
                 Colors.transparent,
-                Colors.black.withOpacity(0.2),
-                Colors.black.withOpacity(0.3),
-                Colors.black.withOpacity(0.5),
-                Colors.black.withOpacity(0.7),
-                Colors.black.withOpacity(0.8),
-                Colors.black.withOpacity(0.9),
-                Colors.black.withOpacity(0.95),
-                Colors.black,
+                Colors.red.withOpacity(0.05),
+                Colors.red.withOpacity(0.1),
+                Colors.red.withOpacity(0.2),
+                Colors.red.withOpacity(0.3),
+                Colors.red.withOpacity(0.5),
+                Colors.red.withOpacity(0.7),
+                Colors.red,
               ],
             ),
           ),
@@ -88,7 +87,9 @@ class TriviaCardWidget extends StatelessWidget {
                     TriviaDetailsRowWidget(
                       questionCount: questionCount,
                       totalTime: totalTime,
-                      dividerColor: Colors.deepOrangeAccent[700],
+                      // dividerColor: Colors.black,
+                      // iconColor: Colors.black,
+                      // textColor: Colors.black,
                     ),
                     const SizedBox(width: 10),
                     Expanded(
@@ -97,6 +98,7 @@ class TriviaCardWidget extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
+                          primary: Colors.black,
                         ),
                         onPressed: () async {
                           if (!Provider.of<Auth>(context, listen: false)
