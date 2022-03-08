@@ -69,4 +69,23 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
       throw Exception('Failed to load trivia $e');
     }
   }
+
+  Future<void> sendPoints(String id, int points) async {
+    final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = Uri.parse(
+      nodeServerBaseUrl + '/api/trivia/' + id + '/points',
+    );
+    final response = await http.post(url, headers: {
+      'authorization': authToken,
+    }, body: {
+      'points': points.toString(),
+    });
+    if (response.statusCode == 200) {
+      print('success');
+    } else {
+      print(response.body);
+      throw Exception(
+          'Failed to send points ${json.decode(response.body)['msg']}');
+    }
+  }
 }

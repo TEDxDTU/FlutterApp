@@ -113,18 +113,23 @@ class TriviaCardWidget extends StatelessWidget {
                                     'You must be signed in to play trivia');
                                 return;
                               }
+                              // ONLY FOR TESTING PURPOSES RIGHT NOW
+                              //TODO: REPLACE WITH ACTUAL QUESTIONS PAGE
                               try {
-                                await Provider.of<TriviaProvider>(context,
-                                        listen: false)
-                                    .fetchTriviaQuestions(id);
-                                List<String> questions =
-                                    Provider.of<TriviaProvider>(context,
-                                            listen: false)
-                                        .findById(id)
-                                        .questions!
-                                        .map((e) => e.question)
-                                        .toList();
-                                print(questions);
+                                // await Provider.of<TriviaProvider>(context,
+                                //         listen: false)
+                                //     .fetchTriviaQuestions(id);
+                                // List<String> questions =
+                                //     Provider.of<TriviaProvider>(context,
+                                //             listen: false)
+                                //         .findById(id)
+                                //         .questions!
+                                //         .map((e) => e.question)
+                                //         .toList();
+                                // print(questions);
+                                // await Provider.of<TriviaProvider>(context,
+                                //         listen: false)
+                                //     .sendPoints(id, 20);
                               } catch (e) {
                                 UIHelper.showErrorDialog(
                                   context,
