@@ -58,8 +58,14 @@ class LiveEventInfoWidget extends StatelessWidget {
                     children: [
                       if (e.imageUrl != null)
                         Center(
-                          child: CustomImageWidget(
-                            url: e.imageUrl!,
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 70,
+                            ),
+                            //TODO: Replace with CustomImageWidget @rohit, height constraints messing up.
+                            child: Image.network(
+                              e.imageUrl!,
+                            ),
                           ),
                         ),
                       const SizedBox(height: 4),

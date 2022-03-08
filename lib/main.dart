@@ -222,6 +222,8 @@ class MyApp extends StatelessWidget {
                                   const StoriesPageView(),
                               TriviaScreen.routeName: (context) =>
                                   const TriviaScreen(),
+                              SpeakerDetailsScreen.routeName: (context) =>
+                                  const SpeakerDetailsScreen(),
                             },
                           ),
                           BottomBarScreen(

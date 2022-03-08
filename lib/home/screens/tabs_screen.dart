@@ -65,6 +65,7 @@ class _TabsScreenState extends State<TabsScreen> {
                           child: (settings.arguments as Map)['child'] as Widget,
                         );
                       }
+                      // print(settings.name);
                       return Stack(
                         children: [
                           (e.routes[settings.name]!(context)),
