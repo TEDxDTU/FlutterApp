@@ -66,8 +66,8 @@ class MainProfilePage extends StatelessWidget {
           ),
           Expanded(
             child: Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

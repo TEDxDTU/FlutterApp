@@ -112,9 +112,9 @@ class MyApp extends StatelessWidget {
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              primary: Colors.white,
-              onSurface: Colors.red,
-              backgroundColor: Colors.red,
+              primary: Colors.red,
+              // onSurface: Colors.red,
+              // backgroundColor: Colors.white,
             ),
           ),
           iconTheme: const IconThemeData(color: primary),
@@ -190,6 +190,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           TestScreen.routeName: (context) => TestScreen(),
+          SignUpScreen.routeName: (context) => SignUpScreen(),
         },
         home: Builder(builder: (context) {
           return FutureScreenTemplate(

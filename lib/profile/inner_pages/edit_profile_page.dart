@@ -87,7 +87,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Center(
-                  child: TextButton(
+                  child: ElevatedButton(
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.red,
                       shape: RoundedRectangleBorder(

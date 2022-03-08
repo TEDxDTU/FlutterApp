@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
-import 'package:tedx_dtu_app/profile/inner_pages/change_password_page.dart';
+// import 'package:tedx_dtu_app/profile/inner_pages/change_password_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/edit_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_settings_page.dart';

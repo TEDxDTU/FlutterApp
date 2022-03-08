@@ -85,6 +85,7 @@ class Auth extends ChangeNotifier {
     try {
       final url = Uri.parse(nodeServerBaseUrl + '/api/user/data-from-token');
       String authToken = (await _auth.currentUser!.getIdToken());
+      print(authToken);
       print('here2');
       final response = await http.post(url, body: {
         'email': email,

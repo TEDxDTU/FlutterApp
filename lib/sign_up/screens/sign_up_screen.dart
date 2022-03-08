@@ -260,6 +260,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     name: name!,
                                     university: university!,
                                   );
+                                  Navigator.of(context).pop();
                                 } on Exception catch (e) {
                                   UIHelper.showErrorDialog(
                                     context,

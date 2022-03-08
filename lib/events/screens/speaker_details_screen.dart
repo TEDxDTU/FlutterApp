@@ -81,7 +81,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
             displayDirection: UIDirection.UIDirectionHorizontal,
             errorWidget: GestureDetector(
               // splashColor: Colors.black,
-              // style: TextButton.styleFrom(
+              // style: ElevatedButton.styleFrom(
               //   backgroundColor: Colors.white,
               //   padding: EdgeInsets.symmetric(horizontal: 5),
               //   primary: Colors.black,
