@@ -148,7 +148,7 @@ class Auth extends ChangeNotifier {
     final url = Uri.parse(nodeServerBaseUrl + '/api/user/update');
     String authToken = (await _auth.currentUser!.getIdToken());
     Map<String, dynamic> body = {
-      'authToken': authToken,
+      // 'authToken': authToken,
       'email': email,
       'name': name,
       'university': university,
@@ -158,7 +158,9 @@ class Auth extends ChangeNotifier {
     //Remove null from body
     body.removeWhere((key, value) => value == null);
     try {
-      final response = await http.post(url, body: body);
+      final response = await http.post(url, body: body, headers: {
+        'authorization': authToken,
+      });
       if (response.statusCode == 200) {
         user = _TedXUser.fromMap(json.decode(response.body));
         await _auth.currentUser!.reload();
