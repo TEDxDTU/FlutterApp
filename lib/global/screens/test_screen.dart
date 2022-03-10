@@ -10,6 +10,7 @@ import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
+import 'package:tedx_dtu_app/trivia/widgets/circular_spinner.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -31,6 +32,10 @@ class _TestScreenState extends State<TestScreen> {
   var numberOfTickets = 1;
   @override
   Widget build(BuildContext context) {
-    return TriviaScreen();
+    return Scaffold(
+      body: Center(
+        child: CircularSpinner(),
+      ),
+    );
   }
 }

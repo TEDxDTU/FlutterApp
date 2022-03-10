@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
-import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
+import 'package:tedx_dtu_app/global/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/sign_up/helpers/sign_up_background_painter.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/sign_up/widgets/sign_up_image_widget.dart';

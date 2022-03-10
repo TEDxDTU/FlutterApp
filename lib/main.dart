@@ -20,7 +20,7 @@ import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
-import 'package:tedx_dtu_app/home/screens/tabs_screen.dart';
+import 'package:tedx_dtu_app/global/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 
 import 'events/widgets/event_info_widget.dart';
@@ -194,7 +194,9 @@ class MyApp extends StatelessWidget {
         },
         home: Builder(builder: (context) {
           return FutureScreenTemplate(
-            future: Provider.of<Auth>(context, listen: false).autoLogin(),
+            future: FirebaseAuth.instance.currentUser == null
+                ? Provider.of<Auth>(context, listen: false).autoLogin()
+                : null,
             body: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, AsyncSnapshot<User?> authState) {
