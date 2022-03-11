@@ -10,6 +10,7 @@ import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
+import 'package:tedx_dtu_app/trivia/widgets/animating_numbers.dart';
 import 'package:tedx_dtu_app/trivia/widgets/circular_spinner.dart';
 
 class TestScreen extends StatefulWidget {
@@ -30,12 +31,25 @@ class _TestScreenState extends State<TestScreen> {
   }
 
   var numberOfTickets = 1;
+  bool _showSpinner = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: CircularSpinner(),
-      ),
-    );
+    // return Scaffold(
+    //   body: Center(
+    //     child: _showSpinner
+    //         ? CircularSpinner(
+    //             onComplete: () {
+    //               setState(() {
+    //                 _showSpinner = false;
+    //               });
+    //             },
+    //           )
+    //         : Text(
+    //             'Trivia started',
+    //             style: Theme.of(context).textTheme.headline5,
+    //           ),
+    //   ),
+    // );
+    return TriviaScreen();
   }
 }

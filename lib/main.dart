@@ -194,9 +194,7 @@ class MyApp extends StatelessWidget {
         },
         home: Builder(builder: (context) {
           return FutureScreenTemplate(
-            future: FirebaseAuth.instance.currentUser == null
-                ? Provider.of<Auth>(context, listen: false).autoLogin()
-                : null,
+            future: Provider.of<Auth>(context, listen: false).autoLogin(),
             body: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, AsyncSnapshot<User?> authState) {
