@@ -9,6 +9,15 @@ import 'package:http/http.dart' as http;
 import '../models/question.dart';
 import '../models/trivia.dart';
 
+/// API :
+/// baseUrl+/api/trivia/$id ==> fetches all the data related to that trivia
+/// including questions. If the user has attempted it before, hasAttempted flag
+/// is passed as true, otherwise false.
+/// If the user has scored points on this trivia previously, hasAttempted is true
+/// as expected, in addition a new object userTrivia is passed, containing (for now)
+/// a single value, the points that the user has scored
+/// {_id: ... , imageUrl:..., questions:[....],hasAttempted:true,userTrivia:{points:30}}
+
 class TriviaProvider extends ProviderTemplate<Trivia> {
   @override
   Trivia findById(String id) {
@@ -30,7 +39,9 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
     });
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-
+      print("----");
+      print(jsonResponse);
+      print("----");
       List<Question> questions = (jsonResponse['questions'] as List)
           .map((e) => Question.fromMap(e))
           .toList();
@@ -86,6 +97,25 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
       print(response.body);
       throw Exception(
           'Failed to send points ${json.decode(response.body)['msg']}');
+    }
+  }
+
+  Future<void> markTriviaStarted(String id) async {
+    final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = Uri.parse(
+      nodeServerBaseUrl + '/api/user/started',
+    );
+    final response = await http.post(url, headers: {
+      'authorization': authToken,
+    }, body: {
+      'triviaId': id
+    });
+    if (response.statusCode == 200) {
+      print('success');
+    } else {
+      print(response.body);
+      throw Exception(
+          'Failed to mark trivia started ${json.decode(response.body)['msg']}');
     }
   }
 }

@@ -116,6 +116,9 @@ class TriviaCardWidget extends StatelessWidget {
                               // ONLY FOR TESTING PURPOSES RIGHT NOW
                               //TODO: REPLACE WITH ACTUAL QUESTIONS PAGE
                               try {
+                                await Provider.of<TriviaProvider>(context,
+                                        listen: false)
+                                    .fetchTriviaQuestions(id);
                                 // await Provider.of<TriviaProvider>(context,
                                 //         listen: false)
                                 //     .fetchTriviaQuestions(id);
