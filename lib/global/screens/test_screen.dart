@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/helpers/concave_corners_with_radius_clip.dart';
 import 'package:tedx_dtu_app/events/helpers/dotted_seperator.dart';
 import 'package:tedx_dtu_app/events/helpers/filled_arc_painter.dart';
+import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
@@ -50,6 +51,6 @@ class _TestScreenState extends State<TestScreen> {
     //           ),
     //   ),
     // );
-    return TriviaScreen();
+    return EventBookingScreen();
   }
 }
