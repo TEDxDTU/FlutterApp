@@ -2,10 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+/// Model for the questions present in each trivia.
 class Question {
+  /// The question statement.
   final String question;
+
+  /// The list of MCQ options.
   final List<String> options;
+
+  /// The correct answer index, from [options].
   final int correctAnswerIndex;
+
+  /// The total time allowed for the question.
   final int seconds;
   Question({
     required this.question,

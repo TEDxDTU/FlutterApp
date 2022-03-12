@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+/// Creates a circle with gaps at equally spaced angles.
 class CircularSpinnerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

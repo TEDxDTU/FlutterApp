@@ -9,6 +9,8 @@ import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 
 import '../../global/widgets/custom_image_widget.dart';
 
+/// Displays a full screen view of the story's details
+/// NO BOTTOM BAR should be present in this.
 class SingleStoryScreen extends StatelessWidget {
   const SingleStoryScreen({
     Key? key,

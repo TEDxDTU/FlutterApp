@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tedx_dtu_app/events/models/event.dart';
 import 'package:tedx_dtu_app/global/providers/provider_template.dart';
 import 'package:http/http.dart' as http;
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
@@ -30,6 +28,8 @@ class StoryProvider extends ProviderTemplate<Story> {
     return data.firstWhere((element) => element.id == id);
   }
 
+  /// Returns story at particular index. Useful when showing stories in a
+  /// PageView.
   Story getStoryAt(int index) {
     return data[index];
   }

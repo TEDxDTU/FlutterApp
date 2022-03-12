@@ -63,6 +63,7 @@ class UIHelper {
     Color(0xff6960EC),
   ];
 
+  /// Shows an error themed dialog box.
   static Future<void> showErrorDialog(
       BuildContext context, String titleText, String messageText) {
     return showDialog(
@@ -90,6 +91,7 @@ class UIHelper {
     );
   }
 
+  /// Shows a success themed dialog box.
   static Future<void> showSuccessDialog(
       BuildContext context, String titleText, String messageText) {
     return showDialog(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Displays a column with label and the icon.
 class LabelledIcon extends StatelessWidget {
   const LabelledIcon({
     Key? key,

@@ -8,10 +8,18 @@ import 'package:http/http.dart' as http;
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
+/// The Provider that handles all the Authentication and User related operations
+/// It also handles the Firebase Authentication as well as fetching data from
+/// MongoDB from the backend.
 class Auth extends ChangeNotifier {
   late final FirebaseAuth _auth;
 
   Auth() : _auth = FirebaseAuth.instance;
+
+  /// Function to sign up a new user
+  /// Uploads the image to Firebase Storage and then send a request to the backend
+  /// that creates a new user in Firebase as well as in MongoDB
+  /// The new user is then signed in.
   Future<void> signUp({
     required String email,
     required String password,
@@ -40,6 +48,9 @@ class Auth extends ChangeNotifier {
         signIn(email: email, password: password);
       } else {
         Map<String, dynamic> error = jsonDecode(response.body);
+
+        /// If the error code is something other than "user_exists"
+        /// then we should delete this user's image from Cloud Storage.
         if (error['code'] != 'user_exists') deleteUserImage(email);
         throw Exception(error['msg']);
       }
@@ -51,12 +62,19 @@ class Auth extends ChangeNotifier {
 
   _TedXUser? user;
   bool get isAuth => _auth.currentUser != null && user != null;
+
+  /// Login anonymously, many features will be disabled for this kind of login
+  /// This is so the app can move forward from sign-in screen.
   void loginAnon() {
     isAnonymousLogin = true;
     // _auth.signInAnonymously();
     notifyListeners();
   }
 
+  /// Firebase stores refresh tokens and checks them whenever the app is restarted
+  /// A valid user is fetched by Firebase automatically if a refresh token exists.
+  /// If that happens, [_auth.currentUser] will not be null, and we will fetch the
+  /// user's data from our backend
   Future<void> autoLogin() async {
     final user = _auth.currentUser;
     if (user == null) {
@@ -66,6 +84,10 @@ class Auth extends ChangeNotifier {
   }
 
   bool isAnonymousLogin = false;
+
+  /// Sign in a user with given email and password.
+  /// Calls the sign in method of Firebase and then fetches the user's data
+  /// from our backend
   Future<void> signIn({
     required String email,
     required String password,
@@ -81,6 +103,9 @@ class Auth extends ChangeNotifier {
     }
   }
 
+  /// Gets the user's data from our backend, by passing the authToken
+  /// of the current user. This is called when the user signs in or signs up,
+  /// or during call to [autoLogin] .
   Future<void> _getDataFromToken(String email) async {
     try {
       final url = Uri.parse(nodeServerBaseUrl + '/api/user/data-from-token');
@@ -103,12 +128,15 @@ class Auth extends ChangeNotifier {
     }
   }
 
+  /// Signs out the user from Firebase and sets [user] to null.
   Future<void> signOut() async {
     await _auth.signOut();
     user = null;
     notifyListeners();
   }
 
+  /// Uploads a user's image to Cloud Storage. Email is used as an identifier.
+  /// Returns the download URL of the image.
   Future<String> uploadUserImage(String userEmail, File image) async {
     final ref = FirebaseStorage.instance
         .ref()
@@ -120,6 +148,7 @@ class Auth extends ChangeNotifier {
     return imageUrl;
   }
 
+  /// Deletes the user's image from Cloud Storage
   Future<void> deleteUserImage(String userEmail) async {
     final ref = FirebaseStorage.instance
         .ref()
@@ -128,6 +157,7 @@ class Auth extends ChangeNotifier {
     await ref.delete();
   }
 
+  /// Sends password reset email to the user's email
   Future<void> tryChangePassword(BuildContext ctx) async {
     try {
       _auth.sendPasswordResetEmail(email: user!.email);
@@ -138,6 +168,8 @@ class Auth extends ChangeNotifier {
     }
   }
 
+  /// Sends data to be updated to the backend, where it is changed in Firebase
+  /// as well as in Mongo.
   Future<void> updateUser({
     String? name,
     String? university,
@@ -176,7 +208,7 @@ class Auth extends ChangeNotifier {
   }
 }
 
-//TODO: Add tickets, trivia,etc.
+//TODO: Add tickets,etc.
 class _TedXUser {
   String university;
   String imageUrl;

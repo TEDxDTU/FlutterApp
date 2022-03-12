@@ -10,13 +10,6 @@ import '../models/question.dart';
 import '../models/trivia.dart';
 
 /// API :
-/// baseUrl+/api/trivia/$id ==> fetches all the data related to that trivia
-/// including questions. If the user has attempted it before, hasAttempted flag
-/// is passed as true, otherwise false.
-/// If the user has scored points on this trivia previously, hasAttempted is true
-/// as expected, in addition a new object userTrivia is passed, containing (for now)
-/// a single value, the points that the user has scored
-/// {_id: ... , imageUrl:..., questions:[....],hasAttempted:true,userTrivia:{points:30}}
 
 class TriviaProvider extends ProviderTemplate<Trivia> {
   @override
@@ -24,11 +17,20 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
     return data.firstWhere((element) => element.id == id);
   }
 
+  /// Fetches the questions for the trivia with the given [id], and
+  /// assigns them to that trivia in [data].
   Future<void> fetchTriviaQuestions(String id) async {
     final List<Question> questions = await _fetchQuestions(id);
     findById(id).questions = questions;
   }
 
+  /// baseUrl+/api/trivia/$id ==> fetches all the data related to that trivia
+  /// including questions. If the user has attempted it before, hasAttempted flag
+  /// is passed as true, otherwise false.
+  /// If the user has scored points on this trivia previously, hasAttempted is true
+  /// as expected, in addition a new object userTrivia is passed, containing (for now)
+  /// a single value, the points that the user has scored
+  /// {_id: ... , imageUrl:..., questions:[....],hasAttempted:true,userTrivia:{points:30}}
   Future<List<Question>> _fetchQuestions(String id) async {
     print(nodeServerBaseUrl + '/api/trivia/' + id);
     var authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
@@ -53,6 +55,8 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
     }
   }
 
+  /// The current trivia (the one on the leaderboard) is the first trivia
+  /// in [data], as they are sorted by timestamps at the backend.
   Trivia get currentTrivia => data.first;
 
   @override
@@ -81,6 +85,9 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
     }
   }
 
+  /// Sends a user's scored points to the backend to be stored.
+  /// [id] is the id of the trivia that the user has attempted.
+  /// [points] is the points that the user has scored in the trivia.
   Future<void> sendPoints(String id, int points) async {
     final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
     final url = Uri.parse(
@@ -100,6 +107,10 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
     }
   }
 
+  /// Sends a user's attempted status to the backend to be stored.
+  /// [id] is the id of the trivia that the user has attempted.
+  /// Once a trivia has been attempted, the user cannot attempt it again, even
+  /// if he was unable to finish it the previous time.
   Future<void> markTriviaStarted(String id) async {
     final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
     final url = Uri.parse(

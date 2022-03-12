@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// A simple DUMMY Screen that serves as a marker for screens that do not
+/// want a bottom bar. Whenever a Screen of this type is pushed, the bottom
+/// bar is hidden.
 class NoBottomBarScreen extends StatelessWidget {
   const NoBottomBarScreen({
     Key? key,

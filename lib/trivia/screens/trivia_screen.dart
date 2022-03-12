@@ -22,7 +22,7 @@ class TriviaScreen extends StatelessWidget {
       body: BottomBarScreenWidget(
         appBarTitle: 'Trivia',
         children: [
-          TriviaSliderPanel(),
+          const TriviaSliderPanel(),
           // const SizedBox(height: 5),
           ...Provider.of<TriviaProvider>(context)
               .data
