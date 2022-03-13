@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
+import 'package:tedx_dtu_app/trivia/screens/trivia_attempt_screen.dart';
+import 'package:tedx_dtu_app/trivia/screens/trivia_welcome_screen.dart';
 
 import 'package:tedx_dtu_app/trivia/widgets/trivia_details_row_widget.dart';
 
@@ -114,7 +117,12 @@ class TriviaCardWidget extends StatelessWidget {
                                 return;
                               }
                               // ONLY FOR TESTING PURPOSES RIGHT NOW
-                              //TODO: REPLACE WITH ACTUAL QUESTIONS PAGE
+                              Navigator.of(context).pushNamed(
+                                  NoBottomBarScreen.routeName,
+                                  arguments: {
+                                    'child': const TriviaWelcomeScreen(),
+                                    'id': id,
+                                  });
                               try {
                                 await Provider.of<TriviaProvider>(context,
                                         listen: false)

@@ -8,6 +8,7 @@ class SelectableBox extends StatelessWidget {
     required this.name,
     required this.color,
     required this.onTap,
+    this.shouldMargin = true,
     Key? key,
   }) : super(key: key);
 
@@ -19,6 +20,10 @@ class SelectableBox extends StatelessWidget {
 
   /// Function executed on tapping.
   final Function onTap;
+
+  /// Whether to add margin to contents or not
+  final bool shouldMargin;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,7 +35,7 @@ class SelectableBox extends StatelessWidget {
           horizontal: 12,
           vertical: 8,
         ),
-        margin: const EdgeInsets.all(4),
+        margin: shouldMargin ? const EdgeInsets.all(4) : null,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(100),

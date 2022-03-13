@@ -50,4 +50,9 @@ class Trivia {
   void assignQuestions(List<Question> questions) {
     this.questions = questions;
   }
+
+  @override
+  String toString() {
+    return 'id: $id | title: $title | questions: $questions | questionCount: $questionCount | totalTime: $totalTime | imageUrl: $imageUrl';
+  }
 }
