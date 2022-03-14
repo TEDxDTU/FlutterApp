@@ -119,7 +119,7 @@ class EventInfoWidget extends StatelessWidget {
                 // TODO: EventBookingScreen push here
                 Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
                     arguments: <String, Object>{
-                      'child': EventBookingScreen(),
+                      'child': const EventBookingScreen(),
                       'eventDescription': eventDescription,
                       'venue': eventVenue,
                       'dateTime': dateTime,

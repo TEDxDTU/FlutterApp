@@ -1,13 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 import 'package:tedx_dtu_app/trivia/widgets/trivia_question_options.dart';
-
-import '../models/question.dart';
 
 class TriviaAttemptScreen extends StatefulWidget {
   const TriviaAttemptScreen({Key? key}) : super(key: key);
@@ -18,55 +13,127 @@ class TriviaAttemptScreen extends StatefulWidget {
 }
 
 class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
-  @override
   int _currentQuestion = 0;
+  int _points = 0;
+  int selectedOption = -1;
+  void setSelectedOption(int val) {
+    selectedOption = val;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context)!.settings.arguments);
+    final _triviaQuestionOptionsKey = GlobalKey<TriviaQuestionOptionsState>();
     var routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
-    print('routeargs: $routeArgs');
     Trivia trivia = routeArgs['trivia'] as Trivia;
 
-    var appBar = AppBar(title: const Text('Trivia'));
+    final progressWidget = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ...List.generate(
+          trivia.questionCount,
+          (index) {
+            return Container(
+              width: 10,
+              height: 10,
+              margin: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: (index <= _currentQuestion
+                    ? Theme.of(context).primaryColor
+                    : Colors.white),
+              ),
+            );
+          },
+        ),
+      ],
+    );
 
-    return Scaffold(
-      appBar: appBar,
-      body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            // Question and options
-            Expanded(
-              child: TriviaQuestionOptions(trivia.questions![_currentQuestion]),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
+    var appBar = AppBar(
+      title: Text(trivia.title),
+      automaticallyImplyLeading: false,
+    );
+
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: appBar,
+        body: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              // Question and options
+              Expanded(
+                child: TriviaQuestionOptions(
+                  trivia.questions![_currentQuestion],
+                  setSelectedOption,
+                  progressWidget,
+                  key: _triviaQuestionOptionsKey,
+                ),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  if (selectedOption ==
+                      trivia.questions![_currentQuestion].correctAnswerIndex) {
+                    _points++;
+                  }
+                  if (_currentQuestion == trivia.questionCount - 1) {
+                    Provider.of<TriviaProvider>(context, listen: false)
+                        .sendPoints(trivia.id, _points);
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => WillPopScope(
+                        onWillPop: () async => false,
+                        child: AlertDialog(
+                          title: const Text('Trivia complete'),
+                          content: const Text(
+                              'Than you for participating in the trivia.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(ctx); // Remove AlertDialog
+                                Navigator.pop(
+                                    context); // Remove TriviaAttemptScreen
+                              },
+                              child: const Text('Dismiss'),
+                            ),
+                          ],
+                        ),
+                      ),
+                      barrierDismissible: false,
+                    );
+                  }
+                  setState(() {
+                    if (_currentQuestion < trivia.questionCount - 1) {
+                      _currentQuestion++;
+                    }
+                  });
+                },
+                child: SizedBox(
+                  width: 80,
+                  child: Row(
+                    children: const [
+                      Text('Proceed'),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                      ),
+                    ],
                   ),
                 ),
               ),
-              onPressed: () {
-                setState(() {
-                  _currentQuestion++;
-                });
-              },
-              child: SizedBox(
-                width: 80,
-                child: Row(
-                  children: const [
-                    Text('Proceed'),
-                    Icon(
-                      Icons.arrow_forward_rounded,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

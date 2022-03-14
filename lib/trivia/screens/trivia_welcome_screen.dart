@@ -18,21 +18,33 @@ class TriviaWelcomeScreen extends StatelessWidget {
     final id = routeArgs['id'].toString();
     Trivia trivia =
         Provider.of<TriviaProvider>(context, listen: false).findById(id);
-    return Center(
+    return Scaffold(
+      body: Center(
         child: Column(
-      children: [
-        Text('Rules!'),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context)
-                .pushNamed(NoBottomBarScreen.routeName, arguments: {
-              'child': const TriviaAttemptScreen(),
-              'trivia': trivia,
-            });
-          },
-          child: Text('Acknowledge'),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Rules!',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed(
+                    NoBottomBarScreen.routeName,
+                    arguments: {
+                      'child': const TriviaAttemptScreen(),
+                      'trivia': trivia,
+                    });
+              },
+              child: const Text(
+                'Acknowledge',
+              ),
+            ),
+          ],
         ),
-      ],
-    ));
+      ),
+    );
   }
 }

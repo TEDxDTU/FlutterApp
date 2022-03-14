@@ -7,30 +7,36 @@ import 'package:tedx_dtu_app/trivia/models/question.dart';
 import '../../events/widgets/selectable_box.dart';
 
 class TriviaQuestionOptions extends StatefulWidget {
-  const TriviaQuestionOptions(this.question, {Key? key}) : super(key: key);
+  TriviaQuestionOptions(
+    this.question,
+    this.setSelectedOption,
+    this.progressWidget, {
+    Key? key,
+  }) : super(key: key);
   final Question question;
-
+  Function setSelectedOption;
+  final Widget progressWidget;
   @override
-  State<TriviaQuestionOptions> createState() => _TriviaQuestionOptionsState();
+  State<TriviaQuestionOptions> createState() => TriviaQuestionOptionsState();
 }
 
-class _TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
+class TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
   @override
   void initState() {
-    questionTimer =
-        Timer.periodic(Duration(seconds: widget.question.seconds), (timer) {
-      setState(() {
-        print(remainingTime);
-        remainingTime--;
-        if (remainingTime == 0) {
-          questionTimer.cancel();
-        }
-      });
-    });
+    // questionTimer =
+    //     Timer.periodic(Duration(seconds: widget.question.seconds), (timer) {
+    //   setState(() {
+    //     print(remainingTime);
+    //     remainingTime--;
+    //     if (remainingTime == 0) {
+    //       // questionTimer.cancel();
+    //     }
+    //   });
+    // });
     super.initState();
   }
 
-  late Timer questionTimer;
+  // late Timer questionTimer;
 
   @override
   void didChangeDependencies() {
@@ -67,11 +73,12 @@ class _TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
               name: val,
               color: (_selectedAns == index)
                   ? Theme.of(context).primaryColor
-                  : Colors.grey,
+                  : const Color(0xFF434343),
               onTap: () {
                 setState(
                   () {
                     _selectedAns = index;
+                    widget.setSelectedOption(index);
                   },
                 );
               },
@@ -81,6 +88,8 @@ class _TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
       );
     });
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
@@ -95,6 +104,7 @@ class _TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
                 fontSize: 32,
               ),
         ),
+        widget.progressWidget,
         Expanded(
           child: ListView(
             children: options,

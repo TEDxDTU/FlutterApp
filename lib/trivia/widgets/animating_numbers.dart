@@ -28,7 +28,6 @@ class _AnimatingNumbersState extends State<AnimatingNumbers>
 
   Future<void> _startAnimation() async {
     for (int i = topNumber; i >= lowNumber; i--) {
-      print(i);
       setState(() {
         current = i.toString();
       });
@@ -54,7 +53,7 @@ class _AnimatingNumbersState extends State<AnimatingNumbers>
         child: FittedBox(
           child: Text(
             current,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 150,
               fontWeight: FontWeight.bold,
               color: Colors.white,
