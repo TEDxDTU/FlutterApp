@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_attempt_screen.dart';
@@ -18,33 +19,35 @@ class TriviaWelcomeScreen extends StatelessWidget {
     final id = routeArgs['id'].toString();
     Trivia trivia =
         Provider.of<TriviaProvider>(context, listen: false).findById(id);
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Rules!',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+    return FutureScreenTemplate(
+        body: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Rules!',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(
+                        NoBottomBarScreen.routeName,
+                        arguments: {
+                          'child': const TriviaAttemptScreen(),
+                          'trivia': trivia,
+                        });
+                  },
+                  child: const Text(
+                    'Acknowledge',
+                  ),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacementNamed(
-                    NoBottomBarScreen.routeName,
-                    arguments: {
-                      'child': const TriviaAttemptScreen(),
-                      'trivia': trivia,
-                    });
-              },
-              child: const Text(
-                'Acknowledge',
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
+        future: Provider.of<TriviaProvider>(context).markTriviaStarted(id));
   }
 }
