@@ -16,6 +16,49 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
   int _currentQuestion = 0;
   int _points = 0;
   int selectedOption = -1;
+  bool _triviaEnded = false;
+
+  void goToNextQuestion(Trivia trivia) {
+    if (selectedOption ==
+        trivia.questions![_currentQuestion].correctAnswerIndex) {
+      _points++;
+    }
+    if (_currentQuestion == trivia.questionCount - 1) {
+      if (_triviaEnded == true) {
+        return;
+      }
+      _triviaEnded = true;
+      Provider.of<TriviaProvider>(context, listen: false)
+          .sendPoints(trivia.id, _points);
+      showDialog(
+        context: context,
+        builder: (ctx) => WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text('Trivia complete'),
+            content: const Text('Than you for participating in the trivia.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx); // Remove AlertDialog
+                  Navigator.pop(context); // Remove TriviaAttemptScreen
+                },
+                child: const Text('Dismiss'),
+              ),
+            ],
+          ),
+        ),
+        barrierDismissible: false,
+      );
+    }
+
+    if (_currentQuestion < trivia.questionCount - 1) {
+      setState(() {
+        _currentQuestion++;
+      });
+    }
+  }
+
   void setSelectedOption(int val) {
     selectedOption = val;
   }
@@ -72,6 +115,8 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
                   trivia.questions![_currentQuestion],
                   setSelectedOption,
                   progressWidget,
+                  trivia,
+                  goToNextQuestion,
                   key: _triviaQuestionOptionsKey,
                 ),
               ),
@@ -84,41 +129,7 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
                   ),
                 ),
                 onPressed: () {
-                  if (selectedOption ==
-                      trivia.questions![_currentQuestion].correctAnswerIndex) {
-                    _points++;
-                  }
-                  if (_currentQuestion == trivia.questionCount - 1) {
-                    Provider.of<TriviaProvider>(context, listen: false)
-                        .sendPoints(trivia.id, _points);
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => WillPopScope(
-                        onWillPop: () async => false,
-                        child: AlertDialog(
-                          title: const Text('Trivia complete'),
-                          content: const Text(
-                              'Than you for participating in the trivia.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(ctx); // Remove AlertDialog
-                                Navigator.pop(
-                                    context); // Remove TriviaAttemptScreen
-                              },
-                              child: const Text('Dismiss'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      barrierDismissible: false,
-                    );
-                  }
-                  setState(() {
-                    if (_currentQuestion < trivia.questionCount - 1) {
-                      _currentQuestion++;
-                    }
-                  });
+                  goToNextQuestion(trivia);
                 },
                 child: SizedBox(
                   width: 80,

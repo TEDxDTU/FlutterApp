@@ -14,6 +14,8 @@ import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/trivia/widgets/circular_spinner.dart';
 
+import '../../trivia/widgets/trivia_timer_painter.dart';
+
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
   static const routeName = '/test';
@@ -26,7 +28,20 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Hello there!'),
+      child: CustomPaint(
+        child: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              width: 2.5,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        painter: const TriviaTimerPainter(Colors.red, 0.3),
+      ),
     );
   }
 }

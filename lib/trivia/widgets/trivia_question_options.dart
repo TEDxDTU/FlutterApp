@@ -3,48 +3,59 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/trivia/models/question.dart';
+import 'package:tedx_dtu_app/trivia/widgets/trivia_timer_widget.dart';
 
 import '../../events/widgets/selectable_box.dart';
+import '../models/trivia.dart';
 
 class TriviaQuestionOptions extends StatefulWidget {
-  TriviaQuestionOptions(
+  const TriviaQuestionOptions(
     this.question,
     this.setSelectedOption,
-    this.progressWidget, {
+    this.progressWidget,
+    this.trivia,
+    this.goToNextQuestion, {
     Key? key,
   }) : super(key: key);
   final Question question;
-  Function setSelectedOption;
+  final Function setSelectedOption;
   final Widget progressWidget;
+  final Trivia trivia;
+  final Function goToNextQuestion;
   @override
   State<TriviaQuestionOptions> createState() => TriviaQuestionOptionsState();
 }
 
 class TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
+  late Timer _timer;
+
   @override
   void initState() {
-    // questionTimer =
-    //     Timer.periodic(Duration(seconds: widget.question.seconds), (timer) {
-    //   setState(() {
-    //     print(remainingTime);
-    //     remainingTime--;
-    //     if (remainingTime == 0) {
-    //       // questionTimer.cancel();
-    //     }
-    //   });
-    // });
+    remainingTime = widget.question.seconds;
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) {
+        setState(() {
+          if (remainingTime > 0) {
+            remainingTime--;
+          }
+          if (remainingTime == 0) {
+            _timer.cancel();
+            widget.goToNextQuestion(widget.trivia);
+          }
+        });
+      },
+    );
     super.initState();
   }
 
-  // late Timer questionTimer;
-
   @override
-  void didChangeDependencies() {
-    remainingTime = widget.question.seconds;
-    super.didChangeDependencies();
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
-  int remainingTime = 3;
+  int remainingTime = 0;
   int _selectedAns = -1;
   @override
   Widget build(BuildContext context) {
@@ -92,10 +103,55 @@ class TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          remainingTime.toString(),
-          style: const TextStyle(
-            color: Colors.white,
+        Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF474747),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 4,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: TriviaTimerWidget(
+                        1 - remainingTime / widget.question.seconds,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  text: '$remainingTime sec',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: const <InlineSpan>[
+                    TextSpan(
+                      text: ' left',
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
         AutoSizeText(
