@@ -16,6 +16,8 @@ class Trivia {
   /// The list of [Question]s in the trivia
   List<Question>? questions;
 
+  bool? hasAttempted;
+
   /// The total number of questions. It is equal to [questions.length],
   /// but it is populated before questions is populated, if at all. Questions
   /// are populated when a user wishes to play that particular trivia.
@@ -33,6 +35,7 @@ class Trivia {
     required this.id,
     required this.questionCount,
     required this.totalTime,
+    this.hasAttempted,
   });
 
   factory Trivia.fromMap(Map<String, dynamic> map) {

@@ -44,6 +44,7 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
       print("----");
       print(jsonResponse);
       print("----");
+      findById(id).hasAttempted = jsonResponse['hasAttempted'];
       List<Question> questions = (jsonResponse['questions'] as List)
           .map((e) => Question.fromMap(e))
           .toList();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 import 'package:tedx_dtu_app/trivia/widgets/trivia_question_options.dart';

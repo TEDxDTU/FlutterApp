@@ -17,10 +17,26 @@ class TriviaWelcomeScreen extends StatelessWidget {
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
     final id = routeArgs['id'].toString();
-    Trivia trivia =
-        Provider.of<TriviaProvider>(context, listen: false).findById(id);
-    return FutureScreenTemplate(
-        body: Scaffold(
+    TriviaProvider triviaProvider =
+        Provider.of<TriviaProvider>(context, listen: false);
+    // TODO: Add error handling and loading indicator here
+    return FutureBuilder(
+      future: triviaProvider.fetchTriviaQuestions(id),
+      builder: (context, snapshot) {
+        Trivia trivia = triviaProvider.findById(id);
+        if (trivia.hasAttempted == true) {
+          return const Scaffold(
+            body: Center(
+              child: Text(
+                'Trivia has already been attempted',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          );
+        }
+        return Scaffold(
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +48,11 @@ class TriviaWelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await Provider.of<TriviaProvider>(
+                      context,
+                      listen: false,
+                    ).markTriviaStarted(trivia.id);
                     Navigator.of(context).pushReplacementNamed(
                         NoBottomBarScreen.routeName,
                         arguments: {
@@ -47,7 +67,8 @@ class TriviaWelcomeScreen extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        future: Provider.of<TriviaProvider>(context).markTriviaStarted(id));
+        );
+      },
+    );
   }
 }
