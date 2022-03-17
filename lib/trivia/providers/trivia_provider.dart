@@ -89,7 +89,7 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
   /// Sends a user's scored points to the backend to be stored.
   /// [id] is the id of the trivia that the user has attempted.
   /// [points] is the points that the user has scored in the trivia.
-  Future<void> sendPoints(String id, int points) async {
+  Future<void> sendPoints(String id, int points, int timeTaken) async {
     final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
     final url = Uri.parse(
       nodeServerBaseUrl + '/api/trivia/' + id + '/points',
@@ -98,6 +98,7 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
       'authorization': authToken,
     }, body: {
       'points': points.toString(),
+      'timeTaken': timeTaken.toString(),
     });
     if (response.statusCode == 200) {
       print('success');

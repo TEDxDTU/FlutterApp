@@ -16,6 +16,7 @@ import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_attempt_screen.dart';
+import 'package:tedx_dtu_app/trivia/screens/trivia_countdown_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
@@ -231,6 +232,8 @@ class MyApp extends StatelessWidget {
                                   const TriviaAttemptScreen(),
                               TriviaWelcomeScreen.routeName: (context) =>
                                   const TriviaWelcomeScreen(),
+                              TriviaCountdownScreen.routeName: (context) =>
+                                  const TriviaCountdownScreen(),
                             },
                           ),
                           BottomBarScreen(

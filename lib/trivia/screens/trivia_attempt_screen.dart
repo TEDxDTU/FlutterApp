@@ -18,11 +18,17 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
   int _points = 0;
   int selectedOption = -1;
   bool _triviaEnded = false;
+  int timeTaken = 0;
+
+  void incrementTimeTaken() {
+    timeTaken++;
+  }
 
   void goToNextQuestion(Trivia trivia) {
+    print('Time taken: $timeTaken');
     if (selectedOption ==
         trivia.questions![_currentQuestion].correctAnswerIndex) {
-      _points++;
+      _points += 10;
     }
     if (_currentQuestion == trivia.questionCount - 1) {
       if (_triviaEnded == true) {
@@ -30,7 +36,7 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
       }
       _triviaEnded = true;
       Provider.of<TriviaProvider>(context, listen: false)
-          .sendPoints(trivia.id, _points);
+          .sendPoints(trivia.id, _points, timeTaken);
       showDialog(
         context: context,
         builder: (ctx) => WillPopScope(
@@ -118,6 +124,7 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
                   progressWidget,
                   trivia,
                   goToNextQuestion,
+                  incrementTimeTaken,
                   key: _triviaQuestionOptionsKey,
                 ),
               ),
