@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 import 'package:tedx_dtu_app/trivia/widgets/trivia_question_options.dart';
@@ -13,12 +12,38 @@ class TriviaAttemptScreen extends StatefulWidget {
   State<TriviaAttemptScreen> createState() => _TriviaAttemptScreenState();
 }
 
-class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
+class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
+    with WidgetsBindingObserver {
   int _currentQuestion = 0;
   int _points = 0;
   int selectedOption = -1;
   bool _triviaEnded = false;
   int timeTaken = 0;
+  Trivia? _trivia;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.inactive) {
+      setState(() {
+        if (_trivia != null) {
+          goToNextQuestion(_trivia!);
+        }
+      });
+    }
+    super.didChangeAppLifecycleState(state);
+  }
 
   void incrementTimeTaken() {
     timeTaken++;
@@ -76,6 +101,8 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen> {
     var routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
     Trivia trivia = routeArgs['trivia'] as Trivia;
+
+    _trivia = _trivia ?? trivia;
 
     final progressWidget = Row(
       mainAxisAlignment: MainAxisAlignment.center,
