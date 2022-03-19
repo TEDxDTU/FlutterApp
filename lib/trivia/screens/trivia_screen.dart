@@ -28,6 +28,7 @@ class TriviaScreen extends StatelessWidget {
               .data
               .map(
                 (trivia) => TriviaCardWidget(
+                  hasAttempted: trivia.hasAttempted ?? false,
                   title: trivia.title,
                   id: trivia.id,
                   imageUrl: trivia.imageUrl,

@@ -19,12 +19,14 @@ class TriviaCardWidget extends StatelessWidget {
     required this.imageUrl,
     required this.questionCount,
     required this.totalTime,
+    required this.hasAttempted,
   }) : super(key: key);
   final String title;
   final String id;
   final String imageUrl;
   final int questionCount;
   final int totalTime;
+  final bool hasAttempted;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,7 +109,8 @@ class TriviaCardWidget extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              primary: Colors.black,
+                              primary:
+                                  hasAttempted ? Colors.grey : Colors.black,
                             ),
                             onPressed: () async {
                               if (!Provider.of<Auth>(context, listen: false)
@@ -117,39 +120,47 @@ class TriviaCardWidget extends StatelessWidget {
                                 return;
                               }
                               // ONLY FOR TESTING PURPOSES RIGHT NOW
+                              if (hasAttempted) {
+                                UIHelper.showErrorDialog(
+                                  context,
+                                  'Already played!',
+                                  'Sorry!\n\nYou have already played this trivia',
+                                );
+                                return;
+                              }
                               Navigator.of(context).pushNamed(
                                   NoBottomBarScreen.routeName,
                                   arguments: {
                                     'child': const TriviaWelcomeScreen(),
                                     'id': id,
                                   });
-                              try {
-                                await Provider.of<TriviaProvider>(context,
-                                        listen: false)
-                                    .fetchTriviaQuestions(id);
-                                // await Provider.of<TriviaProvider>(context,
-                                //         listen: false)
-                                //     .fetchTriviaQuestions(id);
-                                // List<String> questions =
-                                //     Provider.of<TriviaProvider>(context,
-                                //             listen: false)
-                                //         .findById(id)
-                                //         .questions!
-                                //         .map((e) => e.question)
-                                //         .toList();
-                                // print(questions);
-                                // await Provider.of<TriviaProvider>(context,
-                                //         listen: false)
-                                //     .sendPoints(id, 20);
-                              } catch (e) {
-                                UIHelper.showErrorDialog(
-                                  context,
-                                  'Error!',
-                                  e.toString(),
-                                );
-                              }
+                              // try {
+                              //   await Provider.of<TriviaProvider>(context,
+                              //           listen: false)
+                              //       .fetchTriviaQuestions(id);
+                              //   // await Provider.of<TriviaProvider>(context,
+                              //   //         listen: false)
+                              //   //     .fetchTriviaQuestions(id);
+                              //   // List<String> questions =
+                              //   //     Provider.of<TriviaProvider>(context,
+                              //   //             listen: false)
+                              //   //         .findById(id)
+                              //   //         .questions!
+                              //   //         .map((e) => e.question)
+                              //   //         .toList();
+                              //   // print(questions);
+                              //   // await Provider.of<TriviaProvider>(context,
+                              //   //         listen: false)
+                              //   //     .sendPoints(id, 20);
+                              // } catch (e) {
+                              //   UIHelper.showErrorDialog(
+                              //     context,
+                              //     'Error!',
+                              //     e.toString(),
+                              //   );
+                              // }
                             },
-                            child: const Text('Play Now'),
+                            child: Text(hasAttempted ? 'Played!' : 'Play Now'),
                           ),
                         ),
                       ],

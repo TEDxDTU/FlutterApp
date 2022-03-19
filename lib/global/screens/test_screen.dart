@@ -15,10 +15,10 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularSpinner(onComplete: () {
-          print('le, ho gaya complete');
-        }),
-      ),
+          // child: CircularSpinner(onComplete: () {
+          //   print('le, ho gaya complete');
+          // }),
+          ),
     );
   }
 }

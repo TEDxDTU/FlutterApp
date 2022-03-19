@@ -64,24 +64,43 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
   Future<List<Trivia>> getData() async {
     print('getting data');
     try {
-      // final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final authToken = await FirebaseAuth.instance.currentUser?.getIdToken();
+      Map<String, String> headers;
+      if (authToken != null) {
+        headers = {
+          'authorization': authToken,
+        };
+      } else {
+        headers = {};
+      }
       final url = Uri.parse(
         nodeServerBaseUrl + '/api/trivia',
       );
-
-      final response = await http.get(url, headers: {});
+      print("here");
+      final response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
-        List<Map<String, dynamic>> data = List.from(jsonDecode(response.body));
-        // print(data);
+        // print(jsonDecode(response.body)['userData']); // print(data);
+        Map<String, dynamic> jsonData = json.decode(response.body);
+        List<Map<String, dynamic>> data = List.from(jsonData['trivias']);
+
         List<Trivia> triviaList = data.map((e) => Trivia.fromMap(e)).toList();
-        // List<Question> currTriviaQuestions =
-        //     await _fetchQuestions(triviaList[0].id);
-        // triviaList.first.questions = currTriviaQuestions;
+
+        if (jsonData['userData'] != null &&
+            jsonData['userData']['triviasAttempted'] != null) {
+          List<String> attemptedTriviaIds =
+              List.from(jsonData['userData']['triviasAttempted']);
+          attemptedTriviaIds.forEach((id) {
+            triviaList.firstWhere((element) => element.id == id).hasAttempted =
+                true;
+          });
+        }
         return triviaList;
       } else {
+        print("exception");
         throw Exception((jsonDecode(response.body) as Map)['msg']);
       }
     } on Exception catch (e) {
+      print("second exception");
       throw Exception('Failed to load trivia $e');
     }
   }
