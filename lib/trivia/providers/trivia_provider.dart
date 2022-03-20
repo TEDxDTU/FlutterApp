@@ -109,6 +109,8 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
   /// [id] is the id of the trivia that the user has attempted.
   /// [points] is the points that the user has scored in the trivia.
   Future<void> sendPoints(String id, int points, int timeTaken) async {
+    findById(id).hasAttempted = true;
+    notifyListeners();
     final authToken = await FirebaseAuth.instance.currentUser!.getIdToken();
     final url = Uri.parse(
       nodeServerBaseUrl + '/api/trivia/' + id + '/points',
