@@ -17,6 +17,11 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
     return data.firstWhere((element) => element.id == id);
   }
 
+  void clearData() {
+    data.clear();
+    notifyListeners();
+  }
+
   /// Fetches the questions for the trivia with the given [id], and
   /// assigns them to that trivia in [data].
   Future<void> fetchTriviaQuestions(String id) async {

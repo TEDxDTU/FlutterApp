@@ -5,8 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
+import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 
 /// The Provider that handles all the Authentication and User related operations
 /// It also handles the Firebase Authentication as well as fetching data from
@@ -129,7 +131,9 @@ class Auth extends ChangeNotifier {
   }
 
   /// Signs out the user from Firebase and sets [user] to null.
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
+    Provider.of<TriviaProvider>(context, listen: false).clearData();
+
     await _auth.signOut();
     user = null;
     notifyListeners();
