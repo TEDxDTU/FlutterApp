@@ -8,6 +8,7 @@ import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_app_bar.dart';
 import 'package:tedx_dtu_app/trivia/helpers/slanted_container_clipper.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
+import 'package:tedx_dtu_app/trivia/widgets/leaderboard_row.dart';
 import 'package:tedx_dtu_app/trivia/widgets/trivia_card_widget.dart';
 import '../../helpers/extensions/padding_widget_list_extension.dart';
 import '../widgets/trivia_slider_panel.dart';
@@ -24,6 +25,7 @@ class TriviaScreen extends StatelessWidget {
         children: [
           const TriviaSliderPanel(),
           // const SizedBox(height: 5),
+          LeaderboardRow(),
           ...Provider.of<TriviaProvider>(context)
               .data
               .map(

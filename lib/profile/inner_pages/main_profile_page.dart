@@ -60,7 +60,10 @@ class MainProfilePage extends StatelessWidget {
               label: 'Email',
               child: Text(
                 userData.user!.email,
-                style: TextStyle(fontSize: 17),
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),

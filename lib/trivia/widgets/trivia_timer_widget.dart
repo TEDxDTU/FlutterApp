@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tedx_dtu_app/trivia/widgets/trivia_timer_painter.dart';
+import 'package:tedx_dtu_app/trivia/helpers/trivia_timer_painter.dart';
 
 class TriviaTimerWidget extends StatelessWidget {
   const TriviaTimerWidget(this.progress, {Key? key}) : super(key: key);

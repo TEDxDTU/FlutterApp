@@ -12,10 +12,16 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context)
-        ..textTheme.apply(
-          bodyColor: Colors.black,
-          displayColor: Colors.black,
-        ),
+        ..textTheme
+            .apply(
+              bodyColor: Colors.black,
+              displayColor: Colors.black,
+            )
+            .copyWith(
+              bodyText2: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
       child: Provider.of<Auth>(context).isAuth
           ? ChangeNotifierProvider(
               create: (context) => ProfileInnerWidgetProvider(),

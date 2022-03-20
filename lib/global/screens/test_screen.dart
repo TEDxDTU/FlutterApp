@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 
 import 'package:tedx_dtu_app/trivia/widgets/circular_spinner.dart';
 
@@ -13,12 +14,6 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          // child: CircularSpinner(onComplete: () {
-          //   print('le, ho gaya complete');
-          // }),
-          ),
-    );
+    return TriviaScreen();
   }
 }

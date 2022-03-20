@@ -14,6 +14,7 @@ import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
+import 'package:tedx_dtu_app/trivia/providers/leaderboard_provider.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_attempt_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_countdown_screen.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StoryProvider()),
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => TriviaProvider()),
+        ChangeNotifierProvider(create: (_) => LeaderboardProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -175,9 +177,6 @@ class MyApp extends StatelessWidget {
                 ),
                 subtitle1: TextStyle(
                   color: Colors.grey[600],
-                ),
-                bodyText2: const TextStyle(
-                  color: Colors.black,
                 ),
               ),
           popupMenuTheme: PopupMenuThemeData(
