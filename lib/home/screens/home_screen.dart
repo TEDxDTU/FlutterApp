@@ -4,6 +4,7 @@ import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/recent_updates_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     return BottomBarScreenWidget(
       children: [
         Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             bottom: 8.0,
             left: 8.0,
             right: 8.0,
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting &&
                         LiveEvent.instance == null) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -102,7 +103,10 @@ class HomeScreen extends StatelessWidget {
                       Icons.arrow_forward_ios,
                       size: 18,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(RecentUpdatesScreen.routeName);
+                    },
                   ),
                 ),
                 gradientColor: Colors.transparent,
