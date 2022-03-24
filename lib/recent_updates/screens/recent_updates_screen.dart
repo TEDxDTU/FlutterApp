@@ -21,10 +21,22 @@ class RecentUpdatesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Recent Updates'),
       ),
-      body: ListView(
+      body: Stack(
+        alignment: Alignment.topCenter,
         children: [
-          RecentUpdatesCard(recentUpdate, onThumbsUp: () {}, onSend: () {}),
-          RecentUpdatesCard(recentUpdate, onThumbsUp: () {}, onSend: () {}),
+          ListView(
+            children: [
+              RecentUpdatesCard(recentUpdate, onThumbsUp: () {}, onSend: () {}),
+              RecentUpdatesCard(recentUpdate, onThumbsUp: () {}, onSend: () {}),
+            ],
+          ),
+          DraggableScrollableSheet(
+            // initialChildSize: 0.1,
+            minChildSize: 0.1,
+            maxChildSize: 0.5,
+            builder: (context, scrollController) =>
+                Container(child: Icon(Icons.abc, size: 200)),
+          ),
         ],
       ),
     );
