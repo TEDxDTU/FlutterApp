@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
+import 'package:tedx_dtu_app/trivia/widgets/rotating_widget.dart';
 import 'package:tedx_dtu_app/trivia/widgets/trivia_question_options.dart';
 
 class TriviaAttemptScreen extends StatefulWidget {
@@ -17,9 +20,12 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
   int _currentQuestion = 0;
   int _points = 0;
   int selectedOption = -1;
-  bool _triviaEnded = false;
+  // bool _triviaEnded = false;
   int timeTaken = 0;
   Trivia? _trivia;
+
+  final GlobalKey<RotatingWidgetState> _rotatingWidgetKey =
+      GlobalKey<RotatingWidgetState>();
 
   @override
   void initState() {
@@ -49,17 +55,17 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
     timeTaken++;
   }
 
-  void goToNextQuestion(Trivia trivia) {
+  Future<void> goToNextQuestion(Trivia trivia) async {
     print('Time taken: $timeTaken');
     if (selectedOption ==
         trivia.questions![_currentQuestion].correctAnswerIndex) {
       _points += 10;
     }
     if (_currentQuestion == trivia.questionCount - 1) {
-      if (_triviaEnded == true) {
-        return;
-      }
-      _triviaEnded = true;
+      // if (_triviaEnded == true) {
+      //   return;
+      // }
+      // _triviaEnded = true;
       Provider.of<TriviaProvider>(context, listen: false)
           .sendPoints(trivia.id, _points, timeTaken);
       showDialog(
@@ -82,9 +88,8 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
         ),
         barrierDismissible: false,
       );
-    }
-
-    if (_currentQuestion < trivia.questionCount - 1) {
+    } else if (_currentQuestion < trivia.questionCount - 1) {
+      await _rotatingWidgetKey.currentState?.start();
       setState(() {
         _currentQuestion++;
       });
@@ -95,16 +100,49 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
     selectedOption = val;
   }
 
+  static const _triviaQuestionOptionsKey = ValueKey("thisQuestionKey");
+  static const _nextQuestionOptionsKey = ValueKey("nextQuestionKey");
   @override
   Widget build(BuildContext context) {
-    final _triviaQuestionOptionsKey = GlobalKey<TriviaQuestionOptionsState>();
     var routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
     Trivia trivia = routeArgs['trivia'] as Trivia;
 
     _trivia = _trivia ?? trivia;
 
-    final progressWidget = Row(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Stack(
+        children: [
+          if (_currentQuestion + 1 < trivia.questionCount)
+            Container(
+              key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              child: buildScreen(
+                  trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
+            ),
+          RotatingWidget(
+            key: _rotatingWidgetKey,
+            duration: Duration(milliseconds: 500),
+            child: Container(
+              key: ValueKey("TriviaAttempScreen$_currentQuestion"),
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              // color: _currentQuestion == 0
+              //     ? Theme.of(context).primaryColor
+              //     : Colors.white,
+              child: buildScreen(
+                  trivia, _currentQuestion, _triviaQuestionOptionsKey),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row buildProgressWidget(Trivia trivia) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ...List.generate(
@@ -125,62 +163,55 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
         ),
       ],
     );
+  }
 
-    var appBar = AppBar(
-      title: Text(trivia.title),
-      automaticallyImplyLeading: false,
-    );
-
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        appBar: appBar,
-        body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              // Question and options
-              Expanded(
-                child: TriviaQuestionOptions(
-                  trivia.questions![_currentQuestion],
-                  setSelectedOption,
-                  progressWidget,
-                  trivia,
-                  goToNextQuestion,
-                  incrementTimeTaken,
-                  key: _triviaQuestionOptionsKey,
-                ),
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  goToNextQuestion(trivia);
-                },
-                child: SizedBox(
-                  width: 80,
-                  child: Row(
-                    children: const [
-                      Text('Proceed'),
-                      Icon(
-                        Icons.arrow_forward_rounded,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+  Widget buildScreen(Trivia trivia, int questionIndex, Key key) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(trivia.title),
+        automaticallyImplyLeading: false,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          // Question and options
+          Expanded(
+            child: TriviaQuestionOptions(
+              trivia.questions![questionIndex],
+              setSelectedOption,
+              buildProgressWidget(trivia),
+              trivia,
+              goToNextQuestion,
+              incrementTimeTaken,
+              key: key,
+            ),
           ),
-        ),
+          ElevatedButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+            ),
+            onPressed: () {
+              goToNextQuestion(trivia);
+            },
+            child: SizedBox(
+              width: 80,
+              child: Row(
+                children: const [
+                  Text('Proceed'),
+                  Icon(
+                    Icons.arrow_forward_rounded,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
