@@ -114,18 +114,19 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
       onWillPop: () async => false,
       child: Stack(
         children: [
-          if (_currentQuestion + 1 < trivia.questionCount)
-            Container(
-              key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              child: buildScreen(
-                  trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
-            ),
+          // if (_currentQuestion + 1 < trivia.questionCount)
+          //   Container(
+          //     key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
+          //     width: double.infinity,
+          //     padding: const EdgeInsets.all(16),
+          //     child: buildScreen(
+          //         trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
+          //   ),
           RotatingWidget(
             key: _rotatingWidgetKey,
+            width: MediaQuery.of(context).size.width,
             duration: Duration(milliseconds: 500),
-            child: Container(
+            leftChild: Container(
               key: ValueKey("TriviaAttempScreen$_currentQuestion"),
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -135,6 +136,15 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
               child: buildScreen(
                   trivia, _currentQuestion, _triviaQuestionOptionsKey),
             ),
+            rightChild: (_currentQuestion + 1 < trivia.questionCount)
+                ? Container(
+                    key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    child: buildScreen(
+                        trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
+                  )
+                : SizedBox(),
           ),
         ],
       ),
