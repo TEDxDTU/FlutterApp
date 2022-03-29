@@ -15,7 +15,8 @@ class TriviaQuestionOptions extends StatefulWidget {
     this.progressWidget,
     this.trivia,
     this.goToNextQuestion,
-    this.incrementTimeTaken, {
+    this.incrementTimeTaken,
+    this.timerActive, {
     Key? key,
   }) : super(key: key);
   final Question question;
@@ -24,6 +25,7 @@ class TriviaQuestionOptions extends StatefulWidget {
   final Trivia trivia;
   final Function goToNextQuestion;
   final Function incrementTimeTaken;
+  final bool timerActive;
   @override
   State<TriviaQuestionOptions> createState() => TriviaQuestionOptionsState();
 }
@@ -34,21 +36,23 @@ class TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
   @override
   void initState() {
     remainingTime = widget.question.seconds;
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (_) {
-        setState(() {
-          if (remainingTime > 0) {
-            widget.incrementTimeTaken();
-            remainingTime--;
-          }
-          if (remainingTime == 0) {
-            _timer.cancel();
-            widget.goToNextQuestion(widget.trivia);
-          }
-        });
-      },
-    );
+    _timer = widget.timerActive
+        ? Timer.periodic(
+            const Duration(seconds: 1),
+            (_) {
+              setState(() {
+                if (remainingTime > 0) {
+                  widget.incrementTimeTaken();
+                  remainingTime--;
+                }
+                if (remainingTime == 0) {
+                  _timer.cancel();
+                  widget.goToNextQuestion(widget.trivia);
+                }
+              });
+            },
+          )
+        : Timer(Duration.zero, () {});
     super.initState();
   }
 

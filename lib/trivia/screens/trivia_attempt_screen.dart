@@ -23,8 +23,8 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
   int selectedOption = -1;
   // bool _triviaEnded = false;
   int timeTaken = 0;
-  Trivia? _trivia;
-
+  late Trivia _trivia;
+  bool _isInit = true;
   final GlobalKey<RotatingWidgetState> _rotatingWidgetKey =
       GlobalKey<RotatingWidgetState>();
 
@@ -32,6 +32,18 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
   void initState() {
     WidgetsBinding.instance!.addObserver(this);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      var routeArgs =
+          ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
+      _trivia = routeArgs['trivia'] as Trivia;
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -43,10 +55,9 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive) {
+      // _trivia = _trivia ?? trivia;
       setState(() {
-        if (_trivia != null) {
-          goToNextQuestion(_trivia!);
-        }
+        goToNextQuestion(_trivia);
       });
     }
     super.didChangeAppLifecycleState(state);
@@ -101,12 +112,6 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
   static const _nextQuestionOptionsKey = ValueKey("nextQuestionKey");
   @override
   Widget build(BuildContext context) {
-    var routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
-    Trivia trivia = routeArgs['trivia'] as Trivia;
-
-    _trivia = _trivia ?? trivia;
-
     return WillPopScope(
       onWillPop: () async => false,
       child: RotatingWidget(
@@ -117,23 +122,27 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
           key: ValueKey("TriviaAttempScreen$_currentQuestion"),
           width: double.infinity,
           padding: const EdgeInsets.all(16),
-          child:
-              buildScreen(trivia, _currentQuestion, _triviaQuestionOptionsKey),
+          child: buildScreen(
+            _trivia,
+            _currentQuestion,
+            _triviaQuestionOptionsKey,
+            true,
+          ),
         ),
-        rightChild: (_currentQuestion + 1 < trivia.questionCount)
+        rightChild: (_currentQuestion + 1 < _trivia.questionCount)
             ? Container(
                 key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
-                child: buildScreen(
-                    trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
+                child: buildScreen(_trivia, _currentQuestion + 1,
+                    _nextQuestionOptionsKey, false),
               )
             : SizedBox(),
       ),
     );
   }
 
-  Widget buildScreen(Trivia trivia, int questionIndex, Key key) {
+  Widget buildScreen(Trivia trivia, int questionIndex, Key key, bool isTop) {
     return Scaffold(
       appBar: AppBar(
         title: Text(trivia.title),
@@ -157,6 +166,7 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
               trivia,
               goToNextQuestion,
               incrementTimeTaken,
+              isTop,
               key: key,
             ),
           ),
