@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
 import 'package:tedx_dtu_app/trivia/widgets/current_trivia_card_widget.dart';
+
+import 'circular_dots_row.dart';
 
 class TriviaSliderPanel extends StatefulWidget {
   const TriviaSliderPanel({
@@ -50,23 +53,9 @@ class _TriviaSliderPanelState extends State<TriviaSliderPanel> {
         SizedBox(
           height: 23,
           // width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (int i = 0; i < 3; i++)
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 100),
-                  width: _currentIndex == i ? 12 : 8.0,
-                  height: _currentIndex == i ? 12 : 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentIndex == i
-                        ? Theme.of(context).primaryColor
-                        : Colors.white,
-                  ),
-                ),
-            ],
+          child: CircularDotsRow(
+            currentIndex: _currentIndex,
+            maxIndex: 3,
           ),
         ),
       ],

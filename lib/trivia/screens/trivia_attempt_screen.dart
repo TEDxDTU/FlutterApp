@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
+import 'package:tedx_dtu_app/trivia/widgets/circular_dots_row.dart';
 import 'package:tedx_dtu_app/trivia/widgets/rotating_widget.dart';
 import 'package:tedx_dtu_app/trivia/widgets/trivia_question_options.dart';
 
@@ -62,10 +63,6 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
       _points += 10;
     }
     if (_currentQuestion == trivia.questionCount - 1) {
-      // if (_triviaEnded == true) {
-      //   return;
-      // }
-      // _triviaEnded = true;
       Provider.of<TriviaProvider>(context, listen: false)
           .sendPoints(trivia.id, _points, timeTaken);
       showDialog(
@@ -112,66 +109,27 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
 
     return WillPopScope(
       onWillPop: () async => false,
-      child: Stack(
-        children: [
-          // if (_currentQuestion + 1 < trivia.questionCount)
-          //   Container(
-          //     key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
-          //     width: double.infinity,
-          //     padding: const EdgeInsets.all(16),
-          //     child: buildScreen(
-          //         trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
-          //   ),
-          RotatingWidget(
-            key: _rotatingWidgetKey,
-            width: MediaQuery.of(context).size.width,
-            duration: Duration(milliseconds: 500),
-            leftChild: Container(
-              key: ValueKey("TriviaAttempScreen$_currentQuestion"),
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              // color: _currentQuestion == 0
-              //     ? Theme.of(context).primaryColor
-              //     : Colors.white,
-              child: buildScreen(
-                  trivia, _currentQuestion, _triviaQuestionOptionsKey),
-            ),
-            rightChild: (_currentQuestion + 1 < trivia.questionCount)
-                ? Container(
-                    key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    child: buildScreen(
-                        trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
-                  )
-                : SizedBox(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Row buildProgressWidget(Trivia trivia) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ...List.generate(
-          trivia.questionCount,
-          (index) {
-            return Container(
-              width: 10,
-              height: 10,
-              margin: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: (index <= _currentQuestion
-                    ? Theme.of(context).primaryColor
-                    : Colors.white),
-              ),
-            );
-          },
+      child: RotatingWidget(
+        key: _rotatingWidgetKey,
+        width: MediaQuery.of(context).size.width,
+        duration: Duration(milliseconds: 500),
+        leftChild: Container(
+          key: ValueKey("TriviaAttempScreen$_currentQuestion"),
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          child:
+              buildScreen(trivia, _currentQuestion, _triviaQuestionOptionsKey),
         ),
-      ],
+        rightChild: (_currentQuestion + 1 < trivia.questionCount)
+            ? Container(
+                key: ValueKey("TriviaAttempScreen${_currentQuestion + 1}"),
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                child: buildScreen(
+                    trivia, _currentQuestion + 1, _nextQuestionOptionsKey),
+              )
+            : SizedBox(),
+      ),
     );
   }
 
@@ -191,7 +149,11 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
             child: TriviaQuestionOptions(
               trivia.questions![questionIndex],
               setSelectedOption,
-              buildProgressWidget(trivia),
+              CircularDotsRow(
+                currentIndex: _currentQuestion,
+                maxIndex: trivia.questionCount,
+                mode: CircularDotMode.PreviousSelected,
+              ),
               trivia,
               goToNextQuestion,
               incrementTimeTaken,
