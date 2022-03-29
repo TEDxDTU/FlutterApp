@@ -18,11 +18,11 @@ class TriviaQuestionScreen extends StatelessWidget {
   }) : super(key: key);
   final String title;
   final Question question;
-  final Function setSelectedOption;
   final int currentQuestionIndex;
   final int questionCount;
-  final Function goToNextQuestion;
-  final Function incrementTimeTaken;
+  final void Function(int) setSelectedOption;
+  final Future<void> Function() goToNextQuestion;
+  final void Function() incrementTimeTaken;
   final bool isTop;
 
   @override

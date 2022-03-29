@@ -19,10 +19,10 @@ class TriviaQuestionOptions extends StatefulWidget {
     Key? key,
   }) : super(key: key);
   final Question question;
-  final Function setSelectedOption;
+  final void Function(int) setSelectedOption;
   final Widget progressWidget;
-  final Function goToNextQuestion;
-  final Function incrementTimeTaken;
+  final Future<void> Function() goToNextQuestion;
+  final void Function() incrementTimeTaken;
   final bool timerActive;
   @override
   State<TriviaQuestionOptions> createState() => TriviaQuestionOptionsState();
