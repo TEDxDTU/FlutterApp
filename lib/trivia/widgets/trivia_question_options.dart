@@ -13,7 +13,6 @@ class TriviaQuestionOptions extends StatefulWidget {
     this.question,
     this.setSelectedOption,
     this.progressWidget,
-    this.trivia,
     this.goToNextQuestion,
     this.incrementTimeTaken,
     this.timerActive, {
@@ -22,7 +21,6 @@ class TriviaQuestionOptions extends StatefulWidget {
   final Question question;
   final Function setSelectedOption;
   final Widget progressWidget;
-  final Trivia trivia;
   final Function goToNextQuestion;
   final Function incrementTimeTaken;
   final bool timerActive;
@@ -47,7 +45,7 @@ class TriviaQuestionOptionsState extends State<TriviaQuestionOptions> {
                 }
                 if (remainingTime == 0) {
                   _timer.cancel();
-                  widget.goToNextQuestion(widget.trivia);
+                  widget.goToNextQuestion();
                 }
               });
             },
