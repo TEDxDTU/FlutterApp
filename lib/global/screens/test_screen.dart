@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/events/widgets/ticket_widget.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 
 import 'package:tedx_dtu_app/trivia/widgets/circular_spinner.dart';
@@ -16,6 +17,10 @@ class _TestScreenState extends State<TestScreen> {
   final _key = GlobalKey<RotatingWidgetState>();
   @override
   Widget build(BuildContext context) {
-    return TriviaScreen();
+    return Scaffold(
+      body: Center(
+        child: TicketWidget(),
+      ),
+    );
   }
 }
