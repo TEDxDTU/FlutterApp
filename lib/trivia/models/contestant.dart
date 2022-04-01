@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+/// Trivia Contestant, contains the data of a particular contestant in the
+/// current trivia. Used in Leaderboard.
 class Contestant {
   final String name;
   final int points;

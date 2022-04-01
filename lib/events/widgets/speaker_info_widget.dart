@@ -122,6 +122,7 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                         speaker.name,
                         style: const TextStyle(
                           fontSize: 18,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -132,6 +133,7 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                             stat,
                             style: const TextStyle(
                               fontSize: 14,
+                              color: Colors.black,
                             ),
                           ),
                         )

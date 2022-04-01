@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// Rotates two widgets with 3D effect, like Instagram stories.
+/// The [leftChild] widget is show initially, on transitioning it is transitioned
+/// to the left, and the [rightChild] transitions into its place
 class RotatingWidget extends StatefulWidget {
   const RotatingWidget({
     Key? key,
@@ -10,9 +13,18 @@ class RotatingWidget extends StatefulWidget {
     required this.duration,
     required this.width,
   }) : super(key: key);
+
+  /// The widget to show initially, will transition out of the screen.
   final Widget leftChild;
+
+  /// The widget to show after the [leftChild] has transitioned out of the screen.
+  /// Will transition from right to left during the transition.
   final Widget rightChild;
+
+  /// The duration of the transition
   final Duration duration;
+
+  /// The width of the widget. Should preferably be same for both children.
   final double width;
 
   @override
@@ -28,6 +40,9 @@ class RotatingWidgetState extends State<RotatingWidget>
     super.initState();
   }
 
+  /// Starts the transition. Also resets the animation controller, after the
+  /// transition is complete, so make sure to change the parent widget tree
+  /// by then.
   Future<void> start() async {
     // _controller.reset();
     await _controller.forward();

@@ -9,7 +9,6 @@ class LeaderboardProvider extends ProviderTemplate<Contestant> {
   @override
   Contestant findById(String id) {
     return data.firstWhere((element) => element.firebaseID == id);
-    // throw UnimplementedError();
   }
 
   @override

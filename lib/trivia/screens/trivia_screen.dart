@@ -25,7 +25,7 @@ class TriviaScreen extends StatelessWidget {
         children: [
           const TriviaSliderPanel(),
           // const SizedBox(height: 5),
-          LeaderboardRow(),
+          const LeaderboardRow(),
           ...Provider.of<TriviaProvider>(context)
               .data
               .map(

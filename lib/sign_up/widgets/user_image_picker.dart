@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:tedx_dtu_app/sign_up/screens/sign_up_screen.dart';
 
+/// A widget used to pick a user's image in [SignUpScreen].
+/// Creates a circular widget that shows [Icons.account_circle] when image is
+/// not picked, and the image otherwise. Allows upload from camera or gallery.
 class UserImagePicker extends StatefulWidget {
+  /// A function that runs when the image has been selected by the user.
+  /// Should be used to store the image locally in a [Provider] or upload
+  /// it to the server.
   final Function(File) onSelectImage;
   final bool isError;
   const UserImagePicker({

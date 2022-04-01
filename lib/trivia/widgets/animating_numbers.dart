@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// Creates 3-2-1- START countdown for the trivia
 class AnimatingNumbers extends StatefulWidget {
   const AnimatingNumbers({
     Key? key,
     required this.onComplete,
   }) : super(key: key);
+
+  /// Function that runs once the animation has finished.
   final void Function() onComplete;
   @override
   State<AnimatingNumbers> createState() => _AnimatingNumbersState();

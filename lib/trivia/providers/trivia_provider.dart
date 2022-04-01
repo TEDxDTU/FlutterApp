@@ -67,7 +67,6 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
 
   @override
   Future<List<Trivia>> getData() async {
-    print('getting data');
     try {
       final authToken = await FirebaseAuth.instance.currentUser?.getIdToken();
       Map<String, String> headers;
@@ -81,7 +80,6 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
       final url = Uri.parse(
         nodeServerBaseUrl + '/api/trivia',
       );
-      print("here");
       final response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
         // print(jsonDecode(response.body)['userData']); // print(data);
