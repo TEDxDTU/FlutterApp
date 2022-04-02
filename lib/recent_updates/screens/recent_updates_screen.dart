@@ -26,8 +26,18 @@ class RecentUpdatesScreen extends StatelessWidget {
         children: [
           ListView(
             children: [
-              RecentUpdatesCard(recentUpdate, onThumbsUp: () {}, onSend: () {}),
-              RecentUpdatesCard(recentUpdate, onThumbsUp: () {}, onSend: () {}),
+              RecentUpdatesCard(
+                recentUpdate,
+                onThumbsUp: () {},
+                onSend: () {},
+                onOpenPressed: () {},
+              ),
+              RecentUpdatesCard(
+                recentUpdate,
+                onThumbsUp: () {},
+                onSend: () {},
+                onOpenPressed: () {},
+              ),
             ],
           ),
           DraggableScrollableSheet(
