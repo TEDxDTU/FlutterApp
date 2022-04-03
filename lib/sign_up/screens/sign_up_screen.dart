@@ -254,7 +254,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   await Provider.of<Auth>(context,
                                           listen: false)
                                       .signUp(
-                                    email: email!,
+                                    email: email!.trim(),
                                     password: passwordController.text,
                                     image: image!,
                                     name: name!,

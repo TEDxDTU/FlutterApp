@@ -127,7 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           try {
                             await Provider.of<Auth>(context, listen: false)
                                 .signIn(
-                              email: email!,
+                              email: email!.trim(),
                               password: passwordController.text,
                             );
                           } on Exception catch (e) {
