@@ -59,7 +59,7 @@ class LiveEventInfoWidget extends StatelessWidget {
                       if (e.imageUrl != null)
                         Center(
                           child: ConstrainedBox(
-                            constraints: BoxConstraints(
+                            constraints: const BoxConstraints(
                               minHeight: 70,
                             ),
                             //TODO: Replace with CustomImageWidget @rohit, height constraints messing up.
@@ -98,7 +98,7 @@ class LiveEventInfoWidget extends StatelessWidget {
                       key: ValueKey(data.link!),
                       link: data.link!,
                       backgroundColor: Colors.white,
-                      displayDirection: UIDirection.UIDirectionHorizontal,
+                      displayDirection: uiDirection.uiDirectionHorizontal,
                       errorWidget: GestureDetector(
                         onTap: () => _launchURL(data.link),
                         child: Padding(
