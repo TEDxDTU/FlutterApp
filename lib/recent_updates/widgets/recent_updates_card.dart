@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
 
@@ -31,7 +32,7 @@ class RecentUpdatesCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        color: const Color(0xFF515151),
+        color: CupertinoColors.darkBackgroundGray,
         border: Border.all(
           width: 1,
           color: Colors.white,
@@ -67,6 +68,12 @@ class RecentUpdatesCard extends StatelessWidget {
                       child: Image.network(
                         update.imageUrl!,
                         fit: BoxFit.fitHeight,
+                        loadingBuilder: (context, child, progress) {
+                          if (progress == null) return child;
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
                       ),
                     ),
                   )

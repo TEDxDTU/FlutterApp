@@ -13,7 +13,7 @@ class DiscoverGrabbing extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 4),
         alignment: Alignment.bottomCenter,
         width: MediaQuery.of(context).size.width,
-        color: Theme.of(context).primaryColor,
+        color: const Color(0xffFF0000),
         child: const AutoSizeText(
           'DISCOVER',
           maxFontSize: 18,

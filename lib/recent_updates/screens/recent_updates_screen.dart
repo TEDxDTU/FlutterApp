@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/recent_updates/widgets/discover_card.dart';
 import '../../recent_updates/models/discover.dart';
@@ -52,8 +50,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
 
   @override
   void didChangeDependencies() {
-    discoverCardHeight =
-        math.max(300, MediaQuery.of(context).size.height * 0.4);
+    discoverCardHeight = MediaQuery.of(context).size.height * 0.4;
     _discoverPosition = -(discoverCardHeight +
         grabbingHeight +
         _scrollbarAreaHeight -
@@ -72,17 +69,18 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
     final discover = Discover(
         imageUrl:
             'https://via.placeholder.com/160x230/00eaff/969696.png?text=Placeholder+Image',
-        title: 'Trivia results are out');
+        title: 'Trivia results are now out!');
     final _appBar = AppBar(
       title: const Text('Recent Updates'),
     );
     final mediaQuery = MediaQuery.of(context);
-    const _primaryColor = Color(0xffE62B1E);
+    const _primaryColor = Color(0xffFF0000);
     return Scaffold(
       appBar: _appBar,
       body: Stack(
         children: [
           ListView(
+            physics: const BouncingScrollPhysics(),
             children: [
               SizedBox(height: _grabbingVisibleHeight),
               RecentUpdatesCard(
@@ -172,6 +170,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                     height: discoverCardHeight,
                     color: _primaryColor,
                     child: ListView(
+                      physics: const BouncingScrollPhysics(),
                       controller: _scrollController,
                       scrollDirection: Axis.horizontal,
                       children: [

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 
 import '../models/discover.dart';
 
@@ -19,16 +20,31 @@ class DiscoverCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              data.imageUrl,
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                data.imageUrl,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ),
+          ),
+          const SizedBox(
+            height: 8,
           ),
           AutoSizeText(
             data.title,
             maxFontSize: 18,
-            style: const TextStyle(color: Colors.black, fontSize: 18),
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
