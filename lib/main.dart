@@ -266,6 +266,14 @@ class MyApp extends StatelessWidget {
                                   const SignUpScreen(),
                             },
                           ),
+                          // BottomBarScreen(
+                          //   title: 'blah',
+                          //   navigatorKey: GlobalKey<NavigatorState>(),
+                          //   icon: const Icon(Icons.help),
+                          //   routes: {
+                          //     '/': (context) => TestScreen(),
+                          //   },
+                          // ),
                           BottomBarScreen(
                             title: 'Test',
                             navigatorKey: GlobalKey<NavigatorState>(),

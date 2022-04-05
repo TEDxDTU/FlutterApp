@@ -53,7 +53,8 @@ class _SignInScreenState extends State<SignInScreen> {
           child: SizedBox(
             height: MediaQuery.of(context).size.height -
                 kToolbarHeight -
-                MediaQuery.of(context).padding.top,
+                MediaQuery.of(context).padding.top -
+                MediaQuery.of(context).viewInsets.bottom,
             child: Column(
               children: [
                 Padding(
