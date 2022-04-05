@@ -20,7 +20,7 @@ class RecentUpdate {
   }
 
   String title;
-  String imageUrl;
+  String? imageUrl;
   String description;
   String url;
 }

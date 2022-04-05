@@ -7,14 +7,14 @@ class RecentUpdatesCard extends StatelessWidget {
   const RecentUpdatesCard(
     this.update, {
     required this.onThumbsUp,
-    required this.onSend,
+    required this.onShare,
     required this.onOpenPressed,
     Key? key,
   }) : super(key: key);
 
   final RecentUpdate update;
   final void Function()? onThumbsUp;
-  final void Function()? onSend;
+  final void Function()? onShare;
   final void Function()? onOpenPressed;
 
   @override
@@ -59,16 +59,17 @@ class RecentUpdatesCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      update.imageUrl,
-                      fit: BoxFit.fitHeight,
+                if (update.imageUrl != null)
+                  Expanded(
+                    flex: 2,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        update.imageUrl!,
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ),
@@ -103,14 +104,11 @@ class RecentUpdatesCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
-                    child: Transform.rotate(
-                      angle: -math.pi * 0.25,
-                      child: const Icon(
-                        Icons.send_outlined,
-                        color: Colors.white,
-                      ),
+                    child: const Icon(
+                      Icons.share,
+                      color: Colors.white,
                     ),
-                    onPressed: onSend,
+                    onPressed: onShare,
                   ),
                 ),
                 const SizedBox(width: 8),

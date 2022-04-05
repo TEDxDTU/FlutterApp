@@ -90,7 +90,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onThumbsUp: () {
                   print('Thumbs up pressed');
                 },
-                onSend: () {
+                onShare: () {
                   print('Send pressed');
                 },
                 onOpenPressed: () {
@@ -102,7 +102,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onThumbsUp: () {
                   print('Thumbs up pressed');
                 },
-                onSend: () {
+                onShare: () {
                   print('Send pressed');
                 },
                 onOpenPressed: () {
@@ -114,7 +114,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onThumbsUp: () {
                   print('Thumbs up pressed');
                 },
-                onSend: () {
+                onShare: () {
                   print('Send pressed');
                 },
                 onOpenPressed: () {
@@ -126,7 +126,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onThumbsUp: () {
                   print('Thumbs up pressed');
                 },
-                onSend: () {
+                onShare: () {
                   print('Send pressed');
                 },
                 onOpenPressed: () {
@@ -138,7 +138,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onThumbsUp: () {
                   print('Thumbs up pressed');
                 },
-                onSend: () {
+                onShare: () {
                   print('Send pressed');
                 },
                 onOpenPressed: () {
@@ -150,7 +150,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onThumbsUp: () {
                   print('Thumbs up pressed');
                 },
-                onSend: () {
+                onShare: () {
                   print('Send pressed');
                 },
                 onOpenPressed: () {
