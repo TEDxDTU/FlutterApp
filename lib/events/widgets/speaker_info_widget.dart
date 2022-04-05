@@ -120,9 +120,8 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                     FittedBox(
                       child: Text(
                         speaker.name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.black),
                       ),
                     ),
                     ...speaker.achievements
@@ -131,8 +130,7 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                           (stat) => Text(
                             stat,
                             style: const TextStyle(
-                              fontSize: 14,
-                            ),
+                                fontSize: 14, color: Colors.black),
                           ),
                         )
                         .toList(),
