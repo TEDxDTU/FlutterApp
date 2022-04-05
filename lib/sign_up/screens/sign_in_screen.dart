@@ -49,141 +49,153 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
       body: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: 10.0,
-                right: MediaQuery.of(context).size.width * 0.2,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Email',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                    ),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height -
+                kToolbarHeight -
+                MediaQuery.of(context).padding.top,
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                    right: MediaQuery.of(context).size.width * 0.2,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    style: const TextStyle(color: Colors.white),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: buildInputDecoration(Icons.email, "Email"),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Email';
-                      }
-                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                          .hasMatch(value)) {
-                        return 'Please a valid Email';
-                      }
-                      return null;
-                    },
-                    onSaved: (String? value) {
-                      email = value;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'Password',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    controller: passwordController,
-                    style: const TextStyle(color: Colors.white),
-                    keyboardType: TextInputType.name,
-                    decoration: buildInputDecoration(Icons.lock, "Password"),
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Please Enter Password';
-                      } else if (value.length < 8) {
-                        return 'Password size is weak';
-                      }
-                      return null;
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        print("sign in button pressed");
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          try {
-                            await Provider.of<Auth>(context, listen: false)
-                                .signIn(
-                              email: email!.trim(),
-                              password: passwordController.text,
-                            );
-                          } on Exception catch (e) {
-                            UIHelper.showErrorDialog(
-                              context,
-                              'Error',
-                              e.toString().replaceAll('Exception:', '').trim(),
-                            );
-                          }
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(17),
-                          ),
-                          onPrimary: Colors.white,
-                          primary: Colors.red,
-                          elevation: 4),
-                      child: const Text(
-                        'Sign in',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Email',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: buildInputDecoration(Icons.email, "Email"),
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Email';
+                          }
+                          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                              .hasMatch(value)) {
+                            return 'Please a valid Email';
+                          }
+                          return null;
+                        },
+                        onSaved: (String? value) {
+                          email = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'Password',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        controller: passwordController,
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.name,
+                        decoration:
+                            buildInputDecoration(Icons.lock, "Password"),
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Please Enter Password';
+                          } else if (value.length < 8) {
+                            return 'Password size is weak';
+                          }
+                          return null;
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            print("sign in button pressed");
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              try {
+                                await Provider.of<Auth>(context, listen: false)
+                                    .signIn(
+                                  email: email!.trim(),
+                                  password: passwordController.text,
+                                );
+                              } on Exception catch (e) {
+                                UIHelper.showErrorDialog(
+                                  context,
+                                  'Error',
+                                  e
+                                      .toString()
+                                      .replaceAll('Exception:', '')
+                                      .trim(),
+                                );
+                              }
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(17),
+                              ),
+                              onPrimary: Colors.white,
+                              primary: Colors.red,
+                              elevation: 4),
+                          child: const Text(
+                            'Sign in',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(child: const SizedBox(height: 10)),
+                Center(
+                  child: TextButton(
+                    onPressed: () async {
+                      Provider.of<Auth>(context, listen: false).loginAnon();
+                    },
+                    child: const Text(
+                      'Continue as guest',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Expanded(child: const SizedBox(height: 10)),
-            Center(
-              child: TextButton(
-                onPressed: () async {
-                  Provider.of<Auth>(context, listen: false).loginAnon();
-                },
-                child: const Text(
-                  'Continue as guest',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
+                ),
+                Center(
+                  child: TextButton(
+                    onPressed: () async {
+                      Navigator.of(context).pushNamed(SignUpScreen.routeName);
+                    },
+                    child: const Text(
+                      'Don\'t have an account? Sign up',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-            Center(
-              child: TextButton(
-                onPressed: () async {
-                  Navigator.of(context).pushNamed(SignUpScreen.routeName);
-                },
-                child: const Text(
-                  'Don\'t have an account? Sign up',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
