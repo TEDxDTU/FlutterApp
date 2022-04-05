@@ -7,7 +7,6 @@ import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:tuple/tuple.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -62,55 +61,55 @@ class HomeScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              EventCategoryWidget(
-                title: '',
-                backgroundColor: CupertinoColors.darkBackgroundGray,
-                details: const [''],
-                isSvg: false,
-                width: mediaQuery.size.width * 0.438,
-                height: mediaQuery.size.width * 0.42 * 1.275,
-                actionButton: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
+              Expanded(
+                child: EventCategoryWidget(
+                  title: '',
+                  backgroundColor: CupertinoColors.darkBackgroundGray,
+                  details: const [''],
+                  isSvg: true,
+                  width: mediaQuery.size.width * 0.438,
+                  height: mediaQuery.size.width * 0.42 * 1.275,
+                  actionButton: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 18,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(TriviaScreen.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(TriviaScreen.routeName);
-                    },
                   ),
+                  showImage: true,
+                  gradientColor: Colors.transparent,
+                  svgAsset: 'assets/home_screen/trivia.svg',
+                  actionWidgetOffset: const Tuple2<double, double>(8, 8),
                 ),
-                showImage: true,
-                gradientColor: Colors.transparent,
-                imageProvider: const svg_provider.Svg(
-                  'assets/home_screen/trivia.svg',
-                ),
-                actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
-              EventCategoryWidget(
-                backgroundColor: CupertinoColors.darkBackgroundGray,
-                isSvg: false,
-                title: 'Recent Updates',
-                details: const [],
-                width: mediaQuery.size.width * 0.438,
-                height: mediaQuery.size.width * 0.42 * 1.275,
-                actionButton: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
+              Expanded(
+                child: EventCategoryWidget(
+                  backgroundColor: CupertinoColors.darkBackgroundGray,
+                  isSvg: true,
+                  title: 'Recent Updates',
+                  details: const [],
+                  width: mediaQuery.size.width * 0.438,
+                  height: mediaQuery.size.width * 0.42 * 1.275,
+                  actionButton: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 18,
+                      ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
                   ),
+                  gradientColor: Colors.transparent,
+                  showImage: true,
+                  svgAsset: 'assets/home_screen/recent_updates.svg',
+                  actionWidgetOffset: const Tuple2<double, double>(8, 8),
                 ),
-                gradientColor: Colors.transparent,
-                showImage: true,
-                imageProvider: const svg_provider.Svg(
-                  'assets/home_screen/recent_updates.svg',
-                ),
-                actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
             ],
           ),

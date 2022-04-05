@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
