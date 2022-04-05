@@ -10,14 +10,17 @@ class DiscoverGrabbing extends StatelessWidget {
     return ClipPath(
       clipper: GrabbingClipper(),
       child: Container(
+        padding: const EdgeInsets.only(bottom: 4),
         alignment: Alignment.bottomCenter,
         width: MediaQuery.of(context).size.width,
-        height: 80,
-        color: Colors.red,
-        child: AutoSizeText(
-          'Discover',
+        color: Theme.of(context).primaryColor,
+        child: const AutoSizeText(
+          'DISCOVER',
           maxFontSize: 18,
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

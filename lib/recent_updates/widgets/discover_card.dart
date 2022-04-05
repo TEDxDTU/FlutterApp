@@ -11,7 +11,6 @@ class DiscoverCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       width: 200,
-      height: 300,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
