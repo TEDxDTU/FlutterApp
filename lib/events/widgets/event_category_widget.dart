@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 import 'package:tuple/tuple.dart';
@@ -42,7 +44,8 @@ class EventCategoryWidget extends StatelessWidget {
     this.showImage = true,
     this.backgroundColor = Colors.white,
     this.imageHeroTag,
-    bool? isSvg,
+    this.svgAsset,
+    this.isSvg = false,
     Tuple2<double, double>? actionWidgetOffset,
     bool? showActionWidget,
     Color? fontColor,
@@ -57,7 +60,11 @@ class EventCategoryWidget extends StatelessWidget {
         showActionWidget = showActionWidget ?? true,
         actionWidgetOffset =
             actionWidgetOffset ?? const Tuple2<double, double>(18, 8),
-        isSvg = isSvg ?? false,
+        assert(
+            (isSvg == true && svgAsset != null) ||
+                (isSvg == false ||
+                    (imageProvider != null || showImage == false)),
+            '\n\nIf isSvg is set to true, provide svgAsset as well.\n\n'),
         super(key: key);
 
   final Color backgroundColor;
@@ -136,10 +143,13 @@ class EventCategoryWidget extends StatelessWidget {
   /// First value corresponds to right offset, second value to the bottom offset.
   final Tuple2<double, double> actionWidgetOffset;
 
-  /// If the provided [imageProvider] is an svg.
+  /// If the image being loaded is SVG, [svgAsset] must be provided along with
+  /// this flag.
   ///
-  /// Sets the background color to transparent.
+  /// Renders [SvgPicture.asset] instead of [Image].
   final bool isSvg;
+
+  final String? svgAsset;
 
   final String? imageHeroTag;
   @override
@@ -149,7 +159,7 @@ class EventCategoryWidget extends StatelessWidget {
       height: widgetHeight,
       width: widgetWidth,
       decoration: BoxDecoration(
-        color: isSvg ? Colors.transparent : backgroundColor,
+        color: backgroundColor,
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -182,12 +192,23 @@ class EventCategoryWidget extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
-                  child: imageHeroTag == null
-                      ? imageWidget()
-                      : Hero(
-                          tag: imageHeroTag!,
-                          child: imageWidget(),
-                        ),
+                  child: (isSvg)
+                      ? SvgPicture.asset(
+                          svgAsset!,
+                          fit: BoxFit.cover,
+                          placeholderBuilder: (BuildContext context) {
+                            return Center(
+                              child: loadingIndicator ??
+                                  const CircularProgressIndicator(),
+                            );
+                          },
+                        )
+                      : ((imageHeroTag == null)
+                          ? imageWidget()
+                          : Hero(
+                              tag: imageHeroTag!,
+                              child: imageWidget(),
+                            )),
                 ),
               ),
             Container(
@@ -281,7 +302,7 @@ class EventCategoryWidget extends StatelessWidget {
       );
     }
     return imageProvider == null
-        ? CustomImageWidget(
+        ? const CustomImageWidget(
             url:
                 'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive')
         : Image(

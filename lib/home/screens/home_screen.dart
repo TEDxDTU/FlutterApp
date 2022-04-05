@@ -7,7 +7,6 @@ import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:tuple/tuple.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -66,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                 title: '',
                 backgroundColor: CupertinoColors.darkBackgroundGray,
                 details: const [''],
-                isSvg: false,
+                isSvg: true,
                 width: mediaQuery.size.width * 0.438,
                 height: mediaQuery.size.width * 0.42 * 1.275,
                 actionButton: CircleAvatar(
@@ -83,14 +82,12 @@ class HomeScreen extends StatelessWidget {
                 ),
                 showImage: true,
                 gradientColor: Colors.transparent,
-                imageProvider: const svg_provider.Svg(
-                  'assets/home_screen/trivia.svg',
-                ),
+                svgAsset: 'assets/home_screen/trivia.svg',
                 actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
               EventCategoryWidget(
                 backgroundColor: CupertinoColors.darkBackgroundGray,
-                isSvg: false,
+                isSvg: true,
                 title: 'Recent Updates',
                 details: const [],
                 width: mediaQuery.size.width * 0.438,
@@ -107,9 +104,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 gradientColor: Colors.transparent,
                 showImage: true,
-                imageProvider: const svg_provider.Svg(
-                  'assets/home_screen/recent_updates.svg',
-                ),
+                svgAsset: 'assets/home_screen/recent_updates.svg',
                 actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
             ],
