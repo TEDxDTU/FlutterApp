@@ -16,7 +16,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  var _currentIndex = 2;
+  var _currentIndex = 3;
 
   var scrollPassed = false;
   // final heroController = HeroController();

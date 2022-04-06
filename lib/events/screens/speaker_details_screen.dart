@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +113,24 @@ class SpeakerDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
+    final routeArgs = (ModalRoute.of(context)?.settings.arguments ??
+        {
+          'name': 'Tony Stark',
+          'imageUrl':
+              'https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/35/IronMan-EndgameProfile.jpg/revision/latest/top-crop/width/360/height/360?cb=20190423175213',
+          'achievements': [
+            'Built arc reactor hajh kusdyfiuay dfiuaydsifuysad',
+            'Invented time travel kajshdkj kajshdsdfjh kajhsdkfdjh ask',
+            'Discovered new element'
+          ],
+          'bio':
+              'Iron Man is a superhero appearing in American comic books published by Marvel Comics. The character was co-created by writer and editor Stan Lee',
+          'topic': 'Avengers',
+          'resources': [
+            'https://en.wikipedia.org/wiki/Iron_Man',
+            'https://en.wikipedia.org/wiki/Iron_Man'
+          ],
+        }) as Map<String, Object>;
 
     double height =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
@@ -127,55 +145,53 @@ class SpeakerDetailsScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  width: double.infinity,
-                  // height: 155,
-                  constraints: const BoxConstraints(
-                    minHeight: 155,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: redSpeakerInfoBorderRadius,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: redSpeakerInfoBorderRadius,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: height * 0.28,
-                        top: height * 0.04,
-                        bottom: 10,
-                        right: 20,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            routeArgs['name'] as String,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: height * 0.027,
-                              fontWeight: FontWeight.bold,
-                            ),
+              Container(
+                width: double.infinity,
+                // height: 155,
+                constraints: BoxConstraints(
+                  minHeight: min(130,
+                      height - kToolbarHeight - kBottomNavigationBarHeight),
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: redSpeakerInfoBorderRadius,
+                ),
+                child: ClipRRect(
+                  borderRadius: redSpeakerInfoBorderRadius,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: height * 0.28,
+                      top: height * 0.04,
+                      bottom: 10,
+                      right: 20,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          routeArgs['name'] as String,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: height * 0.027,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ...(routeArgs['achievements'] as List<String>)
-                              .sublist(0, 2)
-                              .map((e) => AutoSizeText(
-                                    '• $e',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: height * 0.022,
-                                    ),
-                                    maxLines: 2,
-                                  ))
-                              .toList()
-                        ],
-                      ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ...(routeArgs['achievements'] as List<String>)
+                            .sublist(0, 2)
+                            .map((e) => AutoSizeText(
+                                  '• $e',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: height * 0.022,
+                                  ),
+                                  // maxLines: 2,
+                                ))
+                            .toList()
+                      ],
                     ),
                   ),
                 ),
@@ -266,7 +282,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: kBottomNavigationBarHeight + 50),
+              const SizedBox(height: kBottomNavigationBarHeight),
             ],
           ),
           Positioned(
