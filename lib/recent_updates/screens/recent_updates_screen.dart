@@ -92,9 +92,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
               SizedBox(height: _grabbingVisibleHeight),
               RecentUpdatesCard(
                 recentUpdate,
-                onThumbsUp: () {
-                  print('Thumbs up pressed');
-                },
                 onShare: () {
                   print('Send pressed');
                 },
@@ -104,9 +101,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
               ),
               RecentUpdatesCard(
                 recentUpdate,
-                onThumbsUp: () {
-                  print('Thumbs up pressed');
-                },
                 onShare: () {
                   print('Send pressed');
                 },
@@ -116,9 +110,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
               ),
               RecentUpdatesCard(
                 recentUpdate,
-                onThumbsUp: () {
-                  print('Thumbs up pressed');
-                },
                 onShare: () {
                   print('Send pressed');
                 },
@@ -128,9 +119,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
               ),
               RecentUpdatesCard(
                 recentUpdate,
-                onThumbsUp: () {
-                  print('Thumbs up pressed');
-                },
                 onShare: () {
                   print('Send pressed');
                 },
@@ -140,9 +128,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
               ),
               RecentUpdatesCard(
                 recentUpdate,
-                onThumbsUp: () {
-                  print('Thumbs up pressed');
-                },
                 onShare: () {
                   print('Send pressed');
                 },
@@ -152,9 +137,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
               ),
               RecentUpdatesCard(
                 recentUpdate,
-                onThumbsUp: () {
-                  print('Thumbs up pressed');
-                },
                 onShare: () {
                   print('Send pressed');
                 },
