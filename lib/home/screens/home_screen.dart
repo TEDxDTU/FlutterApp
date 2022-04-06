@@ -42,7 +42,11 @@ class HomeScreen extends StatelessWidget {
                       isLive: true,
                       dateTime: LiveEvent.instance!.date,
                       imageUrl: LiveEvent.instance!.imageUrl,
-                      width: 145,
+                      width: mediaQuery.size.width / 3,
+                      // height: (mediaQuery.size.height -
+                      //         mediaQuery.padding.top -
+                      //         kToolbarHeight) *
+                      //     0.4,
                       borderRadius: 27,
                       onPressed: () {
                         Navigator.of(context)

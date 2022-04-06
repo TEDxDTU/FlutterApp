@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -76,8 +78,9 @@ class SingleStoryScreen extends StatelessWidget {
             // Story info
             DraggableScrollableSheet(
               initialChildSize: 0.31,
-              minChildSize: 180 / height,
-              maxChildSize: 0.61,
+              minChildSize: min(0.3, 180 / height),
+              // maxChildSize: 0.61,
+              // snapSizes: [min(0.3, 180 / height), 0.61, 0.7],
               // expand: false,
               snap: true,
               builder: (_, controller) {

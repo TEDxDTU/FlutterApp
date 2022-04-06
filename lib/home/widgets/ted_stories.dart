@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,8 +65,11 @@ class _TedStoriesState extends State<TedStories> {
 
   @override
   Widget build(BuildContext context) {
+    double? height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
     return SizedBox(
-      height: 280,
+      height: max(220, height * 0.4),
       child: Column(
         children: [
           Align(
@@ -94,6 +99,8 @@ class _TedStoriesState extends State<TedStories> {
                           leadingText: e.title,
                           dateTime: e.dateTime,
                           imageUrl: e.imageUrl,
+                          // height: height * 0.4,
+                          width: MediaQuery.of(context).size.width / 3,
                           onPressed: () {
                             Navigator.of(context).pushNamed(
                               NoBottomBarScreen.routeName,
