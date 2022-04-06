@@ -78,7 +78,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
           child: AnyLinkPreview(
             link: url,
             backgroundColor: Colors.white,
-            displayDirection: UIDirection.UIDirectionHorizontal,
+            displayDirection: uiDirection.uiDirectionHorizontal,
             errorWidget: GestureDetector(
               // splashColor: Colors.black,
               // style: ElevatedButton.styleFrom(

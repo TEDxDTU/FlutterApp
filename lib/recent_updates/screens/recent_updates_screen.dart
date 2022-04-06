@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/recent_updates/helpers/grabbing_clipper.dart';
 import 'package:tedx_dtu_app/recent_updates/widgets/discover_card.dart';
 import '../../recent_updates/models/discover.dart';
 import '../../recent_updates/models/recent_update.dart';
@@ -160,84 +161,90 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
           ),
           Positioned(
             top: _discoverPosition,
-            child: SizedBox(
-              width: mediaQuery.size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: mediaQuery.size.width,
-                    height: discoverCardHeight,
-                    color: _primaryColor,
-                    child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      controller: _scrollController,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        DiscoverCard(discover),
-                        DiscoverCard(discover),
-                        DiscoverCard(discover),
-                        DiscoverCard(discover),
-                      ],
+            child: ClipPath(
+              clipper: GrabbingClipper(),
+              child: SizedBox(
+                width: mediaQuery.size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: mediaQuery.size.width,
+                      height: discoverCardHeight,
+                      color: _primaryColor,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          DiscoverCard(discover),
+                          DiscoverCard(discover),
+                          DiscoverCard(discover),
+                          DiscoverCard(discover),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: mediaQuery.size.width,
-                    height: _scrollbarAreaHeight,
-                    color: _primaryColor,
-                    child: Center(
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: _scrollbarWidth,
-                        height: 4,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFB41105),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
+                    Container(
+                      width: mediaQuery.size.width,
+                      height: _scrollbarAreaHeight,
+                      color: _primaryColor,
+                      child: Center(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: _scrollbarWidth,
+                          height: 4,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFB41105),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: _scrollPosition,
-                              decoration: const BoxDecoration(
-                                color: Color(0XFFCCCCCC),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: _scrollPosition,
+                                decoration: const BoxDecoration(
+                                  color: Color(0XFFCCCCCC),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    child: SizedBox(
-                      height: grabbingHeight,
-                      child: const DiscoverGrabbing(),
+                    GestureDetector(
+                      child: SizedBox(
+                        width: mediaQuery.size.width,
+                        height: grabbingHeight,
+                        child: const DiscoverGrabbing(),
+                      ),
+                      onVerticalDragUpdate:
+                          (DragUpdateDetails dragStartDetails) {
+                        _currTouchPos = dragStartDetails.localPosition.dy;
+                        double currOffsetVal =
+                            (_currTouchPos - _initialTouchPos);
+                        if ((currOffsetVal <
+                                -(discoverCardHeight +
+                                    grabbingHeight +
+                                    _scrollbarAreaHeight -
+                                    _grabbingVisibleHeight) ||
+                            (currOffsetVal > 0))) {
+                          return;
+                        }
+                        setState(() {
+                          _discoverPosition = currOffsetVal;
+                        });
+                      },
+                      onVerticalDragStart: (DragStartDetails dragStartDetails) {
+                        _initialTouchPos = dragStartDetails.localPosition.dy -
+                            _discoverPosition;
+                      },
                     ),
-                    onVerticalDragUpdate: (DragUpdateDetails dragStartDetails) {
-                      _currTouchPos = dragStartDetails.localPosition.dy;
-                      double currOffsetVal = (_currTouchPos - _initialTouchPos);
-                      if ((currOffsetVal <
-                              -(discoverCardHeight +
-                                  grabbingHeight +
-                                  _scrollbarAreaHeight -
-                                  _grabbingVisibleHeight) ||
-                          (currOffsetVal > 0))) {
-                        return;
-                      }
-                      setState(() {
-                        _discoverPosition = currOffsetVal;
-                      });
-                    },
-                    onVerticalDragStart: (DragStartDetails dragStartDetails) {
-                      _initialTouchPos =
-                          dragStartDetails.localPosition.dy - _discoverPosition;
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

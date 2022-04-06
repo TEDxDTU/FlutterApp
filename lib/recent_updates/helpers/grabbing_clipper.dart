@@ -1,140 +1,54 @@
-import 'dart:math' as math;
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class GrabbingClipper extends CustomClipper<Path> {
-  // Offset findMidpointOfArc(Offset begin, Offset end) {}
-
   @override
   Path getClip(Size size) {
-    Path path = Path();
-    path.moveTo(0, 0);
-    double middleWidth = size.width * 0.3; // Width off the middle section
-    double extremumWidth =
-        size.width * 0.1; // Width of the extreme left and extreme right space
-    double qBezierWidth = size.width * 0.125; // width of the beziers
-    double baseHeight = size.height * 0.3; // Height of base region
-    double qBezierHeight = size.height * 0.35; // Height of beziers
-    // double qBezierRadius = 50;
-
-    // Draw a straight base line
-    path.lineTo(size.width, 0);
-    // Draw a vertical line to complete base region
-    path.lineTo(size.width, baseHeight);
-    // Draw a horizontal right extreme line
-    path.lineTo(size.width - extremumWidth, baseHeight);
-    // Draw a concave quadratic bezier on the right side
-    // Starting point == [size.width - extremumWidth, baseHeight]
-    // Ending point == [size.width - extremumWidth - qBezierWidth, baseHeight + qBezierHeight]
-    // Control point == mid point of the arc
-
-    // Offset rightFirstArc = findMidpointOfArc(
-    //   Offset(size.width - extremumWidth, baseHeight),
-    // Offset(
-    //   size.width - extremumWidth - qBezierWidth,
-    //   baseHeight + qBezierHeight,
-    // ),
-    // );
-
-    // path.quadraticBezierTo(
-    //   rightFirstArc.dx,
-    //   rightFirstArc.dy,
-    //   size.width - extremumWidth - qBezierWidth,
-    //   baseHeight + qBezierHeight,
-    // );
-
-    path.lineTo(
-      size.width - extremumWidth - qBezierWidth,
-      baseHeight + qBezierHeight,
-    );
-    path.lineTo(
-      size.width - extremumWidth - qBezierWidth - qBezierWidth,
-      baseHeight + qBezierHeight + qBezierHeight,
-    );
-
-    // Middle line
-    path.lineTo(
-      size.width - extremumWidth - qBezierWidth - qBezierWidth - middleWidth,
-      baseHeight + qBezierHeight + qBezierHeight,
-    );
-
-    path.lineTo(
-      size.width -
-          extremumWidth -
-          qBezierWidth -
-          qBezierWidth -
-          middleWidth -
-          qBezierWidth,
-      baseHeight + qBezierHeight + qBezierHeight - qBezierHeight,
-    );
-    path.lineTo(
-      size.width -
-          extremumWidth -
-          qBezierWidth -
-          qBezierWidth -
-          middleWidth -
-          qBezierWidth -
-          qBezierWidth,
-      baseHeight +
-          qBezierHeight +
-          qBezierHeight -
-          qBezierHeight -
-          qBezierHeight,
-    );
-    path.lineTo(
-      0,
-      baseHeight +
-          qBezierHeight +
-          qBezierHeight -
-          qBezierHeight -
-          qBezierHeight,
-    );
-
-    // double width = size.width * 0.33;
-    // Path path = Path();
-
-    // // path.moveTo(0, 0);
-    // // path.lineTo(size.width, 0);
-    // // path.lineTo(size.width, size.height * 0.2);
-    // // path.lineTo(size.width - width, size.height * 0.2);
-
-    // // path.quadraticBezierTo(
-    // //   size.width - width * 1.0753,
-    // //   size.height * (0.2) + size.height * 0.433,
-    // //   size.width - width - width * 0.1,
-    // //   size.height * (0.2 + 0.4),
-    // // );
-
-    // // // path.lineTo(
-    // // //   size.width - width - width * 0.1,
-    // // //   size.height * (0.2 + 0.4),
-    // // // );
-    // // path.lineTo(
-    // //   size.width - width - width * 0.2,
-    // //   size.height,
-    // // );
-    // // path.lineTo(
-    // //   size.width - width * 2 + width * 0.2,
-    // //   size.height,
-    // // );
-    // // path.lineTo(
-    // //   size.width - width * 2 + width * 0.2 - width * 0.1,
-    // //   size.height - size.height * 0.4,
-    // // );
-    // // path.lineTo(
-    // //   size.width - width * 2 + width * 0.2 - width * 0.2,
-    // //   size.height - size.height * 0.8,
-    // // );
-    // // path.lineTo(
-    // //   0,
-    // //   size.height - size.height * 0.8,
-    // // );
-
-    return path;
+    Path path_0 = Path();
+    path_0.moveTo(size.width * 0.2606873, size.height * 0.8855058);
+    path_0.lineTo(size.width * 0.01550388, size.height * 0.8855058);
+    path_0.lineTo(size.width * 0.01550388, size.height * 0.008670520);
+    path_0.lineTo(size.width * 0.9844961, size.height * 0.008670520);
+    path_0.lineTo(size.width * 0.9844961, size.height * 0.8855058);
+    path_0.lineTo(size.width * 0.7367339, size.height * 0.8855058);
+    path_0.cubicTo(
+        size.width * 0.7161059,
+        size.height * 0.8855058,
+        size.width * 0.6963282,
+        size.height * 0.8947023,
+        size.width * 0.6817804,
+        size.height * 0.9110578);
+    path_0.lineTo(size.width * 0.6561059, size.height * 0.9399191);
+    path_0.cubicTo(
+        size.width * 0.6367080,
+        size.height * 0.9617283,
+        size.width * 0.6103385,
+        size.height * 0.9739884,
+        size.width * 0.5828346,
+        size.height * 0.9739884);
+    path_0.lineTo(size.width * 0.4987106, size.height * 0.9739884);
+    path_0.lineTo(size.width * 0.4145840, size.height * 0.9739884);
+    path_0.cubicTo(
+        size.width * 0.3870827,
+        size.height * 0.9739884,
+        size.width * 0.3607132,
+        size.height * 0.9617283,
+        size.width * 0.3413127,
+        size.height * 0.9399191);
+    path_0.lineTo(size.width * 0.3156408, size.height * 0.9110578);
+    path_0.cubicTo(
+        size.width * 0.3010904,
+        size.height * 0.8947023,
+        size.width * 0.2813152,
+        size.height * 0.8855058,
+        size.width * 0.2606873,
+        size.height * 0.8855058);
+    path_0.close();
+    return path_0;
   }
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
+    return true;
   }
 }
