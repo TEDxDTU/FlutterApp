@@ -233,6 +233,8 @@ class MyApp extends StatelessWidget {
                                   const TriviaWelcomeScreen(),
                               TriviaCountdownScreen.routeName: (context) =>
                                   const TriviaCountdownScreen(),
+                              EventsListScreen.routeName: (context) =>
+                                  const EventsListScreen(),
                             },
                           ),
                           BottomBarScreen(

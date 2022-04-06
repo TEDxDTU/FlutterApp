@@ -9,6 +9,8 @@ import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
 import 'package:tuple/tuple.dart';
 
+import '../../events/screens/events_list_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
     Key? key,
@@ -180,6 +182,8 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   print('Redirect to ticket screen');
+                  Navigator.of(context)
+                      .pushNamed(EventsListScreen.routeName, arguments: true);
                 },
               )
             ],
