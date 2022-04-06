@@ -51,12 +51,18 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
 
   @override
   void didChangeDependencies() {
-    discoverCardHeight = MediaQuery.of(context).size.height * 0.4;
+    discoverCardHeight = MediaQuery.of(context).size.height * 0.35;
     _discoverPosition = -(discoverCardHeight +
         grabbingHeight +
         _scrollbarAreaHeight -
         _grabbingVisibleHeight);
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -163,7 +169,8 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
             top: _discoverPosition,
             child: ClipPath(
               clipper: GrabbingClipper(),
-              child: SizedBox(
+              child: Container(
+                color: _primaryColor,
                 width: mediaQuery.size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

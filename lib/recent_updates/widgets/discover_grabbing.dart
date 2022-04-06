@@ -18,6 +18,7 @@ class DiscoverGrabbing extends StatelessWidget {
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
+          color: Color(0xFFFFADAD),
         ),
       ),
     );

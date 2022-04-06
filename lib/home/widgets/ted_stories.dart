@@ -62,6 +62,12 @@ class _TedStoriesState extends State<TedStories> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 280,

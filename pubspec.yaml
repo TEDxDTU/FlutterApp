@@ -55,7 +55,6 @@ dependencies:
   firebase_storage: ^10.2.5
   shimmer: ^2.0.0
   cached_network_image: ^3.2.0
-  snapping_sheet: ^3.1.0
 
 dev_dependencies:
   flutter_test:
