@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
 import 'package:tedx_dtu_app/trivia/providers/leaderboard_provider.dart';
+
+import '../../global/widgets/refresh_button.dart';
 
 class LeaderboardRow extends StatelessWidget {
   const LeaderboardRow({Key? key}) : super(key: key);
@@ -28,13 +31,13 @@ class LeaderboardRow extends StatelessWidget {
             builder: (context, leaderboardProvider, _) {
               return Column(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Provider.of<LeaderboardProvider>(context)
+                  RefreshButton(
+                    onPressed: () async {
+                      await Provider.of<LeaderboardProvider>(context,
+                              listen: false)
                           .fetchData(true)
                           ?.call();
                     },
-                    icon: Icon(Icons.refresh),
                   ),
                   SizedBox(
                     height: 110,
