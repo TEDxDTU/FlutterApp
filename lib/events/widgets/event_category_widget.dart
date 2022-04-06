@@ -176,119 +176,122 @@ class EventCategoryWidget extends StatelessWidget {
             cardFunction!();
           }
         },
-        child: Stack(
-          children: [
-            if (showImage)
-              Container(
-                height: widgetHeight,
-                width: widgetWidth,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
+        child: Material(
+          color: Colors.transparent,
+          child: Stack(
+            children: [
+              if (showImage)
+                Container(
+                  height: widgetHeight,
+                  width: widgetWidth,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    color: Colors.transparent,
                   ),
-                  color: Colors.transparent,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    child: (isSvg)
+                        ? SvgPicture.asset(
+                            svgAsset!,
+                            fit: BoxFit.cover,
+                            placeholderBuilder: (BuildContext context) {
+                              return Center(
+                                child: loadingIndicator ??
+                                    const CircularProgressIndicator(),
+                              );
+                            },
+                          )
+                        : ((imageHeroTag == null)
+                            ? imageWidget()
+                            : Hero(
+                                tag: imageHeroTag!,
+                                child: imageWidget(),
+                              )),
+                  ),
                 ),
-                child: ClipRRect(
+              Container(
+                decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
-                  child: (isSvg)
-                      ? SvgPicture.asset(
-                          svgAsset!,
-                          fit: BoxFit.cover,
-                          placeholderBuilder: (BuildContext context) {
-                            return Center(
-                              child: loadingIndicator ??
-                                  const CircularProgressIndicator(),
-                            );
-                          },
-                        )
-                      : ((imageHeroTag == null)
-                          ? imageWidget()
-                          : Hero(
-                              tag: imageHeroTag!,
-                              child: imageWidget(),
-                            )),
+                  color: backgroundColor,
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      color,
+                      Colors.transparent,
+                    ],
+                  ),
                 ),
               ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 20,
                 ),
-                color: backgroundColor,
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    color,
-                    Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: fontColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(height: widgetHeight * 0.08),
+                    ...details.map((detail) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text(
+                          detail,
+                          style: TextStyle(
+                            color: fontColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 20,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: fontColor,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 24,
-                    ),
-                  ),
-                  SizedBox(height: widgetHeight * 0.08),
-                  ...details.map((detail) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Text(
-                        detail,
-                        style: TextStyle(
-                          color: fontColor,
-                          fontSize: 14,
+              // Action Widget, shown at bottom right.
+              if (showActionWidget == true)
+                Positioned(
+                  bottom: actionWidgetOffset.item2,
+                  right: actionWidgetOffset.item1,
+                  child: actionButton ??
+                      ElevatedButton(
+                        child: actionWidget,
+                        style: ElevatedButton.styleFrom(
+                          primary: color,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
+                        onPressed: () {
+                          if (actionWidgetFunction != null) {
+                            actionWidgetFunction!();
+                          }
+                        },
                       ),
-                    );
-                  }).toList(),
-                ],
-              ),
-            ),
-            // Action Widget, shown at bottom right.
-            if (showActionWidget == true)
-              Positioned(
-                bottom: actionWidgetOffset.item2,
-                right: actionWidgetOffset.item1,
-                child: actionButton ??
-                    ElevatedButton(
-                      child: actionWidget,
-                      style: ElevatedButton.styleFrom(
-                        primary: color,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (actionWidgetFunction != null) {
-                          actionWidgetFunction!();
-                        }
-                      },
-                    ),
-              ),
-            if (trailing != null)
-              Positioned(
-                top: 18,
-                right: 18,
-                child: trailing!,
-              ),
-          ],
+                ),
+              if (trailing != null)
+                Positioned(
+                  top: 18,
+                  right: 18,
+                  child: trailing!,
+                ),
+            ],
+          ),
         ),
       ),
     );

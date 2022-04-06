@@ -78,6 +78,7 @@ class HomeScreen extends StatelessWidget {
                   actionButton: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: IconButton(
+                      splashRadius: 28,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         size: 18,
@@ -104,6 +105,7 @@ class HomeScreen extends StatelessWidget {
                   actionButton: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: IconButton(
+                      splashRadius: 28,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         size: 18,
