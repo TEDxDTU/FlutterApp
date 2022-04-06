@@ -1,6 +1,3 @@
-import 'dart:math' as math;
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
 
@@ -30,7 +27,7 @@ class RecentUpdatesCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        color: CupertinoColors.darkBackgroundGray,
+        color: Colors.grey[850],
         border: Border.all(
           width: 1,
           color: Colors.white,
@@ -87,7 +84,7 @@ class RecentUpdatesCard extends StatelessWidget {
                   flex: 2,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF888888),
+                      primary: Colors.grey[600],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -104,7 +101,7 @@ class RecentUpdatesCard extends StatelessWidget {
                   flex: 6,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF888888),
+                      primary: Colors.grey[600],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                         side: const BorderSide(
