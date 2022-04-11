@@ -29,6 +29,7 @@ import 'package:tedx_dtu_app/trivia/screens/trivia_welcome_screen.dart';
 
 import 'events/widgets/event_info_widget.dart';
 import 'global/models/bottom_bar_screen.dart';
+import 'global/providers/config.dart';
 import 'home/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => TriviaProvider()),
         ChangeNotifierProvider(create: (_) => LeaderboardProvider()),
+        ChangeNotifierProvider(create: (_) => Config())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
