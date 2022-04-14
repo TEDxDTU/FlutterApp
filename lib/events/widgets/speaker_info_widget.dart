@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/models/event.dart';
 import 'package:tedx_dtu_app/events/models/speaker.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
-import 'package:tedx_dtu_app/global/widgets/image_error_widget.dart';
 
 import '../../global/widgets/custom_image_widget.dart';
 
@@ -48,7 +47,8 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
   @override
   void initState() {
     if (widget.isCurrent) {
-      timer = Timer.periodic(Duration(seconds: 1, milliseconds: 500), (timer) {
+      timer = Timer.periodic(const Duration(seconds: 1, milliseconds: 500),
+          (timer) {
         setState(() {
           _switched = !_switched;
         });
@@ -81,13 +81,13 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
         );
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 600),
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.all(8),
         width: widget.width,
         // height: height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(20),
           ),
           color: _switched ? Color(0xff82ff90) : Colors.white,
@@ -135,6 +135,7 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                               fontSize: 14,
                               color: Colors.black,
                             ),
+                          ),
                         )
                         .toList(),
                   ],

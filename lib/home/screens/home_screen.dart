@@ -111,12 +111,11 @@ class HomeScreen extends StatelessWidget {
                         Icons.arrow_forward_ios,
                         size: 18,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(RecentUpdatesScreen.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(RecentUpdatesScreen.routeName);
-                    },
                   ),
                   gradientColor: Colors.transparent,
                   showImage: true,
