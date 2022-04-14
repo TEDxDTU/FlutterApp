@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
 import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../home/screens/no_bottombar_screen.dart';
 
@@ -96,7 +97,10 @@ class RecentUpdatesCard extends StatelessWidget {
                       Icons.share,
                       color: Colors.white,
                     ),
-                    onPressed: onShare,
+                    onPressed: () {
+                      Share.share(
+                          'Hey! Come check this update in TEDxDTU application\n$url');
+                    },
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -123,7 +127,7 @@ class RecentUpdatesCard extends StatelessWidget {
                       Navigator.of(context)
                           .pushNamed(NoBottomBarScreen.routeName, arguments: {
                         'child': WebsiteView(),
-                        'url': 'https://www.ted.com',
+                        'url': url,
                       });
                     },
                   ),

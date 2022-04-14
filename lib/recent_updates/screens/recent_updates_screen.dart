@@ -102,35 +102,35 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onShare: () {
                   print('Send pressed');
                 },
-                url: 'ted.com',
+                url: 'https://www.ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                url: 'ted.com',
+                url: 'https://www.ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                url: 'ted.com',
+                url: 'https://www.ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                url: 'ted.com',
+                url: 'https://www.ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                url: 'ted.com',
+                url: 'https://www.ted.com',
               ),
               const SizedBox(height: 80),
             ],
