@@ -64,6 +64,12 @@ class _TedStoriesState extends State<TedStories> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double? height = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -

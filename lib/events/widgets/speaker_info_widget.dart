@@ -135,7 +135,6 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
                               fontSize: 14,
                               color: Colors.black,
                             ),
-                          ),
                         )
                         .toList(),
                   ],

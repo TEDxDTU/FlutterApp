@@ -55,6 +55,8 @@ dependencies:
   shimmer: ^2.0.0
   cached_network_image: ^3.2.0
   transformer_page_view: ^0.1.6
+  flutter_inappwebview: ^5.3.2
+  share_plus: ^4.0.4
 
 dev_dependencies:
   flutter_test:
