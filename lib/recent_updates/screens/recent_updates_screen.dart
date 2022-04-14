@@ -95,54 +95,42 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
                 onShare: () {
                   print('Send pressed');
                 },
-                onOpenPressed: () {
-                  print('Pressed open');
-                },
+                url: 'https://www.ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                onOpenPressed: () {
-                  print('Pressed open');
-                },
+                url: 'ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                onOpenPressed: () {
-                  print('Pressed open');
-                },
+                url: 'ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                onOpenPressed: () {
-                  print('Pressed open');
-                },
+                url: 'ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                onOpenPressed: () {
-                  print('Pressed open');
-                },
+                url: 'ted.com',
               ),
               RecentUpdatesCard(
                 recentUpdate,
                 onShare: () {
                   print('Send pressed');
                 },
-                onOpenPressed: () {
-                  print('Pressed open');
-                },
+                url: 'ted.com',
               ),
               const SizedBox(height: 80),
             ],

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
+
+import '../../home/screens/no_bottombar_screen.dart';
 
 class RecentUpdatesCard extends StatelessWidget {
   const RecentUpdatesCard(
     this.update, {
     required this.onShare,
-    required this.onOpenPressed,
+    required this.url,
     Key? key,
   }) : super(key: key);
 
   final RecentUpdate update;
   final void Function()? onShare;
-  final void Function()? onOpenPressed;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +119,13 @@ class RecentUpdatesCard extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: onOpenPressed,
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(NoBottomBarScreen.routeName, arguments: {
+                        'child': WebsiteView(),
+                        'url': 'https://www.ted.com',
+                      });
+                    },
                   ),
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
@@ -16,6 +17,7 @@ import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
 import 'package:tedx_dtu_app/recent_updates/screens/recent_updates_screen.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
 import 'package:tedx_dtu_app/trivia/providers/leaderboard_provider.dart';
 import 'package:tedx_dtu_app/trivia/providers/trivia_provider.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_attempt_screen.dart';
@@ -237,6 +239,8 @@ class MyApp extends StatelessWidget {
                                   const TriviaCountdownScreen(),
                               RecentUpdatesScreen.routeName: (context) =>
                                   const RecentUpdatesScreen(),
+                              WebsiteView.routeName: (context) =>
+                                  const WebsiteView(),
                             },
                           ),
                           BottomBarScreen(
