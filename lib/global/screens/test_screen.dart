@@ -28,9 +28,11 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         // body: Center(child: YoutubeEmbedWidget(url: url)),
-        body: Center(
-            child: YoutubeEmbedWidget(
-      url: url,
-    )));
+        // body: Center(
+        //   child: YoutubeEmbedWidget(
+        //     url: url,
+        //   ),
+        // ),
+        );
   }
 }

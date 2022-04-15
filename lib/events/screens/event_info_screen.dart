@@ -11,6 +11,7 @@ import 'package:tedx_dtu_app/events/widgets/past_event_gallery.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
+import 'package:tedx_dtu_app/global/widgets/youtube_embed_widget.dart';
 
 import '../widgets/live_event_info_widget.dart';
 
@@ -114,19 +115,21 @@ class EventInfoScreen extends StatelessWidget {
                   Column(
                     children: [
                       //TODO: Replace with YT embed
-                      EventCategoryWidget(
-                        title: e.title,
-                        details: [
-                          e.details,
-                        ],
-                        width: double.infinity,
-                        height: mediaQuery.size.height * 0.25,
-                        showActionWidget: false,
-                        showImage: true,
-                        imageProvider: NetworkImage(e.imageUrl),
-                        // gradientColor: Colors.black,
-                        imageHeroTag: e.imageUrl,
-                      ),
+                      (e is UpcomingEvent)
+                          ? EventCategoryWidget(
+                              title: e.title,
+                              details: [
+                                e.details,
+                              ],
+                              width: double.infinity,
+                              height: mediaQuery.size.height * 0.25,
+                              showActionWidget: false,
+                              showImage: true,
+                              imageProvider: NetworkImage(e.imageUrl),
+                              // gradientColor: Colors.black,
+                              imageHeroTag: e.imageUrl,
+                            )
+                          : YoutubeEmbedWidget(),
                       Container(
                         width: double.infinity,
                         height: mediaQuery.size.height * 0.08,
