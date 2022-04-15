@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
 import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
@@ -47,6 +48,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     const Color primary = Color(0xffE62B1E);
 
     return MultiProvider(

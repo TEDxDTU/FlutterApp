@@ -58,10 +58,11 @@ class EventInfoScreen extends StatelessWidget {
       builder: (context, snapshot) {
         // print(snapshot.data);
         print('new stream event');
-        // if (LiveEvent.instance == null) return TedxLoadingSpinner();
-        if (eventType == 'live' &&
-            (snapshot.connectionState == ConnectionState.waiting ||
-                !snapshot.hasData)) {
+        if (LiveEvent.instance == null) return TedxLoadingSpinner();
+        if (eventType == 'live' && (!snapshot.hasData)) {
+          print("HEREEEEEEEEEEEEE");
+          print(snapshot.connectionState);
+          print(snapshot.data);
           return const Center(child: TedxLoadingSpinner());
         }
         Event e;
