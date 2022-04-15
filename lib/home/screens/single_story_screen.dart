@@ -80,7 +80,7 @@ class SingleStoryScreen extends StatelessWidget {
               initialChildSize: 0.31,
               minChildSize: min(0.3, 180 / height),
               // maxChildSize: 0.61,
-              // snapSizes: [min(0.3, 180 / height), 0.61, 0.7],
+              snapSizes: [min(0.3, 180 / height), 0.61, 0.7],
               // expand: false,
               snap: true,
               builder: (_, controller) {
