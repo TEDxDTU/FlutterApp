@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/screens/speaker_details_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/ticket_widget.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/recent_updates_screen.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 
@@ -21,16 +22,6 @@ class _TestScreenState extends State<TestScreen> {
   final _key = GlobalKey<RotatingWidgetState>();
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ElevatedButton(
-      child: Text('Click me!'),
-      onPressed: () {
-        Navigator.of(context)
-            .pushNamed(NoBottomBarScreen.routeName, arguments: {
-          'child': WebsiteView(),
-          'url': 'https://www.ted.com',
-        });
-      },
-    ));
+    return RecentUpdatesScreen();
   }
 }
