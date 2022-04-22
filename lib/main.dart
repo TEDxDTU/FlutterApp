@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,7 @@ import 'package:tedx_dtu_app/trivia/screens/trivia_welcome_screen.dart';
 
 import 'events/widgets/event_info_widget.dart';
 import 'global/models/bottom_bar_screen.dart';
+import 'global/providers/config.dart';
 import 'home/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -52,6 +54,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     const Color primary = Color(0xffE62B1E);
 
     return MultiProvider(
@@ -62,6 +68,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => TriviaProvider()),
         ChangeNotifierProvider(create: (_) => LeaderboardProvider()),
+        ChangeNotifierProvider(create: (_) => Config())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
