@@ -73,7 +73,7 @@ class _DiscoverAreaState extends State<DiscoverArea> {
     double step = (finalPosition - _discoverPosition) / 30;
     i = 0;
     timer = Timer.periodic(Duration.zero, (timer) {
-      print(DateTime.now());
+      // print(DateTime.now());
       if (i >= 30) {
         timer.cancel();
         return;
@@ -141,8 +141,18 @@ class _DiscoverAreaState extends State<DiscoverArea> {
               dragStartDetails.localPosition.dy - _discoverPosition;
         },
         onVerticalDragEnd: (DragEndDetails dragEndDetails) {
-          // print(dragEndDetails.velocity.pixelsPerSecond.);
-          if (_discoverPosition < -(discoverAreaHeight / 2 + grabbingHeight)) {
+          print(DateTime.now().toString() +
+              " " +
+              dragEndDetails.velocity.pixelsPerSecond.dy.toString() +
+              " " +
+              dragEndDetails.velocity.pixelsPerSecond.direction.toString());
+          double velocity = dragEndDetails.velocity.pixelsPerSecond.dy;
+          if (velocity < -600) {
+            animateTo(-discoverAreaHeight);
+          } else if (velocity > 600) {
+            animateTo(0);
+          } else if (_discoverPosition <
+              -(discoverAreaHeight / 2 + grabbingHeight)) {
             animateTo(-discoverAreaHeight);
           } else {
             setState(() {
