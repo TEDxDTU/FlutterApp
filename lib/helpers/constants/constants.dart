@@ -2,7 +2,6 @@
 ///
 /// During development, anyone using this should
 /// paste their own IPv4 address here.
-
 // Satvik iPhone Hotspot:
 // String nodeServerBaseUrl = 'http://172.20.10.2:3000';
 //Satvik Home:
