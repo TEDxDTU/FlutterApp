@@ -106,6 +106,7 @@ class _DiscoverAreaState extends State<DiscoverArea> {
         onVerticalDragUpdate: (DragUpdateDetails dragUpdateDetails) {
           _currTouchPos = dragUpdateDetails.localPosition.dy;
           double currOffsetVal = (_currTouchPos - _initialTouchPos);
+          print(currOffsetVal);
           if ((currOffsetVal < -discoverAreaHeight || (currOffsetVal > 0))) {
             return;
           }

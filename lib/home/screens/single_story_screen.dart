@@ -10,6 +10,7 @@ import 'package:tedx_dtu_app/home/models/story.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 
 import '../../global/widgets/custom_image_widget.dart';
+import '../../global/widgets/youtube_embed_widget.dart';
 
 /// Displays a full screen view of the story's details
 /// NO BOTTOM BAR should be present in this.
@@ -39,9 +40,24 @@ class SingleStoryScreen extends StatelessWidget {
             // TODO:Replace with YT Embed
             Positioned.fill(
               //Replace with YT embed
-              child: CustomImageWidget(
-                url: story.imageUrl,
-                fit: BoxFit.cover,
+              // child: CustomImageWidget(
+              //   url: story.imageUrl,
+              //   fit: BoxFit.cover,
+              // ),
+              child: Container(
+                color: Colors.black,
+                padding: EdgeInsets.only(
+                  bottom: height * min(0.15, 150 / height),
+                  top: MediaQuery.of(context).padding.top,
+                ),
+                child: YoutubeEmbedWidget(
+                  url:
+                      "https://www.youtube.com/watch?v=Y2Oj9gllHno&ab_channel=AakashGupta",
+                  aspectRatio: width /
+                      (height -
+                          MediaQuery.of(context).padding.top -
+                          height * min(0.15, 150 / height)),
+                ),
               ),
             ),
             // Back button
@@ -78,8 +94,8 @@ class SingleStoryScreen extends StatelessWidget {
             // Story info
             DraggableScrollableSheet(
               initialChildSize: 0.31,
-              minChildSize: min(0.3, 180 / height),
-              // maxChildSize: 0.61,
+              minChildSize: min(0.15, 150 / height),
+              maxChildSize: 0.7,
               snapSizes: [min(0.3, 180 / height), 0.61, 0.7],
               // expand: false,
               snap: true,
