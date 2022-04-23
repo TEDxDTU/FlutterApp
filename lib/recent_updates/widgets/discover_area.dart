@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
+import 'package:tedx_dtu_app/recent_updates/provider/discover_provider.dart';
 
 import '../helpers/grabbing_clipper.dart';
 import '../models/discover.dart';
@@ -16,7 +19,7 @@ class DiscoverArea extends StatefulWidget {
 
 class _DiscoverAreaState extends State<DiscoverArea> {
   final grabbingHeight = 40.0;
-  late final double discoverCardHeight;
+  late double discoverCardHeight;
   final double _grabbingVisibleHeight = 32;
   late double _discoverPosition;
   late Timer timer;
@@ -96,10 +99,6 @@ class _DiscoverAreaState extends State<DiscoverArea> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     const _primaryColor = Color(0xffFF0000);
-    final discover = Discover(
-        imageUrl:
-            'https://via.placeholder.com/160x230/00eaff/969696.png?text=Placeholder+Image',
-        title: 'Trivia results are now out!');
     return Positioned(
       top: _discoverPosition,
       child: GestureDetector(
@@ -173,16 +172,25 @@ class _DiscoverAreaState extends State<DiscoverArea> {
                   width: mediaQuery.size.width,
                   height: discoverCardHeight,
                   color: _primaryColor,
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      DiscoverCard(discover),
-                      DiscoverCard(discover),
-                      DiscoverCard(discover),
-                      DiscoverCard(discover),
-                    ],
+                  child: FutureScreenTemplate(
+                    future: Provider.of<DiscoverProvider>(context)
+                        .fetchData()
+                        ?.call(),
+                    body: Consumer<DiscoverProvider>(
+                      builder: (context, discoverData, _) {
+                        return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          controller: _scrollController,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: discoverData.length,
+                          itemBuilder: (ctx, index) {
+                            return DiscoverCard(
+                              discoverData.data[index],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Container(

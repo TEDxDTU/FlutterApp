@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/recent_updates_screen.dart';
 
 import 'package:tedx_dtu_app/trivia/widgets/rotating_widget.dart';
 
@@ -19,13 +21,6 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: YoutubeEmbedWidget(url: url)),
-      // body: Center(
-      //   child: YoutubeEmbedWidget(
-      //     url: url,
-      //   ),
-      // ),
-    );
+    return RecentUpdatesScreen();
   }
 }

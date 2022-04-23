@@ -18,6 +18,8 @@ import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 import 'package:tedx_dtu_app/home/screens/stories_page_view.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
+import 'package:tedx_dtu_app/recent_updates/provider/discover_provider.dart';
+import 'package:tedx_dtu_app/recent_updates/provider/recent_update_provider.dart';
 import 'package:tedx_dtu_app/recent_updates/screens/recent_updates_screen.dart';
 import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
 import 'package:tedx_dtu_app/trivia/providers/leaderboard_provider.dart';
@@ -68,7 +70,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => TriviaProvider()),
         ChangeNotifierProvider(create: (_) => LeaderboardProvider()),
-        ChangeNotifierProvider(create: (_) => Config())
+        ChangeNotifierProvider(create: (_) => Config()),
+        ChangeNotifierProvider(create: (_) => RecentUpdateProvider()),
+        ChangeNotifierProvider(create: (_) => DiscoverProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

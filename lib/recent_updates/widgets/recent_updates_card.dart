@@ -8,14 +8,10 @@ import '../../home/screens/no_bottombar_screen.dart';
 class RecentUpdatesCard extends StatelessWidget {
   const RecentUpdatesCard(
     this.update, {
-    required this.onShare,
-    required this.url,
     Key? key,
   }) : super(key: key);
 
   final RecentUpdate update;
-  final void Function()? onShare;
-  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +95,7 @@ class RecentUpdatesCard extends StatelessWidget {
                     ),
                     onPressed: () {
                       Share.share(
-                          'Hey! Come check this update in TEDxDTU application\n$url');
+                          'Hey! Come check this update in TEDxDTU application\n${update.url}');
                     },
                   ),
                 ),
@@ -127,7 +123,7 @@ class RecentUpdatesCard extends StatelessWidget {
                       Navigator.of(context)
                           .pushNamed(NoBottomBarScreen.routeName, arguments: {
                         'child': WebsiteView(),
-                        'url': url,
+                        'url': update.url,
                       });
                     },
                   ),

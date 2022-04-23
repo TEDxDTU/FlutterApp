@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/recent_updates/helpers/grabbing_clipper.dart';
+import 'package:tedx_dtu_app/recent_updates/provider/recent_update_provider.dart';
 import 'package:tedx_dtu_app/recent_updates/widgets/discover_card.dart';
 import '../../recent_updates/models/discover.dart';
 import '../../recent_updates/models/recent_update.dart';
@@ -23,13 +26,6 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final recentUpdate = RecentUpdate(
-      'Behind the stage',
-      'https://cdn.pixabay.com/photo/2021/09/23/09/42/newspaper-6649286_960_720.jpg',
-      'from the last episode a glimpse into how TEDx has becom a...',
-      'https://www.ted.com/',
-    );
-
     final _appBar = AppBar(
       title: const Text('Recent Updates'),
     );
@@ -37,56 +33,22 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
       appBar: _appBar,
       body: Stack(
         children: [
-          ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              SizedBox(height: _grabbingVisibleHeight),
-              RecentUpdatesCard(
-                recentUpdate,
-                onShare: () {
-                  print('Send pressed');
-                },
-                url: 'https://www.ted.com',
-              ),
-              RecentUpdatesCard(
-                recentUpdate,
-                onShare: () {
-                  print('Send pressed');
-                },
-                url: 'https://www.ted.com',
-              ),
-              RecentUpdatesCard(
-                recentUpdate,
-                onShare: () {
-                  print('Send pressed');
-                },
-                url: 'https://www.ted.com',
-              ),
-              RecentUpdatesCard(
-                recentUpdate,
-                onShare: () {
-                  print('Send pressed');
-                },
-                url: 'https://www.ted.com',
-              ),
-              RecentUpdatesCard(
-                recentUpdate,
-                onShare: () {
-                  print('Send pressed');
-                },
-                url: 'https://www.ted.com',
-              ),
-              RecentUpdatesCard(
-                recentUpdate,
-                onShare: () {
-                  print('Send pressed');
-                },
-                url: 'https://www.ted.com',
-              ),
-              const SizedBox(height: 80),
-            ],
+          FutureScreenTemplate(
+            future: Provider.of<RecentUpdateProvider>(context, listen: false)
+                .fetchData()
+                ?.call(),
+            body: Consumer<RecentUpdateProvider>(
+              builder: (context, recentUpdateProvider, _) {
+                return ListView.builder(
+                  itemCount: recentUpdateProvider.length,
+                  itemBuilder: (ctx, index) => RecentUpdatesCard(
+                    recentUpdateProvider.data[index],
+                  ),
+                );
+              },
+            ),
           ),
-          DiscoverArea(),
+          const DiscoverArea(),
         ],
       ),
     );
