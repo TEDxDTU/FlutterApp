@@ -7,7 +7,7 @@ class SignUpAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+      contentPadding: const EdgeInsets.fromLTRB(25, 25, 0, 0),
       content: SizedBox(
         height: 200.0,
         child: Stack(
@@ -15,16 +15,20 @@ class SignUpAlertDialog extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Column(
                     children: [
                       Container(
                         child: const Text(
                           'To attend the live event, you need to sign up first.',
                           style: TextStyle(
+                            color: Colors.black,
                             fontSize: 16.0,
                           ),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       TextButton(
                         onPressed: () {
@@ -35,7 +39,8 @@ class SignUpAlertDialog extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 14.0),
                         ),
                         style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(Size(100, 35)),
+                          minimumSize:
+                              MaterialStateProperty.all(const Size(100, 35)),
                           backgroundColor: MaterialStateProperty.all(
                               Theme.of(context).primaryColor),
                           shape:
@@ -50,16 +55,16 @@ class SignUpAlertDialog extends StatelessWidget {
                   ),
                 ),
                 const Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: SizedBox(width: 1),
                 ),
               ],
             ),
             Positioned(
               right: 0,
-              bottom: -25,
+              bottom: -26,
               child: SvgPicture.asset(
-                'assests/guy_with_laptop.svg',
+                'assets/images/guy_with_laptop.svg',
               ),
             )
           ],
