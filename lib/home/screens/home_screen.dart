@@ -4,11 +4,13 @@ import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/recent_updates_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_stories.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:tuple/tuple.dart';
+
+import '../../events/screens/events_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
     return BottomBarScreenWidget(
       children: [
         Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             bottom: 8.0,
             left: 8.0,
             right: 8.0,
@@ -34,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting &&
                         LiveEvent.instance == null) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -43,7 +45,11 @@ class HomeScreen extends StatelessWidget {
                       isLive: true,
                       dateTime: LiveEvent.instance!.date,
                       imageUrl: LiveEvent.instance!.imageUrl,
-                      width: 145,
+                      width: mediaQuery.size.width / 3,
+                      // height: (mediaQuery.size.height -
+                      //         mediaQuery.padding.top -
+                      //         kToolbarHeight) *
+                      //     0.4,
                       borderRadius: 27,
                       onPressed: () {
                         Navigator.of(context)
@@ -62,55 +68,60 @@ class HomeScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              EventCategoryWidget(
-                title: '',
-                backgroundColor: CupertinoColors.darkBackgroundGray,
-                details: const [''],
-                isSvg: false,
-                width: mediaQuery.size.width * 0.438,
-                height: mediaQuery.size.width * 0.42 * 1.275,
-                actionButton: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
+              Expanded(
+                child: EventCategoryWidget(
+                  title: '',
+                  backgroundColor: CupertinoColors.darkBackgroundGray,
+                  details: const [''],
+                  isSvg: true,
+                  width: mediaQuery.size.width * 0.438,
+                  height: mediaQuery.size.width * 0.42 * 1.275,
+                  actionButton: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      splashRadius: 28,
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 18,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(TriviaScreen.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(TriviaScreen.routeName);
-                    },
                   ),
+                  showImage: true,
+                  gradientColor: Colors.transparent,
+                  svgAsset: 'assets/home_screen/trivia.svg',
+                  actionWidgetOffset: const Tuple2<double, double>(8, 8),
                 ),
-                showImage: true,
-                gradientColor: Colors.transparent,
-                imageProvider: const svg_provider.Svg(
-                  'assets/home_screen/trivia.svg',
-                ),
-                actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
-              EventCategoryWidget(
-                backgroundColor: CupertinoColors.darkBackgroundGray,
-                isSvg: false,
-                title: 'Recent Updates',
-                details: const [],
-                width: mediaQuery.size.width * 0.438,
-                height: mediaQuery.size.width * 0.42 * 1.275,
-                actionButton: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
+              Expanded(
+                child: EventCategoryWidget(
+                  backgroundColor: CupertinoColors.darkBackgroundGray,
+                  isSvg: true,
+                  title: 'Recent Updates',
+                  details: const [],
+                  width: mediaQuery.size.width * 0.438,
+                  height: mediaQuery.size.width * 0.42 * 1.275,
+                  actionButton: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      splashRadius: 28,
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 18,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(RecentUpdatesScreen.routeName);
+                      },
                     ),
-                    onPressed: () {},
                   ),
+                  gradientColor: Colors.transparent,
+                  showImage: true,
+                  svgAsset: 'assets/home_screen/recent_updates.svg',
+                  actionWidgetOffset: const Tuple2<double, double>(8, 8),
                 ),
-                gradientColor: Colors.transparent,
-                showImage: true,
-                imageProvider: const svg_provider.Svg(
-                  'assets/home_screen/recent_updates.svg',
-                ),
-                actionWidgetOffset: const Tuple2<double, double>(8, 8),
               ),
             ],
           ),
@@ -177,6 +188,8 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   print('Redirect to ticket screen');
+                  Navigator.of(context)
+                      .pushNamed(EventsListScreen.routeName, arguments: true);
                 },
               )
             ],

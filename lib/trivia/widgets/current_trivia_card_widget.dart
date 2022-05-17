@@ -48,142 +48,146 @@ class CurrentTriviaCardWidget extends StatelessWidget {
           // padding: EdgeInsets.all(20).copyWith(top: 0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              // mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomImageWidget(url: currTrivia.imageUrl),
-                Positioned(
-                  right: 0,
-                  left: 0,
-                  top: 0,
-                  child: ClipPath(
-                    clipper: SlantedContainerClipper(),
-                    // size: Size(double.infinity, 100),
-                    child: BlurredWidget(
-                      sigmaX: 7,
-                      sigmaY: 7,
-                      child: Container(
-                        // color: Colors.white70,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: gradientColorsList,
-                          ),
-                        ),
-                        // width: 100,
-                        // color: Colors.red,
-                        height: 66,
-                        // width: double.infinity,
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.all(8),
-                        child: TriviaDetailsRowWidget(
-                          questionCount: currTrivia.questionCount,
-                          totalTime: currTrivia.totalTime,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        width: 150,
-                        child: Text(
-                          'This week\'s trivia is on',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontFamily: 'DM_Serif_Text'
-                              // fontWeight:
-                              ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        currTrivia.title.toUpperCase(),
-                        style: TextStyle(
-                          shadows: [
-                            Shadow(
-                              color: Colors.grey[700]!,
-                              // blurRadius: 10,
-                              offset: Offset(-4, -3),
-                            ),
-                          ],
-                          color: Colors.white,
-                          fontSize: 33,
-                          fontFamily: 'Heebo',
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  // right: 0,
-                  child: RotatedBox(
-                    quarterTurns: 2,
+            child: LayoutBuilder(builder: (context, constraints) {
+              double width = constraints.maxWidth;
+              return Stack(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomImageWidget(url: currTrivia.imageUrl),
+                  Positioned(
+                    right: 0,
+                    left: 0,
+                    top: 0,
                     child: ClipPath(
                       clipper: SlantedContainerClipper(),
-                      child: Container(
-                        // color: Colors.red,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: gradientColorsList..reversed,
+                      // size: Size(double.infinity, 100),
+                      child: BlurredWidget(
+                        sigmaX: 7,
+                        sigmaY: 7,
+                        child: Container(
+                          // color: Colors.white70,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: gradientColorsList,
+                            ),
                           ),
-                        ),
-                        height: 75,
-                        width: 450,
-                        // width: double.infinity,
-                        // alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 250, right: 8),
-                        child: RotatedBox(
-                          quarterTurns: 2,
-                          child: Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    'assets/trivia/stars.png',
-                                    height: 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  // SizedBox(height: 5),
-                                  Image.asset(
-                                    'assets/trivia/win.png',
-                                    // width: 100,
-                                    height: 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 10),
-                              Flexible(
-                                child: Text(
-                                  'for a chance at free tickets and top our leaderboard',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontFamily: 'DM_Serif_Text',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              )
-                            ],
+                          // width: 100,
+                          // color: Colors.red,
+                          height: 66,
+                          // width: double.infinity,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.all(8),
+                          child: TriviaDetailsRowWidget(
+                            width: width * 0.47,
+                            questionCount: currTrivia.questionCount,
+                            totalTime: currTrivia.totalTime,
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                  Column(
+                    children: [
+                      SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          width: width * 0.4,
+                          child: Text(
+                            'This week\'s trivia is on',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: width * 0.065,
+                                fontFamily: 'DM_Serif_Text'
+                                // fontWeight:
+                                ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          currTrivia.title.toUpperCase(),
+                          style: TextStyle(
+                            shadows: [
+                              Shadow(
+                                color: Colors.grey[700]!,
+                                // blurRadius: 10,
+                                offset: Offset(-4, -3),
+                              ),
+                            ],
+                            color: Colors.white,
+                            fontSize: width * 0.08,
+                            fontFamily: 'Heebo',
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    // right: 0,
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: ClipPath(
+                        clipper: SlantedContainerClipper(),
+                        child: Container(
+                          // color: Colors.red,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: gradientColorsList..reversed,
+                            ),
+                          ),
+                          height: constraints.maxHeight * 0.33,
+                          width: 450,
+                          // width: double.infinity,
+                          // alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(left: 250, right: 8),
+                          child: RotatedBox(
+                            quarterTurns: 2,
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.asset(
+                                      'assets/trivia/stars.png',
+                                      height: constraints.maxHeight * 0.15,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    // SizedBox(height: 5),
+                                    Image.asset(
+                                      'assets/trivia/win.png',
+                                      // width: 100,
+                                      height: constraints.maxHeight * 0.15,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(width: 10),
+                                Flexible(
+                                  child: Text(
+                                    'for a chance at free tickets and top our leaderboard',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: width * 0.038,
+                                      fontFamily: 'DM_Serif_Text',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }),
           ),
         );
       },

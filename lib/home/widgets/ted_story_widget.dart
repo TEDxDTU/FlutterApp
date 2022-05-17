@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'package:tedx_dtu_app/events/models/live_event.dart';
 import 'package:tedx_dtu_app/events/widgets/live_indicator_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
@@ -12,20 +13,21 @@ import 'package:tedx_dtu_app/home/screens/home_screen.dart';
 /// it will be used to display [LiveEvent] on the home screen as well.
 class TedStoryWidget extends StatelessWidget {
   const TedStoryWidget({
-    required this.leadingText,
-    required this.dateTime,
-    required this.imageUrl,
-    this.onPressed,
-    this.loadingIndicator,
     bool? isLive,
-    double? width,
     double? borderRadius,
     Color? backgroundColor,
     Color? fontColor,
     Key? key,
+    required this.leadingText,
+    this.onPressed,
+    required this.width,
+    required this.dateTime,
+    // required this.height,
+    required this.imageUrl,
+    this.loadingIndicator,
   })  : fontColor = fontColor ?? Colors.white,
         backgroundColor = backgroundColor ?? Colors.black,
-        width = width ?? 140,
+        // width = width,
         borderRadius = borderRadius ?? 20,
         isLive = isLive ?? false,
         super(key: key);
@@ -50,6 +52,7 @@ class TedStoryWidget extends StatelessWidget {
   final DateTime dateTime;
 
   final double width;
+  // final double height;
 
   final double borderRadius;
 
@@ -69,7 +72,7 @@ class TedStoryWidget extends StatelessWidget {
         }
       },
       child: Container(
-        height: 140,
+        // height: height,
         width: width,
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(

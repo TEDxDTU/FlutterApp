@@ -98,6 +98,7 @@ class TriviaCardWidget extends StatelessWidget {
                         TriviaDetailsRowWidget(
                           questionCount: questionCount,
                           totalTime: totalTime,
+                          // width: double.infinity,
                           // dividerColor: Colors.black,
                           // iconColor: Colors.black,
                           // textColor: Colors.black,
@@ -135,7 +136,9 @@ class TriviaCardWidget extends StatelessWidget {
                                     'id': id,
                                   });
                             },
-                            child: Text(hasAttempted ? 'Played!' : 'Play Now'),
+                            child: FittedBox(
+                                child: Text(
+                                    hasAttempted ? 'Played!' : 'Play Now')),
                           ),
                         ),
                       ],
