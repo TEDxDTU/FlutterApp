@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
@@ -16,7 +14,6 @@ import 'trivia_details_row_widget.dart';
 
 class CurrentTriviaCardWidget extends StatelessWidget {
   const CurrentTriviaCardWidget({Key? key}) : super(key: key);
-
   static const gradientColorsList = [
     Colors.transparent,
     // Colors.transparent,

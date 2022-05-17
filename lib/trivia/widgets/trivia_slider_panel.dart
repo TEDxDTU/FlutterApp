@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:tedx_dtu_app/helpers/extensions/padding_widget_list_extension.dart';
 import 'package:tedx_dtu_app/trivia/widgets/current_trivia_card_widget.dart';
-
 import 'circular_dots_row.dart';
 
 class TriviaSliderPanel extends StatefulWidget {
