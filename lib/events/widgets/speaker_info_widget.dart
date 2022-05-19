@@ -90,7 +90,7 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
           borderRadius: const BorderRadius.all(
             Radius.circular(20),
           ),
-          color: _switched ? Color(0xff82ff90) : Colors.white,
+          color: _switched ? const Color(0xff82ff90) : Colors.white,
         ),
         child: Row(
           // crossAxisAlignment: CrossAxisAlignment.start,

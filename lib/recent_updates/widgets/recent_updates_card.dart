@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
 import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
 import 'package:share_plus/share_plus.dart';
@@ -60,15 +61,8 @@ class RecentUpdatesCard extends StatelessWidget {
                     flex: 2,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        update.imageUrl!,
-                        fit: BoxFit.fitHeight,
-                        loadingBuilder: (context, child, progress) {
-                          if (progress == null) return child;
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
+                      child: CustomImageWidget(
+                        url: update.imageUrl!,
                       ),
                     ),
                   )
