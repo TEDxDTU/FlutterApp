@@ -126,4 +126,27 @@ class UIHelper {
       ),
     );
   }
+
+  // To show loading spinner when API is called
+  static Future<void> showSpinnerDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => const Center(
+        heightFactor: 1,
+        widthFactor: 1,
+        child: SizedBox(
+          height: 40,
+          width: 40,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // to remove loading spinner when API after data fetched
+  static void removeSpinnerDialog(BuildContext context) {
+    Navigator.of(context).pop();
+  }
 }
