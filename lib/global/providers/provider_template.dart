@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/screens/refreshable_future_screen_template.dart';
 
+import '../models/http_error.dart';
+
 /// The template for simple Providers that are used to fetch a single kind
 /// of data, [T], from the backend. The [getData] function must be implemented
 /// by the subclass. The [T] type is the type of the data that is fetched.
@@ -32,7 +34,11 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
     // print(force);
     if (data.isNotEmpty && !force) return null;
     return () async {
-      data = await getData();
+      try {
+        data = await getData();
+      } catch (_) {
+        rethrow;
+      }
       notifyListeners();
     };
   }

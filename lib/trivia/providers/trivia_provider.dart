@@ -6,6 +6,7 @@ import 'package:tedx_dtu_app/global/providers/provider_template.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
+import '../../global/models/http_error.dart';
 import '../models/question.dart';
 import '../models/trivia.dart';
 
@@ -100,7 +101,7 @@ class TriviaProvider extends ProviderTemplate<Trivia> {
         return triviaList;
       } else {
         print("exception");
-        throw Exception((jsonDecode(response.body) as Map)['msg']);
+        throw HttpError(response.statusCode);
       }
     } on Exception catch (e) {
       print("second exception");

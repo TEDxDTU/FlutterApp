@@ -5,6 +5,8 @@ import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 import 'package:tedx_dtu_app/trivia/models/contestant.dart';
 import 'package:http/http.dart' as http;
 
+import '../../global/models/http_error.dart';
+
 class LeaderboardProvider extends ProviderTemplate<Contestant> {
   @override
   Contestant findById(String id) {
@@ -23,8 +25,7 @@ class LeaderboardProvider extends ProviderTemplate<Contestant> {
           )
           .toList();
     } else {
-      throw Exception(
-          'Failed to load leaderboard ${json.decode(response.body)['msg']}');
+      throw HttpError(response.statusCode);
     }
   }
 }

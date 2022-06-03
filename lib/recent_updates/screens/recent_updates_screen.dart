@@ -25,6 +25,7 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("building recent updates screen");
     final _appBar = AppBar(
       title: const Text('Recent Updates'),
     );

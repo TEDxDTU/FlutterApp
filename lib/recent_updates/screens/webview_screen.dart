@@ -28,77 +28,80 @@ class WebsiteView extends StatefulWidget {
 
 class _WebsiteViewState extends State<WebsiteView> {
   bool _canGoBack = false;
-  String _title = 'DTU-DCE Fraternity Website';
+  String _title = 'TED Official Website';
   bool _canGoForward = true;
   double _progress = 0.0;
   InAppWebViewController? _controller;
   bool _isInit = true;
-  String url = 'https://www.dtudcefraternity.org';
+  String url = 'https://www.ted.com/';
 
   Widget _buttonBarRow() {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
+    return Container(
+      color: Colors.black,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: _canGoBack
+                ? () {
+                    _controller?.goBack();
+                  }
+                : null,
           ),
-          onPressed: _canGoBack
-              ? () {
-                  _controller?.goBack();
-                }
-              : null,
-        ),
-        IconButton(
-          icon: const Icon(
-            Icons.arrow_forward,
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_forward,
+            ),
+            onPressed: _canGoForward
+                ? () {
+                    _controller?.goForward();
+                  }
+                : null,
           ),
-          onPressed: _canGoForward
-              ? () {
-                  _controller?.goForward();
-                }
-              : null,
-        ),
-        const Expanded(child: SizedBox()),
-        IconButton(
-          tooltip: 'Copy link',
-          icon: const Icon(Icons.link),
-          onPressed: () {
-            print("copied link");
-            Clipboard.setData(ClipboardData(text: url));
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                // behavior: SnackBarBehavior.,
-                content: const Text('Link copied to clipboard',
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                duration: const Duration(milliseconds: 1500),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+          const Expanded(child: SizedBox()),
+          IconButton(
+            tooltip: 'Copy link',
+            icon: const Icon(Icons.link),
+            onPressed: () {
+              print("copied link");
+              Clipboard.setData(ClipboardData(text: url));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  // behavior: SnackBarBehavior.,
+                  content: const Text('Link copied to clipboard',
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                  duration: const Duration(milliseconds: 1500),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  // padding: const EdgeInsets.all(10),
+                  // margin: const EdgeInsets.all(10).copyWith(bottom: 50),
+                  backgroundColor: Colors.black87,
                 ),
-                // padding: const EdgeInsets.all(10),
-                // margin: const EdgeInsets.all(10).copyWith(bottom: 50),
-                backgroundColor: Colors.black87,
-              ),
-            );
-          },
-        ),
-        IconButton(
-          tooltip: 'Open in browser',
-          icon: const Icon(Icons.language),
-          onPressed: () {
-            launcher.launch(url);
-          },
-        ),
-        IconButton(
-          icon: const Icon(Icons.refresh),
-          onPressed: () {
-            _controller?.reload();
-          },
-        ),
-      ],
+              );
+            },
+          ),
+          IconButton(
+            tooltip: 'Open in browser',
+            icon: const Icon(Icons.language),
+            onPressed: () {
+              launcher.launch(url);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              _controller?.reload();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -123,9 +126,14 @@ class _WebsiteViewState extends State<WebsiteView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      bottom: true,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            _title,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ),
+        backgroundColor: Colors.black,
         body: Stack(
           children: [
             Column(

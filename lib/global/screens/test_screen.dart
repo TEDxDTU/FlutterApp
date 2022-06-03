@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/widgets/ticket_widget.dart';
+import 'package:tedx_dtu_app/global/providers/test_provider.dart';
+import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/events/screens/intro_screen.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
@@ -22,38 +25,22 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  final _key = GlobalKey<RotatingWidgetState>();
-
-  static const url = 'https://www.youtube.com/watch?v=sam89lVM2RE';
-  // void initState() {
-  //   super.initState();
-  //   _loadCheckBoxValue();
-  // }
-  //
-  // _loadCheckBoxValue() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     checkbox = (prefs.getBool('checkbox') ?? false);
-  //   });
-  // }
-  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  UIHelper.showSpinnerDialog(context);
-                  await Future.delayed(const Duration(seconds: 3));
-                  UIHelper.removeSpinnerDialog(context);
-                },
-                child: const Text("Press"),
-              ),
-            ],
+      appBar: AppBar(
+        title: Text("Test screen"),
+      ),
+      body: FutureScreenTemplate(
+        future: Provider.of<TestProvider>(context, listen: false)
+            .fetchData(true)
+            ?.call(),
+        body: Center(
+          child: Text(
+            'Everything is well and good!',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Colors.white,
+                ),\
           ),
         ),
       ),

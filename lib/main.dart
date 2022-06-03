@@ -25,6 +25,7 @@ import 'events/widgets/event_info_widget.dart';
 import 'firebase_options.dart';
 import 'global/models/bottom_bar_screen.dart';
 import 'global/providers/config.dart';
+import 'global/providers/test_provider.dart';
 import 'global/widgets/auto_login_initialiser.dart';
 import 'home/screens/home_screen.dart';
 
@@ -62,7 +63,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LeaderboardProvider()),
         ChangeNotifierProvider(create: (_) => Config()),
         ChangeNotifierProvider(create: (_) => RecentUpdateProvider()),
-        ChangeNotifierProvider(create: (_) => DiscoverProvider())
+        ChangeNotifierProvider(create: (_) => DiscoverProvider()),
+        ChangeNotifierProvider(create: (_) => TestProvider()),
       ],
       child: MaterialApp(
         navigatorKey: globalNavKey,

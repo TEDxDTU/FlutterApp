@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx_dtu_app/global/models/http_error.dart';
 
 import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 
@@ -27,13 +28,16 @@ class FutureScreenTemplate extends StatelessWidget {
             child: TedxLoadingSpinner(),
           );
         }
-        //TODO: ADD ERROR HANDLING
         if (snapshot.hasError) {
+          String errorMessage = "";
+          if (snapshot.error is HttpError) {
+            errorMessage = (snapshot.error as HttpError).message!;
+          }
           return Scaffold(
             body: Center(
               child: SelectableText(
-                'Error: ${snapshot.error}',
-                style: TextStyle(color: Colors.white),
+                'Error: $errorMessage',
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           );

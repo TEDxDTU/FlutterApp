@@ -17,17 +17,21 @@ class RecentUpdatesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
-      height: 170,
+      height: 200,
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.only(
-        top: 15,
-        bottom: 5,
-        left: 10,
-        right: 10,
+        top: 16,
+        bottom: 0,
+        left: 16,
+        right: 16,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         color: Colors.grey[850],
+        border: Border.all(
+          width: 1,
+          color: Colors.white,
+        ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -35,29 +39,7 @@ class RecentUpdatesCard extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (update.imageUrl != null)
-                  Expanded(
-                    flex: 2,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        update.imageUrl!,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, progress) {
-                          if (progress == null) return child;
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                const SizedBox(
-                  width: 10.0,
-                ),
                 Expanded(
                   flex: 3,
                   child: Column(
@@ -66,19 +48,30 @@ class RecentUpdatesCard extends StatelessWidget {
                     children: [
                       Text(
                         update.title,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
                       ),
                       Text(
                         update.description,
-                        textAlign: TextAlign.justify,
                       ),
                     ],
                   ),
                 ),
+                if (update.imageUrl != null)
+                  Expanded(
+                    flex: 2,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        update.imageUrl!,
+                        fit: BoxFit.fitHeight,
+                        loadingBuilder: (context, child, progress) {
+                          if (progress == null) return child;
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ),
+                    ),
+                  )
               ],
             ),
           ),
@@ -88,42 +81,12 @@ class RecentUpdatesCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  flex: 6,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[700],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        // side: const BorderSide(
-                        //   width: 1,
-                        //   color: Colors.white,
-                        // ),
-                      ),
-                    ),
-                    child: const Text(
-                      'open',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(NoBottomBarScreen.routeName, arguments: {
-                        'child': const WebsiteView(),
-                        'url': update.url,
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
                   flex: 2,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
+                      primary: Colors.grey[600],
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                     child: const Icon(
@@ -133,6 +96,35 @@ class RecentUpdatesCard extends StatelessWidget {
                     onPressed: () {
                       Share.share(
                           'Hey! Come check this update in TEDxDTU application\n${update.url}');
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  flex: 6,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.grey[600],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      'open',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(NoBottomBarScreen.routeName, arguments: {
+                        'child': WebsiteView(),
+                        'url': update.url,
+                      });
                     },
                   ),
                 ),
