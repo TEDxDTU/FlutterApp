@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,19 +33,22 @@ class _TestScreenState extends State<RecentUpdatesScreen> {
       appBar: _appBar,
       body: Stack(
         children: [
-          FutureScreenTemplate(
-            future: Provider.of<RecentUpdateProvider>(context, listen: false)
-                .fetchData()
-                ?.call(),
-            body: Consumer<RecentUpdateProvider>(
-              builder: (context, recentUpdateProvider, _) {
-                return ListView.builder(
-                  itemCount: recentUpdateProvider.length,
-                  itemBuilder: (ctx, index) => RecentUpdatesCard(
-                    recentUpdateProvider.data[index],
-                  ),
-                );
-              },
+          Container(
+            padding: const EdgeInsets.fromLTRB(0, 28, 0, 0),
+            child: FutureScreenTemplate(
+              future: Provider.of<RecentUpdateProvider>(context, listen: false)
+                  .fetchData()
+                  ?.call(),
+              body: Consumer<RecentUpdateProvider>(
+                builder: (context, recentUpdateProvider, _) {
+                  return ListView.builder(
+                    itemCount: recentUpdateProvider.length,
+                    itemBuilder: (ctx, index) => RecentUpdatesCard(
+                      recentUpdateProvider.data[index],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           const DiscoverArea(),

@@ -68,8 +68,9 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
                 const TriviaAttemptScreen(),
             TriviaWelcomeScreen.routeName: (context) =>
                 const TriviaWelcomeScreen(),
-            TriviaCountdownScreen.routeName: (context) =>
-                const TriviaCountdownScreen(),
+            TriviaCountdownScreen.routeName: (context) => TriviaCountdownScreen(
+                  triviaStr: null,
+                ),
             EventsListScreen.routeName: (context) => const EventsListScreen(),
             RecentUpdatesScreen.routeName: (context) =>
                 const RecentUpdatesScreen(),

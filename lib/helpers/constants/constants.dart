@@ -11,3 +11,13 @@ Map<int, String> errorMessages = {
   404: "Not found",
   500: "Internal Server Error",
 };
+
+// Satvik iPhone Hotspot:
+// String nodeServerBaseUrl = 'http://172.20.10.2:3000';
+//Satvik Home:
+//String nodeServerBaseUrl = 'http://192.168.1.37:3000';
+//Saarthak Shivang PG:
+// String nodeServerBaseUrl = 'http://192.168.1.8:3000';
+
+//Sagar's pg:
+// String nodeServerBaseUrl = 'http://192.168.1.64:3000';

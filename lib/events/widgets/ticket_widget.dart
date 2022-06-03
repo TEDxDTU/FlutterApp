@@ -47,7 +47,6 @@ class TicketWidget extends StatelessWidget {
                     child: DottedSeparator(
                       axis: Axis.vertical,
                       backgroundColor: Color(0xffBDBDBD),
-
                       // lineColor: Colors.white,
                     ),
                   ),
