@@ -24,7 +24,7 @@ class UserTicketsScreen extends StatelessWidget {
     );
     print(response.body);
     final List<dynamic> tickets = jsonDecode(response.body);
-    print(tickets[0].runtimeType);
+    // print(tickets[0].runtimeType);
     final List<Map<String, dynamic>> ticketMap = List.from(tickets);
     print(tickets);
     return ticketMap;
@@ -53,7 +53,23 @@ class UserTicketsScreen extends StatelessWidget {
         }
         print(snapshot.data);
         final data = snapshot.data as List<Map<String, dynamic>>;
+        if (data.length == 0) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Tickets"),
+            ),
+            body: Center(
+              child: SelectableText(
+                'No tickets found',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+        }
         return Scaffold(
+          appBar: AppBar(
+            title: Text("Tickets"),
+          ),
           body: ListView.builder(
             itemBuilder: (ctx, idx) {
               final event = data[idx]['event'];

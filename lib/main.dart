@@ -200,6 +200,9 @@ class MyApp extends StatelessWidget {
                 ?.copyWith(color: Colors.white),
           ),
         ),
+        routes: {
+          SignUpScreen.routeName: (ctx) => SignUpScreen(),
+        },
         home: const AutoLoginInitializer(),
       ),
     );

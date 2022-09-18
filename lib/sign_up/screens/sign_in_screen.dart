@@ -12,7 +12,7 @@ import 'package:tedx_dtu_app/sign_up/widgets/user_image_picker.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
-  static const routeName = '/sign-up-screen';
+  static const routeName = '/sign-in-screen';
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
