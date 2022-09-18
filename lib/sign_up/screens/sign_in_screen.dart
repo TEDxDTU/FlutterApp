@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -166,7 +165,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ],
                   ),
                 ),
-                Expanded(child: const SizedBox(height: 10)),
+                const Expanded(child: SizedBox(height: 10)),
                 Center(
                   child: TextButton(
                     onPressed: () async {

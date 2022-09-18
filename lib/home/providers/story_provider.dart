@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 import 'package:tedx_dtu_app/home/models/story.dart';
 
+import '../../global/models/http_error.dart';
+
 class StoryProvider extends ProviderTemplate<Story> {
   @override
   Future<List<Story>> getData() async {
@@ -15,6 +17,9 @@ class StoryProvider extends ProviderTemplate<Story> {
       ),
     );
 
+    if (response.statusCode >= 400) {
+      throw HttpError(response.statusCode);
+    }
     List<Map<String, dynamic>> data = List.from(jsonDecode(response.body));
     List<Story> stories = [];
     for (int i = 0; i < data.length; i++) {

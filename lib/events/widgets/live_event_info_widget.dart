@@ -32,88 +32,91 @@ class LiveEventInfoWidget extends StatelessWidget {
         }
         if (snapshot.hasData) {
           LiveEventInfo data = snapshot.data as LiveEventInfo;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (data.text != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8,
-                  ),
-                  child: ColorAnimatedText(
-                    data.text!,
-                    animationDuration: const Duration(milliseconds: 400),
-                  ),
-                ),
-              ...data.textImage.map((e) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16.0,
-                    right: 16.0,
-                    bottom: 8,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (e.imageUrl != null)
-                        Center(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              minHeight: 70,
-                            ),
-                            //TODO: Replace with CustomImageWidget @rohit, height constraints messing up.
-                            child: Image.network(
-                              e.imageUrl!,
-                            ),
-                          ),
-                        ),
-                      const SizedBox(height: 4),
-                      if (e.text != null)
-                        AutoSizeText(
-                          e.text!,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                          ),
-                        ),
-                    ],
-                  ),
-                );
-              }).toList(),
-              if (data.link != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8.0,
-                  ),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+          return SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (data.text != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8,
                     ),
-                    elevation: 5,
-                    margin: EdgeInsets.zero,
-                    color: Colors.white,
-                    child: AnyLinkPreview(
-                      key: ValueKey(data.link!),
-                      link: data.link!,
-                      backgroundColor: Colors.white,
-                      displayDirection: uiDirection.uiDirectionHorizontal,
-                      errorWidget: GestureDetector(
-                        onTap: () => _launchURL(data.link),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            data.link!,
-                            style: const TextStyle(color: Colors.blue),
-                          ),
-                        ),
+                    child: ColorAnimatedText(
+                      data.text!,
+                      animationDuration: const Duration(milliseconds: 400),
+                    ),
+                  ),
+                ...data.textImage.map((e) {
+                  return Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                        right: 16.0,
+                        bottom: 8,
                       ),
-                      removeElevation: true,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (e.imageUrl != null)
+                            Expanded(
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                return CustomImageWidget(
+                                  url: e.imageUrl!,
+                                  height: constraints.maxHeight,
+                                );
+                              }),
+                            ),
+                          const SizedBox(height: 4),
+                          if (e.text != null)
+                            AutoSizeText(
+                              e.text!,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+                if (data.link != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8.0,
+                    ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      elevation: 5,
+                      margin: EdgeInsets.zero,
+                      color: Colors.white,
+                      child: AnyLinkPreview(
+                        key: ValueKey(data.link!),
+                        link: data.link!,
+                        backgroundColor: Colors.white,
+                        displayDirection: uiDirection.uiDirectionHorizontal,
+                        errorWidget: GestureDetector(
+                          onTap: () => _launchURL(data.link),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              data.link!,
+                              style: const TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ),
+                        removeElevation: true,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           );
         }
         return const Padding(

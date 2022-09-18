@@ -14,7 +14,7 @@ class DiscoverCard extends StatelessWidget {
       width: 200,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -25,6 +25,7 @@ class DiscoverCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 data.imageUrl,
+                fit: BoxFit.fill,
                 loadingBuilder: (context, child, progress) {
                   if (progress == null) return child;
                   return const Center(

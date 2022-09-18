@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/trivia/models/trivia.dart';
@@ -41,7 +40,6 @@ class _TriviaAttemptScreenState extends State<TriviaAttemptScreen>
       var routeArgs =
           ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
       _trivia = routeArgs['trivia'] as Trivia;
-
       _isInit = false;
     }
     super.didChangeDependencies();

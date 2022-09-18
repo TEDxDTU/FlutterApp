@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:tedx_dtu_app/global/providers/provider_template.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
+import '../../global/models/http_error.dart';
 import '../models/recent_update.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,7 @@ class RecentUpdateProvider extends ProviderTemplate<RecentUpdate> {
     final response = await http.get(url);
     final extractedData = json.decode(response.body);
     if (response.statusCode >= 400) {
-      throw Exception(extractedData['msg']);
+      throw HttpError(response.statusCode);
     }
     print(extractedData['recentUpdates']);
     final data = (extractedData['recentUpdates'] as List)

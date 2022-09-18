@@ -105,7 +105,7 @@ class _DiscoverAreaState extends State<DiscoverArea> {
         onVerticalDragUpdate: (DragUpdateDetails dragUpdateDetails) {
           _currTouchPos = dragUpdateDetails.localPosition.dy;
           double currOffsetVal = (_currTouchPos - _initialTouchPos);
-          print(currOffsetVal);
+          // print(currOffsetVal);
           if ((currOffsetVal < -discoverAreaHeight || (currOffsetVal > 0))) {
             return;
           }
@@ -141,11 +141,11 @@ class _DiscoverAreaState extends State<DiscoverArea> {
               dragStartDetails.localPosition.dy - _discoverPosition;
         },
         onVerticalDragEnd: (DragEndDetails dragEndDetails) {
-          print(DateTime.now().toString() +
-              " " +
-              dragEndDetails.velocity.pixelsPerSecond.dy.toString() +
-              " " +
-              dragEndDetails.velocity.pixelsPerSecond.direction.toString());
+          // print(DateTime.now().toString() +
+          //     " " +
+          //     dragEndDetails.velocity.pixelsPerSecond.dy.toString() +
+          //     " " +
+          //     dragEndDetails.velocity.pixelsPerSecond.direction.toString());
           double velocity = dragEndDetails.velocity.pixelsPerSecond.dy;
           if (velocity < -600) {
             animateTo(-discoverAreaHeight);
