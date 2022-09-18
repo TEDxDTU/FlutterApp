@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/global/widgets/labelled_widget.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
+import 'package:tedx_dtu_app/profile/screens/user_tickets_screen.dart';
+import 'package:tedx_dtu_app/profile/widgets/profile_options_widget.dart';
 
 class MainProfilePage extends StatelessWidget {
   const MainProfilePage({Key? key}) : super(key: key);
@@ -65,6 +68,21 @@ class MainProfilePage extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ProfileOptionsWidget(
+              buttonIcon: Icons.confirmation_num,
+              buttonSpecifier: 'Tickets',
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(NoBottomBarScreen.routeName, arguments: {
+                  'child': UserTicketsScreen(),
+                });
+              },
             ),
           ),
           Expanded(

@@ -78,8 +78,12 @@ class Auth extends ChangeNotifier {
   /// If that happens, [_auth.currentUser] will not be null, and we will fetch the
   /// user's data from our backend
   Future<void> autoLogin() async {
+    print("auto login called");
     final user = _auth.currentUser;
+    print("user $user");
     if (user == null) {
+      print("no user");
+
       return;
     }
     await _getDataFromToken(_auth.currentUser!.email!);
@@ -95,10 +99,12 @@ class Auth extends ChangeNotifier {
     required String password,
   }) async {
     try {
+      print("signing in");
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      print("signed in");
       await _getDataFromToken(email);
     } on Exception catch (e) {
       throw Exception('Failed to sign in, $e');
@@ -111,9 +117,13 @@ class Auth extends ChangeNotifier {
   Future<void> _getDataFromToken(String email) async {
     try {
       final url = Uri.parse(nodeServerBaseUrl + '/api/user/data-from-token');
+      print("getting data from token");
+      String? token = await _auth.currentUser?.getIdToken();
+      print(token);
       String authToken = (await _auth.currentUser!.getIdToken());
       print(authToken);
       print('here2');
+      print(url);
       final response = await http.post(url, body: {
         'email': email,
         'authToken': authToken,

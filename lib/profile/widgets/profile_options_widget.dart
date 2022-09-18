@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ProfileOptionsWidget extends StatelessWidget {
-  const ProfileOptionsWidget(
-      {Key? key, required this.buttonIcon, required this.buttonSpecifier})
-      : super(key: key);
+  const ProfileOptionsWidget({
+    Key? key,
+    required this.buttonIcon,
+    required this.buttonSpecifier,
+    this.onPressed,
+  }) : super(key: key);
   final String buttonSpecifier;
   final IconData buttonIcon;
+  final Function? onPressed;
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
         print('ButtonPressed');
+        onPressed?.call();
       },
       child: SizedBox(
         width: 130.0,

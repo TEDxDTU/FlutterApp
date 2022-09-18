@@ -15,7 +15,7 @@ class YoutubeEmbedWidget extends StatefulWidget {
     Key? key,
     String? url,
     this.aspectRatio = 16 / 9,
-  })  : url = url ?? 'https://www.youtube.com/watch?v=sam89lVM2RE',
+  })  : url = url ?? 'https://www.youtube.com/watch?v=XslI8h7cGDs&list=PLxCzCOWd7aiFM9Lj5G9G_76adtyb4ef7i',
         super(key: key);
   final String url;
   final double aspectRatio;

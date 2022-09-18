@@ -4,8 +4,11 @@
 /// paste their own IPv4 address here.
 // Satvik iPhone Hotspot:
 // String nodeServerBaseUrl = 'http://172.20.10.2:3000';
+//Heroku:
+// String nodeServerBaseUrl = 'https://tedx-dtu-concept.herokuapp.com';
+
 //Satvik Home:
-String nodeServerBaseUrl = 'http://192.168.1.37:3000';
+String nodeServerBaseUrl = "http://192.168.1.37:3000";
 //Saarthak Shivang PG:
 // String nodeServerBaseUrl = 'http://192.168.1.8:3000';
 

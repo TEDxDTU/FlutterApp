@@ -22,7 +22,7 @@ class RecentUpdatesScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<RecentUpdatesScreen> {
-  final double _grabbingVisibleHeight = 32;
+  // final double _grabbingVisibleHeight = 32;
 
   @override
   Widget build(BuildContext context) {
