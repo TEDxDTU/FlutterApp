@@ -96,6 +96,8 @@ class SingleEventWidget extends StatelessWidget {
                   child: Text(
                     eventDescription,
                     style: const TextStyle(color: Colors.black),
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

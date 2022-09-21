@@ -40,11 +40,13 @@ class EventInfoWidget extends StatelessWidget {
           const SizedBox(
             width: 25,
           ),
-          Text(
-            txt,
-            style: const TextStyle(
-              color: Colors.white,
-              // fontSize: 17,
+          Flexible(
+            child: Text(
+              txt,
+              style: const TextStyle(
+                color: Colors.white,
+                // fontSize: 17,
+              ),
             ),
           ),
         ],

@@ -244,6 +244,15 @@ class EventCategoryWidget extends StatelessWidget {
                         color: fontColor,
                         fontWeight: FontWeight.w900,
                         fontSize: 24,
+                        shadows: [
+                          Shadow(
+                            color: fontColor == Colors.black
+                                ? Colors.white
+                                : Colors.black,
+                            blurRadius: 10,
+                            offset: const Offset(0, 1),
+                          )
+                        ],
                       ),
                     ),
                     SizedBox(height: widgetHeight * 0.08),
@@ -256,6 +265,8 @@ class EventCategoryWidget extends StatelessWidget {
                             color: fontColor,
                             fontSize: 14,
                           ),
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       );
                     }).toList(),
