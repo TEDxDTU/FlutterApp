@@ -80,6 +80,30 @@ class SpeakerDetailsScreen extends StatelessWidget {
           child: AnyLinkPreview(
             link: url,
             backgroundColor: Colors.white,
+            placeholderWidget: GestureDetector(
+              // splashColor: Colors.black,
+              // style: ElevatedButton.styleFrom(
+              //   backgroundColor: Colors.white,
+              //   padding: EdgeInsets.symmetric(horizontal: 5),
+              //   primary: Colors.black,
+              // ),
+
+              onTap: () => _launchURL(url),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        url,
+                        style: const TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              ),
+            ),
             displayDirection: uiDirection.uiDirectionHorizontal,
             errorWidget: GestureDetector(
               // splashColor: Colors.black,
@@ -180,17 +204,30 @@ class SpeakerDetailsScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        ...(routeArgs['achievements'] as List<String>)
-                            .sublist(0, 2)
-                            .map((e) => AutoSizeText(
-                                  '• $e',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: height * 0.022,
-                                  ),
-                                  // maxLines: 2,
-                                ))
-                            .toList()
+                        // ...(routeArgs['achievements'] as List<String>)
+                        //     .sublist(
+                        //         0,
+                        //         min(
+                        //             (routeArgs['achievements'] as List<String>)
+                        //                 .length,
+                        //             2))
+                        //     .map((e) => AutoSizeText(
+                        //           '• $e',
+                        //           style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontSize: height * 0.022,
+                        //           ),
+                        //           // maxLines: 2,
+                        //         ))
+                        //     .toList()
+                        AutoSizeText(
+                          routeArgs['bio'] as String,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: height * 0.022,
+                          ),
+                          maxLines: 3,
+                        )
                       ],
                     ),
                   ),
@@ -234,34 +271,33 @@ class SpeakerDetailsScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: whiteSpeakerDetailsBorderRadius,
                           child: Padding(
-                            padding: EdgeInsets.only(top: height * 0.05),
+                            padding: EdgeInsets.only(top: height * 0.1),
                             child: ListView(
                               // physics: const BouncingScrollPhysics(),
                               children: [
-                                if ((routeArgs['achievements'] as List).length >
-                                    2)
-                                  _buildHeadingAndData(
-                                    context,
-                                    'About the speaker',
-                                    (routeArgs['bio'] as String),
-                                    width,
-                                    height,
-                                  ),
+                                _buildHeadingAndData(
+                                  context,
+                                  'About the speaker',
+                                  (routeArgs['bio'] as String),
+                                  width,
+                                  height,
+                                ),
                                 _buildHeadingAndData(
                                     context,
                                     'Topic of Discussion',
                                     routeArgs['topic'] as String,
                                     width,
                                     height),
-
-                                _buildHeadingAndData(
-                                  context,
-                                  'Speaker\'s History',
-                                  (routeArgs['achievements'] as List<String>)
-                                      .join('\n'),
-                                  width,
-                                  height,
-                                ),
+                                if ((routeArgs['achievements'] as List<String>)
+                                    .isNotEmpty)
+                                  _buildHeadingAndData(
+                                    context,
+                                    'Speaker\'s History',
+                                    (routeArgs['achievements'] as List<String>)
+                                        .join('\n'),
+                                    width,
+                                    height,
+                                  ),
                                 // ].padded(
                                 //   padding: EdgeInsets.only(
                                 //       left: width * 0.1, right: height * 0.03),
