@@ -111,14 +111,14 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
         //     '/': (context) => TestScreen(),
         //   },
         // ),
-        BottomBarScreen(
-          title: 'Test',
-          navigatorKey: _testNavKey,
-          icon: const Icon(Icons.help),
-          routes: {
-            '/': (context) => TestScreen(),
-          },
-        ),
+        // BottomBarScreen(
+        //   title: 'Test',
+        //   navigatorKey: _testNavKey,
+        //   icon: const Icon(Icons.help),
+        //   routes: {
+        //     '/': (context) => TestScreen(),
+        //   },
+        // ),
       ],
     );
   }
