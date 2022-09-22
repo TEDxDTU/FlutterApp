@@ -51,8 +51,7 @@ class SingleStoryScreen extends StatelessWidget {
                   top: MediaQuery.of(context).padding.top,
                 ),
                 child: YoutubeEmbedWidget(
-                  url:
-                      "https://www.youtube.com/watch?v=Y2Oj9gllHno&ab_channel=AakashGupta",
+                  url: story.streamingUrl,
                   aspectRatio: width /
                       (height -
                           MediaQuery.of(context).padding.top -
@@ -66,7 +65,7 @@ class SingleStoryScreen extends StatelessWidget {
               left: 10,
               child: SafeArea(
                 child: Material(
-                  color: Colors.white,
+                  color: Colors.black54,
                   shape: CircleBorder(),
                   child: ClipOval(
                     child: BlurredWidget(
@@ -104,7 +103,7 @@ class SingleStoryScreen extends StatelessWidget {
                   sigmaX: 3,
                   sigmaY: 3,
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       // color: Colors.black45,
                       // borderRadius: BorderRadius.only(
                       //   topLeft: Radius.circular(20),
@@ -112,8 +111,8 @@ class SingleStoryScreen extends StatelessWidget {
                       // ),
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black87,
-                          Colors.transparent,
+                          Colors.black,
+                          Colors.black38,
                         ],
                         end: Alignment.topCenter,
                         begin: Alignment.bottomCenter,
@@ -131,7 +130,12 @@ class SingleStoryScreen extends StatelessWidget {
                           children: [
                             Text(
                               story.title,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(
+                                    fontSize: 20,
+                                  ),
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -145,7 +149,10 @@ class SingleStoryScreen extends StatelessWidget {
                         SizedBox(height: 10),
                         Text(
                           story.description,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 15,
+                                  ),
                         ),
                         SizedBox(height: 15),
                         Row(
@@ -168,10 +175,19 @@ class SingleStoryScreen extends StatelessWidget {
                                   AutoSizeText(
                                     story.speaker.name,
                                     maxLines: 1,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline5
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
-                                  Text(story.speaker.bio),
+                                  Text(
+                                    story.speaker.bio,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -179,7 +195,12 @@ class SingleStoryScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         ...story.speaker.achievements
-                            .map((e) => Text(e))
+                            .map((e) => Text(
+                                  "• " + e,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ))
                             .toList(),
                       ],
                     ),
