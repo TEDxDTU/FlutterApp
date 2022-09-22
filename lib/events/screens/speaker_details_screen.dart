@@ -104,7 +104,7 @@ class SpeakerDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            displayDirection: uiDirection.uiDirectionHorizontal,
+            displayDirection: UIDirection.uiDirectionHorizontal,
             errorWidget: GestureDetector(
               // splashColor: Colors.black,
               // style: ElevatedButton.styleFrom(

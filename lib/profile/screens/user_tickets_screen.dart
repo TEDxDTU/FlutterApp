@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/events/widgets/ticket_widget.dart';
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
-
 import '../../global/widgets/tedx_loading_spinner.dart';
 import '../../helpers/constants/constants.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +28,7 @@ class UserTicketsScreen extends StatelessWidget {
     print(tickets);
     return ticketMap;
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -56,9 +55,9 @@ class UserTicketsScreen extends StatelessWidget {
         if (data.length == 0) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Tickets"),
+              title: const Text("Tickets"),
             ),
-            body: Center(
+            body: const Center(
               child: SelectableText(
                 'No tickets found',
                 style: TextStyle(color: Colors.white),
@@ -68,15 +67,15 @@ class UserTicketsScreen extends StatelessWidget {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text("Tickets"),
+            title: const Text("Tickets"),
           ),
           body: ListView.builder(
             itemBuilder: (ctx, idx) {
               final event = data[idx]['event'];
               return TicketWidget(
                 date: DateTime.parse(event['dateTime']),
-                eventName: event['title'],
-                venue: event['venue'],
+                eventName: event['eventName'],
+                venue:event['venue'],
                 noOfTickets: data[idx]['noOfTickets'],
                 razorpayOrderID: data[idx]['razorpayOrderID'],
               );

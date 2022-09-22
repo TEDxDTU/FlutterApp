@@ -8,6 +8,7 @@ import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/edit_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_profile_page.dart';
 import 'package:tedx_dtu_app/profile/inner_pages/main_settings_page.dart';
+import 'package:tedx_dtu_app/profile/inner_pages/profile.dart';
 import 'package:tedx_dtu_app/profile/providers/profile_inner_widget_provider.dart';
 
 import 'edit_profile_image_widget.dart';
@@ -33,13 +34,14 @@ class ProfileCardLayoutWidget extends StatelessWidget {
                 child: Consumer<ProfileInnerWidgetProvider>(
                   builder: (context, innerWidget, child) {
                     switch (innerWidget.currentInnerWidget) {
+                      case CurrentInnerWidget.profile:
+                        return const Profile();
                       case CurrentInnerWidget.mainProfile:
                         return const MainProfilePage();
                       case CurrentInnerWidget.mainSettings:
                         return const MainSettingsPage();
                       case CurrentInnerWidget.editProfile:
-                        return EditProfilePage();
-
+                        return const EditProfilePage();
                       default:
                         return Container(
                           alignment: Alignment.center,

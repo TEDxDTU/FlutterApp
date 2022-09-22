@@ -32,7 +32,7 @@ class ProfileOptionsWidget extends StatelessWidget {
                     buttonSpecifier,
                     style: const TextStyle(
                       color: Color(0xFF717171),
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                     ),
                   ),
                 ),
@@ -54,7 +54,7 @@ class ProfileOptionsWidget extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Icon(
                   buttonIcon,
-                  size: 25.0,
+                  size: 23.0,
                   color: const Color(0xFFAEAEAE),
                 ),
               ),
