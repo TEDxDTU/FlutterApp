@@ -39,8 +39,8 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
             )
-          : Material(
-              child: Center(
+          : Scaffold(
+              body: Center(
                 child: Text('Please login to view your profile'),
               ),
             ),

@@ -21,14 +21,15 @@ class UserTicketsScreen extends StatelessWidget {
         'Authorization': userToken,
       },
     );
-    print(response.body);
+    // print(response.body);
     final List<dynamic> tickets = jsonDecode(response.body);
     // print(tickets[0].runtimeType);
     final List<Map<String, dynamic>> ticketMap = List.from(tickets);
-    print(tickets);
+    // print(tickets.toString() + DateTime.now().toString());
+
     return ticketMap;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -39,7 +40,6 @@ class UserTicketsScreen extends StatelessWidget {
             child: TedxLoadingSpinner(),
           );
         }
-        //TODO: ADD ERROR HANDLING
         if (snapshot.hasError) {
           return Scaffold(
             body: Center(
@@ -50,9 +50,9 @@ class UserTicketsScreen extends StatelessWidget {
             ),
           );
         }
-        print(snapshot.data);
+        // print(snapshot.data);
         final data = snapshot.data as List<Map<String, dynamic>>;
-        if (data.length == 0) {
+        if (data.isEmpty) {
           return Scaffold(
             appBar: AppBar(
               title: const Text("Tickets"),
@@ -69,18 +69,46 @@ class UserTicketsScreen extends StatelessWidget {
           appBar: AppBar(
             title: const Text("Tickets"),
           ),
-          body: ListView.builder(
-            itemBuilder: (ctx, idx) {
-              final event = data[idx]['event'];
-              return TicketWidget(
-                date: DateTime.parse(event['dateTime']),
-                eventName: event['eventName'],
-                venue:event['venue'],
-                noOfTickets: data[idx]['noOfTickets'],
-                razorpayOrderID: data[idx]['razorpayOrderID'],
-              );
-            },
-            itemCount: data.length,
+          body: SingleChildScrollView(
+            child: Column(
+              // itemBuilder: (ctx, idx) {
+              //   final event = data[idx]['event'];
+              //   if (event != null) {
+              //     return Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: TicketWidget(
+              //         date: DateTime.parse(event['dateTime']),
+              //         eventName: event['title'],
+              //         venue: event['venue'],
+              //         noOfTickets: data[idx]['noOfTickets'],
+              //         razorpayOrderID: data[idx]['razorpayOrderID'],
+              //       ),
+              //     );
+              //   } else {
+              //     print('event for ticket is null');
+              //     return SizedBox();
+              //   }
+              // },
+              // itemCount: data.length,
+              children: data.map((e) {
+                final event = e['event'];
+                if (event != null) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TicketWidget(
+                      date: DateTime.parse(event['dateTime']),
+                      eventName: event['title'],
+                      venue: event['venue'],
+                      noOfTickets: e['noOfTickets'],
+                      razorpayOrderID: e['razorpayOrderID'],
+                    ),
+                  );
+                } else {
+                  print('event for ticket is null');
+                  return SizedBox();
+                }
+              }).toList(),
+            ),
           ),
         );
       },
