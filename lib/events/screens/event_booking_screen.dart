@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:tedx_dtu_app/events/widgets/event_booking_screen_footer.dart';
 
 import '../widgets/event_booking_screen_header.dart';
@@ -9,10 +10,8 @@ class EventBookingScreen extends StatelessWidget {
   const EventBookingScreen({Key? key}) : super(key: key);
   static const routeName = '/event-booking-screen';
 
-  // var numberOfTickets = 1;
   @override
   Widget build(BuildContext context) {
-    // print("building screen again");
     for (int i = 1; i <= 8; i++) {
       precacheImage(AssetImage('assets/event_booking/$i.png'), context);
     }
@@ -55,7 +54,6 @@ class EventBookingScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 EventBookingScreenHeader(
-                  // mediaQuery: mediaQuery,
                   width: mediaQuery.size.width * 0.9,
                   height: height,
                   eventTitle: eventTitle,
@@ -65,6 +63,8 @@ class EventBookingScreen extends StatelessWidget {
                 EventBookingScreenFooter(
                   ticketPrice: ticketPrice,
                   venue: venue,
+                  eventName: eventTitle,
+                  eventDesc: eventDesc,
                 ),
               ],
             ),

@@ -99,12 +99,10 @@ class Auth extends ChangeNotifier {
     required String password,
   }) async {
     try {
-      print("signing in");
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      print("signed in");
       await _getDataFromToken(email);
     } on Exception catch (e) {
       throw Exception('Failed to sign in, $e');
@@ -226,19 +224,27 @@ class Auth extends ChangeNotifier {
 class _TedXUser {
   String university;
   String imageUrl;
+
+  /// Corresponds to _id from MongoDB.
+  String uid;
   final FirebaseAuth _auth;
+
   String get email => _auth.currentUser!.email!;
   String get name => _auth.currentUser!.displayName!;
+  Future<String> get auth => _auth.currentUser!.getIdToken();
+
   // String get imageURL => _auth.currentUser!.photoURL!;
   _TedXUser({
     required this.university,
     required this.imageUrl,
+    required this.uid,
   }) : _auth = FirebaseAuth.instance;
 
   factory _TedXUser.fromMap(Map<String, dynamic> map) {
     return _TedXUser(
       university: map['university'] as String,
       imageUrl: map['imageURL'] as String,
+      uid: map['_id'] as String,
     );
   }
 }

@@ -11,10 +11,12 @@ import '../../global/models/http_error.dart';
 class UpcomingEventProvider extends ProviderTemplate<UpcomingEvent> {
   @override
   Future<List<UpcomingEvent>> getData() async {
+    print("Loading upcoming events");
     var response = await http.get(
       Uri.parse(
         nodeServerBaseUrl +
-            '/api/events?eventType=upcoming&sortBy=dateTime&sortOrder=desc',
+            '/api/events?eventType=upcoming_test&sortBy=dateTime&sortOrder=desc',
+        // '/api/events?eventType=upcoming&sortBy=dateTime&sortOrder=desc',
       ),
     );
     if (response.statusCode >= 400) {
