@@ -23,6 +23,8 @@ class Story {
   /// The speaker of the story.
   final Speaker speaker;
 
+  final String streamingUrl;
+
   /// The date and time the story is occurring.
 
   // TODO: ADD STREAMING URL
@@ -35,6 +37,7 @@ class Story {
     required this.id,
     required this.speaker,
     required this.dateTime,
+    required this.streamingUrl,
   });
 
   factory Story.fromMap(Map<String, dynamic> map, int index) {
@@ -47,6 +50,7 @@ class Story {
       dateTime: DateTime.parse(map['dateTime']),
       id: map['_id'],
       speaker: Speaker.fromMap(map['speakersList'][0]),
+      streamingUrl: map['streamingUrl'],
     );
   }
 }

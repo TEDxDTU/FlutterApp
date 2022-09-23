@@ -116,12 +116,10 @@ class EventInfoScreen extends StatelessWidget {
                   Column(
                     children: [
                       //TODO: Replace with YT embed
-                      (e is UpcomingEvent)
+                      (e is UpcomingEvent || e is PastEvent)
                           ? EventCategoryWidget(
                               title: e.title,
-                              details: [
-                                e.details,
-                              ],
+                              details: [],
                               width: double.infinity,
                               height: mediaQuery.size.height * 0.25,
                               showActionWidget: false,

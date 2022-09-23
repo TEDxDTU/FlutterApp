@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
+import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
+
+import '../providers/auth.dart';
 
 class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///Creates a TedxAppBar, an app bar with the TedxDTU logo.
@@ -64,6 +69,30 @@ class TedxAppBar extends StatelessWidget implements PreferredSizeWidget {
                     color: (scrollPassed) ? Colors.black : Colors.white,
                   ),
                 ),
+          actions: [
+            if (Provider.of<Auth>(context).isAnonymousLogin && title == null)
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 0.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      // visualDensity: VisualDensity.compact,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                    ),
+                    onPressed: () {
+                      Provider.of<Auth>(context, listen: false)
+                          .signOut(context);
+                    },
+                    child: Text('Sign In'),
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );

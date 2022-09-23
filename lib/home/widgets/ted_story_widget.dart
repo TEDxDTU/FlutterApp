@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -136,8 +137,7 @@ class TedStoryWidget extends StatelessWidget {
                   width: width,
                   height: 32,
                   decoration: BoxDecoration(
-                    color:
-                        isLive ? Theme.of(context).primaryColor : Colors.white,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(borderRadius),
                       bottomRight: Radius.circular(borderRadius),
@@ -148,9 +148,9 @@ class TedStoryWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        DateFormat('EEE, dd MMM').format(dateTime),
+                        DateFormat('EEE, dd MMM yyyy').format(dateTime),
                         style: TextStyle(
-                          color: isLive ? Colors.white : Colors.black,
+                          color: isLive ? Colors.white : Colors.white,
                         ),
                       ),
                     ],

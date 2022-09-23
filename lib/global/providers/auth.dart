@@ -141,7 +141,7 @@ class Auth extends ChangeNotifier {
   /// Signs out the user from Firebase and sets [user] to null.
   Future<void> signOut(BuildContext context) async {
     Provider.of<TriviaProvider>(context, listen: false).clearData();
-
+    isAnonymousLogin = false;
     await _auth.signOut();
     user = null;
     notifyListeners();

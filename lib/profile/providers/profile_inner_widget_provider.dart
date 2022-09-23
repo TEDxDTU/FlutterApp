@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tedx_dtu_app/profile/screens/profile_screen.dart';
 
 enum CurrentInnerWidget {
+  profile,
   mainProfile,
   mainSettings,
   editProfile,
@@ -11,7 +12,7 @@ enum CurrentInnerWidget {
 /// This class is only used locally, no connection to the backend.
 /// It is used to set and get the current inner widget in the [ProfileScreen]
 class ProfileInnerWidgetProvider with ChangeNotifier {
-  CurrentInnerWidget _currentInnerWidget = CurrentInnerWidget.mainProfile;
+  CurrentInnerWidget _currentInnerWidget = CurrentInnerWidget.profile;
 
   set currentInnerWidget(CurrentInnerWidget currentInnerWidget) {
     _currentInnerWidget = currentInnerWidget;
@@ -22,6 +23,7 @@ class ProfileInnerWidgetProvider with ChangeNotifier {
 
   String get appBarTitle {
     switch (_currentInnerWidget) {
+      case CurrentInnerWidget.profile:
       case CurrentInnerWidget.mainProfile:
         return "Profile";
       case CurrentInnerWidget.mainSettings:

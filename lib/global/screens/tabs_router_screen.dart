@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/global/screens/tabs_screen.dart';
+import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
 
 import '../../home/screens/home_screen.dart';
 import '../../sign_up/screens/sign_up_screen.dart';
@@ -75,6 +76,7 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
             RecentUpdatesScreen.routeName: (context) =>
                 const RecentUpdatesScreen(),
             WebsiteView.routeName: (context) => const WebsiteView(),
+            SignInScreen.routeName: (context) => const SignInScreen(),
           },
         ),
         BottomBarScreen(
@@ -111,14 +113,14 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
         //     '/': (context) => TestScreen(),
         //   },
         // ),
-        BottomBarScreen(
-          title: 'Test',
-          navigatorKey: _testNavKey,
-          icon: const Icon(Icons.help),
-          routes: {
-            '/': (context) => TestScreen(),
-          },
-        ),
+        // BottomBarScreen(
+        //   title: 'Test',
+        //   navigatorKey: _testNavKey,
+        //   icon: const Icon(Icons.help),
+        //   routes: {
+        //     '/': (context) => TestScreen(),
+        //   },
+        // ),
       ],
     );
   }

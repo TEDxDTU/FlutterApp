@@ -17,6 +17,7 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
   /// fetched.
   @protected
   Future<List<T>> getData();
+  bool fetchedOnce = false;
 
   /// Must be implemented by the subclass. It should return an object of the type [T]
   /// It can be fetched from backend or found from [data].
@@ -33,6 +34,8 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
     // print(data);
     // print(force);
     if (data.isNotEmpty && !force) return null;
+    if (!force && fetchedOnce) return null;
+    fetchedOnce = true;
     return () async {
       try {
         data = await getData();
