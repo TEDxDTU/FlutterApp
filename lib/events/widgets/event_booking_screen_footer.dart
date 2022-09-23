@@ -1,21 +1,29 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:tedx_dtu_app/global/providers/auth.dart';
 
 import '../../helpers/widgets/expanded_row.dart';
 import '../helpers/concave_corners_with_radius_clip.dart';
 import '../helpers/dotted_seperator.dart';
+import '../helpers/razorpay_controllers.dart' as razorpay_controller;
 
 class EventBookingScreenFooter extends StatefulWidget {
   const EventBookingScreenFooter({
     Key? key,
     required this.venue,
     required this.ticketPrice,
+    required this.eventName,
+    required this.eventDesc,
   }) : super(key: key);
   final String venue;
   final int ticketPrice;
+  final String eventName;
+  final String eventDesc;
   @override
   State<EventBookingScreenFooter> createState() =>
       _EventBookingScreenFooterState();
@@ -24,10 +32,25 @@ class EventBookingScreenFooter extends StatefulWidget {
 class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
   int numberOfTickets = 1;
 
+  final _razorpay = Razorpay();
+
+  @override
+  void initState() {
+    _razorpay.on(
+      Razorpay.EVENT_PAYMENT_SUCCESS,
+      razorpay_controller.handlePaymentSuccess,
+    );
+    _razorpay.on(
+      Razorpay.EVENT_PAYMENT_ERROR,
+      razorpay_controller.handlePaymentError,
+    );
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    // var selectableBoxKey = GlobalKey<SelectableBoxCreatorState>();
     var height = max(750, mediaQuery.size.height);
     return Stack(
       alignment: Alignment.center,
@@ -38,7 +61,6 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
             topLeft: true,
           ),
           child: Container(
-            // padding: const EdgeInsets.all(24),
             width: mediaQuery.size.width * 0.9,
             height: height * 0.55,
             color: const Color(0xff303030),
@@ -257,8 +279,30 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                       "Pay ${widget.ticketPrice * numberOfTickets}",
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    onPressed: () {
-                      // print("${selectableBoxKey.currentState}");
+                    onPressed: () async {
+                      //TODO: Integrate RazorPay here
+                      String uid =
+                          Provider.of<Auth>(context, listen: false).user!.uid;
+                      String authToken =
+                          await Provider.of<Auth>(context, listen: false)
+                              .user!
+                              .auth;
+
+                      String orderId = await razorpay_controller.getOrderId(
+                        widget.ticketPrice,
+                        numberOfTickets,
+                        uid,
+                        authToken,
+                      );
+
+                      var options = {
+                        'key': 'rzp_live_7EvvqC4Y8cW21k',
+                        'amount': numberOfTickets,
+                        'name': widget.eventName,
+                        'order_id': orderId,
+                        'description': widget.eventDesc,
+                      };
+                      _razorpay.open(options);
                     },
                   ),
                 ),
