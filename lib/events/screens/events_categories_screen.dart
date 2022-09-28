@@ -17,6 +17,7 @@ class EventsCategoriesScreen extends StatelessWidget {
       children: [
         // ignore: prefer_const_constructors
         //TODO: Fetch Live data from firebase
+
         StreamBuilder(
             stream: LiveEvent.fetch(),
             builder: (context, snapshot) {
@@ -24,6 +25,7 @@ class EventsCategoriesScreen extends StatelessWidget {
                   snapshot.data == null) {
                 return Center(child: TedxLoadingSpinner());
               }
+              if (!LiveEvent.instance!.isLive) return SizedBox();
               print(snapshot.data);
               return EventCategoryWidget(
                 title: LiveEvent.instance!.title,

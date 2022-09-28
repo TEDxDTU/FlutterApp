@@ -14,23 +14,25 @@ import 'package:tedx_dtu_app/home/screens/home_screen.dart';
 /// it will be used to display [LiveEvent] on the home screen as well.
 class TedStoryWidget extends StatelessWidget {
   const TedStoryWidget({
-    bool? isLive,
+    bool? isHighlighted,
     double? borderRadius,
     Color? backgroundColor,
     Color? fontColor,
     Key? key,
     required this.leadingText,
     this.onPressed,
-    required this.width,
     required this.dateTime,
-    // required this.height,
+    required this.width,
     required this.imageUrl,
     this.loadingIndicator,
+    this.showLiveText = false,
   })  : fontColor = fontColor ?? Colors.white,
         backgroundColor = backgroundColor ?? Colors.black,
         // width = width,
         borderRadius = borderRadius ?? 20,
-        isLive = isLive ?? false,
+        isHighlighted = isHighlighted ?? false,
+        assert(isHighlighted == true || showLiveText == false,
+            'Non highlighted widget cannot show live text'),
         super(key: key);
 
   /// Text to be shown at top left of the widget.
@@ -61,7 +63,9 @@ class TedStoryWidget extends StatelessWidget {
 
   final Widget? loadingIndicator;
 
-  final bool isLive;
+  final bool isHighlighted;
+
+  final bool showLiveText;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +85,7 @@ class TedStoryWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius),
           ),
-          boxShadow: isLive
+          boxShadow: isHighlighted
               ? [
                   BoxShadow(
                     color: Theme.of(context).primaryColor,
@@ -150,7 +154,7 @@ class TedStoryWidget extends StatelessWidget {
                       Text(
                         DateFormat('EEE, dd MMM yyyy').format(dateTime),
                         style: TextStyle(
-                          color: isLive ? Colors.white : Colors.white,
+                          color: isHighlighted ? Colors.white : Colors.white,
                         ),
                       ),
                     ],
@@ -173,7 +177,7 @@ class TedStoryWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                // if (isLive == true)
+                // if (isHighlighted == true)
                 //   const Padding(
                 //     padding: EdgeInsets.only(
                 //       bottom: 0,
@@ -188,15 +192,15 @@ class TedStoryWidget extends StatelessWidget {
                 //   ),
               ],
             ),
-            if (isLive == true)
-              const Positioned(
+            if (isHighlighted == true)
+              Positioned(
                 top: 5,
                 right: 5,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: LiveIndicatorWidget(
                     3,
-                    showText: true,
+                    showText: showLiveText,
                   ),
                 ),
               ),

@@ -35,6 +35,7 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
     // print(force);
     if (data.isNotEmpty && !force) return null;
     if (!force && fetchedOnce) return null;
+    print("didnt return null");
     fetchedOnce = true;
     return () async {
       try {

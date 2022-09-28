@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/events/models/live_event.dart';
+import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 import 'package:tedx_dtu_app/events/screens/event_info_screen.dart';
 import 'package:tedx_dtu_app/events/widgets/event_category_widget.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
@@ -30,36 +32,7 @@ class HomeScreen extends StatelessWidget {
           ),
           child: TedStories(
             // These are to be removed later, only for showcasing purposes
-            preWidgets: [
-              StreamBuilder(
-                  stream: LiveEvent.fetch().asBroadcastStream(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting &&
-                        LiveEvent.instance == null) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return TedStoryWidget(
-                      leadingText: LiveEvent.instance!.title,
-                      isLive: true,
-                      dateTime: LiveEvent.instance!.date,
-                      imageUrl: LiveEvent.instance!.imageUrl,
-                      width: mediaQuery.size.width / 3,
-                      // height: (mediaQuery.size.height -
-                      //         mediaQuery.padding.top -
-                      //         kToolbarHeight) *
-                      //     0.4,
-                      borderRadius: 27,
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(EventInfoScreen.routeName, arguments: {
-                          'eventType': 'live',
-                        });
-                      },
-                    );
-                  })
-            ],
+            preWidgets: [StartingStoryWidget(mediaQuery: mediaQuery)],
           ),
         ),
         // TODO: Implement Expanded here.
@@ -198,5 +171,86 @@ class HomeScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class StartingStoryWidget extends StatelessWidget {
+  const StartingStoryWidget({
+    Key? key,
+    required this.mediaQuery,
+  }) : super(key: key);
+
+  final MediaQueryData mediaQuery;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: LiveEvent.fetch().asBroadcastStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              LiveEvent.instance == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (!LiveEvent.instance!.isLive) {
+            print("not live");
+            return FutureBuilder(
+                future:
+                    Provider.of<UpcomingEventProvider>(context, listen: false)
+                        .fetchData(true)
+                        ?.call(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final events =
+                      Provider.of<UpcomingEventProvider>(context, listen: false)
+                          .data;
+                  // if (events.isEmpty) return SizedBox();
+                  final firstUpcomingEvent = events.first;
+                  return TedStoryWidget(
+                    leadingText: firstUpcomingEvent.title,
+                    isHighlighted: true,
+                    showLiveText: false,
+                    dateTime: firstUpcomingEvent.date,
+                    imageUrl: firstUpcomingEvent.imageUrl,
+                    width: mediaQuery.size.width / 3,
+                    // height: (mediaQuery.size.height -
+                    //         mediaQuery.padding.top -
+                    //         kToolbarHeight) *
+                    //     0.4,
+                    borderRadius: 27,
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(EventInfoScreen.routeName, arguments: {
+                        'eventType': 'upcoming',
+                        'eventId': firstUpcomingEvent.id,
+                      });
+                    },
+                  );
+                });
+          }
+          return TedStoryWidget(
+            leadingText: LiveEvent.instance!.title,
+            isHighlighted: true,
+            dateTime: LiveEvent.instance!.date,
+            imageUrl: LiveEvent.instance!.imageUrl,
+            width: mediaQuery.size.width / 3,
+            // height: (mediaQuery.size.height -
+            //         mediaQuery.padding.top -
+            //         kToolbarHeight) *
+            //     0.4,
+            borderRadius: 27,
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(EventInfoScreen.routeName, arguments: {
+                'eventType': 'live',
+              });
+            },
+          );
+        });
   }
 }

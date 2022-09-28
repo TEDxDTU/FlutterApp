@@ -13,6 +13,7 @@ class LiveEvent extends Event {
   final String streamingUrl;
   final int currentSpeakerIndex;
   final String? currDataToDisplay;
+  final bool isLive;
   LiveEvent._({
     required String title,
     required String details,
@@ -24,6 +25,7 @@ class LiveEvent extends Event {
     required this.requiresTicket,
     required this.streamingUrl,
     required this.currentSpeakerIndex,
+    this.isLive = false,
     this.currDataToDisplay,
   }) : super(
           title: title,
@@ -53,6 +55,7 @@ class LiveEvent extends Event {
         requiresTicket: map['requiresTicket'],
         currentSpeakerIndex: map['currentSpeakerIndex'],
         currDataToDisplay: map['currentDataToDisplay'],
+        isLive: map['isLive'],
       );
       // print(e.title);
       return e;
@@ -77,4 +80,16 @@ class LiveEvent extends Event {
       }
     }
   }
+
+  // static Future<bool> isLive() async {
+  //   final snapshot = await FirebaseFirestore.instance
+  //       .collection('liveEvent')
+  //       .doc('currentEvent')
+  //       .get();
+
+  //   if (snapshot.data() == null) {
+  //     return false;
+  //   }
+  //   return (snapshot.data()?['isLive'] as bool);
+  // }
 }

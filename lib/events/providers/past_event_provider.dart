@@ -13,7 +13,8 @@ class PastEventProvider extends ProviderTemplate<PastEvent> {
   Future<List<PastEvent>> getData() async {
     var response = await http.get(
       Uri.parse(
-        nodeServerBaseUrl + '/api/events?eventType=past',
+        nodeServerBaseUrl +
+            '/api/events?eventType=past&sortBy=dateTime&sortOrder=desc',
       ),
     );
     if (response.statusCode >= 400) {
