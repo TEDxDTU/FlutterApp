@@ -12,6 +12,7 @@ class EventInfoWidget extends StatelessWidget {
     required this.dateTime,
     required this.eventDescription,
     required this.eventType,
+    required this.eventId,
     required this.marginVal,
     required this.eventTitle,
     required this.eventPrice,
@@ -20,6 +21,8 @@ class EventInfoWidget extends StatelessWidget {
   final DateTime dateTime;
   final String eventDescription;
   final String eventType;
+  final String eventId;
+
   /// The margins to put around the Widget.
   final double marginVal;
   final String eventTitle;
@@ -125,6 +128,7 @@ class EventInfoWidget extends StatelessWidget {
                       'dateTime': dateTime,
                       'eventTitle': eventTitle,
                       'eventPrice': eventPrice,
+                      'eventId': eventId,
                     });
               },
               child: const Text(

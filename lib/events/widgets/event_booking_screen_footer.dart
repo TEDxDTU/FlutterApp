@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 
 import '../../helpers/widgets/expanded_row.dart';
@@ -19,11 +22,13 @@ class EventBookingScreenFooter extends StatefulWidget {
     required this.ticketPrice,
     required this.eventName,
     required this.eventDesc,
+    required this.eventId,
   }) : super(key: key);
   final String venue;
   final int ticketPrice;
   final String eventName;
   final String eventDesc;
+  final String eventId;
   @override
   State<EventBookingScreenFooter> createState() =>
       _EventBookingScreenFooterState();
@@ -281,26 +286,36 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                     ),
                     onPressed: () async {
                       //TODO: Integrate RazorPay here
-                      String uid =
-                          Provider.of<Auth>(context, listen: false).user!.uid;
-                      String authToken =
-                          await Provider.of<Auth>(context, listen: false)
-                              .user!
-                              .auth;
-
-                      String orderId = await razorpay_controller.getOrderId(
+                      var user =
+                          Provider.of<Auth>(context, listen: false).user!;
+                      String uid = user.uid;
+                      String authToken = await user.auth;
+                      print("authToken");
+                      Map<String, dynamic> data =
+                          await razorpay_controller.getOrderDetails(
                         widget.ticketPrice,
                         numberOfTickets,
                         uid,
                         authToken,
                       );
-
+                      String orderId = data['orderID'];
+                      print(orderId);
                       var options = {
                         'key': 'rzp_live_7EvvqC4Y8cW21k',
-                        'amount': numberOfTickets,
-                        'name': widget.eventName,
+                        'currency': data['currency'],
+                        'amount': data['amount'].toString(),
                         'order_id': orderId,
-                        'description': widget.eventDesc,
+                        'notes': {
+                          '_id': widget.eventId,
+                          'firebaseID': FirebaseAuth.instance.currentUser!.uid
+                        },
+                        'name': "Ticket Booking",
+                        'numTickets': numberOfTickets,
+                        'description': widget.eventName,
+                        'prefill': {
+                          'name': user.name,
+                          'email': user.email,
+                        }
                       };
                       _razorpay.open(options);
                     },

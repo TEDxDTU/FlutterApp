@@ -100,7 +100,7 @@ class LiveEventInfoWidget extends StatelessWidget {
                         key: ValueKey(data.link!),
                         link: data.link!,
                         backgroundColor: Colors.white,
-                        displayDirection: UIDirection.uiDirectionHorizontal,
+                        displayDirection: uiDirection.uiDirectionHorizontal,
                         errorWidget: GestureDetector(
                           onTap: () => _launchURL(data.link),
                           child: Padding(

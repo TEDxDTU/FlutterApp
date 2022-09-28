@@ -87,6 +87,7 @@ class EventInfoScreen extends StatelessWidget {
             ),
           ),
           EventInfoWidget(
+            eventId: e.id,
             eventVenue: e.venue,
             eventType: eventType,
             dateTime: e.date,

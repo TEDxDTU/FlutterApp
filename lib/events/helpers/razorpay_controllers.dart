@@ -18,7 +18,7 @@ void handlePaymentError(PaymentFailureResponse response) {
   print(response);
 }
 
-Future<String> getOrderId(
+Future<Map<String, dynamic>> getOrderDetails(
     int price, int numTickets, String uid, String authToken) async {
   String url = nodeServerBaseUrl + "/api/tickets/generate-order";
 
@@ -34,12 +34,12 @@ Future<String> getOrderId(
       {
         "price": price,
         "numTickets": numTickets,
-        "user": {
+        "user": jsonEncode({
           "_id": uid,
-        }
+        }),
       },
     ),
   );
-
-  return (jsonDecode(resp.body)['orderID']);
+  print(resp.body);
+  return (jsonDecode(resp.body));
 }

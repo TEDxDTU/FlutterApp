@@ -29,6 +29,7 @@ class EventBookingScreen extends StatelessWidget {
     String venue = routeArgs['venue'].toString();
     DateTime dateTime = routeArgs['dateTime'] as DateTime;
     String eventDesc = routeArgs['eventDescription'].toString();
+    String eventId = routeArgs['eventId'].toString();
     int ticketPrice = int.parse(routeArgs['eventPrice'].toString());
     // _isInit = false;
     var mediaQuery = MediaQuery.of(context);
@@ -64,6 +65,7 @@ class EventBookingScreen extends StatelessWidget {
                   ticketPrice: ticketPrice,
                   venue: venue,
                   eventName: eventTitle,
+                  eventId: eventId,
                   eventDesc: eventDesc,
                 ),
               ],
