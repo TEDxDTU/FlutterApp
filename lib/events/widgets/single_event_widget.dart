@@ -122,13 +122,22 @@ class SingleEventWidget extends StatelessWidget {
                       const SizedBox(
                         height: 8.0,
                       ),
-                      Text(
-                        DateFormat('hh:mm a | dd MMM,yyyy').format(eventDate),
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
+                      (eventDate.hour == 0)
+                          ? Text(
+                              DateFormat('dd MMMM, yyyy').format(eventDate),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            )
+                          : Text(
+                              DateFormat('hh:mm a | dd MMM,yyyy')
+                                  .format(eventDate),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
                     ],
                   ),
                 ),

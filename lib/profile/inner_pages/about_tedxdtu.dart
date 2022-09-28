@@ -40,7 +40,7 @@ class AboutTedxDtu extends StatelessWidget {
                   color: const Color(0xFF383838),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(17),
                 child: Column(
                   children: [
                     const Text(
@@ -106,15 +106,16 @@ class TextWithLottie extends StatelessWidget {
           flex: 2,
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF383838),
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(15),
             ),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(17),
             child: Text(
               text,
               textAlign: TextAlign.start,
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 17,
+                // fontWeight: FontWeight.bold,
               ),
             ),
           ),
