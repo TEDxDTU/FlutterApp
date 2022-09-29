@@ -193,7 +193,7 @@ class StartingStoryWidget extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          if (!LiveEvent.instance!.isLive) {
+          if (LiveEvent.instance == null || !LiveEvent.instance!.isLive) {
             print("not live");
             return FutureBuilder(
                 future:
