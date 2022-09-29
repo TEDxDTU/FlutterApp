@@ -28,6 +28,7 @@ import 'global/providers/config.dart';
 import 'global/providers/test_provider.dart';
 import 'global/widgets/auto_login_initialiser.dart';
 import 'home/screens/home_screen.dart';
+import 'global/providers/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: globalNavKey,
         title: 'Flutter Demo',
+        scaffoldMessengerKey: globals.snackbarKey,
         theme: ThemeData(
           fontFamily: 'Lato',
           toggleableActiveColor: primary,
@@ -79,7 +81,6 @@ class MyApp extends StatelessWidget {
               TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
             },
           ),
-
           // canvasColor: Colors.red[100],
           snackBarTheme: SnackBarThemeData(
             behavior: SnackBarBehavior.floating,
