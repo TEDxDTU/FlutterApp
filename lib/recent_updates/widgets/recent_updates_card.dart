@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tedx_dtu_app/recent_updates/models/recent_update.dart';
 import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../home/screens/no_bottombar_screen.dart';
 
 class RecentUpdatesCard extends StatelessWidget {
@@ -26,12 +25,12 @@ class RecentUpdatesCard extends StatelessWidget {
         right: 16,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(20),
         color: Colors.grey[850],
-        border: Border.all(
-          width: 1,
-          color: Colors.white,
-        ),
+        // border: Border.all(
+        //   width: 1,
+        //   color: Colors.white,
+        // ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -40,21 +39,6 @@ class RecentUpdatesCard extends StatelessWidget {
             flex: 2,
             child: Row(
               children: [
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        update.title,
-                      ),
-                      Text(
-                        update.description,
-                      ),
-                    ],
-                  ),
-                ),
                 if (update.imageUrl != null)
                   Expanded(
                     flex: 2,
@@ -71,7 +55,33 @@ class RecentUpdatesCard extends StatelessWidget {
                         },
                       ),
                     ),
-                  )
+                  ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        update.title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        update.description,
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -81,36 +91,16 @@ class RecentUpdatesCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  flex: 2,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[600],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.share,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Share.share(
-                          'Hey! Come check this update in TEDxDTU application\n${update.url}');
-                    },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
                   flex: 6,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey[600],
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        side: const BorderSide(
-                          width: 1,
-                          color: Colors.white,
-                        ),
+                        borderRadius: BorderRadius.circular(14),
+                        // side: const BorderSide(
+                        //   width: 1,
+                        //   color: Colors.white,
+                        // ),
                       ),
                     ),
                     child: const Text(
@@ -125,6 +115,26 @@ class RecentUpdatesCard extends StatelessWidget {
                         'child': WebsiteView(),
                         'url': update.url,
                       });
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Share.share(
+                          'Hey! Come check this update in TEDxDTU application\n${update.url}');
                     },
                   ),
                 ),
