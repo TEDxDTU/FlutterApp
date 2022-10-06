@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,10 +65,7 @@ class _SpeakerInfoWidgetState extends State<SpeakerInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // print(Provider.of<Event>(context).speakers.length.toString() + "xblah");
-    // print(Provider.of<Event>(context).speakers[9].name);
     Speaker speaker = Provider.of<Event>(context).speakers[widget.speakerIndex];
-    print(speaker.name + "helloworld");
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(
