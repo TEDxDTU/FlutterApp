@@ -10,7 +10,7 @@ class LiveEvent extends Event {
   static LiveEvent? instance;
 
   final bool requiresTicket;
-  final String streamingUrl;
+  final String? streamingUrl;
   final int currentSpeakerIndex;
   final String? currDataToDisplay;
   final bool isLive;

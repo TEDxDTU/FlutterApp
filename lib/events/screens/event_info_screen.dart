@@ -10,6 +10,8 @@ import 'package:tedx_dtu_app/events/widgets/event_info_widget.dart';
 import 'package:tedx_dtu_app/events/widgets/past_event_gallery.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box_creator.dart';
 import 'package:tedx_dtu_app/events/widgets/speaker_info_widget.dart';
+import 'package:tedx_dtu_app/events/widgets/youtube_embed_player.dart';
+import 'package:tedx_dtu_app/events/widgets/youtube_playlist_handler.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 import 'package:tedx_dtu_app/global/widgets/youtube_embed_widget.dart';
 
@@ -56,13 +58,7 @@ class EventInfoScreen extends StatelessWidget {
     return StreamBuilder(
       stream: eventType == 'live' ? LiveEvent.fetch() : null,
       builder: (context, snapshot) {
-        // print(snapshot.data);
-        print('new stream event');
-        if (LiveEvent.instance == null) return TedxLoadingSpinner();
         if (eventType == 'live' && (!snapshot.hasData)) {
-          print("HEREEEEEEEEEEEEE");
-          print(snapshot.connectionState);
-          print(snapshot.data);
           return const Center(child: TedxLoadingSpinner());
         }
         Event e;
@@ -73,7 +69,9 @@ class EventInfoScreen extends StatelessWidget {
         } else {
           e = Provider.of<PastEventProvider>(context).findById(eventId!);
         }
-        print((e is LiveEvent) ? e.currentSpeakerIndex : null);
+
+        // print(Provider.of<Event>(context, listen: false).title);
+
         // List of widgets shown in the DraggableScrollableSheet.
         List<Widget> bottomWidgets = [
           Column(
@@ -98,7 +96,18 @@ class EventInfoScreen extends StatelessWidget {
           ),
           if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
           if (e is LiveEvent) LiveEventInfoWidget(),
+          if (e is PastEvent && e.videoUrls.isNotEmpty)
+            const YoutubePlaylistHandler(),
         ];
+
+        List<String> bottomNames = [
+          'Speaker info',
+          'Event info',
+          if (e is PastEvent) 'Gallery',
+          if (e is LiveEvent) 'Live Info',
+          if (e is PastEvent && e.videoUrls.isNotEmpty) 'Videos'
+        ];
+
         return Scaffold(
           appBar: AppBar(
             title: Text(e.title),
@@ -117,32 +126,30 @@ class EventInfoScreen extends StatelessWidget {
                   Column(
                     children: [
                       //TODO: Replace with YT embed
-                      (e is UpcomingEvent || e is PastEvent)
-                          ? EventCategoryWidget(
-                              title: e.title,
-                              details: [],
-                              width: double.infinity,
-                              height: mediaQuery.size.height * 0.25,
-                              showActionWidget: false,
-                              showImage: true,
-                              imageProvider: NetworkImage(e.imageUrl),
-                              // gradientColor: Colors.black,
-                              imageHeroTag: e.imageUrl,
-                            )
-                          : YoutubeEmbedWidget(),
+                      if (e is PastEvent && e.videoUrls.isNotEmpty)
+                        const YoutubeEmbedPlayer()
+                      else if (e is UpcomingEvent)
+                        EventCategoryWidget(
+                          title: e.title,
+                          details: const [],
+                          width: double.infinity,
+                          height: mediaQuery.size.height * 0.25,
+                          showActionWidget: false,
+                          showImage: true,
+                          imageProvider: NetworkImage(e.imageUrl),
+                          // gradientColor: Colors.black,
+                          imageHeroTag: e.imageUrl,
+                        )
+                      else
+                        const YoutubeEmbedWidget(),
                       Container(
                         width: double.infinity,
                         height: mediaQuery.size.height * 0.08,
                         alignment: Alignment.centerLeft,
                         child: SelectableBoxCreator(
                           key: selectableBoxKey,
-                          count: (e is UpcomingEvent) ? 2 : 3,
-                          names: [
-                            'Speaker info',
-                            'Event info',
-                            if (e is PastEvent) 'Gallery',
-                            if (e is LiveEvent) 'Live Info',
-                          ],
+                          count: bottomNames.length,
+                          names: bottomNames,
                         ),
                       ),
                     ],

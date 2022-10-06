@@ -83,6 +83,9 @@ class UpcomingEvent extends Event {
 class PastEvent extends Event {
   final List<String> galleryImageUrls;
   final String? streamingUrl;
+  final List<dynamic> videoUrls;
+  int _currVid = 0;
+
   PastEvent({
     required String title,
     required String details,
@@ -93,6 +96,7 @@ class PastEvent extends Event {
     required List<Speaker> speakers,
     required this.galleryImageUrls,
     required this.streamingUrl,
+    required this.videoUrls,
   }) : super(
           title: title,
           details: details,
@@ -122,6 +126,26 @@ class PastEvent extends Event {
           )
           .toList(),
       streamingUrl: map['streamingUrl'],
+      videoUrls: map['videoUrls'],
     );
+  }
+
+  int get currVid {
+    return _currVid;
+  }
+
+  void setVid(int index) {
+    _currVid = index;
+    notifyListeners();
+  }
+
+  void nextVid() {
+    _currVid++;
+    notifyListeners();
+  }
+
+  void prevVid() {
+    _currVid--;
+    notifyListeners();
   }
 }
