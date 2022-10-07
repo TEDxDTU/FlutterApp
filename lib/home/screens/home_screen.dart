@@ -196,9 +196,20 @@ class StartingStoryWidget extends StatelessWidget {
           if (LiveEvent.instance == null || !LiveEvent.instance!.isLive) {
             print("not live");
             return FutureBuilder(
+                // TODO: Review this @satvik
+                //
+                // Before fix:
+                // future:
+                //     Provider.of<UpcomingEventProvider>(context, listen: false)
+                //         .fetchData(true)
+                //         ?.call(),
+                //
+                // After fix:
+                // Reason: this force fetch was causing Stories widget to rebuild
+                // each time we scrolled to the extreme right in StoriesWidget.
                 future:
                     Provider.of<UpcomingEventProvider>(context, listen: false)
-                        .fetchData(true)
+                        .fetchData(false)
                         ?.call(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
