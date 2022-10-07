@@ -232,6 +232,7 @@ class _TedXUser {
   String get email => _auth.currentUser!.email!;
   String get name => _auth.currentUser!.displayName!;
   Future<String> get auth => _auth.currentUser!.getIdToken();
+  FirebaseAuth get firebaseAuth => _auth;
 
   // String get imageURL => _auth.currentUser!.photoURL!;
   _TedXUser({

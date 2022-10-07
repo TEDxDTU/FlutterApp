@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         navigatorKey: globalNavKey,
-        title: 'Flutter Demo',
+        title: 'TEDxDTU',
         scaffoldMessengerKey: globals.snackbarKey,
         theme: ThemeData(
           fontFamily: 'Lato',
@@ -202,7 +202,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: {
-          SignUpScreen.routeName: (ctx) => SignUpScreen(),
+          SignUpScreen.routeName: (ctx) => const SignUpScreen(),
+          TabsRouterScreen.routeName: (ctx) => const TabsRouterScreen(),
         },
         home: const AutoLoginInitializer(),
       ),

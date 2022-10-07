@@ -28,6 +28,8 @@ import 'test_screen.dart';
 class TabsRouterScreen extends StatefulWidget {
   const TabsRouterScreen({Key? key}) : super(key: key);
 
+  static const routeName = '/tabs-router-screen';
+
   @override
   State<TabsRouterScreen> createState() => _TabsRouterScreenState();
 }

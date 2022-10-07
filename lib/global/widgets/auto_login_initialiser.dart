@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/sign_up/screens/email_verify_screen.dart';
 
 import '../../sign_up/screens/sign_in_screen.dart';
 import '../providers/auth.dart';
@@ -18,16 +19,21 @@ class AutoLoginInitializer extends StatelessWidget {
           ? Provider.of<Auth>(context, listen: false).autoLogin()
           : null,
       body: Consumer<Auth>(
-        // stream: null,
         builder: (context, authData, child) {
-          // if (authState.connectionState == ConnectionState.waiting) {
-          //   print("auth waiting");
-          //   return const Center(child: TedxLoadingSpinner());
-          // }
-          return !(Provider.of<Auth>(context).isAnonymousLogin ||
-                  (Provider.of<Auth>(context).isAuth))
-              ? const SignInScreen()
-              : const TabsRouterScreen();
+          debugPrint("Auto login ran");
+          var authProvider = Provider.of<Auth>(context);
+          if (authProvider.isAnonymousLogin) {
+            return const TabsRouterScreen();
+          }
+          if (authProvider.isAuth &&
+              authProvider.user!.firebaseAuth.currentUser!.emailVerified) {
+            return const TabsRouterScreen();
+          } else {
+            if (authProvider.isAuth) {
+              return const EmailVerifyScreen();
+            }
+            return const SignInScreen();
+          }
         },
       ),
     );
