@@ -44,7 +44,8 @@ class Auth extends ChangeNotifier {
         'password': password,
         'name': name,
         'university': university,
-        'imageURL': imageUrl,
+        'imageURL': imageUrl ??
+            "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png",
       });
       if (response.statusCode == 200) {
         signIn(email: email, password: password);
@@ -149,15 +150,19 @@ class Auth extends ChangeNotifier {
 
   /// Uploads a user's image to Cloud Storage. Email is used as an identifier.
   /// Returns the download URL of the image.
-  Future<String> uploadUserImage(String userEmail, File image) async {
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('user-images')
-        .child(userEmail + '.png');
+  Future<String?> uploadUserImage(String userEmail, File image) async {
+    try {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('user-images')
+          .child(userEmail + '.png');
 
-    await ref.putFile(image, SettableMetadata(contentType: 'image/png'));
-    final imageUrl = await ref.getDownloadURL();
-    return imageUrl;
+      await ref.putFile(image, SettableMetadata(contentType: 'image/png'));
+      final imageUrl = await ref.getDownloadURL();
+      return imageUrl;
+    } on Exception catch (e) {
+      return null;
+    }
   }
 
   /// Deletes the user's image from Cloud Storage
