@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/global/widgets/custom_image_widget.dart';
+import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_attempt_screen.dart';
@@ -116,8 +117,14 @@ class TriviaCardWidget extends StatelessWidget {
                             onPressed: () async {
                               if (!Provider.of<Auth>(context, listen: false)
                                   .isAuth) {
-                                UIHelper.showErrorDialog(context, 'Sign in',
-                                    'You must be signed in to play trivia');
+                                // UIHelper.showErrorDialog(context, 'Sign in',
+                                //     'You must be signed in to play trivia');
+                                // return;
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => SignUpAlertDialog(
+                                        description:
+                                            'You must be signed in to play trivia'));
                                 return;
                               }
                               // ONLY FOR TESTING PURPOSES RIGHT NOW

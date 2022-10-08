@@ -103,6 +103,7 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
             '/': (context) => const ProfileScreen(),
             TestScreen.routeName: (context) => TestScreen(),
             SignUpScreen.routeName: (context) => const SignUpScreen(),
+            EventsListScreen.routeName: (context) => const EventsListScreen(),
           },
         ),
         // BottomBarScreen(

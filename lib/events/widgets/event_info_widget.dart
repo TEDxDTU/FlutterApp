@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
+import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
 import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
 
 /// Displays the information about a particular event.
@@ -120,16 +122,23 @@ class EventInfoWidget extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // TODO: EventBookingScreen push here
-                Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
-                    arguments: <String, Object>{
-                      'child': const EventBookingScreen(),
-                      'eventDescription': eventDescription,
-                      'venue': eventVenue,
-                      'dateTime': dateTime,
-                      'eventTitle': eventTitle,
-                      'eventPrice': eventPrice,
-                      'eventId': eventId,
-                    });
+
+                if (FirebaseAuth.instance.currentUser == null) {
+                  showDialog(
+                      context: context,
+                      builder: (context) =>  SignUpAlertDialog(description: 'To attend the live event, you need to sign in first.',));
+                } else {
+                  Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
+                      arguments: <String, Object>{
+                        'child': const EventBookingScreen(),
+                        'eventDescription': eventDescription,
+                        'venue': eventVenue,
+                        'dateTime': dateTime,
+                        'eventTitle': eventTitle,
+                        'eventPrice': eventPrice,
+                        'eventId': eventId,
+                      });
+                }
               },
               child: const Text(
                 'BOOK NOW',

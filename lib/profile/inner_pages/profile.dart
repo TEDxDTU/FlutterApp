@@ -116,9 +116,7 @@ class _ProfileState extends State<Profile> {
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
-                    .pushNamed(NoBottomBarScreen.routeName, arguments: {
-                  'child': const EventsCategoriesScreen(),
-                });
+                      .pushNamed(EventsListScreen.routeName, arguments: true);
               },
               child: Container(
                 width: 300,

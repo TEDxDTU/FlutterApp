@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/global/providers/auth.dart';
 
 class SignUpAlertDialog extends StatelessWidget {
-  const SignUpAlertDialog({Key? key}) : super(key: key);
-
+  SignUpAlertDialog({Key? key,required this.description}) : super(key: key);
+  String description;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -19,9 +21,9 @@ class SignUpAlertDialog extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        child: const Text(
-                          'To attend the live event, you need to sign up first.',
-                          style: TextStyle(
+                        child: Text(
+                          description,
+                          style:const TextStyle(
                             color: Colors.black,
                             fontSize: 16.0,
                           ),
@@ -32,10 +34,13 @@ class SignUpAlertDialog extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          print('SignUp button Pressed');
+                          print('SignIn button Pressed');
+                          Navigator.of(context).pop();
+                          Provider.of<Auth>(context, listen: false)
+                              .signOut(context);
                         },
                         child: const Text(
-                          'SignUp',
+                          'SignIn',
                           style: TextStyle(color: Colors.white, fontSize: 14.0),
                         ),
                         style: ButtonStyle(

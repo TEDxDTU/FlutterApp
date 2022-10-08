@@ -9,6 +9,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
+import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
 
 import '../../helpers/widgets/expanded_row.dart';
 import '../helpers/concave_corners_with_radius_clip.dart';
@@ -179,7 +180,7 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                           RichText(
                             text: TextSpan(
                               children: [
-                                _priceTextSpan(context, 22),
+                                _priceTextSpan(context, 22, widget.ticketPrice),
                                 const TextSpan(
                                   text: ' x ',
                                   style: TextStyle(
@@ -208,7 +209,8 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                             ),
                           ),
                           RichText(
-                            text: _priceTextSpan(context, 22),
+                            text: _priceTextSpan(context, 22,
+                                (widget.ticketPrice * numberOfTickets)),
                           ),
                         ],
                       ),
@@ -219,7 +221,8 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                             builder: (ctx) {
                               return const AlertDialog(
                                 title: Text('Cancellation Policy'),
-                                content: Text('Bla bla bla'),
+                                content: Text(
+                                    'Passes Cannot be cancelled or transferred.'),
                               );
                             },
                           );
@@ -257,7 +260,8 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                               ),
                             ),
                             RichText(
-                              text: _priceTextSpan(context, null),
+                              text: _priceTextSpan(context, null,
+                                  (widget.ticketPrice * numberOfTickets)),
                             ),
                           ],
                         ),
@@ -281,13 +285,14 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                       ),
                     ),
                     child: Text(
-                      "Pay ${widget.ticketPrice * numberOfTickets}",
+                      "Pay ₹${widget.ticketPrice * numberOfTickets}",
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     onPressed: () async {
                       //TODO: Integrate RazorPay here
                       var user =
                           Provider.of<Auth>(context, listen: false).user!;
+
                       String uid = user.uid;
                       String authToken = await user.auth;
                       print("authToken");
@@ -336,12 +341,13 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
     );
   }
 
-  TextSpan _priceTextSpan(BuildContext context, double? fontSize) {
+  TextSpan _priceTextSpan(
+      BuildContext context, double? fontSize, int? numOfTickets) {
     return TextSpan(
       children: [
         const TextSpan(text: '₹'),
         TextSpan(
-          text: (widget.ticketPrice * numberOfTickets).toString(),
+          text: numOfTickets.toString(),
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: fontSize,
