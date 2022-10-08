@@ -92,38 +92,41 @@ class _TedStoriesState extends State<TedStories> {
             ),
           ),
           Expanded(
-            child: RefreshableFutureScreenTemplate(
-              future: Provider.of<StoryProvider>(context).fetchData,
-              body: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...widget.preWidgets ?? [],
-                  ...Provider.of<StoryProvider>(context)
-                      .data
-                      .map(
-                        (e) => TedStoryWidget(
-                          leadingText: e.title,
-                          dateTime: e.dateTime,
-                          imageUrl: e.imageUrl,
-                          // height: height * 0.4,
-                          width: MediaQuery.of(context).size.width / 3,
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                              NoBottomBarScreen.routeName,
-                              arguments: {
-                                'index': e.index,
-                                'child': StoriesPageView(),
-                              },
-                            );
-                          },
-                        ),
-                      )
-                      .toList(),
-                  ...widget.postWidgets ?? [],
-                ],
-                physics: const BouncingScrollPhysics(),
-                controller: _scrollController,
-              ),
+            child: FutureBuilder(
+              future: Provider.of<StoryProvider>(context, listen: false)
+                  .fetchData(false)
+                  ?.call(),
+              builder: ((context, snapshot) {
+                return ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...widget.preWidgets ?? [],
+                    ...Provider.of<StoryProvider>(context)
+                        .data
+                        .map(
+                          (e) => TedStoryWidget(
+                            leadingText: e.title,
+                            dateTime: e.dateTime,
+                            imageUrl: e.imageUrl,
+                            width: MediaQuery.of(context).size.width / 3,
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                NoBottomBarScreen.routeName,
+                                arguments: {
+                                  'index': e.index,
+                                  'child': const StoriesPageView(),
+                                },
+                              );
+                            },
+                          ),
+                        )
+                        .toList(),
+                    ...widget.postWidgets ?? [],
+                  ],
+                  physics: const BouncingScrollPhysics(),
+                  controller: _scrollController,
+                );
+              }),
             ),
           ),
           const SizedBox(height: 8),

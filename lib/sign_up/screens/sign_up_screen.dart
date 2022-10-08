@@ -247,7 +247,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 return;
                               }
                               if (_formKey.currentState!.validate()) {
-                                // print("here");
                                 _formKey.currentState!.save();
                                 try {
                                   await Provider.of<Auth>(context,
