@@ -106,6 +106,7 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
             TestScreen.routeName: (context) => TestScreen(),
             SignUpScreen.routeName: (context) => const SignUpScreen(),
             EventsListScreen.routeName: (context) => const EventsListScreen(),
+            EventInfoScreen.routeName: (context) => const EventInfoScreen(),
           },
         ),
         // BottomBarScreen(

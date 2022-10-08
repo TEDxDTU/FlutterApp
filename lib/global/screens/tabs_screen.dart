@@ -69,7 +69,8 @@ class _TabsScreenState extends State<TabsScreen> {
                           child: (settings.arguments as Map)['child'] as Widget,
                         );
                       }
-                      // print(settings.name);
+                      // print("settings : $settings");
+                      // print("settingsname : ${settings.name}");
                       return Stack(
                         alignment: Alignment.center,
                         children: [

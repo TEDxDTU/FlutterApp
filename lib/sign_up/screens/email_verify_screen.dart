@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/global/screens/tabs_router_screen.dart';
@@ -73,10 +74,54 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Please verify your email"),
-            ElevatedButton(
-              child: const Text("Resend verification email"),
-              onPressed: () async {
+            
+            Expanded(
+              flex: 3,
+              child: Lottie.asset("assets/lottie/email_verification.json"),
+            ),
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  const Text(
+                    "Confirm Your email address",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "We have sent a confirmation email to :",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    auth.user!.email,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Check your email and click on the\n confirmation link to continue.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
                 await auth.user!.firebaseAuth.currentUser!
                     .sendEmailVerification();
 
@@ -96,6 +141,19 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   ),
                 );
               },
+              child: Container(
+                height: 60,
+                width: double.infinity,
+                color: Theme.of(context).primaryColor,
+                child: const Center(
+                  child: Text(
+                    "Resend verification email",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
