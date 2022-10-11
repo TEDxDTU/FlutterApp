@@ -77,7 +77,7 @@ class TedStoryWidget extends StatelessWidget {
         }
       },
       child: Container(
-        // height: height,
+        height: width * 16 / 9,
         width: width,
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(

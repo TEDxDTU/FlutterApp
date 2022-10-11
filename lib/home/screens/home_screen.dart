@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -187,6 +189,10 @@ class StartingStoryWidget extends StatelessWidget {
     return StreamBuilder(
         stream: LiveEvent.fetch().asBroadcastStream(),
         builder: (context, snapshot) {
+          double? height = MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top -
+              kToolbarHeight;
+          double finalHeight = max(220, height * 0.4);
           if (snapshot.connectionState == ConnectionState.waiting &&
               LiveEvent.instance == null) {
             return const Center(
@@ -222,13 +228,14 @@ class StartingStoryWidget extends StatelessWidget {
                           .data;
                   // if (events.isEmpty) return SizedBox();
                   final firstUpcomingEvent = events.first;
+
                   return TedStoryWidget(
                     leadingText: firstUpcomingEvent.title,
                     isHighlighted: true,
                     showLiveText: false,
                     dateTime: firstUpcomingEvent.date,
                     imageUrl: firstUpcomingEvent.imageUrl,
-                    width: mediaQuery.size.width / 3,
+                    width: finalHeight * 9 / 16,
                     // height: (mediaQuery.size.height -
                     //         mediaQuery.padding.top -
                     //         kToolbarHeight) *
@@ -249,7 +256,7 @@ class StartingStoryWidget extends StatelessWidget {
             isHighlighted: true,
             dateTime: LiveEvent.instance!.date,
             imageUrl: LiveEvent.instance!.imageUrl,
-            width: mediaQuery.size.width / 3,
+            width: finalHeight * 9 / 16,
             // height: (mediaQuery.size.height -
             //         mediaQuery.padding.top -
             //         kToolbarHeight) *
