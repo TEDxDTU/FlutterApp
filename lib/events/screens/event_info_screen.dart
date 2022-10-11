@@ -107,7 +107,14 @@ class EventInfoScreen extends StatelessWidget {
           if (e is LiveEvent) 'Live Info',
           if (e is PastEvent && e.videoUrls.isNotEmpty) 'Videos'
         ];
+        final ytWidgetHeight = mediaQuery.size.width * 9 / 16;
+        final topWidgetHeight = (e is PastEvent && e.videoUrls.isNotEmpty)
+            ? ytWidgetHeight
+            : mediaQuery.size.height * 0.25;
 
+        final bottomWidgetFraction = 1 -
+            (topWidgetHeight + kToolbarHeight + mediaQuery.size.height * 0.08) /
+                mediaQuery.size.height;
         return Scaffold(
           appBar: AppBar(
             title: Text(e.title),
@@ -128,7 +135,7 @@ class EventInfoScreen extends StatelessWidget {
                       //TODO: Replace with YT embed
                       if (e is PastEvent && e.videoUrls.isNotEmpty)
                         const YoutubeEmbedPlayer()
-                      else if (e is UpcomingEvent)
+                      else
                         EventCategoryWidget(
                           title: e.title,
                           details: const [],
@@ -139,9 +146,8 @@ class EventInfoScreen extends StatelessWidget {
                           imageProvider: NetworkImage(e.imageUrl),
                           // gradientColor: Colors.black,
                           imageHeroTag: e.imageUrl,
-                        )
-                      else
-                        const YoutubeEmbedWidget(),
+                        ),
+
                       Container(
                         width: double.infinity,
                         height: mediaQuery.size.height * 0.08,
@@ -155,13 +161,8 @@ class EventInfoScreen extends StatelessWidget {
                     ],
                   ),
                   DraggableScrollableSheet(
-                    initialChildSize:
-                        mediaQuery.orientation == Orientation.portrait
-                            ? 0.61
-                            : 0.58,
-                    minChildSize: mediaQuery.orientation == Orientation.portrait
-                        ? 0.61
-                        : 0.58,
+                    initialChildSize: bottomWidgetFraction,
+                    minChildSize: bottomWidgetFraction,
                     maxChildSize: 1.0,
                     snap: true,
                     builder: (context, scrollController) {

@@ -73,15 +73,10 @@ class _YoutubeEmbedWidgetState extends State<YoutubeEmbedWidget> {
           return prev.isReady != curr.isReady;
         },
         builder: (ctx, val) {
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              YoutubePlayerIFrame(
-                aspectRatio: widget.aspectRatio,
-                // controller: _controller,
-                gestureRecognizers: {},
-              ),
-            ],
+          return YoutubePlayerIFrame(
+            aspectRatio: widget.aspectRatio,
+            // controller: _controller,
+            gestureRecognizers: {},
           );
         },
       ),

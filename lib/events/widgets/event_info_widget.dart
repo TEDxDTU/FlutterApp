@@ -77,10 +77,11 @@ class EventInfoWidget extends StatelessWidget {
               dateTime,
             ),
           ),
-          _createListTile(
-            Icons.access_time_rounded,
-            DateFormat('hh:mm a').format(dateTime),
-          ),
+          if (dateTime.hour != 0)
+            _createListTile(
+              Icons.access_time_rounded,
+              DateFormat('hh:mm a').format(dateTime),
+            ),
           const SizedBox(
             height: 10,
           ),
@@ -126,7 +127,10 @@ class EventInfoWidget extends StatelessWidget {
                 if (FirebaseAuth.instance.currentUser == null) {
                   showDialog(
                       context: context,
-                      builder: (context) =>  SignUpAlertDialog(description: 'To attend the live event, you need to sign in first.',));
+                      builder: (context) => SignUpAlertDialog(
+                            description:
+                                'To attend the live event, you need to sign in first.',
+                          ));
                 } else {
                   Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
                       arguments: <String, Object>{

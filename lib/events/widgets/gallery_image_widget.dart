@@ -42,33 +42,33 @@ class _GalleryImageWidgetState extends State<GalleryImageWidget> {
 
   bool _isLoading = true;
   bool _isError = false;
-  @override
-  void initState() {
-    _image = Image.network(
-      widget.imageUrl,
-      width: widget.width,
-      fit: BoxFit.cover,
-    );
-    _image.image.resolve(ImageConfiguration.empty).addListener(
-          ImageStreamListener(
-            (info, val) {
-              if (mounted) {
-                setState(() {
-                  _isLoading = false;
-                });
-              }
-            },
-            onError: (error, stackTrace) {
-              if (mounted) {
-                setState(() {
-                  _isError = true;
-                });
-              }
-            },
-          ),
-        );
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _image = Image.network(
+  //     widget.imageUrl,
+  //     width: widget.width,
+  //     fit: BoxFit.cover,
+  //   );
+  //   _image.image.resolve(ImageConfiguration.empty).addListener(
+  //         ImageStreamListener(
+  //           (info, val) {
+  //             if (mounted) {
+  //               setState(() {
+  //                 _isLoading = false;
+  //               });
+  //             }
+  //           },
+  //           onError: (error, stackTrace) {
+  //             if (mounted) {
+  //               setState(() {
+  //                 _isError = true;
+  //               });
+  //             }
+  //           },
+  //         ),
+  //       );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,21 +82,22 @@ class _GalleryImageWidgetState extends State<GalleryImageWidget> {
           alignment: Alignment.topCenter,
           duration: const Duration(milliseconds: 500),
           child: Container(
-              constraints: BoxConstraints(
-                minHeight: 50,
-              ),
-              width: widget.width,
-              child: _isError
-                  ? ImageErrorWidget()
-                  : _isLoading
-                      ? Shimmer.fromColors(
-                          child: Container(
-                              height: 100,
-                              width: widget.width,
-                              color: Colors.black),
-                          baseColor: Colors.grey[500]!,
-                          highlightColor: Colors.grey[100]!)
-                      : _image),
+            constraints: BoxConstraints(
+              minHeight: 50,
+            ),
+            width: widget.width,
+            child: CachedNetworkImage(
+              imageUrl: widget.imageUrl,
+              fit: BoxFit.cover,
+              placeholder: (_, __) => CircularProgressIndicator(),
+              errorWidget: (_, __, ___) => ImageErrorWidget(),
+            ),
+            // child: _isError
+            //     ? ImageErrorWidget()
+            //     : _isLoading
+            //         ? CircularProgressIndicator()
+            //         : _image,
+          ),
         ),
       ),
     );

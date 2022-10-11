@@ -63,8 +63,10 @@ class BottomBar extends StatelessWidget {
                       title: Text(
                         e.title,
                         style: TextStyle(
-                          fontSize: (MediaQuery.of(context).size.width * 0.15) /
-                              screens.length,
+                          fontSize: min(
+                              (MediaQuery.of(context).size.width * 0.15) /
+                                  screens.length,
+                              21),
                         ),
                       ),
                     ),
