@@ -11,7 +11,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:tedx_dtu_app/ticket-checking/widgets/update-ticket-widget.dart';
+import 'package:tedx_dtu_app/ticket-checking/widgets/claim_ticket_widget.dart';
 
 import '../../helpers/classes/ui_helper.dart';
 
@@ -206,7 +206,7 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
     await showDialog(
         context: context,
         builder: (_) {
-          return UpdateTicketWidget(
+          return ClaimTicketWidget(
             date: DateTime.parse(event['dateTime']),
             eventName: event['title'],
             venue: event['venue'],
