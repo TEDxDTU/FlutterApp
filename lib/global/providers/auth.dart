@@ -255,7 +255,7 @@ class _TedXUser {
       university: map['university'] as String,
       imageUrl: map['imageURL'] as String,
       uid: map['_id'] as String,
-      type: map['type'] ?? 'user',
+      type: map['userType'] ?? 'user',
     );
   }
 }

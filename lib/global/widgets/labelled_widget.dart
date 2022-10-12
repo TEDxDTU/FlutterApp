@@ -5,12 +5,15 @@ class LabelledWidget extends StatelessWidget {
   const LabelledWidget({
     Key? key,
     required this.label,
+    this.labelStyle,
     required this.child,
     this.spacing = 0.0,
   }) : super(key: key);
 
   /// The label to show above the child
   final String label;
+
+  final TextStyle? labelStyle;
 
   /// The child to show
   final Widget child;
@@ -25,9 +28,10 @@ class LabelledWidget extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                fontSize: 15,
-              ),
+          style: labelStyle ??
+              Theme.of(context).textTheme.subtitle1?.copyWith(
+                    fontSize: 15,
+                  ),
         ),
         SizedBox(height: spacing),
         child,

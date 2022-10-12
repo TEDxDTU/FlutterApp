@@ -1,12 +1,17 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:tedx_dtu_app/helpers/constants/constants.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:tedx_dtu_app/ticket-checking/widgets/update-ticket-widget.dart';
 
 import '../../helpers/classes/ui_helper.dart';
 
@@ -113,6 +118,14 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
                           child: const Text('resume',
                               style: TextStyle(fontSize: 20)),
                         ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(8),
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              await fetchAndVerifyTicket();
+                            },
+                            child: Icon(Icons.refresh)),
                       )
                     ],
                   ),
@@ -150,11 +163,27 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
   }
 
   Future<void> fetchAndVerifyTicket() async {
-    final url =
-        Uri.parse(nodeServerBaseUrl + "/api/tickets/verify-ticket/$result");
-
-    final response = await http.get(url);
-    if (response.statusCode == 404) {
+    final url = Uri.parse(
+        nodeServerBaseUrl + "/api/tickets/verify-ticket/${result!.code}");
+    // showDialog(
+    //     context: context,
+    //     builder: (_) {
+    //       return Text('blah');
+    //     });
+    final authToken =
+        (await FirebaseAuth.instance.currentUser?.getIdToken()) ?? "null";
+    final response = await http.get(url, headers: {
+      "authorization": authToken,
+    });
+    if (response.statusCode == 401) {
+      UIHelper.showErrorDialog(
+        context,
+        'Unauthorized',
+        'You aren\'t authorized to verify tickets',
+      );
+      print(response.body);
+      return;
+    } else if (response.statusCode == 404) {
       UIHelper.showErrorDialog(
         context,
         'No Ticket Found',
@@ -169,7 +198,24 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
       );
       return;
     }
+    print("hello here ");
+    print(response.statusCode);
     print(response.body);
+    final e = json.decode(response.body);
+    final event = e['event'];
+    await showDialog(
+        context: context,
+        builder: (_) {
+          return UpdateTicketWidget(
+            date: DateTime.parse(event['dateTime']),
+            eventName: event['title'],
+            venue: event['venue'],
+            noOfTickets: e['noOfTickets'],
+            razorpayOrderID: e['razorpayOrderID'],
+            ticketID: e['_id'],
+            claimedTickets: e['claimedTickets'],
+          );
+        });
   }
 
   void _onQRViewCreated(QRViewController controller) {
@@ -178,10 +224,13 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
       controller.pauseCamera();
     });
     controller.scannedDataStream.listen((scanData) {
-      print(scanData);
+      // debugger(when: true, message: "FUCKING WORK");
+      print(scanData.code ?? "" + DateTime.now().toString());
       setState(() {
         result = scanData;
       });
+      controller.pauseCamera();
+      fetchAndVerifyTicket();
     });
   }
 
