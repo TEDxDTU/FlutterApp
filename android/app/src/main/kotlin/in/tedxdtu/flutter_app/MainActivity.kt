@@ -1,4 +1,4 @@
-package com.example.tedx_dtu_app
+package `in`.tedxdtu.flutter_app
 
 import io.flutter.embedding.android.FlutterActivity
 

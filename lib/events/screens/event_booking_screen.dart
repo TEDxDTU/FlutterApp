@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:tedx_dtu_app/events/widgets/event_booking_screen_footer.dart';
 
 import '../widgets/event_booking_screen_header.dart';
