@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -10,11 +11,14 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
+import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
+import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
 
 import '../../helpers/widgets/expanded_row.dart';
 import '../helpers/concave_corners_with_radius_clip.dart';
 import '../helpers/dotted_seperator.dart';
 import '../helpers/razorpay_controllers.dart' as razorpay_controller;
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 class EventBookingScreenFooter extends StatefulWidget {
   const EventBookingScreenFooter({
@@ -52,6 +56,40 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
     );
 
     super.initState();
+  }
+
+  Future<void> openRazorpay() async {
+    var user = Provider.of<Auth>(context, listen: false).user!;
+
+    String uid = user.uid;
+    String authToken = await user.auth;
+    print("authToken");
+    Map<String, dynamic> data = await razorpay_controller.getOrderDetails(
+      widget.ticketPrice,
+      numberOfTickets,
+      uid,
+      authToken,
+    );
+    String orderId = data['orderID'];
+    print(orderId);
+    var options = {
+      'key': 'rzp_live_7EvvqC4Y8cW21k',
+      'currency': data['currency'],
+      'amount': data['amount'].toString(),
+      'order_id': orderId,
+      'notes': {
+        '_id': widget.eventId,
+        'firebaseID': FirebaseAuth.instance.currentUser!.uid
+      },
+      'name': "Ticket Booking",
+      'numTickets': numberOfTickets,
+      'description': widget.eventName,
+      'prefill': {
+        'name': user.name,
+        'email': user.email,
+      }
+    };
+    _razorpay.open(options);
   }
 
   @override
@@ -175,45 +213,7 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
-                      Row(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                _priceTextSpan(context, 22, widget.ticketPrice),
-                                const TextSpan(
-                                  text: ' x ',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: numberOfTickets.toString(),
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 24.0,
-                              ),
-                              child: Divider(
-                                thickness: 2,
-                              ),
-                            ),
-                          ),
-                          RichText(
-                            text: _priceTextSpan(context, 22,
-                                (widget.ticketPrice * numberOfTickets)),
-                          ),
-                        ],
-                      ),
+                      ticketsAndPriceWidget(),
                       GestureDetector(
                         onTap: () {
                           showDialog(
@@ -222,7 +222,7 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                               return const AlertDialog(
                                 title: Text('Cancellation Policy'),
                                 content: Text(
-                                    'Passes Cannot be cancelled or transferred.'),
+                                    'Passes Cannot be cancelled or transferred unless the event is cancelled'),
                               );
                             },
                           );
@@ -238,33 +238,7 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Total Payable Amount',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                            ),
-                            const Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 24.0,
-                                ),
-                                child: Divider(
-                                  thickness: 2,
-                                ),
-                              ),
-                            ),
-                            RichText(
-                              text: _priceTextSpan(context, null,
-                                  (widget.ticketPrice * numberOfTickets)),
-                            ),
-                          ],
-                        ),
+                        child: totalPayableAmountWidget(),
                       ),
                     ],
                   ),
@@ -276,53 +250,15 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(16),
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(mediaQuery.size.width * 0.9 * 0.9, 40),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                      ),
-                    ),
+                    style: elevatedButtonStyle(mediaQuery, 100),
                     child: Text(
                       "Pay ₹${widget.ticketPrice * numberOfTickets}",
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     onPressed: () async {
                       //TODO: Integrate RazorPay here
-                      var user =
-                          Provider.of<Auth>(context, listen: false).user!;
-
-                      String uid = user.uid;
-                      String authToken = await user.auth;
-                      print("authToken");
-                      Map<String, dynamic> data =
-                          await razorpay_controller.getOrderDetails(
-                        widget.ticketPrice,
-                        numberOfTickets,
-                        uid,
-                        authToken,
-                      );
-                      String orderId = data['orderID'];
-                      print(orderId);
-                      var options = {
-                        'key': 'rzp_live_7EvvqC4Y8cW21k',
-                        'currency': data['currency'],
-                        'amount': data['amount'].toString(),
-                        'order_id': orderId,
-                        'notes': {
-                          '_id': widget.eventId,
-                          'firebaseID': FirebaseAuth.instance.currentUser!.uid
-                        },
-                        'name': "Ticket Booking",
-                        'numTickets': numberOfTickets,
-                        'description': widget.eventName,
-                        'prefill': {
-                          'name': user.name,
-                          'email': user.email,
-                        }
-                      };
-                      _razorpay.open(options);
+                      // await openRazorpay();
+                      await showQrPaymentDialog(context, mediaQuery);
                     },
                   ),
                 ),
@@ -341,17 +277,174 @@ class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
     );
   }
 
+  Future<dynamic> showQrPaymentDialog(
+      BuildContext context, MediaQueryData mediaQuery) {
+    return showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          // backgroundColor: CupertinoColors.systemGrey,
+          titleTextStyle: Theme.of(context).textTheme.headline6?.copyWith(
+              // color: Colors.black,
+              ),
+          title: Text('Pay Now'),
+          content: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  'assets/images/payment_qr.jpeg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              ticketsAndPriceWidget(),
+              SizedBox(
+                height: 16,
+              ),
+              ElevatedButton(
+                style: elevatedButtonStyle(mediaQuery, 20),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "FILL THIS FORM IN ORDER TO RECEIVE YOUR TICKET",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                          fontSize: 15,
+                        ),
+                  ),
+                ),
+                onPressed: () {
+                  launcher.launch(
+                    "https://docs.google.com/forms/d/1it6SYOx9q8hORZunxX7MmUZWvCU71bk5EszIiXSJI8A/edit",
+                  );
+                },
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                'You can close this dialog box after paying and filling the form',
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text('Close'),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  ButtonStyle elevatedButtonStyle(MediaQueryData mediaQuery, double radiusVal) {
+    return ElevatedButton.styleFrom(
+      fixedSize: Size.fromWidth(mediaQuery.size.width * 0.9 * 0.9),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(radiusVal),
+        ),
+      ),
+    );
+  }
+
+  Row ticketsAndPriceWidget(
+      [Color textColor = Colors.white, Color? dividerColor]) {
+    return Row(
+      children: [
+        RichText(
+          text: TextSpan(
+            children: [
+              _priceTextSpan(context, 22, widget.ticketPrice, textColor),
+              TextSpan(
+                text: ' x ',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16,
+                  color: textColor,
+                ),
+              ),
+              TextSpan(
+                text: numberOfTickets.toString(),
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16,
+                  color: textColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+            ),
+            child: Divider(
+              thickness: 2,
+              color: dividerColor,
+            ),
+          ),
+        ),
+        RichText(
+          text: _priceTextSpan(
+            context,
+            22,
+            (widget.ticketPrice * numberOfTickets),
+            textColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row totalPayableAmountWidget([Color textColor = Colors.white]) {
+    return Row(
+      children: [
+        Text(
+          'Total Payable Amount',
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                fontWeight: FontWeight.normal,
+                color: textColor,
+              ),
+        ),
+        const Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+            ),
+            child: Divider(
+              thickness: 2,
+              // color: textColor,
+            ),
+          ),
+        ),
+        RichText(
+          text: _priceTextSpan(
+              context, null, (widget.ticketPrice * numberOfTickets), textColor),
+        ),
+      ],
+    );
+  }
+
   TextSpan _priceTextSpan(
-      BuildContext context, double? fontSize, int? numOfTickets) {
+      BuildContext context, double? fontSize, int? numOfTickets,
+      [Color textColor = Colors.white]) {
     return TextSpan(
       children: [
         const TextSpan(text: '₹'),
         TextSpan(
           text: numOfTickets.toString(),
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                fontWeight: FontWeight.normal,
-                fontSize: fontSize,
-              ),
+              fontWeight: FontWeight.normal,
+              fontSize: fontSize,
+              color: textColor),
         ),
       ],
     );
