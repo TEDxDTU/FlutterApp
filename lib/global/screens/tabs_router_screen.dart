@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/screens/tabs_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
+import 'package:tedx_dtu_app/ticket-checking/screens/ticket-checking-screen.dart';
 
 import '../../home/screens/home_screen.dart';
 import '../../sign_up/screens/sign_up_screen.dart';
@@ -20,6 +22,7 @@ import 'package:tedx_dtu_app/trivia/screens/trivia_countdown_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_welcome_screen.dart';
 
+import '../providers/auth.dart';
 import 'test_screen.dart';
 
 // This widget needs to be stateful so as to preserve the state of the keys
@@ -43,6 +46,8 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
   late final GlobalKey<NavigatorState> _profileNavKey =
       GlobalKey<NavigatorState>();
   late final GlobalKey<NavigatorState> _testNavKey =
+      GlobalKey<NavigatorState>();
+  late final GlobalKey<NavigatorState> _ticketCheckingKey =
       GlobalKey<NavigatorState>();
 
   @override
@@ -109,6 +114,15 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
             EventInfoScreen.routeName: (context) => const EventInfoScreen(),
           },
         ),
+        if (Provider.of<Auth>(context).user?.canCheckTickets ?? false)
+          BottomBarScreen(
+            title: 'Admin',
+            icon: Icon(Icons.admin_panel_settings),
+            routes: {
+              '/': (context) => const TicketScheckingScreen(),
+            },
+            navigatorKey: _ticketCheckingKey,
+          ),
         // BottomBarScreen(
         //   title: 'blah',
         //   navigatorKey: GlobalKey<NavigatorState>(),

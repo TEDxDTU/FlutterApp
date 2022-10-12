@@ -229,6 +229,9 @@ class Auth extends ChangeNotifier {
 class _TedXUser {
   String university;
   String imageUrl;
+  String type;
+
+  bool get canCheckTickets => type == 'admin' || type == 'superadmin';
 
   /// Corresponds to _id from MongoDB.
   String uid;
@@ -244,6 +247,7 @@ class _TedXUser {
     required this.university,
     required this.imageUrl,
     required this.uid,
+    required this.type,
   }) : _auth = FirebaseAuth.instance;
 
   factory _TedXUser.fromMap(Map<String, dynamic> map) {
@@ -251,6 +255,7 @@ class _TedXUser {
       university: map['university'] as String,
       imageUrl: map['imageURL'] as String,
       uid: map['_id'] as String,
+      type: map['type'] ?? 'user',
     );
   }
 }
