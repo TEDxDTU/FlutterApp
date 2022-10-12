@@ -66,7 +66,6 @@ dependencies:
   shared_preferences: ^2.0.15
   font_awesome_flutter: ^10.2.1
   lottie: ^1.4.3
-  qr_code_scanner2: ^0.0.9
   qr_code_scanner: ^1.0.1
   # flutter_launcher_icons: ^0.10.0
 

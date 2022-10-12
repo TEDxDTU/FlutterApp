@@ -20,6 +20,7 @@ class TicketWidget extends StatelessWidget {
   final String razorpayOrderID;
   final String eventName;
   final String venue;
+
   final DateTime date;
   final int noOfTickets;
 

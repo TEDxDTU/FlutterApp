@@ -4,6 +4,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:tedx_dtu_app/helpers/constants/constants.dart';
+
+import 'package:http/http.dart' as http;
+
+import '../../helpers/classes/ui_helper.dart';
 
 class TicketScheckingScreen extends StatefulWidget {
   const TicketScheckingScreen({Key? key}) : super(key: key);
@@ -114,6 +119,9 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            height: 80,
           )
         ],
       ),
@@ -141,11 +149,36 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
     );
   }
 
+  Future<void> fetchAndVerifyTicket() async {
+    final url =
+        Uri.parse(nodeServerBaseUrl + "/api/tickets/verify-ticket/$result");
+
+    final response = await http.get(url);
+    if (response.statusCode == 404) {
+      UIHelper.showErrorDialog(
+        context,
+        'No Ticket Found',
+        'A ticket matching this QR could not be found',
+      );
+      return;
+    } else if (response.statusCode == 500) {
+      UIHelper.showErrorDialog(
+        context,
+        'Server Error',
+        'There was an error on the server',
+      );
+      return;
+    }
+    print(response.body);
+  }
+
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
+      controller.pauseCamera();
     });
     controller.scannedDataStream.listen((scanData) {
+      print(scanData);
       setState(() {
         result = scanData;
       });
