@@ -18,8 +18,11 @@ Map<int, String> errorMessages = {
 // String nodeServerBaseUrl = 'https://tedx-dtu-concept.herokuapp.com';
 
 //Satvik Home:
+// String nodeServerBaseUrl = 'http://192.168.1.37:3000';
+
 String nodeServerBaseUrl = "https://api.tedxdtu.in";
 // String nodeServerBaseUrl = "https://tedxdtu.in";
+
 //Saarthak Shivang PG:
 // String nodeServerBaseUrl = 'http://192.168.1.8:3000';
 

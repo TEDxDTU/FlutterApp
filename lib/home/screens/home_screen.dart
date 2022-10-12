@@ -215,7 +215,7 @@ class StartingStoryWidget extends StatelessWidget {
                 // each time we scrolled to the extreme right in StoriesWidget.
                 future:
                     Provider.of<UpcomingEventProvider>(context, listen: false)
-                        .fetchData(false)
+                        .fetchData(true)
                         ?.call(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {

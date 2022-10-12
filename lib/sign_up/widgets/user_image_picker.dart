@@ -127,14 +127,14 @@ class _UserImagePickerState extends State<UserImagePicker> {
             ];
           },
         ),
-        Text(
-          '*Image upload is compulsory*',
-          style: TextStyle(
-            color: widget.isError ? Colors.red : Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-          ),
-        ),
+        // Text(
+        //   '*Image upload is compulsory*',
+        //   style: TextStyle(
+        //     color: widget.isError ? Colors.red : Colors.white,
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 13,
+        //   ),
+        // ),
       ],
     );
   }
