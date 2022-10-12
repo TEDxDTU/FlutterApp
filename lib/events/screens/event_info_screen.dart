@@ -144,7 +144,9 @@ class EventInfoScreen extends StatelessWidget {
                           showActionWidget: false,
                           showImage: true,
                           imageProvider: NetworkImage(e.imageUrl),
-                          // gradientColor: Colors.black,
+                          gradientColor: eventType == 'upcoming'
+                              ? Colors.transparent
+                              : null,
                           imageHeroTag: e.imageUrl,
                         ),
 

@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/events/models/event.dart';
+import 'package:tedx_dtu_app/events/providers/upcoming_event_provider.dart';
 
 import 'package:tedx_dtu_app/events/screens/event_booking_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
@@ -70,6 +73,50 @@ class EventInfoWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (eventType == 'upcoming' &&
+              Provider.of<UpcomingEventProvider>(context, listen: false)
+                  .findById(eventId)
+                  .areBookingActive)
+            const SizedBox(
+              height: 10,
+            ),
+          ElevatedButton(
+            onPressed: () {
+              // TODO: EventBookingScreen push here
+
+              if (FirebaseAuth.instance.currentUser == null) {
+                showDialog(
+                    context: context,
+                    builder: (context) => SignUpAlertDialog(
+                          description:
+                              'To attend the live event, you need to sign in first.',
+                        ));
+              } else {
+                Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
+                    arguments: <String, Object>{
+                      'child': const EventBookingScreen(),
+                      'eventDescription': eventDescription,
+                      'venue': eventVenue,
+                      'dateTime': dateTime,
+                      'eventTitle': eventTitle,
+                      'eventPrice': eventPrice,
+                      'eventId': eventId,
+                    });
+              }
+            },
+            child: const Text(
+              'BOOK NOW',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: const StadiumBorder(),
+              primary: Colors.red[600],
+              minimumSize: const Size.fromHeight(50),
+            ),
+          ),
           _createListTile(Icons.location_on, eventVenue),
           _createListTile(
             Icons.calendar_today,
@@ -119,44 +166,6 @@ class EventInfoWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          if (eventType == 'upcoming')
-            ElevatedButton(
-              onPressed: () {
-                // TODO: EventBookingScreen push here
-
-                if (FirebaseAuth.instance.currentUser == null) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => SignUpAlertDialog(
-                            description:
-                                'To attend the live event, you need to sign in first.',
-                          ));
-                } else {
-                  Navigator.of(context).pushNamed(NoBottomBarScreen.routeName,
-                      arguments: <String, Object>{
-                        'child': const EventBookingScreen(),
-                        'eventDescription': eventDescription,
-                        'venue': eventVenue,
-                        'dateTime': dateTime,
-                        'eventTitle': eventTitle,
-                        'eventPrice': eventPrice,
-                        'eventId': eventId,
-                      });
-                }
-              },
-              child: const Text(
-                'BOOK NOW',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: const StadiumBorder(),
-                primary: Colors.red[600],
-                minimumSize: const Size.fromHeight(50),
-              ),
-            ),
         ],
       ),
     );

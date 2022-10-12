@@ -40,6 +40,7 @@ class Event extends ChangeNotifier {
 class UpcomingEvent extends Event {
   final int price;
   final bool requiresTicket;
+  final bool areBookingActive;
   UpcomingEvent({
     required String title,
     required String details,
@@ -50,6 +51,7 @@ class UpcomingEvent extends Event {
     required List<Speaker> speakers,
     required this.price,
     required this.requiresTicket,
+    required this.areBookingActive,
   }) : super(
           title: title,
           details: details,
@@ -76,6 +78,7 @@ class UpcomingEvent extends Event {
           .toList(),
       price: map['price'] ?? 0,
       requiresTicket: map['requiresTicket'],
+      areBookingActive: map['areBookingActive'] ?? false,
     );
   }
 }
