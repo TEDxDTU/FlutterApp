@@ -31,10 +31,10 @@ abstract class ProviderTemplate<T> extends ChangeNotifier {
   /// already been fetched. Meant to be used with a [RefreshIndicator], such as in
   /// [RefreshableFutureScreenTemplate].
   Future<void> Function()? fetchData([bool force = false]) {
-    // print(data);
-    // print(force);
     if (data.isNotEmpty && !force) return null;
     if (!force && fetchedOnce) return null;
+    print(data);
+    print(force);
     print("didnt return null");
     fetchedOnce = true;
     return () async {

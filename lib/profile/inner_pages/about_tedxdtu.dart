@@ -13,6 +13,7 @@ class AboutTedxDtu extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Container(
           padding: const EdgeInsets.all(10),

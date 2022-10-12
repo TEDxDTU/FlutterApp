@@ -1,24 +1,12 @@
-import 'dart:convert';
 import 'dart:math';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
-import 'package:tedx_dtu_app/events/widgets/selectable_box.dart';
-import 'package:tedx_dtu_app/global/providers/auth.dart';
-import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
-import 'package:tedx_dtu_app/home/screens/no_bottombar_screen.dart';
-import 'package:tedx_dtu_app/recent_updates/screens/webview_screen.dart';
-
+import './selectable_box.dart';
 import '../../helpers/widgets/expanded_row.dart';
 import '../helpers/concave_corners_with_radius_clip.dart';
 import '../helpers/dotted_seperator.dart';
-import '../helpers/razorpay_controllers.dart' as razorpay_controller;
-import 'package:url_launcher/url_launcher.dart' as launcher;
 
 class EventBookingScreenFooter extends StatefulWidget {
   const EventBookingScreenFooter({
@@ -41,56 +29,6 @@ class EventBookingScreenFooter extends StatefulWidget {
 
 class _EventBookingScreenFooterState extends State<EventBookingScreenFooter> {
   int numberOfTickets = 1;
-
-  final _razorpay = Razorpay();
-
-  @override
-  void initState() {
-    _razorpay.on(
-      Razorpay.EVENT_PAYMENT_SUCCESS,
-      razorpay_controller.handlePaymentSuccess,
-    );
-    _razorpay.on(
-      Razorpay.EVENT_PAYMENT_ERROR,
-      razorpay_controller.handlePaymentError,
-    );
-
-    super.initState();
-  }
-
-  Future<void> openRazorpay() async {
-    var user = Provider.of<Auth>(context, listen: false).user!;
-
-    String uid = user.uid;
-    String authToken = await user.auth;
-    print("authToken");
-    Map<String, dynamic> data = await razorpay_controller.getOrderDetails(
-      widget.ticketPrice,
-      numberOfTickets,
-      uid,
-      authToken,
-    );
-    String orderId = data['orderID'];
-    print(orderId);
-    var options = {
-      'key': 'rzp_live_7EvvqC4Y8cW21k',
-      'currency': data['currency'],
-      'amount': data['amount'].toString(),
-      'order_id': orderId,
-      'notes': {
-        '_id': widget.eventId,
-        'firebaseID': FirebaseAuth.instance.currentUser!.uid
-      },
-      'name': "Ticket Booking",
-      'numTickets': numberOfTickets,
-      'description': widget.eventName,
-      'prefill': {
-        'name': user.name,
-        'email': user.email,
-      }
-    };
-    _razorpay.open(options);
-  }
 
   @override
   Widget build(BuildContext context) {
