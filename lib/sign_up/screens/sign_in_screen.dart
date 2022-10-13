@@ -130,6 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             print("sign in button pressed");
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
+                              UIHelper.showSpinnerDialog(context);
                               try {
                                 await Provider.of<Auth>(context, listen: false)
                                     .signIn(
@@ -145,6 +146,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                       .replaceAll('Exception:', '')
                                       .trim(),
                                 );
+                              } finally {
+                                UIHelper.removeSpinnerDialog(context);
                               }
                             }
                           },

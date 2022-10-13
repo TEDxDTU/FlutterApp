@@ -249,6 +249,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
                                 try {
+                                  UIHelper.showSpinnerDialog(context);
                                   await Provider.of<Auth>(context,
                                           listen: false)
                                       .signUp(
@@ -268,6 +269,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         .replaceAll('Exception:', '')
                                         .trim(),
                                   );
+                                } finally {
+                                  UIHelper.removeSpinnerDialog(context);
+                                  // Navigator.of(context).pop();
                                 }
                               }
                             },

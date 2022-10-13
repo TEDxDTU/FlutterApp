@@ -29,14 +29,14 @@ class _TicketScheckingScreenState extends State<TicketScheckingScreen> {
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    }
-    controller!.resumeCamera();
-  }
+  // @override
+  // void reassemble() {
+  //   super.reassemble();
+  //   if (Platform.isAndroid) {
+  //     controller!.pauseCamera();
+  //   }
+  //   controller!.resumeCamera();
+  // }
 
   @override
   Widget build(BuildContext context) {
