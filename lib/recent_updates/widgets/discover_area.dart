@@ -75,24 +75,22 @@ class _DiscoverAreaState extends State<DiscoverArea> {
   void animateTo(double finalPosition) {
     double step = (finalPosition - _discoverPosition) / 30;
     i = 0;
-    timer = Timer.periodic(Duration.zero, (timer) {
-      // print(DateTime.now());
-      if (i >= 30) {
-        timer.cancel();
-        return;
-      }
+    for (int i = 0; i < 30; i++) {
       setState(() {
         _discoverPosition += step;
       });
-      i++;
-    });
-
-    // for (int i = 0; i < 1000; i++) {
-    //   print(i);
+    }
+    // timer = Timer.periodic(Duration.zero, (timer) {
+    //   // print(DateTime.now());
+    //   if (i >= 30) {
+    //     timer.cancel();
+    //     return;
+    //   }
     //   setState(() {
     //     _discoverPosition += step;
     //   });
-    // }
+    //   i++;
+    // });
   }
 
   @override
