@@ -78,26 +78,22 @@ class _GalleryImageWidgetState extends State<GalleryImageWidget> {
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
-        child: AnimatedSize(
-          alignment: Alignment.topCenter,
-          duration: const Duration(milliseconds: 500),
-          child: Container(
-            constraints: BoxConstraints(
-              minHeight: 50,
-            ),
-            width: widget.width,
-            child: CachedNetworkImage(
-              imageUrl: widget.imageUrl,
-              fit: BoxFit.cover,
-              placeholder: (_, __) => CircularProgressIndicator(),
-              errorWidget: (_, __, ___) => ImageErrorWidget(),
-            ),
-            // child: _isError
-            //     ? ImageErrorWidget()
-            //     : _isLoading
-            //         ? CircularProgressIndicator()
-            //         : _image,
+        child: Container(
+          constraints: BoxConstraints(
+            minHeight: 50,
           ),
+          width: widget.width,
+          child: CachedNetworkImage(
+            imageUrl: widget.imageUrl,
+            fit: BoxFit.cover,
+            placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+            errorWidget: (_, __, ___) => ImageErrorWidget(),
+          ),
+          // child: _isError
+          //     ? ImageErrorWidget()
+          //     : _isLoading
+          //         ? CircularProgressIndicator()
+          //         : _image,
         ),
       ),
     );
