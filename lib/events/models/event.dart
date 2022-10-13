@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import './speaker.dart';
@@ -84,7 +87,7 @@ class UpcomingEvent extends Event {
 }
 
 class PastEvent extends Event {
-  final List<String> galleryImageUrls;
+  final List<String> _galleryImageUrls;
   final String? streamingUrl;
   final List<dynamic> videoUrls;
   int _currVid = 0;
@@ -97,10 +100,11 @@ class PastEvent extends Event {
     required DateTime date,
     required String id,
     required List<Speaker> speakers,
-    required this.galleryImageUrls,
+    required List<String> galleryImageUrls,
     required this.streamingUrl,
     required this.videoUrls,
-  }) : super(
+  })  : _galleryImageUrls = galleryImageUrls,
+        super(
           title: title,
           details: details,
           imageUrl: imageUrl,
@@ -132,7 +136,8 @@ class PastEvent extends Event {
       videoUrls: map['videoUrls'],
     );
   }
-
+  List<String> images = [];
+  // List<String> get images=>
   int get currVid {
     return _currVid;
   }
@@ -150,5 +155,37 @@ class PastEvent extends Event {
   void prevVid() {
     _currVid--;
     notifyListeners();
+  }
+
+  int actualNoOfImages() {
+    return _galleryImageUrls.length;
+  }
+
+  List<String> get previewImages {
+    return _galleryImageUrls.sublist(0, min(5, _galleryImageUrls.length));
+  }
+
+  List<String> get galleryImageUrls {
+    return _galleryImageUrls;
+  }
+
+  bool getImagesStarted = false;
+  int count = 0;
+  int packetSize = 3;
+  void getImages(BuildContext context) async {
+    if (getImagesStarted) return;
+    getImagesStarted = true;
+    // if (images.length)
+    for (var url in _galleryImageUrls) {
+      precacheImage(CachedNetworkImageProvider(url), context).then((value) {
+        images.add(url);
+        count++;
+        if (count == packetSize) {
+          count = 0;
+          notifyListeners();
+        }
+        // notifyListeners();
+      });
+    }
   }
 }

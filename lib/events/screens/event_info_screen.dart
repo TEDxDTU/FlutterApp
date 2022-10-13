@@ -73,32 +73,7 @@ class EventInfoScreen extends StatelessWidget {
         // print(Provider.of<Event>(context, listen: false).title);
 
         // List of widgets shown in the DraggableScrollableSheet.
-        List<Widget> bottomWidgets = [
-          Column(
-            key: ValueKey(
-              'eventInfo$eventType${(e is LiveEvent) ? e.currentSpeakerIndex : null}',
-            ),
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: _getSpeakerInfoWidgets(
-              e.speakers,
-              (e is LiveEvent) ? e.currentSpeakerIndex : null,
-            ),
-          ),
-          EventInfoWidget(
-            eventId: e.id,
-            eventVenue: e.venue,
-            eventType: eventType,
-            dateTime: e.date,
-            eventDescription: e.details,
-            eventTitle: e.title,
-            eventPrice: (e is UpcomingEvent) ? e.price : 0,
-            marginVal: 8,
-          ),
-          if (e is PastEvent) PastEventGallery(e.galleryImageUrls),
-          if (e is LiveEvent) LiveEventInfoWidget(),
-          if (e is PastEvent && e.videoUrls.isNotEmpty)
-            const YoutubePlaylistHandler(),
-        ];
+        // List<Widget> bottomWidgets =
 
         List<String> bottomNames = [
           'Speaker info',
@@ -168,6 +143,32 @@ class EventInfoScreen extends StatelessWidget {
                     maxChildSize: 1.0,
                     snap: true,
                     builder: (context, scrollController) {
+                      List<Widget> bottomWidgets = [
+                        Column(
+                          key: ValueKey(
+                            'eventInfo$eventType${(e is LiveEvent) ? e.currentSpeakerIndex : null}',
+                          ),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _getSpeakerInfoWidgets(
+                            e.speakers,
+                            (e is LiveEvent) ? e.currentSpeakerIndex : null,
+                          ),
+                        ),
+                        EventInfoWidget(
+                          eventId: e.id,
+                          eventVenue: e.venue,
+                          eventType: eventType,
+                          dateTime: e.date,
+                          eventDescription: e.details,
+                          eventTitle: e.title,
+                          eventPrice: (e is UpcomingEvent) ? e.price : 0,
+                          marginVal: 8,
+                        ),
+                        if (e is PastEvent) PastEventGallery(),
+                        if (e is LiveEvent) LiveEventInfoWidget(),
+                        if (e is PastEvent && e.videoUrls.isNotEmpty)
+                          const YoutubePlaylistHandler(),
+                      ];
                       return Container(
                         margin: const EdgeInsets.only(
                           top: 12,
