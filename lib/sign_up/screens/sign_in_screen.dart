@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
@@ -76,6 +77,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 10,
                       ),
                       TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp("[a-zA-Z0-9+_@.-]"))
+                        ],
                         style: const TextStyle(color: Colors.white),
                         keyboardType: TextInputType.emailAddress,
                         decoration: buildInputDecoration(Icons.email, "Email"),
@@ -127,7 +132,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           onPressed: () async {
-                            print("sign in button pressed");
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               UIHelper.showSpinnerDialog(context);
