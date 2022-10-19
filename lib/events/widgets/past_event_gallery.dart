@@ -18,12 +18,22 @@ class PastEventGallery extends StatelessWidget {
     //     .getImages(context);
     // final List<String> imageUrls =
     //     (Provider.of<Event>(context) as PastEvent).images;
-    final imageUrls = (Provider.of<Event>(context) as PastEvent).previewImages;
+    final imageUrls =
+        (Provider.of<Event>(context) as PastEvent).galleryImageUrls;
     ;
     var mediaQuery = MediaQuery.of(context);
     // getImages()
-    return Column(
-      // crossAxisCount: 2,
+    // return Column(
+    //   // crossAxisCount: 2,
+    //   children: imageUrls.map((e) {
+    //     return GalleryImageWidget(
+    //       e,
+    //       width: mediaQuery.size.width * 0.4,
+    //     );
+    //   }).toList(),
+    // );
+    return StaggeredGrid.count(
+      crossAxisCount: 2,
       children: imageUrls.map((e) {
         return GalleryImageWidget(
           e,
