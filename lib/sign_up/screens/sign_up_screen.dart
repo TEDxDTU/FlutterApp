@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/providers/auth.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
@@ -92,6 +93,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp("[a-zA-Z ]"),
+                            )
+                          ],
                           style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.text,
                           decoration:
@@ -150,6 +156,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 10,
                         ),
                         TextFormField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp("[a-zA-Z0-9+_@.-]"))
+                          ],
                           style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.emailAddress,
                           decoration:
