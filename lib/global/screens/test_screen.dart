@@ -5,7 +5,9 @@ import 'package:tedx_dtu_app/events/widgets/ticket_widget.dart';
 import 'package:tedx_dtu_app/global/providers/test_provider.dart';
 import 'package:tedx_dtu_app/global/screens/future_screen_template.dart';
 import 'package:tedx_dtu_app/events/screens/intro_screen.dart';
+import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
+import 'package:tedx_dtu_app/home/providers/story_event_provider.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_acknowledge_screen.dart';
@@ -44,11 +46,15 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Container(
-        child: YoutubeEmbedWidget(),
-      )),
+    return FutureScreenTemplate(
+      future: Provider.of<StoryEventProvider>(context, listen: false)
+          .fetchData()
+          ?.call(),
+      body: BottomBarScreenWidget(
+        children: [
+          Text(Provider.of<StoryEventProvider>(context).data[0].title),
+        ],
+      ),
     );
   }
 }

@@ -114,15 +114,15 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
             EventInfoScreen.routeName: (context) => const EventInfoScreen(),
           },
         ),
-        if (Provider.of<Auth>(context).user?.canCheckTickets ?? false)
-          BottomBarScreen(
-            title: 'Admin',
-            icon: Icon(Icons.admin_panel_settings),
-            routes: {
-              '/': (context) => const TicketScheckingScreen(),
-            },
-            navigatorKey: _ticketCheckingKey,
-          ),
+        // if (Provider.of<Auth>(context).user?.canCheckTickets ?? false)
+        //   BottomBarScreen(
+        //     title: 'Admin',
+        //     icon: Icon(Icons.admin_panel_settings),
+        //     routes: {
+        //       '/': (context) => const TicketScheckingScreen(),
+        //     },
+        //     navigatorKey: _ticketCheckingKey,
+        //   ),
         // BottomBarScreen(
         //   title: 'blah',
         //   navigatorKey: GlobalKey<NavigatorState>(),
@@ -131,14 +131,14 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
         //     '/': (context) => TestScreen(),
         //   },
         // ),
-        // BottomBarScreen(
-        //   title: 'Test',
-        //   navigatorKey: _testNavKey,
-        //   icon: const Icon(Icons.help),
-        //   routes: {
-        //     '/': (context) => TestScreen(),
-        //   },
-        // ),
+        BottomBarScreen(
+          title: 'Test',
+          navigatorKey: _testNavKey,
+          icon: const Icon(Icons.help),
+          routes: {
+            '/': (context) => TestScreen(),
+          },
+        ),
       ],
     );
   }
