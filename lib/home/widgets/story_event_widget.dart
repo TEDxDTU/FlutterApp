@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/home/models/story_talk.dart';
 import 'package:tedx_dtu_app/home/providers/story_event_provider.dart';
 import 'package:tedx_dtu_app/home/widgets/ted_story_widget.dart';
 
@@ -23,21 +24,9 @@ class StoryEventWidget extends StatelessWidget {
         kToolbarHeight;
     double finalHeight = max(220, height * 0.4);
     final event = Provider.of<StoryEventProvider>(context).findById(id);
+    final List<StoryTalk> stories = Provider.of<StoryEventProvider>(context)
+        .getEventStories(event.storiesStartIndex, event.storiesEndIndex);
     return Container(
-      // decoration: BoxDecoration(
-      //   borderRadius: BorderRadius.circular(20),
-      //   gradient: LinearGradient(
-      //     begin: Alignment.bottomCenter,
-      //     end: Alignment.topCenter,
-      //     colors: [
-      //       Color(0xffe62b1e),
-      //       Color(0xffe9401d),
-      //       Color(0xffec501d),
-      //       Color(0xffee5f1e),
-      //       Color(0xfff06c21),
-      //     ],
-      //   ),
-      // ),
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       decoration: BoxDecoration(
         color: CupertinoColors.darkBackgroundGray,
@@ -76,18 +65,7 @@ class StoryEventWidget extends StatelessWidget {
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
                       )),
-                  // child: Center(
-                  //   child: RotatedBox(
-                  //     quarterTurns: 3,
-                  //     child: Text(
-                  //       event.title,
-                  //       style: Theme.of(context)
-                  //           .textTheme
-                  //           .headline6
-                  //           ?.copyWith(color: Colors.white, fontSize: 18),
-                  //     ),
-                  //   ),
-                  // ),
+
                   child: Column(
                     children: [
                       //title
@@ -120,7 +98,7 @@ class StoryEventWidget extends StatelessWidget {
                 SizedBox(
                   width: 7,
                 ),
-                ...event.stories
+                ...stories
                     .map(
                       (e) => TedStoryWidget(
                         leadingText: e.title,

@@ -20,8 +20,8 @@ Map<int, String> errorMessages = {
 //Satvik Home:
 // String nodeServerBaseUrl = 'http://192.168.1.37:3000';
 
-String nodeServerBaseUrl = "http://100.76.7.178:3000";
-// String nodeServerBaseUrl = "https://tedxdtu.in";
+// String nodeServerBaseUrl = "http://100.76.7.178:3000";
+String nodeServerBaseUrl = "https://api.tedxdtu.in";
 
 //Saarthak Shivang PG:
 // String nodeServerBaseUrl = 'http://192.168.1.8:3000';
