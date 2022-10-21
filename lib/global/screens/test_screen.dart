@@ -8,6 +8,7 @@ import 'package:tedx_dtu_app/events/screens/intro_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/bottom_bar_screen_widget.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
 import 'package:tedx_dtu_app/home/providers/story_event_provider.dart';
+import 'package:tedx_dtu_app/home/widgets/story_event_widget.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/signup_alertdialog.dart';
 import 'package:tedx_dtu_app/trivia/screens/trivia_acknowledge_screen.dart';
@@ -53,6 +54,12 @@ class _TestScreenState extends State<TestScreen> {
       body: BottomBarScreenWidget(
         children: [
           Text(Provider.of<StoryEventProvider>(context).data[0].title),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: StoryEventWidget(
+              id: Provider.of<StoryEventProvider>(context).data[0].id,
+            ),
+          )
         ],
       ),
     );
