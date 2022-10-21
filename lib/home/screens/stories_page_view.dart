@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tedx_dtu_app/home/providers/story_event_provider.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/home/screens/single_story_screen.dart';
 
@@ -21,7 +22,7 @@ class StoriesPageView extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       controller: _controller,
       scrollDirection: Axis.vertical,
-      itemCount: Provider.of<StoryProvider>(context).length,
+      itemCount: Provider.of<StoryEventProvider>(context).storiesLength,
       itemBuilder: (context, index) {
         return SingleStoryScreen(
           storyIndex: index,

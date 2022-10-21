@@ -12,6 +12,7 @@ import 'package:tedx_dtu_app/global/screens/tabs_router_screen.dart';
 import 'package:tedx_dtu_app/global/screens/test_screen.dart';
 import 'package:tedx_dtu_app/global/widgets/tedx_loading_spinner.dart';
 import 'package:tedx_dtu_app/helpers/classes/ui_helper.dart';
+import 'package:tedx_dtu_app/home/providers/story_event_provider.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 import 'package:tedx_dtu_app/recent_updates/provider/discover_provider.dart';
 import 'package:tedx_dtu_app/recent_updates/provider/recent_update_provider.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RecentUpdateProvider()),
         ChangeNotifierProvider(create: (_) => DiscoverProvider()),
         ChangeNotifierProvider(create: (_) => TestProvider()),
+        ChangeNotifierProvider(create: (_) => StoryEventProvider()),
       ],
       child: MaterialApp(
         navigatorKey: globalNavKey,

@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:tedx_dtu_app/helpers/widgets/blurred_widget.dart';
-import 'package:tedx_dtu_app/home/models/story.dart';
+import 'package:tedx_dtu_app/home/models/story_talk.dart';
+import 'package:tedx_dtu_app/home/providers/story_event_provider.dart';
 import 'package:tedx_dtu_app/home/providers/story_provider.dart';
 
 import '../../global/widgets/custom_image_widget.dart';
@@ -20,12 +21,13 @@ class SingleStoryScreen extends StatelessWidget {
     required this.storyIndex,
   }) : super(key: key);
 
-  /// The index of the story to display, as provided by the [StoryProvider].
+  /// The index of the story to display, as provided by the [StoryEventProvider].
   final int storyIndex;
 
   @override
   Widget build(BuildContext context) {
-    Story story = Provider.of<StoryProvider>(context).getStoryAt(storyIndex);
+    StoryTalk story =
+        Provider.of<StoryEventProvider>(context).getStoryAt(storyIndex);
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;

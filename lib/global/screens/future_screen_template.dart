@@ -30,8 +30,11 @@ class FutureScreenTemplate extends StatelessWidget {
         }
         if (snapshot.hasError) {
           String errorMessage = "";
+
           if (snapshot.error is HttpError) {
             errorMessage = (snapshot.error as HttpError).message!;
+          } else {
+            errorMessage = snapshot.error.toString();
           }
           return Scaffold(
             body: Center(
