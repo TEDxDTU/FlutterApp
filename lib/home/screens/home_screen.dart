@@ -226,7 +226,7 @@ class StartingStoryWidget extends StatelessWidget {
                   final events =
                       Provider.of<UpcomingEventProvider>(context, listen: false)
                           .data;
-                  // if (events.isEmpty) return SizedBox();
+                  if (events.isEmpty) return SizedBox();
                   final firstUpcomingEvent = events.first;
 
                   return TedStoryWidget(

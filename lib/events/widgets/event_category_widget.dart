@@ -318,7 +318,7 @@ class EventCategoryWidget extends StatelessWidget {
     return imageProvider == null
         ? const CustomImageWidget(
             url:
-                'https://images.ctfassets.net/mu244eycyvsr/5fCsnDRe07j1G8NZPOga6k/f2b85c4377031f3bf0b1a2d9a762d856/john-doerr-ted-talk-1.jpg?w=1200&h=800&fit=fill&bg=rgb:f3f3f3&q=75&fm=jpg&fl=progressive')
+                'https://firebasestorage.googleapis.com/v0/b/tedx-dtu.appspot.com/o/event-images%2FThumb_Artboard%205%403x.png?alt=media&token=89429a79-5b26-473d-ac56-9a0d46e3ac5e')
         : Image(
             image: imageProvider!,
             fit: BoxFit.cover,
