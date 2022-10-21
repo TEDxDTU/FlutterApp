@@ -3,7 +3,7 @@ import 'package:tedx_dtu_app/events/models/speaker.dart';
 /// A story event is the simplest event, modelled on the Reels from Instagram
 /// It consists of a single speaker speaking for 2-3 minutes.
 ///
-class Story {
+class StoryTalk {
   /// The unique Id of the story.
   final String id;
 
@@ -29,7 +29,7 @@ class Story {
 
   // TODO: ADD STREAMING URL
   final DateTime dateTime;
-  Story({
+  StoryTalk({
     required this.index,
     required this.title,
     required this.description,
@@ -40,9 +40,9 @@ class Story {
     required this.streamingUrl,
   });
 
-  factory Story.fromMap(Map<String, dynamic> map, int index) {
+  factory StoryTalk.fromMap(Map<String, dynamic> map, int index) {
     // print(map);
-    return Story(
+    return StoryTalk(
       index: index,
       title: map['title'],
       description: map['details'],
