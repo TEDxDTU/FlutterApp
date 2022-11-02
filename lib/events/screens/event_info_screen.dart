@@ -164,8 +164,8 @@ class EventInfoScreen extends StatelessWidget {
                           eventPrice: (e is UpcomingEvent) ? e.price : 0,
                           marginVal: 8,
                         ),
-                        if (e is PastEvent) PastEventGallery(),
-                        if (e is LiveEvent) LiveEventInfoWidget(),
+                        if (e is PastEvent) const PastEventGallery(),
+                        if (e is LiveEvent) const LiveEventInfoWidget(),
                         if (e is PastEvent && e.videoUrls.isNotEmpty)
                           const YoutubePlaylistHandler(),
                       ];

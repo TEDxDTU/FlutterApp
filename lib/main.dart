@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 
 import 'package:tedx_dtu_app/events/providers/past_event_provider.dart';
@@ -33,6 +34,9 @@ import 'global/providers/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // This is an async method, but this need not be awaited because this package
+  // isn't used till later in the app.
+  FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   print("running main");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

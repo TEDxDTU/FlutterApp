@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tedx_dtu_app/global/screens/tabs_screen.dart';
+import 'package:tedx_dtu_app/image_gallery/screens/fullscreen_image_view.dart';
+import 'package:tedx_dtu_app/image_gallery/screens/image_gallery_screen.dart';
 import 'package:tedx_dtu_app/sign_up/screens/sign_in_screen.dart';
 import 'package:tedx_dtu_app/ticket-checking/screens/ticket-checking-screen.dart';
 
@@ -100,6 +102,10 @@ class _TabsRouterScreenState extends State<TabsRouterScreen> {
                 const SpeakerDetailsScreen(),
             EventBookingScreen.routeName: (context) =>
                 const EventBookingScreen(),
+            ImageGalleryScreen.routeName: (context) =>
+                const ImageGalleryScreen(),
+            FullscreenImageView.routeName: (context) =>
+                const FullscreenImageView(),
           },
         ),
         BottomBarScreen(
